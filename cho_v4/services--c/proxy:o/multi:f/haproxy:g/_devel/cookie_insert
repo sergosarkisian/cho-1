@@ -1,0 +1,12 @@
+backend 0124-coneapp-tk
+    option tcp-smart-connect
+    option http-server-close
+    cookie x_cone_route insert indirect maxidle 60m maxlife 180m indirect    
+        server 10.10.1.36:8503 10.10.1.36:8503 cookie host-0124-coneapp-tk weight 1 maxconn 500 check inter 4000 fastinter 8000 rise 1 fall 2
+
+
+        acl cookie_insert--host-0124-coneapp-tk path_beg /x_cone_route--host-0124-coneapp-tk
+        
+        acl cookie_detect--host-0124-coneapp-tk hdr_sub(cookie) host-0124-coneapp-tk
+        use_backend 0124-coneapp-tk if mct-app cookie_detect--host-0124-coneapp-tk
+        use_backend 0124-coneapp-tk if mct-app cookie_insert--host-0124-coneapp-tk   

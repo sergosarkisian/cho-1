@@ -1,0 +1,79 @@
+#!/bin/ruby
+modprobe sch_hfsc
+tc qdisc del dev netXXX root
+
+
+/sbin/tc qdisc del dev netXXX root 2> /dev/null
+/sbin/tc qdisc del dev netXXX ingress 2> /dev/null
+
+
+/sbin/tc qdisc add dev netXXX root handle  1:   hfsc
+#default ???
+/sbin/tc class add dev netXXX parent 1:  classid 1:1  hfsc sc rate ${UP_RATE}kbit ul rate ${UP_RATE}kbit
+/sbin/tc class add dev netXXX parent 1:1 classid 1:10 hfsc ls rate ${USER1}kbit   ul rate ${UP_RATE}kbit
+
+# echo "User 1:"
+$TC class add dev $IF_DSL parent 1:10 classid 1:101 hfsc rt m1 ${USER1}kbit d  100ms m2 $((5*$USER1/10))kbit ls m1 ${USER1}kbit d 50ms m2 $((7*$USER1/10))kbit # real time
+$TC class add dev $IF_DSL parent 1:10 classid 1:102 hfsc sc m1 0            d  100ms m2 $((4*$USER1/10))kbit # http
+$TC class add dev $IF_DSL parent 1:10 classid 1:103 hfsc sc m1 0            d 4000ms m2 $((1*$USER1/10))kbit # Bulk
+#or
+tc class add dev eth0 parent 1:10 classid 1:11 hfsc sc umax 1500b dmax 53ms rate 400kbit ul rate 1000kbit
+
+
+$IPTM -N TC_USER1
+$IPTM -N TC_USER2
+$IPTM -N TC_USER3
+
+$IPTMOD -s $IP_USER1  -j TC_USER1
+$IPTMOD -s $IP_USER2  -j TC_USER2
+$IPTMOD -s $IP_USER3  -j TC_USER3
+$IPTMOD -s $IP_SERVER -j CLASSIFY --set-class 1:40
+$IPTMOD -s $IP_DSL    -j CLASSIFY --set-class 1:50
+
+
+$IPTM -A TC_USER1 -j CLASSIFY --set-class 1:103 -m tos --tos Maximize-Throughput #- BULK
+$IPTM -A TC_USER1 -j CLASSIFY --set-class 1:103 -m tos --tos Maximize-Throughput #- BULK
+$IPTM -A TC_USER1 -j CLASSIFY --set-class 1:101 -p icmp #-------------------------- superfluous
+$IPTM -A TC_USER1 -j CLASSIFY --set-class 1:101 -m tos --tos Maximize-Reliability
+$IPTM -A TC_USER1 -j CLASSIFY --set-class 1:101 -m tos --tos Minimize-Delay
+$IPTM -A TC_USER1 -j CLASSIFY --set-class 1:101 -p udp -m length --length :412 #--- small udp
+$IPTM -A TC_USER1 -j CLASSIFY --set-class 1:101 -p tcp -m length --length :128 #--- small tcp
+$IPTM -A TC_USER1 -j CLASSIFY --set-class 1:102 -p tcp --dport 1:1024 #------------ no better idea
+$IPTM -A TC_USER1 -j CLASSIFY --set-class 1:103 #---------------------------------- default
+
+
+##IPT classify
+iptables -t mangle -A POSTROUTING -j CLASSIFY --set-class 1:202 -p tcp --dport 22
+iptables -t mangle -A POSTROUTING -j CLASSIFY --set-class 1:303 -s 192.168.0.15 -p tcp --dport 80 -m length --length :512
+
+
+tc qdisc add ... hfsc [ default CLASSID ]
+
+tc class add ... hfsc [ [ rt SC ] [ ls SC ] | [ sc SC ] ] [ ul SC ]
+
+
+/sbin/tc class add dev netXXX parent 1:  classid 1:1  hfsc sc rate ${UP_RATE}kbit ul rate ${UP_RATE}kbit
+/sbin/tc class add dev netXXX parent 1:1 classid 1:10 hfsc ls rate ${USER1}kbit   ul rate ${UP_RATE}kbit
+
+# echo "User 1:"
+$TC class add dev $IF_DSL parent 1:10 classid 1:101 hfsc rt m1 ${USER1}kbit d  100ms m2 $((5*$USER1/10))kbit ls m1 ${USER1}kbit d 50ms m2 $((7*$USER1/10))kbit # real time
+$TC class add dev $IF_DSL parent 1:10 classid 1:102 hfsc sc m1 0            d  100ms m2 $((4*$USER1/10))kbit # http
+$TC class add dev $IF_DSL parent 1:10 classid 1:103 hfsc sc m1 0            d 4000ms m2 $((1*$USER1/10))kbit # Bulk
+#or
+tc class add dev eth0 parent 1:10 classid 1:11 hfsc sc umax 1500b dmax 53ms rate 400kbit ul rate 1000kbit
+
+rt : realtime service curve
+ls : linkshare service curve
+sc : rt+ls service curve
+ul : upperlimit service curve
+
+
+SC := [ [ m1 BPS ] d SEC ] m2 BPS
+m1 : slope of the first segment
+d  : x-coordinate of intersection
+m2 : slope of the second segment
+
+SC := [ [ umax BYTE ] dmax SEC ] rate BPS
+umax : maximum unit of work
+dmax : maximum delay
+rate : rate

@@ -1,0 +1,5 @@
+<directory name="libfastjson" rev="11" srcmd5="83a4cacd29887092a7e76ec72981abcf" vrev="9">
+  <serviceinfo code="succeeded" xsrcmd5="6eeb5d60e2ed5ede96bb66e170fb9372" />
+  <entry md5="1061aa500d3615ef40d64deb4826c227" mtime="1469608748" name="_service" size="493" />
+  <entry md5="1172d37fb67af6ce0a19d19cf0cc0178" mtime="1464950387" name="libfastjson.spec" size="3480" />
+</directory>

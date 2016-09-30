@@ -1,0 +1,4 @@
+<project name="home:conecenter:rev5a1:ontology:data_safety--c:file_backup--o:infrastructure--f">
+  <package name="bareos" state=" " />
+  <package name="libfastlz1" state=" " />
+</project>

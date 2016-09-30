@@ -1,0 +1,5 @@
+<directory name="percona-toolkit" rev="1" srcmd5="08abc509079f8608217a639c318da21c" vrev="1">
+  <linkinfo lsrcmd5="08abc509079f8608217a639c318da21c" package="percona-toolkit" project="server:database" srcmd5="0937991819ffaa4a4baba337bfdaaeca" xsrcmd5="8aa5516b77661b9e678a1874a15b4016" />
+  <serviceinfo code="succeeded" xsrcmd5="138a9e865690a898f4412bbfbcb40a29" />
+  <entry md5="2b48b410dd7a5aff6db0461b7d8516a8" mtime="1447322223" name="_link" size="457" />
+</directory>

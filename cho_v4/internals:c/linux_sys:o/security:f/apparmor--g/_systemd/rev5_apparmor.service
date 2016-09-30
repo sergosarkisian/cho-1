@@ -1,0 +1,96 @@
+[Unit]
+Description		= Rev5 apparmor - Load AppArmor profiles
+DefaultDependencies =no
+Before			= sysinit.target
+After				= systemd-journald-audit.socket
+ConditionSecurity	= apparmor
+
+
+
+## LOGITORING DEPS ##
+ #Requires 			= monitoring-rev5_apparmor.timer logging-rev5_apparmor.timer
+ #Before   			= monitoring-rev5_apparmor.timer logging-rev5_apparmor.timer
+##
+
+## MISC ## 
+ #StopWhenUnneeded	= true
+ #ConditionPathExists	=
+##
+
+[Service]
+ 
+## TYPE ##
+Type				= oneshot
+RemainAfterExit	= yes
+##
+
+
+## EXECS ##
+ExecStart			= /etc/init.d/boot.apparmor start
+ExecReload		= /etc/init.d/boot.apparmor reload
+ExecStop			= /etc/init.d/boot.apparmor stop
+
+
+ #ExecStartPre		= 
+ ExecStartPre		= /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"unknown", "action":"start", "subaction":"pre", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ 
+ #ExecStartPost	= -/sbin/augenrules --load
+ ExecStartPost		= -/sbin/auditctl -R /etc/audit/audit.rules
+ ExecStartPost		= /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"started", "action":"start", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ 
+ #ExecStopPost	= 
+ ExecStopPost		= /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"stopped", "action":"stop", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ 
+ #loging -  "instance":"%I"
+##
+ 
+## PERMISSIONS ##
+ #WorkingDirectory	= 
+ User			= root
+ Group			= root
+ SupplementaryGroups = sysapp
+ #UMask			= 
+##
+
+## MISC ##
+ #Restart			= always
+ #PrivateTmp		= true
+ #TimeoutSec		= 300 # larger for DB/huge RAM ps
+ #EnvironmentFile	= -/
+##
+
+## SYSLOG ##
+ SyslogIdentifier	= apparmor_
+ SyslogFacility		= local7
+ SyslogLevel		= info
+ #SyslogLevelPrefix	= false #Can be disabled for ...
+##
+ 
+
+## SECURITY ##
+ ProtectSystem		= full
+ ProtectHome		= true
+ #AppArmorProfile	= 
+ #PAMName		= 
+ #SecureBits		= 
+ #Capabilities		= 
+ #ReadWriteDirectories=, ReadOnlyDirectories=, InaccessibleDirectories=
+##
+ 
+
+## LIMITS ##
+ Nice				= 0
+ OOMScoreAdjust	= -1000
+ IOSchedulingClass 	= best-effort
+ IOSchedulingPriority= 1
+ LimitNOFILE=65535
+ #LimitMEMLOCK=infinity #For DB's
+ #MemoryLimit		= 
+ #BlockIOReadBandwidth = 
+ #BlockIOWriteBandwidth = 
+## 
+
+ 
+[Install]
+WantedBy			= multi-user.target
+#RequiredBy=, #Alias = 

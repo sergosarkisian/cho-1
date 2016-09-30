@@ -1,0 +1,18 @@
+<directory name="openvswitch" rev="9" srcmd5="231ee47534e13df1ed949239b8f103f6" vrev="9">
+  <serviceinfo code="running" />
+  <entry md5="9fdab9867f1e86ec00f5c491278c3102" mtime="1334415938" name="Module.supported" size="38" />
+  <entry md5="573314ba68c31108cdd7ab5fa5c6a63f" mtime="1370528896" name="Module.supported.updates" size="23" />
+  <entry md5="f7ea51c73a24ec5394946d9a748fad96" mtime="1330612328" name="README.packager" size="609" />
+  <entry md5="5911fcae6ecc243583e4264c8e852d24" mtime="1456645221" name="_service" size="542" />
+  <entry md5="24763ecf414a9f8d56300fc685790b8c" mtime="1396449755" name="log-check-module-loop.patch" size="1470" />
+  <entry md5="1bb91e8bff8587d8846a02aea5a2776f" mtime="1458049586" name="make_travis.patch" size="270" />
+  <entry md5="0c3e5aa3949ca78259b21e1bbedde62d" mtime="1458049587" name="no_windows_compile.patch" size="376" />
+  <entry md5="f6fbb1648f38abc1a48cd10854cf80be" mtime="1330607629" name="openvswitch-ipsec.init" size="5466" />
+  <entry md5="e697d4e1c1f56cf1b0c9d64bf825d54a" mtime="1386160386" name="openvswitch-switch.init" size="3060" />
+  <entry md5="4977eec824498be7012e3ced7a720329" mtime="1391447570" name="openvswitch-switch.logrotate" size="448" />
+  <entry md5="dbdb0aab1279a2051908cf2f3c63f443" mtime="1330607629" name="openvswitch-switch.template" size="281" />
+  <entry md5="c9b9dce95fc5504a1dc126a11d869f33" mtime="1390940363" name="openvswitch-vtep.init" size="1990" />
+  <entry md5="9c635327956e8f319cab417cc7bef92e" mtime="1390305272" name="openvswitch.service" size="241" />
+  <entry md5="e21ae21bb21d6c615263303962a0d29f" mtime="1458061542" name="openvswitch.spec" size="18487" />
+  <entry md5="aea215bfcd865bdd3d466a534e25a797" mtime="1324902805" name="preamble" size="82" />
+</directory>

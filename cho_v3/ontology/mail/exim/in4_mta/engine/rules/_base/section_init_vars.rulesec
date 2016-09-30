@@ -1,0 +1,70 @@
+#Event def
+set acl_c_event_type		     = mail
+set acl_c_event_class		     = default
+set acl_c_event_view		     = default
+
+#Rule def
+set acl_c_rule_section              = default
+set acl_c_rule_action                = default 
+
+#Core scores
+.ifdef RULES_INIT_DEMO
+    set acl_c_init_demo = 1
+.else
+    set acl_c_init_demo = 0
+.endif 
+
+#Core scores
+.ifdef RULES_INIT_TRUSTED
+    set acl_c_init_trusted = RULES_INIT_TRUSTED
+.else
+    set acl_c_init_trusted = -20000
+.endif 
+
+.ifdef RULES_INIT_DISCARD_HARD
+    set acl_c_init_discard_hard = RULES_INIT_DISCARD_HARD
+.else
+    set acl_c_init_discard_hard = 2000
+.endif 
+
+.ifdef RULES_INIT_DENY_HARD
+    set acl_c_init_deny_hard = RULES_INIT_DENY_HARD
+.else
+    set acl_c_init_deny_hard = 1000
+.endif 
+
+.ifdef RULES_INIT_SPAM_LEV2
+    set acl_c_init_spam_lev2 = RULES_INIT_SPAM_LEV2
+.else
+    set acl_c_init_spam_lev2 = 501
+.endif 
+
+.ifdef RULES_INIT_SPAM_LEV1
+    set acl_c_init_spam_lev1 = RULES_INIT_SPAM_LEV1
+.else
+    set acl_c_init_spam_lev1 = 331
+.endif 
+
+set acl_c_rule_is_trusted         = 0
+set acl_c_score_content_multiplier = 1
+set acl_c_score_content_raw = 0
+set acl_c_syslog_processname         = SYSLOG_PROCESSNAME
+set acl_c_spamanalysis_mailbox = CLIENTSIDE_SPAMANALYSIS_MAILBOX
+
+#Score def
+set acl_c_rule_score                = 10
+set acl_c_score_mta 	             = 0
+set acl_c_score_prev               = 0
+set acl_c_score_content         = 0
+set acl_c_score_total               = 0
+set acl_c_score_mta_inc         = 0
+set acl_c_score_wbl                 = 0
+set acl_c_score_rulelog          = 0
+
+#Initial
+set acl_c_known 		             = no
+set acl_c_rule 			     = 0
+set acl_c_advlog 		             = i
+set acl_c_advlog_inc_def         = warn
+set acl_c_acl_action_def         = add
+set acl_c_score_dnsbl_count = 0

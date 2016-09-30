@@ -1,0 +1,57 @@
+## NAMING/ACCESS ##        
+name                 = "#VMNAME#"      ## FQDN
+spicepasswd    = #MAC4#     ## MAC - 4 octets
+spiceport	    = #MAC_3D#          ## MAC - 3 last digits + 50000
+##
+
+## CPU/RAM ##
+memory      = #MEM_GB#
+maxmem    = #MEM_GB#
+vcpus           = #CPU_NUM#
+maxvcpus   = #CPU_NUM#
+pool              = "Pool#1_2#"
+cpu_weight = 512
+##
+
+## DISKS ##
+disk=[
+'vdev=sda, target=/media/storage1/images/in4/#CLIENT#/#ZONE#/#OS_DESC#/#DEP_TYPE#/#NAME#/rev5a1-suse-l.raw',
+'vdev=sdb, target=/media/storage1/images/in4/#CLIENT#/#ZONE#/#OS_DESC#/#DEP_TYPE#/#NAME#/swap.raw',
+'vdev=sdc, target=/media/storage1/images/in4/#CLIENT#/#ZONE#/#OS_DESC#/#DEP_TYPE#/#NAME#/sysdata.raw',
+
+'vdev=sdd, target=/media/storage1/images/in4/#CLIENT#/#ZONE#/#OS_DESC#/#DEP_TYPE#/#NAME#/storage.raw',
+'vdev=sde, target=/media/storage1/images/in4/#CLIENT#/#ZONE#/#OS_DESC#/#DEP_TYPE#/#NAME#/storage_drbd_meta.raw',
+]                                                                                                                                                                                          
+##
+ 
+## NET ##                                                                                                                                                             
+vif =[        
+"mac=AA:#NETMASK#:#IP2MAC#,type=vif,bridge=type::ext---ext_if::bond_vlannet---policy::common---switch::vlannet---cookie::#VLAN#---mtu::#MTU#---gate::#GATE_IP#",   
+]
+##
+
+
+
+### ### ### ~ TECH ~ #### ### ###
+## PV ##
+#extra = "CPUFREQ=no panic=15 barrier=off xen_blkfront.max=64 console=hvc0 debug kgdboc=hvc0" ### TO KERNEL PARAMS!
+pvh=1
+
+## HVM ##
+device_model_override = "/usr/bin/qemu-system-x86_64"
+device_model_version="qemu-xen"
+builder = 'hvm'
+xen_platform_pci = 1
+boot='c'
+acpi_s3=0
+acpi_s4=0
+spice=1
+spice_clipboard_sharing=1
+spicevdagent=1
+keymap='en-us'
+##
+
+## XEN ##
+on_crash = "restart"
+##
+### ### ### ~ TECH ~ #### ### ###

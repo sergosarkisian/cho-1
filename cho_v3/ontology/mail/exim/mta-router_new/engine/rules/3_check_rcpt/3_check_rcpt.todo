@@ -1,0 +1,27 @@
+
+.ifdef DISCARD_NO_BOUNCE_TO
+discard 
+        condition = ${lookup{$local_part@$domain}wildlsearch{/media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/data/no_bounce_to}{yes}{no}}
+.endif
+
+
+	
+
+# Auth clients => ACCEPT			  
+  accept
+		authenticated = *
+		control       = submission/sender_retain  
+		#
+		set acl_c_score_reason = Mail from auth client
+		
+
+
+    
+accept 
+		hosts = :
+		control = dkim_disable_verify
+		#
+		set acl_c_score_reason = RCPT check
+
+	
+

@@ -1,0 +1,5 @@
+<directory name="grub2" rev="1" srcmd5="40be2798455a97825ad46f0c353dd3e1" vrev="1">
+  <linkinfo lsrcmd5="40be2798455a97825ad46f0c353dd3e1" package="grub2" project="openSUSE:Leap:42.1:Update" srcmd5="e484830e3a7c5212001b0f09d11c0a83" xsrcmd5="1ff6c75037e255aa10a030ae6ad409d8" />
+  <serviceinfo code="succeeded" xsrcmd5="68571bdf902232505ef255bd608cc304" />
+  <entry md5="c40eaa2545b4f3bbc028a8f05aafc8a8" mtime="1448629547" name="_link" size="457" />
+</directory>

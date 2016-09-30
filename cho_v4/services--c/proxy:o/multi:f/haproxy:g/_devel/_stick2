@@ -1,0 +1,30 @@
+
+backend test_app_instances
+    mode http
+    balance roundrobin
+    option httplog
+    option redispatch
+    
+    ...
+    
+    # Persistently map clients to backends by x-app-authorization header 
+    stick store-request hdr(x-app-authorization) table test_app_api
+    stick on hdr(x-app-authorization) table test_app_api
+    
+    ...
+
+frontend test_app_api
+    
+    ...
+    # Stick Table
+    stick-table type ip size 1m expire 1h peers test_app_peers
+    
+    # Slow down abusive clients
+    acl too_fast fe_sess_rate ge 100
+    tcp-request inspect-delay 1000ms
+    tcp-request connection reject if { src_conn_cur ge 100 }
+    tcp-request connection track-sc1 src
+    tcp-request content accept if ! too_fast
+    tcp-request content accept if WAIT_END
+    
+    default_backend test_app_instances

@@ -1,0 +1,28 @@
+###########################
+###  acl_greylist                                 ###
+###########################
+acl_greylist:
+
+    ###
+###INITIAL###
+warn
+set acl_c_rule_section 	= greylist
+###INITIAL###
+    ###
+
+set acl_c_event_view   = sections
+set acl_c_rule_action   = enter
+    
+logwrite =@cee:{\
+ .include /etc/exim/engine_path/engine/rules/_base/log_header_all.rulesec
+ .include /etc/exim/engine_path/engine/rules/1_check_connect/artifacts_logs.rulesec
+ .include /etc/exim/engine_path/engine/rules/2_check_mail/artifacts_logs.rulesec
+ .include /etc/exim/engine_path/engine/rules/3_check_rcpt/artifacts_logs.rulesec 
+ .include /etc/exim/engine_path/engine/rules/4_check_predata/artifacts_logs.rulesec  
+} 
+
+
+ .include /etc/exim/engine_path/engine/rules/greylist/begin.rule
+ .include /etc/exim/engine_path/engine/rules/greylist/accept.rule
+ .include /etc/exim/engine_path/engine/rules/greylist/count.rule
+ .include /etc/exim/engine_path/engine/rules/greylist/deny.rule

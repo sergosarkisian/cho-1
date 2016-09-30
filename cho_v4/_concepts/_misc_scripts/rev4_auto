@@ -1,0 +1,90 @@
+#!/usr/bin/expect -f
+set srv_group 	[lrange $argv 0 0]
+set srv_type 	[lrange $argv 1 1]
+set client 		[lrange $argv 2 2]
+set net 		[lrange $argv 3 3]
+set gate 		[lrange $argv 4 4]
+
+set task [lrange $argv 5 5]
+set user [lrange $argv 6 6]
+
+if { $srv_group == "all" } { 
+	set srv_group "l-suse-rev4"
+} 
+
+if { $srv_type == "all" } { 
+	set srv_type "*"
+}  
+
+if { $client == "all" } { 
+	set client ""
+}  
+
+if { $net == "all" } { 
+	set net ""
+} 
+
+system "dig @$gate -tAXFR $srv_group.servers.pool|grep \".*.-$srv_type.*\.$client.$srv_group.servers.pool.\" |grep -i \"$net\"|grep -i \"IN.*.A\" | grep -v \"IN.*.\[a-z\]A*\"|awk '{print \$1,\"\\t\",\$5}'|sed \"s/.pool./.pool/\" > /tmp/$srv_group.$client.$net.servers"
+
+system "cat /tmp/$srv_group.$client.$net.servers|awk '{print \$1}' > /tmp/$srv_group.$client.$net.servers_names"
+
+system "echo '\nServers list:\n'; cat /tmp/$srv_group.$client.$net.servers; echo '\n###\n'"
+
+if { $task == "" } { 
+	exit 0
+} 
+
+if { $user == "" } { 
+	set user $env(LOGNAME)
+} 
+
+stty -echo
+send_user -- "Password : "
+expect_user -re "(.*)\n"
+send_user "\n"
+stty echo
+set password $expect_out(1,string)
+
+
+
+sleep 1
+
+set f [open /tmp/$srv_group.$client.$net.servers_names]
+set hosts [split [read $f] "\n"]
+close $f
+
+set timeout -1
+
+spawn $env(SHELL)
+
+foreach host $hosts {
+	if {$host eq {}} continue; # ignore blank lines	
+	set hostTrimmed [string trim $host]		
+	spawn ssh gate@$gate
+	expect {
+	-re "Are you sure you want to continue connecting (yes/no)?" { send "yes\r" }
+	-re "word:" {send -- "sshgate\r"}
+	}
+	expect "Server name" 
+	send -- "$hostTrimmed\r"
+	expect "Login" 
+	send -- "$user\r"
+	expect "word:"
+	send -- "$password\r"
+
+	if { $task == "manual" } { 
+		interact 
+	} else	{
+		send -- "\r"	
+		expect "~" 
+		send -- "sget_root\r"		
+		send -- "sh /etc/faster/cmdb/tasks/rev4/$task\r"
+		send -- "exit\r exit\r"
+		sleep 1
+		send -- "\r"
+		expect "~" 
+		close 		
+	}	
+
+
+}

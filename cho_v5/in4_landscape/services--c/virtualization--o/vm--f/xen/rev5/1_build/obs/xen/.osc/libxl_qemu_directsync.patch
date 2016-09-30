@@ -1,0 +1,45 @@
+Index: xen-4.7.0-testing/tools/libxl/libxl_dm.c
+===================================================================
+--- xen-4.7.0-testing.orig/tools/libxl/libxl_dm.c
++++ xen-4.7.0-testing/tools/libxl/libxl_dm.c
+@@ -1110,11 +1110,11 @@
+             if (disks[i].is_cdrom) {
+                 if (disks[i].format == LIBXL_DISK_FORMAT_EMPTY)
+                     drive = libxl__sprintf
+-                        (gc, "if=ide,index=%d,readonly=%s,media=cdrom,cache=writeback,id=ide-%i",
++                        (gc, "if=ide,index=%d,readonly=%s,media=cdrom,cache=directsync,id=ide-%i",
+                          disk, disks[i].readwrite ? "off" : "on", dev_number);
+                 else
+                     drive = libxl__sprintf
+-                        (gc, "file=%s,if=ide,index=%d,readonly=%s,media=cdrom,format=%s,cache=writeback,id=ide-%i",
++                        (gc, "file=%s,if=ide,index=%d,readonly=%s,media=cdrom,format=%s,cache=directsync,id=ide-%i",
+                          disks[i].pdev_path, disk, disks[i].readwrite ? "off" : "on", format, dev_number);
+             } else {
+                 if (disks[i].format == LIBXL_DISK_FORMAT_EMPTY) {
+@@ -1145,7 +1145,7 @@
+                  */
+                 if (strncmp(disks[i].vdev, "sd", 2) == 0) {
+                     drive = libxl__sprintf
+-                        (gc, "file=%s,if=scsi,bus=0,unit=%d,format=%s,readonly=%s,cache=writeback",
++                        (gc, "file=%s,if=scsi,bus=0,unit=%d,format=%s,readonly=%s,cache=directsync",
+                          pdev_path, disk, format, disks[i].readwrite ? "off" : "on");
+                 } else if (strncmp(disks[i].vdev, "xvd", 3) == 0) {
+                     /*
+@@ -1159,7 +1159,7 @@
+                         return ERROR_INVAL;
+                     }
+                     flexarray_vappend(dm_args, "-drive",
+-                        GCSPRINTF("file=%s,if=none,id=ahcidisk-%d,format=%s,cache=writeback",
++                        GCSPRINTF("file=%s,if=none,id=ahcidisk-%d,format=%s,cache=directsync",
+                         pdev_path, disk, format),
+                         "-device", GCSPRINTF("ide-hd,bus=ahci0.%d,unit=0,drive=ahcidisk-%d",
+                         disk, disk), NULL);
+@@ -1170,7 +1170,7 @@
+                         return ERROR_INVAL;
+                     }
+                     drive = libxl__sprintf
+-                        (gc, "file=%s,if=ide,index=%d,media=disk,format=%s,cache=writeback",
++                        (gc, "file=%s,if=ide,index=%d,media=disk,format=%s,cache=directsync",
+                          pdev_path, disk, format);
+                 } else {
+                     continue; /* Do not emulate this disk */

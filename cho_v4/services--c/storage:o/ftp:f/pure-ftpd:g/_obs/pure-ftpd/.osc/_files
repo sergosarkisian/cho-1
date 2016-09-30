@@ -1,0 +1,5 @@
+<directory name="pure-ftpd" rev="1" srcmd5="9dd17a0b54286cbaabcccf5abae51d23" vrev="1">
+  <linkinfo lsrcmd5="9dd17a0b54286cbaabcccf5abae51d23" package="pure-ftpd" project="network" srcmd5="31c44ffc800245d7c746e55fe6e93587" xsrcmd5="fc44f747be9cb5f0d942e70ed12a0f79" />
+  <serviceinfo code="succeeded" xsrcmd5="5c2c145c487670b3470bcf511aba3e90" />
+  <entry md5="81317022f4670a43da667d8f671af145" mtime="1447321890" name="_link" size="443" />
+</directory>

@@ -1,0 +1,38 @@
+--- config-top.h	2015-11-12 13:48:18.670967935 +0200
++++ config-top.h	2015-11-12 13:51:25.514371904 +0200
+@@ -110,7 +110,8 @@
+ 
+ /* Define if you want each line saved to the history list in bashhist.c:
+    bash_add_history() to be sent to syslog(). */
+-/* #define SYSLOG_HISTORY */
++#define SYSLOG_HISTORY 
++
+ #if defined (SYSLOG_HISTORY)
+ #  define SYSLOG_FACILITY LOG_USER
+ #  define SYSLOG_LEVEL LOG_INFO
+--- bashhist.c	2012-06-07 19:52:31.000000000 +0300
++++ bashhist.c	2015-11-12 13:54:07.349318028 +0200
+@@ -704,7 +704,7 @@
+ }
+ 
+ #if defined (SYSLOG_HISTORY)
+-#define SYSLOG_MAXLEN 600
++#define SYSLOG_MAXLEN 1000
+ 
+ void
+ bash_syslog_history (line)
+@@ -713,12 +713,12 @@
+   char trunc[SYSLOG_MAXLEN];
+ 
+   if (strlen(line) < SYSLOG_MAXLEN)
+-    syslog (SYSLOG_FACILITY|SYSLOG_LEVEL, "HISTORY: PID=%d UID=%d %s", getpid(), current_user.uid, line);
++      syslog (SYSLOG_FACILITY|SYSLOG_LEVEL, "HISTORY: PID=%d LOGIN=%s COMMAND=%s", getpid(), getlogin(), line);
+   else
+     {
+       strncpy (trunc, line, SYSLOG_MAXLEN);
+       trunc[SYSLOG_MAXLEN - 1] = '\0';
+-      syslog (SYSLOG_FACILITY|SYSLOG_LEVEL, "HISTORY (TRUNCATED): PID=%d UID=%d %s", getpid(), current_user.uid, trunc);
++      syslog (SYSLOG_FACILITY|SYSLOG_LEVEL, "HISTORY (TRUNCATED): PID=%d LOGIN=%s COMMAND=%s", getpid(), getlogin(), trunc);
+     }
+ }
+ #endif

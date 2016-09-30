@@ -1,0 +1,15 @@
+[Unit]
+Description=monitoring-rev5_{NAME}
+Requires=var-run.mount network.target systemd-modules-load.service
+After=var-run.mount network.target systemd-modules-load.service
+StopWhenUnneeded=yes
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+
+## START
+ExecStart=/usr/bin/systemctl is-active rev5_{NAME}
+
+[Install]
+WantedBy=multi-user.target

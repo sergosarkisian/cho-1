@@ -1,0 +1,39 @@
+########    #######    ########    #######    ########    ########
+##     / / / /    License    \ \ \ \ 
+##    Copyleft culture, Copyright (C) is prohibited here
+##    This work is licensed under a CC BY-SA 4.0
+##    Creative Commons Attribution-ShareAlike 4.0 License
+##    Refer to the http://creativecommons.org/licenses/by-sa/4.0/
+########    #######    ########    #######    ########    ########
+##    / / / /    Code Climate    \ \ \ \ 
+##    Language = DSL, exim, ACL section
+##    Indent = space;    4 chars;
+########    #######    ########    #######    ########    ########
+
+
+.ifdef LOGVAR_TRACE    
+warn
+		logwrite ="trace", "section":"$acl_c_section", \
+			"interface_address":"$interface_address", \
+			"message_size":"$message_size", \
+			"primary_hostname":"$primary_hostname", \
+			"qualify_domain":"$qualify_domain", \
+			"qualify_recipient":"$qualify_recipient", \
+			"rcpt_count":"$rcpt_count", \
+			"received_ip_address":"$received_ip_address", \
+			"received_time":"$received_time", \
+			"sender_fullhost":"$sender_fullhost", \
+			"sender_helo_name":"$sender_helo_name", \
+			"sender_host_address":"$sender_host_address", \
+			"sender_host_name":"$sender_host_name", \
+			"sender_rcvhost":"$sender_rcvhost", \
+			"sending_ip_address":"$sending_ip_address", \
+			"smtp_active_hostname":"$smtp_active_hostname", \
+			"tod_bsdinbox":"$tod_bsdinbox", \
+			"tod_epoch_l":"$tod_epoch_l", \
+			"tod_full":"$tod_full", \
+			"tod_log":"$tod_log", \
+			"tod_zone":"$tod_zone"
+.endif
+
+

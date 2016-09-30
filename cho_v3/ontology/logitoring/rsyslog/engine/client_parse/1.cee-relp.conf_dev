@@ -1,0 +1,13 @@
+if $hostname == $$myhostname and $programname == [
+	"rsyslogd-pstats"
+	]
+then {
+	action(type="mmjsonparse")
+	set $!use_mod = "mmjsonparse";
+	set $!msg_class = "infra";
+	set $!msg_class = "rsyslogd_pstats";
+	call roger & stop
+}
+
+
+

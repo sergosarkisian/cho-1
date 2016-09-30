@@ -1,0 +1,25 @@
+[Unit]
+Description=Web application - LX_DOMAIN.L2_DOMAIN
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+PIDFile=/media/storage/sites/LX_DOMAIN.L2_DOMAIN/conf/services/nginx.pid
+WorkingDirectory=/media/storage/sites/LX_DOMAIN.L2_DOMAIN/
+ExecStart=/usr/sbin/nginx -c /media/storage/sites/LX_DOMAIN.L2_DOMAIN/conf/nginx.conf -p /media/storage/sites/LX_DOMAIN.L2_DOMAIN/ -g "pid /media/storage/sites/LX_DOMAIN.L2_DOMAIN/conf/services/nginx.pid; error_log logs/nginx.error.log; "
+ExecStart=
+
+
+spawn-fcgi  -F 3 -d /path/to/wordpress -M 0770 -P /path/to/pid/file.pid -- /bin/php-cgi
+spawn-fcgi -c /srv/http   -P /run/fcgiwrap.pid -n -- /usr/bin/multiwatch -f 10 -- /usr/sbin/fcgiwrap
+spawn-fcgi -F 5 -n -M 0777 -- /usr/sbin/fcgiwrap -c 10
+
+-u LX_DOMAIN.L2_DOMAIN -g nobody -s /run/fcgiwrap.sock
+
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+User=LX_DOMAIN.L2_DOMAIN
+Group=nobody
+
+[Install]
+WantedBy=multi-user.target

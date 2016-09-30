@@ -1,0 +1,55 @@
+########    #######    ########    #######    ########    ########
+##     / / / /    License    \ \ \ \ 
+##    Copyleft culture, Copyright (C) is prohibited here
+##    This work is licensed under a CC BY-SA 4.0
+##    Creative Commons Attribution-ShareAlike 4.0 License
+##    Refer to the http://creativecommons.org/licenses/by-sa/4.0/
+########    #######    ########    #######    ########    ########
+##    / / / /    Code Climate    \ \ \ \ 
+##    Language = DSL, exim, ACL section
+##    Indent = space;    4 chars;
+########    #######    ########    #######    ########    ########
+   
+## RULE DESCRIPTION
+warn
+    set acl_c_rule_fullname     = 1_check_connect__deny__well_known_spammers
+    set acl_c_rule_description = Deny: well known spammers on sec 1
+    set acl_c_rule_main_lookup_var = 
+
+## 1. RULE PRE
+    warn           
+        # 1.1. INIT  - pre vars
+            .include /etc/exim/engine_path/engine/rules/_base/deny_discard/_pre.rulesec   
+            
+
+## 2. RULE BODY
+ deny 
+ 
+        # 2.1. APPLY AREA
+		hosts = ! +local_networks
+		
+        # 2.2. MAIN DSL LOGIC - conditions 
+		condition = ${if or { \
+                    {bool{${lookup{$sender_host_name}wildlsearch{/media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/data/well_known_spammers}{yes}{no}}}} \
+                    {bool{${lookup{$sender_host_address}wildlsearch{/media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/data/well_known_spammers}{yes}{no}}}} \
+                }}	
+        
+        # 2.3. SET RULE SUCCESS FLAG
+                set acl_c_rule_proccessed = yes		
+            
+            
+## 3. RULE POST            
+    #warn
+        # 3.1 ANALYSE - score calc/logitoring/vars/etc
+            .include /etc/exim/engine_path/engine/rules/_base/deny_discard/_post.rulesec
+            
+        # 3.2 FACT
+            set acl_c_rule_fact__1_check_connect__deny__well_known_spammers = 1
+        
+
+
+
+
+
+
+

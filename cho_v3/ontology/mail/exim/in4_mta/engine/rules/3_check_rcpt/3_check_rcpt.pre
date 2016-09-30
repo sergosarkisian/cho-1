@@ -1,0 +1,29 @@
+###########################
+###  acl_3_check_rcpt                        ###
+###########################
+
+acl_3_check_rcpt:
+
+    ###
+###SCORES###
+warn
+set acl_c_rule_section = 3_check_rcpt
+# THIS HEADERS IS LOST DURING 4_check_predata
+set acl_c_recipient_local_part = $local_part
+set acl_c_recipient_domain = $domain
+set acl_c_recipient = $local_part@$domain
+#
+###SCORES###
+    ###
+
+set acl_c_event_view   = sections
+set acl_c_rule_action   = enter    
+    
+logwrite = :cee: @cee:{\
+.include /etc/exim/engine_path/engine/rules/_base/log_header_all.rulesec
+ .include /etc/exim/engine_path/engine/rules/1_check_connect/artifacts_logs.rulesec
+ .include /etc/exim/engine_path/engine/rules/2_check_mail/artifacts_logs.rulesec
+ .include /etc/exim/engine_path/engine/rules/3_check_rcpt/artifacts_logs.rulesec 
+ .include /etc/exim/engine_path/engine/rules/_base/log_final.rulesec 
+ } 
+    

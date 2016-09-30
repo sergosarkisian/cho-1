@@ -1,0 +1,20 @@
+###########################
+###  INCLUDES                            	###
+###########################
+
+.include /etc/exim/engine_path/engine/_globals/global.conf
+
+## VARS
+    hosts_proxy = *
+    daemon_smtp_ports = 31
+    syslog_processname = in4_mta__proxy_step1_out
+    spool_directory = /var/spool/exim_proxy_step1
+##
+
+# INCLUDE 
+    .include /etc/exim/engine_path/engine/instance/proxy.inc
+#
+
+# ROUTER
+    .include /etc/exim/engine_path/engine/router/proxy_step1.router
+#

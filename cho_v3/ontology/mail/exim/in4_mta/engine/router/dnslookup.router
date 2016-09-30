@@ -1,0 +1,8 @@
+begin routers 
+
+dnslookup:
+  driver = dnslookup
+  ignore_target_hosts = <; 0.0.0.0/0 ; 127.0.0.0/8 ; ::1; 0::0/0    
+  transport = smtp_proxy
+  cannot_route_message = Sorry, there are no such recipient(s)!
+  no_more   

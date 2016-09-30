@@ -1,0 +1,4 @@
++ Переход на Google OTP
+https://github.com/jbalonso/hk-ldap-utils/blob/master/schemas/hk-google-authenticator.schema 
+
++ Решение проблем с кэшированием после перезагрузки LDAP

@@ -1,0 +1,6 @@
+## Name: services--c--virtualization--o--vm--f--xen--g--main--s
+## Description: Open ports for services--c--virtualization--o--vm--f--xen--g--main--s
+
+# space separated list of allowed TCP ports
+TCP=""
+ 

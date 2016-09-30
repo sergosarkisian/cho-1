@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [[ -z "$1" && -z "$2"  && -z "$3" && -z "$4" && -z "$5" ]]; then echo "image management need 6 arguments: VM_TYPE VM_DOMAIN VM_NAME DISK_LABEL DISK_SIZE FORMAT"; exit 1; fi 
+VM_TYPE=$1
+VM_DOMAIN=$2
+VM_NAME=$3
+DISK_LABEL=$4
+DISK_SIZE=$5
+FORMAT=$6
+FORMAT_OPTIONS=$7
+
+REAL_SIZE=$(($5*1024*1024*1024))
+
+if [[ ! -f /storage/images/$VM_TYPE/$VM_DOMAIN/$VM_NAME/$DISK_LABEL.raw ]]; then
+  mkdir -p /storage/images/$VM_TYPE/$VM_DOMAIN/$VM_NAME
+  fallocate -l $REAL_SIZE /storage/images/$VM_TYPE/$VM_DOMAIN/$VM_NAME/$DISK_LABEL.raw
+
+  if [[ $FORMAT != "no" ]]; then
+    if [[ $FORMAT_OPTIONS ]]; then
+      mke2fs -q -F -L "$DISK_LABEL" -t $FORMAT -O "$FORMAT_OPTIONS" /storage/images/$VM_TYPE/$VM_DOMAIN/$VM_NAME/$DISK_LABEL.raw
+    else
+      mke2fs -q -F -L "$DISK_LABEL" -t $FORMAT /storage/images/$VM_TYPE/$VM_DOMAIN/$VM_NAME/$DISK_LABEL.raw
+    fi
+  fi
+fi
+

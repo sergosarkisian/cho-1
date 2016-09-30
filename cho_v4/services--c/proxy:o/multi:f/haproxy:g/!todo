@@ -1,0 +1,129 @@
++commpression
+    compression offload
+    compression algo gzip
+    compression type text/html text/html;charset=utf-8 text/plain text/css text/javascript application/javascript application/x-javascript text/xml application/json application/xml font/truetype application/x-font-ttf
+    
++ping
+ping.path = /ping
+ping.response = pong
+
++haproxy -> http-request option (set-mark!!!!!!!!!!!!!)
+
++ Тестирование server-to-server HTTP keep-alive, переключение основных шлюзов в режим keep-alive по-умолчанию (disable server-close)
+
++ 50x – IE check (inline message) =>> implement HTTP-based error messages w/o css & images
+
++ stick-table
+
++ ocsp stapling
+
++ send-proxy-v2-ssl-cn
+
++ add_header Content-Security-Policy-Report-Only "default-src https:; script-src https: 'unsafe-eval' 'unsafe-inline'; style-src https: 'unsafe-inline'; img-src https: data:; font-src https: data:; report-uri /csp-report";
+
++ namespaces (absn)
+
++ peers
+
++ log-tag 
+
++ mailers
+
++ TLS certificate transparency
+
++ maps
+use_backend %[req.hdr(host),lower,map_dom(/etc/haproxy/worker.map,b_nodes_default)]
+
+
+### Haproxy 1.6 ###
+#http://blog.haproxy.com/2015/10/14/whats-new-in-haproxy-1-6/
+
++ config environment variables  -       bind "fd@${FD_APP1}"
+
++ log-tag
+
++ log-format tags %H*
+
++ http-request capture
+
++{url,body}_param supports any param
+
++ http-buffer-request
+
++ new fetch/conv (query, json, field, ...)
+
++ http-request set-{path,query,method,uri}
+
++ table lookups converters
+
++ specify TLS sni to server
+
++ no-ssl-reuse
+
++ HTTP server connection sharing
+
++ stateless gzip/deflate compression
+
++ pattern cache
+
++ linux namespaces
+
++ http-request set-src
+
++ max syslog line length
+
++ server port offset
+
++ server change state mail send
+
+##
+
+ca-base 
+log localhost len 2048  local7 
+per-proxy "log-tag" directive.
+node <name>
+
+    mailers mymailers
+        mailer smtp1 192.168.0.1:587
+        mailer smtp2 192.168.0.2:587
+
+        email-alert mailers mymailers
+        email-alert from test1@horms.org
+        email-alert to test2@horms.org
+	email-alert level <level>
+	email-alert myhostname <hostname>	
+
+dispatch <address>:<port>
+
+http-check send-state
+
+http-send-name-header
+
+server-state-file-name
+load-server-state-from-file
+
+option forwardfor [ except <network> ] [ header <name> ] [ if-none ]
+
+generate-certificates
+ca-sign-file 
+
+namespace <name>
+
+strict-sni
+
+send-proxy-v2-ssl-cn
+
+sni
+
+verifyhost
+
+   resolvers mydns
+     nameserver dns1 10.0.0.1:53
+     nameserver dns2 10.0.0.2:53
+     resolve_retries       3
+     timeout retry         1s
+     hold valid           10s
+     
+     
+
+

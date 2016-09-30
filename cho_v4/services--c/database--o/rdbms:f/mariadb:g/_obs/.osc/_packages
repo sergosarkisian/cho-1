@@ -1,0 +1,6 @@
+<project name="home:conecenter:techpool:ontology:database:mariadb">
+  <package name="mariadb" state=" " />
+  <package name="mytop" state=" " />
+  <package name="percona-toolkit" state=" " />
+  <package name="xtrabackup" state=" " />
+</project>

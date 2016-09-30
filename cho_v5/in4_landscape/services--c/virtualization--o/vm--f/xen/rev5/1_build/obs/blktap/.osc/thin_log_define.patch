@@ -1,0 +1,9 @@
+--- a/thin/thin_log.c	2016-01-13 07:26:08.000000000 +0200
++++ b/thin/thin_log.c_new	2016-01-13 07:33:19.735954539 +0200
+@@ -1,5 +1,5 @@
+ /* This define is needed for vsyslog(). */
+-#define _BSD_SOURCE
++#define _DEFAULT_SOURCE
+ 
+ #include "thin_log.h"
+ 

@@ -1,0 +1,6 @@
+## Name: rev5__logitoring--c--messagebus--o--syslog--f--rsyslog--g--main--s
+## Description: Open ports for rev5__logitoring--c--messagebus--o--syslog--f--rsyslog--g--main--s
+
+# space separated list of allowed TCP ports
+TCP="20516"
+ 

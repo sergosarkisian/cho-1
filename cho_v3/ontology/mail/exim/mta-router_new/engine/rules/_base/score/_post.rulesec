@@ -1,0 +1,7 @@
+set acl_c_rule_step = 3.post
+.include /etc/exim/engine_path/engine/rules/_base/score/score_get_ruleproc.rule
+.include /etc/exim/engine_path/engine/rules/_base/score/score_override_wl.rule
+.include /etc/exim/engine_path/engine/rules/_base/score/score_override_bl.rule
+warn
+.include /etc/exim/engine_path/engine/rules/_base/score/score_calc.rulesec
+.include /etc/exim/engine_path/engine/rules/_base/score/log.rulesec

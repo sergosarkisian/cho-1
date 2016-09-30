@@ -1,0 +1,125 @@
+
+	
+.ifdef LOGVAR_TRACE
+  warn
+	logwrite ="trace", "section":"$acl_c_section", \
+			"mime_boundary":"$mime_boundary", \
+			"mime_charset":"$mime_charset", \
+			"mime_content_description":"$mime_content_description", \
+			"mime_content_disposition":"$mime_content_disposition", \
+			"mime_content_id":"$mime_content_id", \
+			"mime_content_size":"$mime_content_size", \
+			"mime_content_transfer_encoding":"$mime_content_transfer_encoding", \
+			"mime_content_type":"$mime_content_type", \
+			"mime_decoded_filename":"$mime_decoded_filename", \
+			"mime_filename":"$mime_filename", \
+			"mime_is_coverletter":"$mime_is_coverletter", \
+			"mime_is_multipart":"$mime_is_multipart", \
+			"mime_is_rfc822":"$mime_is_rfc822", \			
+			"mime_part_count":"$mime_part_count"
+.endif
+
+
+
+
+
+.ifdef SCORE_ATTACH_ARCH	
+warn
+		message = Sorry, your have dangerous archived (e) content in attachment(s).
+		decode = $mime_filename
+        condition = ${lookup{$mime_filename}wildlsearch{/media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/data/mime/ext_arch}{yes}{no}}
+        condition = ${run{/bin/sh  /etc/faster/cmdb/techpool/exim/common/handlers/archive_check.sh "$message_exim_id"}{0}{1}}
+        #
+		set acl_c_rule = delivery_deny_attach_arch_1
+		set acl_c_score_mta_inc = SCORE_ATTACH_ARCH
+		set acl_c_score_reason = Dangerous (ext) archived content in attachment(s) - $mime_filename
+		set acl_c_msg_view = $acl_c_msg_view_def
+		set acl_c_acl_action = $acl_c_acl_action_def
+		set acl_c_advlog_inc = $acl_c_advlog_inc_def		
+		#
+		set acl_c_score_prev = $acl_c_score_total
+		set acl_c_score_content = ${eval10:$acl_c_score_content + $acl_c_score_mta_inc}
+		set acl_c_score_total = ${eval10:$acl_c_score_mta + $acl_c_score_content}	
+   
+		
+	warn
+		message = Sorry, your have dangerous archived (m) content in attachment(s). 
+		decode = $mime_filename
+        condition = ${lookup{$mime_filename}wildlsearch{/media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/data/mime/ext_arch}{no}{yes}}		
+        condition = ${lookup{$mime_content_type}wildlsearch{/media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/data/mime/mime_arch}{yes}{no}}
+        condition = ${run{/bin/sh  /etc/faster/cmdb/techpool/exim/common/handlers/archive_check.sh "$message_exim_id"}{0}{1}}	
+		#
+		set acl_c_rule = delivery_deny_attach_arch_2
+		set acl_c_score_mta_inc = SCORE_ATTACH_ARCH	
+		set acl_c_score_reason = Dangerous (mime) archived content in attachment(s) - $mime_filename
+		set acl_c_msg_view = $acl_c_msg_view_def
+		set acl_c_acl_action = $acl_c_acl_action_def
+		set acl_c_advlog_inc = $acl_c_advlog_inc_def		
+		#
+		set acl_c_score_prev = $acl_c_score_total
+		set acl_c_score_content = ${eval10:$acl_c_score_content + $acl_c_score_mta_inc}
+		set acl_c_score_total = ${eval10:$acl_c_score_mta + $acl_c_score_content}	
+      		
+.endif
+
+
+
+.ifdef SCORE_ATTACH_ALLOW
+
+accept 
+        condition = ${lookup{$mime_filename}wildlsearch{/media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/data/mime/ext_allow}{yes}{no}}
+        #
+		set acl_c_rule = delivery_accept_attach_allow				
+		set acl_c_score_reason = Allowed (ext) content in attachment(s) -$mime_filename
+		set acl_c_msg_view = delivery
+		set acl_c_acl_action = accept
+		
+
+		
+accept 
+        condition = ${lookup{$mime_content_type}wildlsearch{/media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/data/mime/mime_allow}{yes}{no}}
+        #
+		set acl_c_rule = delivery_accept_attach_allow				
+		set acl_c_score_reason = Allowed (mime) content in attachment(s) - $mime_filename
+		set acl_c_msg_view = delivery
+		set acl_c_acl_action = accept
+            
+
+.endif
+
+
+.ifdef SCORE_ATTACH_DANGER	
+
+warn 
+		message = Sorry, your have dangerous (e) content in attachment(s).
+        condition = ${lookup{$mime_filename}wildlsearch{/media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/data/mime/ext_danger}{yes}{no}}
+		#
+		set acl_c_rule = delivery_deny_attach_danger_1
+		set acl_c_score_mta_inc = SCORE_ATTACH_DANGER
+		set acl_c_score_reason = Dangerous (ext) content in attachment(s) -$mime_filename
+		set acl_c_msg_view = $acl_c_msg_view_def
+		set acl_c_acl_action = $acl_c_acl_action_def
+		set acl_c_advlog_inc = $acl_c_advlog_inc_def			
+		#
+		set acl_c_score_prev = $acl_c_score_total
+		set acl_c_score_content = ${eval10:$acl_c_score_content + $acl_c_score_mta_inc}
+		set acl_c_score_total = ${eval10:$acl_c_score_mta + $acl_c_score_content}	
+
+warn 
+		message = Sorry, your have dangerous (m) content in attachment(s).
+        condition = ${lookup{$mime_filename}wildlsearch{/media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/data/mime/ext_danger}{no}{yes}}		
+        condition = ${lookup{$mime_content_type}wildlsearch{/media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/data/mime/mime_danger}{yes}{no}}
+		#
+		set acl_c_rule = delivery_deny_attach_danger_2
+		set acl_c_score_mta_inc = SCORE_ATTACH_DANGER
+		set acl_c_score_reason = Dangerous (mime) content in attachment(s) -$mime_filename
+		set acl_c_msg_view = $acl_c_msg_view_def
+		set acl_c_acl_action = $acl_c_acl_action_def
+		set acl_c_advlog_inc = $acl_c_advlog_inc_def		
+		#
+		set acl_c_score_prev = $acl_c_score_total
+		set acl_c_score_content = ${eval10:$acl_c_score_content + $acl_c_score_mta_inc}
+		set acl_c_score_total = ${eval10:$acl_c_score_mta + $acl_c_score_content}	
+   
+.endif
+

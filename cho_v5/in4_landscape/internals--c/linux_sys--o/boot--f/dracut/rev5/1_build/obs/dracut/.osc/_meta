@@ -1,0 +1,5 @@
+<package name="dracut" project="home:conecenter:rev5a1:ontology:internals--c:linux_sys--o:boot--f">
+  <title>dracut</title>
+  <description>dracut</description>
+</package>
+

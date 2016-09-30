@@ -1,0 +1,49 @@
+#locks path
+mkdir -p /media/storage/database/oracle/wk10/cone/locks
+chown -R oracle:oinstall /media/storage/database/oracle/wk10/cone/
+
+sed -i "s/\/media\/storage\/software\/oracle\/cone/\/media\/storage\/as\/oracle\/cone\/locks/" /media/storage/as/oracle/cone/compile/C/lck_top.c
+sed -i "s/\/opt\/oracle\/database\/locks/\/media\/storage\/as\/oracle\/cone\/locks/"  /media/storage/as/oracle/cone/compile/C/lck_top.c
+
+/opt/oracle/database/locks
+
+
+mv /usr/bin/gcc-4.8 /usr/bin/realgcc
+cp /media/storage/as/oracle/cone/compile/bin/gcc /usr/bin/gcc-4.8 && chmod 755 /usr/bin/gcc-4.8
+
+
+
+su - oracle 
+sqlplus 'E$CORE'
+
+	set echo on
+	set verify off
+	set serveroutput on;
+	alter session set plsql_compiler_flags="NATIVE";
+	alter package lck compile;
+	alter package lckv compile;
+	alter package lck compile body;
+	BEGIN                                                                                                                                                                               
+	LCK.CLEAR(0);                                                                                                                                                                
+	END; 
+	/
+	exit;
+
+
+        
+        mv -f /usr/bin/realgcc /usr/bin/gcc-4.8
+
+        
+        
+##### APP moving
+
+
+##### FILE LOGS
+   92  ln -s /media/storage/as/oracle/_mv_svn/initwk10.ora /media/storage/as/oracle/sid/
+  100  ln -s /media/storage/as/oracle/logs/startup.log /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/startup.log
+  102  ln -s /media/storage/as/oracle/logs/shutdown.log /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/shutdown.log
+  105  ln -s /media/storage/as/oracle/sid /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/dbs
+  112  ln -s /media/storage/as/oracle/logs/rdbms ./log
+  113  ln -s /media/storage/as/oracle/logs/rdbms ./audit
+   ln -s /media/storage/as/oracle/sid/oratab /etc/oratab
+

@@ -1,0 +1,91 @@
+[Unit]
+Description		= rev5__oracle10g
+Documentation	= man:{MAN}
+Documentation	= http://{WEBSITE}
+
+## DEPS ## 
+ #Conflicts=, # Wants=,  # Before=, # PartOf=, #OnFailure=,  #PropagatesReloadTo=, ReloadPropagatedFrom=
+ Requires		= var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
+ After			= var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
+##
+
+
+## MISC ## 
+ #StopWhenUnneeded	= true
+ #ConditionPathExists	=
+##
+
+[Service]
+ 
+## TYPE ##
+    Type=simple
+    #RemainAfterExit=yes
+##
+
+## EXECS ##
+ExecStartPre        = /bin/sh /media/storage/as/oracle/_mv_svn/techpool/memset_pfile.sh
+ExecStart		= /bin/sh /media/storage/as/oracle/_mv_svn/techpool/run.sh start
+ #ExecStartPre    = sqplus по циклу
+#  ExecStop             = /bin/sh /tmp/run.sh stop
+ ExecStop		= /bin/sh /media/storage/as/oracle/_mv_svn/techpool/run.sh stop
+ ExecReload		= /bin/kill -HUP $MAINPID
+
+ #loging -  "instance":"%I"
+##
+ 
+## PERMISSIONS ##
+ #WorkingDirectory	= /media/storage
+ User			= oracle
+ Group			= oinstall
+
+ #SupplementaryGroups = sysapp
+ #UMask			= 
+##
+
+## MISC ##
+ Restart			= always
+ RestartSec		= 300
+ #PrivateTmp		= true
+ #TimeoutSec		= 300 # larger for DB/huge RAM ps
+ #EnvironmentFile	= -/
+##
+
+## SYSLOG ##
+ SyslogIdentifier	= rev5__oracle10g
+ SyslogFacility	= local7
+ SyslogLevel		= info
+ #SyslogLevelPrefix	= false #Can be disabled for ...
+##
+ 
+
+## SECURITY ##
+ #ProtectSystem	= full
+ #ProtectHome		= true
+ #AppArmorProfile	= 
+ #PAMName		= 
+ #SecureBits		= 
+ #Capabilities		= 
+ #ReadWriteDirectories=, ReadOnlyDirectories=, InaccessibleDirectories=
+##
+ 
+
+## LIMITS ##
+ Nice				= 0
+ OOMScoreAdjust	        = -1000
+ IOSchedulingClass 	= best-effort
+ IOSchedulingPriority   = 1
+ LimitMEMLOCK=infinity 
+ LimitNOFILE=65535
+ #MemoryLimit		= 
+ #BlockIOReadBandwidth = 
+ #BlockIOWriteBandwidth = 
+## 
+
+ 
+[Install]
+WantedBy			= multi-user.target
+#RequiredBy=, #Alias = 
+
+## REV5 - WANTEDBY
+#WantedBy			= rev5.target
+##

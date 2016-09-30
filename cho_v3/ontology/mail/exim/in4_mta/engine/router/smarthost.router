@@ -1,0 +1,8 @@
+begin routers 
+
+smarthost:
+  driver = manualroute
+  ignore_target_hosts = <; 0.0.0.0/0 ; 127.0.0.0/8 ; ::1; 0::0/0    
+  transport = smtp
+  route_data = GLOBAL_SMTP_DELIVERY_TO
+  no_more   

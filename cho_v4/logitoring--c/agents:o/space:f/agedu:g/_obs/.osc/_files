@@ -1,0 +1,6 @@
+<directory name="agedu" rev="5" srcmd5="eb87cbb10a383f03f839ce9fca476510" vrev="5">
+  <serviceinfo code="succeeded" xsrcmd5="caddbcac417e8f55fd1ee718bbb5ea30" />
+  <entry md5="fb5d7600d547805d0a6cdf481557b060" mtime="1453124534" name="_service" size="481" />
+  <entry md5="a03f6103bb419b2c914ce7656dd3de81" mtime="1453135832" name="agedu.1" size="33311" />
+  <entry md5="ec7e4602aed7a173806d3df9c6d2c47b" mtime="1453135832" name="agedu.spec" size="2478" />
+</directory>

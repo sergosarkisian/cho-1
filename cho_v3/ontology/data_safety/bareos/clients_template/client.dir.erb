@@ -1,0 +1,10 @@
+##
+Client {
+    FD Port        = <%= state["fdPort"] %>
+    Name	         = <%= state["fqdn"] %>
+    Address	 = <%= state["fqdn"] %>
+    Catalog	 = <%= state["directorFQDN"] %>
+    Password	 = "<%= state["fqdn"] %>"
+    Maximum Concurrent Jobs = <%= state["fdMaxConcJobs"] %>
+}
+##

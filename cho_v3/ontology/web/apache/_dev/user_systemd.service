@@ -1,0 +1,16 @@
+[Unit]
+Description=Web application - WEBSITE (apache-backed)
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+PIDFile=/media/storage/sites/WEBSITE/conf/services/apache.pid
+WorkingDirectory=/media/storage/sites/WEBSITE/
+ExecStart=/usr/sbin/apache2ctl -D SYSTEMD  -k start -d /media/storage/sites/WEBSITE/ -f /media/storage/sites/WEBSITE/conf/apache.conf
+ExecReload=/usr/sbin/apache2ctl -D SYSTEMD  -k graceful -d /media/storage/sites/WEBSITE/ -f /media/storage/sites/WEBSITE/conf/apache.conf
+ExecStop=/usr/sbin/apache2ctl -D SYSTEMD  -k graceful-stop -d /media/storage/sites/WEBSITE/ -f /media/storage/sites/WEBSITE/conf/apache.conf
+User=WEBSITE
+Group=nobody
+
+[Install]
+WantedBy=multi-user.target

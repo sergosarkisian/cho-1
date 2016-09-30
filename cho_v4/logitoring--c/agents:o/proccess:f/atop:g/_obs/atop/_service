@@ -1,0 +1,8 @@
+<services>
+  <service name="download_url">
+    <param name="protocol">http</param>  
+    <param name="host">www.atoptool.nl</param>
+    <param name="path">/download/atop-2.2-3.tar.gz</param>    
+    <param name="filename">__Name@atop__Ver@2.2__Rel@3__RelDate@%20150625__Tag@download__.obs.tar.gz</param>
+  </service> 
+</services>

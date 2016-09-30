@@ -1,0 +1,6 @@
+## Name: internals--c--linux_sys--o--boot--f--grub2--g--main--s
+## Description: Open ports for internals--c--linux_sys--o--boot--f--grub2--g--main--s
+
+# space separated list of allowed TCP ports
+TCP=""
+ 

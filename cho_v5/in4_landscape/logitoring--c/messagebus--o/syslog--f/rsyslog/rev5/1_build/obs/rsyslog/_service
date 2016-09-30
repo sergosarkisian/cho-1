@@ -1,0 +1,14 @@
+<services>
+  <service name="tar_scm">
+    <param name="url">https://github.com/rsyslog/rsyslog.git</param>
+    <param name="revision">v8-stable</param>
+    
+    <param name="scm">git</param>
+    <param name="versionformat">__Name@rsyslog__Ver@8.21.0__Rel@roll__RelDate@%cd__Tag@git+%h__.obs</param>
+    <param name="exclude">.git</param>    
+  </service>
+  <service name="recompress">
+    <param name="file">*.tar</param>
+    <param name="compression">gz</param>
+  </service>
+</services>

@@ -1,0 +1,18 @@
+
+Job{
+  Name          = restore_php.jobdef
+  Type          = Restore                                       # Type: Backup, Restore, Verify, Migrate, Copy, Admin
+  Pool                  = Default                       # Default pool
+  Client = default
+  Storage = default
+  FileSet       = fileset-dynaset
+  #Client Run Before Job = "/tmp/runbeforejob.sh"
+  #Where                = /media/storage/restore/%i
+  Regex Where = !/sites/([^/]*)/htdocs/(.*)!/sites/\1/htdocs.restore/\2!
+  RunScript {
+    FailJobOnError = Yes
+    RunsOnClient = Yes
+    RunsWhen = Before
+    Command = "/tmp/runbefore.sh"
+  }
+}

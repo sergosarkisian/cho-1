@@ -1,0 +1,6 @@
+## Name: rev5_bareos-os ports
+## Description: Open ports for rev5_bareos-os
+
+# space separated list of allowed TCP ports
+TCP="9102"
+ 

@@ -1,0 +1,6 @@
+## Name: rev5_haproxyi@tcp-infra ports
+## Description: Open ports for rev5_haproxyi@tcp-infra
+
+# space separated list of allowed TCP ports
+TCP="25 465 993 783 10051 10052 20514 636"
+ 

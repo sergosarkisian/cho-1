@@ -1,0 +1,122 @@
+#!/bin/bash -e
+
+
+###ZYPPER
+
+sed -i "s/# solver.allowVendorChange.*/solver.allowVendorChange = false/" /etc/zypp/zypp.conf
+sed -i "s/solver.allowVendorChange.*/solver.allowVendorChange = false/" /etc/zypp/zypp.conf
+
+sed -i "s/# solver.cleandepsOnRemove.*/solver.cleandepsOnRemove = true/" /etc/zypp/zypp.conf
+sed -i "s/solver.cleandepsOnRemove.*/solver.cleandepsOnRemove = true/" /etc/zypp/zypp.conf
+
+sed -i "s/# installRecommends.*/installRecommends = no/" /etc/zypp/zypper.conf
+sed -i "s/installRecommends.*/installRecommends = no/" /etc/zypp/zypper.conf
+
+sed -i "s/# solver.onlyRequires.*/solver.onlyRequires = true/" /etc/zypp/zypp.conf
+sed -i "s/solver.onlyRequires.*/solver.onlyRequires = true/" /etc/zypp/zypp.conf
+
+sed -i "s/# solver.upgradeTestcasesToKeep.*/solver.upgradeTestcasesToKeep = 0/" /etc/zypp/zypp.conf
+sed -i "s/solver.upgradeTestcasesToKeep.*/solver.upgradeTestcasesToKeep = 0/" /etc/zypp/zypp.conf
+
+sed -i "s/# history.logfile =.*/history.logfile = \/media\/logs\/files\/zypp\/history/" /etc/zypp/zypp.conf
+sed -i "s/history.logfile =.*/history.logfile = \/media\/logs\/files\/zypp\/history/" /etc/zypp/zypp.conf
+
+sed -i "s/multiversion.kernels =.*/multiversion.kernels = latest,running/" /etc/zypp/zypp.conf
+
+
+
+######
+
+## PASSWORD CHANGE & USRR/GROUP CREATION
+echo 'root:$6$MT8dOpx6$5PfF1i.j/PuDwNyEeh3gohhi2eE9zlRDuHex4aL46DYCyxL/WjKD/CpdDtGA6.L2RweuPommpkGgP3Uo26kIU.' |chpasswd -e
+
+groupadd -g 1000 localadmin
+useradd -g localadmin -u 1000 -m localadmin
+echo 'localadmin:$6$qJEkrJcMsaNw$gKdxOs6v0WbsElUDSBhbc0TjSSS1FVwxD4asZvH0tHjFwKi3kyRP1y51j1DyqzKkPMmy4PXM7GlCSqKOk35/N1' |chpasswd -e
+
+groupadd -g 999 log
+useradd -g log -u 999 -M -d /media/logs log
+
+groupadd -g 998 sysapp
+
+##
+
+## LOGIN DEFS
+sed -i "s/FAIL_DELAY.*/FAIL_DELAY   10/" /etc/login.defs
+sed -i "s/UMASK.*/UMASK   077/" /etc/login.defs
+##
+
+## SUDOERS
+sed -i "s/^Defaults targetpw/#Defaults targetpw/" /etc/sudoers
+sed -i "s/ALL\tALL=(ALL).*/#DISABLE UNNAMED SUDOERS CALL/" /etc/sudoers
+if grep -Fxq "#DISABLE UNNAMED SUDOERS CALL" /etc/sudoers
+then
+    echo "Defaults targetpw is already disabled"
+else
+    echo "UNSECURE!!!"
+    exit 1
+fi
+
+echo -e "localadmin     ALL=(ALL) ALL" > /etc/sudoers.d/local
+##
+
+ 
+##NETWORK
+sed -i "s/NETCONFIG_DNS_POLICY=.*/NETCONFIG_DNS_POLICY=\"auto\"/" /etc/sysconfig/network/config
+sed -i "s/CHECK_DUPLICATE_IP=.*/CHECK_DUPLICATE_IP='yes'/"    /etc/sysconfig/network/config
+##
+
+##STORAGE
+sed -i "s/DEVICE_NAMES=.*/DEVICE_NAMES=\"label\"/"    /etc/sysconfig/storage
+##
+
+#TIME
+sed -i "s/DAILY_TIME=.*/DAILY_TIME=\"00:00\"/" /etc/sysconfig/cron
+##
+
+##SSH
+sed -i "s/X11Forwarding.*/X11Forwarding no/" /etc/ssh/sshd_config
+sed -i "s/#AllowTcpForwarding.*/AllowTcpForwarding no/" /etc/ssh/sshd_config
+sed -i "s/#Port 22/Port 1000/" /etc/ssh/sshd_config
+sed -i "s/#PermitRootLogin.*/PermitRootLogin no/" /etc/ssh/sshd_config
+sed -i "s/PermitRootLogin.*/PermitRootLogin no/" /etc/ssh/sshd_config
+sed -i "s/#Protocol 2/Protocol 2/" /etc/ssh/sshd_config
+sed -i "s/#ClientAliveInterval.*/ClientAliveInterval 20/" /etc/ssh/sshd_config
+sed -i "s/#MaxAuthTries.*/MaxAuthTries 3/" /etc/ssh/sshd_config
+sed -i "s/#UseDNS.*/UseDNS no/" /etc/ssh/sshd_config
+sed -i "s/#   Port.*/    Port 1000/" /etc/ssh/ssh_config
+    
+if grep -Fxq "ServerAliveInterval 20" /etc/ssh/ssh_config
+    then
+    echo "ServerAliveInterval 20"
+	else
+	echo "ServerAliveInterval 20"  >> /etc/ssh/ssh_config
+fi
+##
+
+## FIREWALL
+sed -i "s/FW_SERVICES_EXT_TCP=.*/FW_SERVICES_EXT_TCP=\"1000\"/" /etc/sysconfig/SuSEfirewall2
+sed -i "s/FW_LOG_ACCEPT_CRIT=.*/FW_LOG_ACCEPT_CRIT=\"no\"/" /etc/sysconfig/SuSEfirewall2
+sed -i "s/FW_IGNORE_FW_BROADCAST_EXT=.*/FW_IGNORE_FW_BROADCAST_EXT=\"yes\"/" /etc/sysconfig/SuSEfirewall2
+sed -i "s/FW_IGNORE_FW_BROADCAST_INT=.*/FW_IGNORE_FW_BROADCAST_INT=\"yes\"/" /etc/sysconfig/SuSEfirewall2
+sed -i "s/FW_IGNORE_FW_BROADCAST_DMZ=.*/FW_IGNORE_FW_BROADCAST_DMZ=\"yes\"/" /etc/sysconfig/SuSEfirewall2
+sed -i "s/FW_LOG_ACCEPT_CRIT=.*/FW_LOG_ACCEPT_CRIT=\"no\"/" /etc/sysconfig/SuSEfirewall2
+sed -i "s/FW_PROTECT_FROM_INT=.*/FW_PROTECT_FROM_INT=\"yes\"/" /etc/sysconfig/SuSEfirewall2
+##
+
+
+## PROXY
+sed -i "s/HTTP_PROXY=.*/HTTP_PROXY=\"http:\/\/x:55555\"/" /etc/sysconfig/proxy
+sed -i "s/HTTPS_PROXY=.*/HTTPS_PROXY=\"http:\/\/x:55555\"/" /etc/sysconfig/proxy
+sed -i "s/FTP_PROXY=.*/FTP_PROXY=\"http:\/\/x:55555\"/" /etc/sysconfig/proxy
+sed -i "s/NO_PROXY=.*/NO_PROXY=\"localhost, 127.0.0.1, .ccm, .pool\"/" /etc/sysconfig/proxy	
+##
+
+
+## RM TMP/LOG
+rm -f /var/lib/sss/db/*
+rm -f /var/log/*/*
+rm -f /var/log/*.log
+##
+
+###

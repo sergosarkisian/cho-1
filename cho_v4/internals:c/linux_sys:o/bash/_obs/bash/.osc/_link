@@ -1,0 +1,7 @@
+<link project="shells" package="bash" baserev="ab8b8f5c057c02ac93ea219bb03c2198">
+  <patches>
+    <delete name="bashhist_syslog.patch" />
+    <delete name="config-top_syslog.patch" />
+    <apply name="project.diff" />
+  </patches>
+</link>

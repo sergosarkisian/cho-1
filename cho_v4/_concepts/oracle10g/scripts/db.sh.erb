@@ -1,0 +1,27 @@
+#!/bin/bash
+/opt/oracle/product/10g/bin/sqlplus -s -l "/ as sysdba" <<EOF
+set verify off
+DEFINE sysPassword = <%= @sysPassword %>
+DEFINE systemPassword = <%= @systemPassword %>
+host /opt/oracle/product/10g/bin/orapwd file=/media/<%= @disk_label %>/database/oracle/<%= @sid %>/data/main/orapw<%= @sid %> password=&&sysPassword force=y
+@/media/<%= @disk_label %>/database/oracle/<%= @sid %>/manage/conf/scripts/CreateDB.sql;
+@/media/<%= @disk_label %>/database/oracle/<%= @sid %>/manage/conf/scripts/CreateDBFiles.sql;
+@/media/<%= @disk_label %>/database/oracle/<%= @sid %>/manage/conf/scripts/CreateDBCatalog.sql;
+@/media/<%= @disk_label %>/database/oracle/<%= @sid %>/manage/conf/scripts/JServer.sql;
+@/media/<%= @disk_label %>/database/oracle/<%= @sid %>/manage/conf/scripts/odm.sql;
+@/media/<%= @disk_label %>/database/oracle/<%= @sid %>/manage/conf/scripts/context.sql;
+@/media/<%= @disk_label %>/database/oracle/<%= @sid %>/manage/conf/scripts/xdb_protocol.sql;
+@/media/<%= @disk_label %>/database/oracle/<%= @sid %>/manage/conf/scripts/ordinst.sql;
+@/media/<%= @disk_label %>/database/oracle/<%= @sid %>/manage/conf/scripts/interMedia.sql;
+@/media/<%= @disk_label %>/database/oracle/<%= @sid %>/manage/conf/scripts/cwmlite.sql;
+@/media/<%= @disk_label %>/database/oracle/<%= @sid %>/manage/conf/scripts/labelSecurity.sql;
+@/media/<%= @disk_label %>/database/oracle/<%= @sid %>/manage/conf/scripts/postDBCreation.sql;
+@/media/<%= @disk_label %>/database/oracle/<%= @sid %>/manage/conf/scripts/zabbix.sql;
+@/opt/oracle/product/10g/rdbms/admin/catbundle.sql psu apply;
+@/opt/oracle/product/10g/rdbms/admin/utlrp.sql;
+@/opt/oracle/product/10g/rdbms/admin/tracetab.sql;
+exit;
+EOF
+<%=  -%>
+
+<%=  -%>

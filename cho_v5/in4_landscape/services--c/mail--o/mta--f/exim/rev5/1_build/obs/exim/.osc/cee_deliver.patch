@@ -1,0 +1,201 @@
+--- ./src/src/deliver.c.orig	2016-08-16 10:27:39.000000000 +0300
++++ ./src/src/deliver.c	2016-08-17 21:41:12.850272045 +0300
+@@ -699,11 +699,11 @@
+ if (LOGGING(incoming_interface) && LOGGING(outgoing_interface)
+     && sending_ip_address)
+   {
+-  s = string_append(s, sizep, ptrp, 2, US" I=[", sending_ip_address);
++      s = string_append(s, sizep, ptrp, 2, US"\"in_intf\":\"", sending_ip_address);
+   s = LOGGING(outgoing_port)
+-    ? string_append(s, sizep, ptrp, 2, US"]:",
+-	string_sprintf("%d", sending_port))
+-    : string_cat(s, sizep, ptrp, US"]", 1);
++    ? string_append(s, sizep, ptrp, 3, US":",
++                    string_sprintf("%d", sending_port),US"\", ")
++    : string_cat(s, sizep, ptrp, US"\", ", 1);
+   }
+ return s;
+ }
+@@ -712,20 +712,20 @@
+ 
+ static uschar *
+ d_hostlog(uschar *s, int *sizep, int *ptrp, address_item *addr)
+-{
+-s = string_append(s, sizep, ptrp, 5, US" H=", addr->host_used->name,
+-  US" [", addr->host_used->address, US"]");
++{    
++    s = string_append(s, sizep, ptrp, 5, US"\"hostname\":\"", addr->host_used->name,
++                      US"\", \"ip\":\"", addr->host_used->address, US"\", ");
+ if (LOGGING(outgoing_port))
+-  s = string_append(s, sizep, ptrp, 2, US":", string_sprintf("%d",
+-    addr->host_used->port));
++    s = string_append(s, sizep, ptrp, 3, US"\"port\":\"", string_sprintf("%d",
++                                                                         addr->host_used->port), US"\", ");
+ 
+ #ifdef SUPPORT_SOCKS
+ if (LOGGING(proxy) && proxy_local_address)
+   {
+-  s = string_append(s, sizep, ptrp, 3, US" PRX=[", proxy_local_address, US"]");
++      s = string_append(s, sizep, ptrp, 2, US"\"socks_proxy\":\"", proxy_local_address);
+   if (LOGGING(outgoing_port))
+-    s = string_append(s, sizep, ptrp, 2, US":", string_sprintf("%d",
+-      proxy_local_port));
++    s = string_append(s, sizep, ptrp, 3, US":", string_sprintf("%d",
++                                                               proxy_local_port), US"\", ");
+   }
+ #endif
+ 
+@@ -741,9 +741,9 @@
+ d_tlslog(uschar * s, int * sizep, int * ptrp, address_item * addr)
+ {
+ if (LOGGING(tls_cipher) && addr->cipher)
+-  s = string_append(s, sizep, ptrp, 2, US" X=", addr->cipher);
+-if (LOGGING(tls_certificate_verified) && addr->cipher)
+-  s = string_append(s, sizep, ptrp, 2, US" CV=",
++    s = string_append(s, sizep, ptrp, 3, US" \"tls_cipher\":\"", addr->cipher, US"\", ");
++if (LOGGING(tls_certificate_verified) && addr->cipher, US"\", ")
++    s = string_append(s, sizep, ptrp, 3, US"\"tls_cert_verified\":\"",
+     testflag(addr, af_cert_verified)
+     ?
+ #ifdef EXPERIMENTAL_DANE
+@@ -752,10 +752,10 @@
+     :
+ #endif
+       "yes"
+-    : "no");
++      : "no", US"\", ");
+ if (LOGGING(tls_peerdn) && addr->peerdn)
+-  s = string_append(s, sizep, ptrp, 3, US" DN=\"",
+-    string_printing(addr->peerdn), US"\"");
++    s = string_append(s, sizep, ptrp, 3, US"\"tls_dn\":\"",
++                    string_printing(addr->peerdn), US"\", ");
+ return s;
+ }
+ #endif
+@@ -861,28 +861,31 @@
+ 
+ s = reset_point = store_get(size);
+ 
++s = string_append(s, &size, &ptr, 1, US"@cee: {"
++            "\"event_type\":\"mail\", \"event_class\":\"internal\", \"event_view\":\"send_as_cli\", " //HEADER_ALL
++            "\"exim_flow\":\"out\", ");
++
+ log_address = string_log_address(addr, LOGGING(all_parents), TRUE);
+ if (msg)
+-  s = string_append(s, &size, &ptr, 3, host_and_ident(TRUE), US" ", log_address);
++    s = string_append(s, &size, &ptr, 4, host_and_ident(TRUE), US"\"unknown_11\":\"", log_address, US"\", ");
+ else
+   {
+-  s[ptr++] = logchar;
+-  s = string_append(s, &size, &ptr, 2, US"> ", log_address);
++s = string_append(s, &size, &ptr, 3, US"\"to\":\"", log_address, US"\", ");
+   }
+ 
+ if (LOGGING(sender_on_delivery) || msg)
+-  s = string_append(s, &size, &ptr, 3, US" F=<",
++    s = string_append(s, &size, &ptr, 3, US"\"from\":\"",
+ #ifdef SUPPORT_I18N
+     testflag(addr, af_utf8_downcvt)
+     ? string_address_utf8_to_alabel(sender_address, NULL)
+     :
+ #endif
+       sender_address,
+-  US">");
++      US"\", ");
+ 
+ #ifdef EXPERIMENTAL_SRS
+ if(addr->prop.srs_sender)
+-  s = string_append(s, &size, &ptr, 3, US" SRS=<", addr->prop.srs_sender, US">");
++    s = string_append(s, &size, &ptr, 3, US"\"srs\":\"", addr->prop.srs_sender, US"\", ");
+ #endif
+ 
+ /* You might think that the return path must always be set for a successful
+@@ -891,27 +894,27 @@
+ being run at all. */
+ 
+ if (used_return_path && LOGGING(return_path_on_delivery))
+-  s = string_append(s, &size, &ptr, 3, US" P=<", used_return_path, US">");
++    s = string_append(s, &size, &ptr, 3, US"\"return_path\":\"", used_return_path, US"\", ");
+ 
+ if (msg)
+-  s = string_append(s, &size, &ptr, 2, US" ", msg);
++    s = string_append(s, &size, &ptr, 3, US"\"unknown_22\":\"", msg, US"\", ");
+ 
+ /* For a delivery from a system filter, there may not be a router */
+ if (addr->router)
+-  s = string_append(s, &size, &ptr, 2, US" R=", addr->router->name);
++    s = string_append(s, &size, &ptr, 3, US"\"router\":\"", addr->router->name, US"\", ");
+ 
+-s = string_append(s, &size, &ptr, 2, US" T=", addr->transport->name);
++s = string_append(s, &size, &ptr, 3, US" \"transport\":\"", addr->transport->name, US"\", ");
+ 
+ if (LOGGING(delivery_size))
+-  s = string_append(s, &size, &ptr, 2, US" S=",
+-    string_sprintf("%d", transport_count));
++    s = string_append(s, &size, &ptr, 3, US"\"delivery_size\":\"",
++                    string_sprintf("%d", transport_count), US"\", ");
+ 
+ /* Local delivery */
+ 
+ if (addr->transport->info->local)
+   {
+   if (addr->host_list)
+-    s = string_append(s, &size, &ptr, 2, US" H=", addr->host_list->name);
++      s = string_append(s, &size, &ptr, 3, US"\"host\":\"", addr->host_list->name, US"\", ");
+   s = d_log_interface(s, &size, &ptr);
+   if (addr->shadow_message)
+     s = string_cat(s, &size, &ptr, addr->shadow_message,
+@@ -980,24 +983,28 @@
+     }
+   *p++ = '\"';
+   *p = 0;
+-  s = string_append(s, &size, &ptr, 2, US" C=", big_buffer);
++  s = string_append(s, &size, &ptr, 3, US" \"confirmation\":", big_buffer,US", " );
+   }
+ 
+ /* Time on queue and actual time taken to deliver */
+ 
+ if (LOGGING(queue_time))
+-  s = string_append(s, &size, &ptr, 2, US" QT=",
+-    readconf_printtime( (int) ((long)time(NULL) - (long)received_time)) );
++    s = string_append(s, &size, &ptr, 3, US" \"queue_time\":\"",
++                    readconf_printtime( (int) ((long)time(NULL) - (long)received_time)),US"\", " );
+ 
+ if (LOGGING(deliver_time))
+-  s = string_append(s, &size, &ptr, 2, US" DT=",
+-    readconf_printtime(addr->more_errno));
++    s = string_append(s, &size, &ptr, 3, US" \"deliver_time\":\"",
++                    readconf_printtime(addr->more_errno),US"\", ");
+ 
+ /* string_cat() always leaves room for the terminator. Release the
+ store we used to build the line after writing it. */
+ 
++message_id, //SECTION4
++s = string_append(s, &size, &ptr, 3, "\"message_id\":\"",message_id, US"\" ");
++s = string_append(s, &size, &ptr, 1, US" }");
++
+ s[ptr] = 0;
+-log_write(0, flags, "%s", s);
++log_write(0, LOG_CEE, "%s", s);
+ 
+ #ifndef DISABLE_EVENT
+ if (!msg) msg_event_raise(US"msg:delivery", addr);
+@@ -7554,8 +7561,16 @@
+   /* Log the end of this message, with queue time if requested. */
+ 
+   if (LOGGING(queue_time_overall))
+-    log_write(0, LOG_MAIN, "Completed QT=%s",
+-      readconf_printtime( (int) ((long)time(NULL) - (long)received_time)) );
++   // log_write(0, LOG_MAIN, "Completed QT=%s",
++   //   readconf_printtime( (int) ((long)time(NULL) - (long)received_time)) );
++    
++    log_write(0,
++              LOG_CEE, "@cee: {"
++              "\"event_type\":\"mail\", \"event_class\":\"internal\", \"event_view\":\"queue_deliver\", " //HEADER_ALL
++              "\"message_id\":\"%s\","  //SECTION4
++              "\"queue_time\":\"%s\"}", //CONTEXT
++              message_id, //SECTION4
++              readconf_printtime( (int) ((long)time(NULL) - (long)received_time)) ); //CONTEXT
+   else
+     log_write(0, LOG_MAIN, "Completed");
+ 

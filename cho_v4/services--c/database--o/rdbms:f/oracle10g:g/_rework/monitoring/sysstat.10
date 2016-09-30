@@ -1,0 +1,489 @@
+SQL> select * FROM V$SYSSTAT;
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+         0 logons cumulative                                                         1    4185793 2666645286
+         1 logons current                                                            1        114 3080465522
+         2 opened cursors cumulative                                                 1 8861648442   85052502
+         3 opened cursors current                                                    1       1785 2301954928
+         4 user commits                                                              1  195579726  582481098
+         5 user rollbacks                                                            1   87951070 3671147913
+         6 user calls                                                                1 1.2050E+10 2882015696
+         7 recursive calls                                                           1 3.9724E+10 2656001462
+         8 recursive cpu usage                                                       1  933912150 4009879262
+         9 session logical reads                                                     1 3.0837E+12 3143187968
+        10 session stored procedure space                                            1          0  895486831
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+        11 CPU used when call started                                              128 1616968343  572264820
+        12 CPU used by this session                                                  1 1692031077   24469293
+        13 DB time                                                                   1 9447032913 3649082374
+        14 cluster wait time                                                         1          0 2432034337
+        15 concurrency wait time                                                     1    6833902 3868577743
+        16 application wait time                                                     1    7631526 1099569955
+        17 user I/O wait time                                                        1   90914427 3332107451
+        18 session connect time                                                      1 1304924135 1678473874
+        19 process last non-idle time                                              128 1306405177 2049556447
+        20 session uga memory                                                        1 1.4373E+16 1856888586
+        21 session uga memory max                                                    1 8.9211E+12 3840343119
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+        22 messages sent                                                           128  210987671 2486045308
+        23 messages received                                                       128  210987675 1396153242
+        24 background timeouts                                                     128   33627598  961017212
+        25 session pga memory                                                        1 1.4467E+13 4148600571
+        26 session pga memory max                                                    1 5.6281E+13  507777907
+        27 enqueue timeouts                                                          4    4817667 2425496215
+        28 enqueue waits                                                             4     424311 2307006529
+        29 enqueue deadlocks                                                         4          4  472183780
+        30 enqueue requests                                                          4 3131590157 2440542518
+        31 enqueue conversions                                                       4  310510298   57745673
+        32 enqueue releases                                                          4 3126772317 2553146675
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+        33 global enqueue gets sync                                                 32          0 1338475854
+        34 global enqueue gets async                                                32          0 2892637759
+        35 global enqueue get time                                                  32          0 3744090840
+        36 global enqueue releases                                                  32          0 1516404026
+        37 physical read total IO requests                                           8  375825978 3343375620
+        38 physical read total multi block requests                                  8   91350297 2007302071
+        39 physical read total bytes                                                 8 1.5928E+13 2572010804
+        40 physical write total IO requests                                          8  557479570 1315894329
+        41 physical write total multi block requests                                 8  462514147 3540174003
+        42 physical write total bytes                                                8 1.6614E+13 2495644835
+        43 IPC CPU used by this session                                             32          0 4247517299
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+        44 gcs messages sent                                                        32          0 2765451804
+        45 ges messages sent                                                        32          0 1145425433
+        46 global enqueue CPU used by this session                                  32          0 3469911798
+        47 db block gets                                                             8 2.0306E+10 1480709069
+        48 db block gets from cache                                                  8 2.0290E+10 4017839461
+        49 db block gets direct                                                      8   16290177   95128520
+        50 consistent gets                                                           8 3.0634E+12 4162191256
+        51 consistent gets from cache                                                8 3.0634E+12 2839918855
+        52 consistent gets - examination                                             8 2.2165E+12 1701530557
+        53 consistent gets direct                                                    8   12141163  420374750
+        54 physical reads                                                            8 1446985875 2263124246
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+        55 physical reads cache                                                      8  349541493 4171507801
+        56 physical reads direct                                                     8 1097444381 2589616721
+        57 physical read IO requests                                                 8  332176519  789768877
+        58 physical read bytes                                                       8 1.3766E+13  523531786
+        59 db block changes                                                          8 1.3454E+10  916801489
+        60 consistent changes                                                        8 4.5442E+10 3876379665
+        61 recovery blocks read                                                      8       1360 3327333035
+        62 physical writes                                                           8 1341632383 1190468109
+        63 physical writes direct                                                    8 1183620942 2699895516
+        64 physical writes from cache                                                8  158011441  163083034
+        65 physical write IO requests                                                8  155968119 2904164198
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+        66 physical write bytes                                                      8 1.1963E+13 3131337131
+        67 physical writes non checkpoint                                            8 1273030871 2602029796
+        68 summed dirty queue length                                                 8   24606260 1683565474
+        69 DBWR checkpoint buffers written                                           8  148446333 1208600358
+        70 DBWR thread checkpoint buffers written                                    8    5463876 3905787588
+        71 DBWR tablespace checkpoint buffers written                                8          0 2649259263
+        72 DBWR parallel query checkpoint buffers written                            8          0 1768645316
+        73 DBWR object drop buffers written                                          8       9112  658143835
+        74 DBWR transaction table writes                                             8     675614 2146120386
+        75 DBWR undo block writes                                                    8   64061562  111270822
+        76 DBWR revisited being-written buffer                                       8         13 2773697723
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+        77 DBWR make free requests                                                   8          0 1237874725
+        78 DBWR lru scans                                                            8          0 2139101792
+        79 DBWR checkpoints                                                          8      38321 1732023165
+        80 DBWR fusion writes                                                       40          0 2313150541
+        81 prefetch clients - keep                                                   8          0  574469659
+        82 prefetch clients - recycle                                                8          0 4053781837
+        83 prefetch clients - default                                                8         39 1612053064
+        84 prefetch clients - 2k                                                     8          0  396625644
+        85 prefetch clients - 4k                                                     8          0 3252900252
+        86 prefetch clients - 8k                                                     8          0 1402775714
+        87 prefetch clients - 16k                                                    8          0  792304463
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+        88 prefetch clients - 32k                                                    8         38 2351177679
+        89 change write time                                                         8    4302004 2838938797
+        90 redo synch writes                                                         8   32631835 1439995281
+        91 redo synch time                                                           8   24840601 4215815172
+        92 exchange deadlocks                                                        8      20475   14632483
+        93 free buffer requested                                                     8 2767463355 3411924934
+        94 dirty buffers inspected                                                   8    5276418 1344569897
+        95 pinned buffers inspected                                                  8      22385  833456521
+        96 hot buffers moved to head of LRU                                          8  782037210 2030212224
+        97 free buffer inspected                                                     8  477540010  941676439
+        98 commit cleanout failures: write disabled                                  8          0 2063165199
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+        99 commit cleanout failures: block lost                                      8      66546  781179189
+       100 commit cleanout failures: cannot pin                                      8    1376726  176423721
+       101 commit cleanout failures: hot backup in progress                          8          0 2500023621
+       102 commit cleanout failures: buffer being written                            8       9871 1626141486
+       103 commit cleanout failures: callback failure                                8     700436 3086716748
+       104 commit cleanouts                                                          8 1265219383 2934869719
+       105 commit cleanouts successfully completed                                   8 1263065804 3554314084
+       106 recovery array reads                                                      8          0 2617845348
+       107 recovery array read time                                                  8          0 2996696667
+       108 CR blocks created                                                         8 1800911502  516801181
+       109 current blocks converted for CR                                           8       5462 3142330676
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       110 switch current to new buffer                                              8    8923553 1312802324
+       111 write clones created in foreground                                        8      65325 4237693830
+       112 write clones created in background                                        8       4338 2988965544
+       113 write clones created for recovery                                         8          0 4053425429
+       114 physical reads cache prefetch                                             8  161935521  297908839
+       115 physical reads prefetch warmup                                            8     173692 3102888545
+       116 prefetched blocks aged out before use                                     8   35648674 1457461390
+       117 prefetch warmup blocks aged out before use                                8      66275 3250306695
+       118 prefetch warmup blocks flushed out before use                             8          0 2218846789
+       119 physical reads retry corrupt                                              8          0  531193461
+       120 physical reads direct (lob)                                               8   10407708 2564935310
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       121 physical reads direct temporary tablespace                                8 1086139671 2663793346
+       122 physical writes direct (lob)                                              8    1085272 3308932835
+       123 physical writes direct temporary tablespace                               8 1181886143  996415569
+       124 cold recycle reads                                                        8          0  657271764
+       125 shared hash latch upgrades - no wait                                      8 3.3141E+10 2488550671
+       126 shared hash latch upgrades - wait                                         8   33160855 3380476499
+       127 physical reads for flashback new                                          8          0  473165409
+       128 calls to kcmgcs                                                         128  428325492 2775936802
+       129 calls to kcmgrs                                                         128          0 4210206824
+       130 calls to kcmgas                                                         128 2098654003 4072914524
+       131 calls to get snapshot scn: kcmgss                                        32 4.3210E+10 3128650623
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       132 redo blocks read for recovery                                             2      44906 2679943069
+       133 redo entries                                                              2 6166070373 3488821837
+       134 redo size                                                                 2 1.3690E+12 1236385760
+       135 redo buffer allocation retries                                            2     125370 1446958922
+       136 redo wastage                                                              2 4.6704E+10 3462806146
+       137 redo writer latching time                                                 2      15621 2166056472
+       138 redo writes                                                               2  181831946 1948353376
+       139 redo blocks written                                                       2 2859813218 2391431605
+       140 redo write time                                                           2   43370076 3094453259
+       141 redo log space requests                                                   2     193259 1985754937
+       142 redo log space wait time                                                  2    1585505  252430928
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       143 redo log switch interrupts                                                2          0  674283274
+       144 redo ordering marks                                                       2   58202837 2104561012
+       145 redo subscn max counts                                                    2   84840983  449106517
+       146 gc cr blocks served                                                      40          0 1075941831
+       147 gc cr block build time                                                   40          0  467525985
+       148 gc cr block flush time                                                   40          0  552470873
+       149 gc cr block send time                                                    40          0 2395315974
+       150 gc current blocks served                                                 40          0   42062110
+       151 gc current block pin time                                                40          0  324533635
+       152 gc current block flush time                                              40          0 4091964965
+       153 gc current block send time                                               40          0 2750158241
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       154 gc cr blocks received                                                    40          0 2877738702
+       155 gc cr block receive time                                                 40          0 1759426133
+       156 gc current blocks received                                               40          0  326482564
+       157 gc current block receive time                                            40          0 1388758753
+       158 gc local grants                                                          40          0 3656029643
+       159 gc remote grants                                                         40          0 1406613639
+       160 gc blocks lost                                                           40          0  500461751
+       161 gc claim blocks lost                                                     40          0 1966230523
+       162 gc blocks corrupt                                                        40          0 2288508531
+       163 gc CPU used by this session                                              40          0 4093034494
+       164 total number of slots                                                     8          0 2223809671
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       165 instance recovery database freeze count                                  32          0 3674920298
+       166 background checkpoints started                                            8      33023 3048007007
+       167 background checkpoints completed                                          8      33023 2450922463
+       168 number of map operations                                                  8          0  337177656
+       169 number of map misses                                                      8          0 3618703100
+       170 flashback log writes                                                      2          0 3123176560
+       171 serializable aborts                                                       1          0 1793250745
+       172 transaction lock foreground requests                                    128          0  185785666
+       173 transaction lock foreground wait time                                   128          0 4033661655
+       174 transaction lock background gets                                        128          0 3977359732
+       175 transaction lock background get time                                    128          0 3492664117
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       176 undo change vector size                                                 128 4.8458E+11 1465971540
+       177 transaction tables consistent reads - undo records applied              128    2458566 1054055970
+       178 transaction tables consistent read rollbacks                            128       4070 1396293204
+       179 data blocks consistent reads - undo records applied                     128 4.2792E+10 2915445793
+       180 no work - consistent read gets                                          128 8.1640E+11 2814375799
+       181 cleanouts only - consistent read gets                                   128    2110743 2904875805
+       182 rollbacks only - consistent read gets                                   128   18840934 3133064500
+       183 cleanouts and rollbacks - consistent read gets                          128 1783590165 1083903169
+       184 RowCR attempts                                                          128          0 2297882326
+       185 RowCR hits                                                              128          0 3455911385
+       186 RowCR - row contention                                                  128          0 1175104080
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       187 RowCR - resume                                                          128          0 2583359573
+       188 rollback changes - undo records applied                                 128  120729643 3616249137
+       189 transaction rollbacks                                                   128     421787 3988650402
+       190 immediate (CURRENT) block cleanout applications                         128  318617376 2668233561
+       191 immediate (CR) block cleanout applications                              128 1785700910 3318186802
+       192 deferred (CURRENT) block cleanout applications                          128  209287177 3388736327
+       193 commit txn count during cleanout                                        128   69520847 1405359431
+       194 active txn count during cleanout                                        128 1.2493E+10 3378035478
+       195 cleanout - number of ktugct calls                                       128 2260369411 2577316246
+       196 immediate CR cleanouts (index blocks)                                   128          0   79013953
+       197 deferred CUR cleanouts (index blocks)                                   128          0 3827443394
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       198 Commit SCN cached                                                       128      70659 2460709063
+       199 Cached Commit SCN referenced                                            128  107324582 2374582560
+       200 auto extends on undo tablespace                                         128          0 3140365462
+       201 drop segment calls in space pressure                                    128          0 1500291109
+       202 total number of undo segments dropped                                   128          0 3623640507
+       203 doubling up with imu segment                                            128          0  723921798
+       204 tune down retentions in space pressure                                  128          0  142917891
+       205 steps of tune down ret. in space pressure                               128          0 3986010614
+       206 space was found by tune down                                            128          0  342698422
+       207 space was not found by tune down                                        128          0  849561940
+       208 commit batch/immediate requested                                          1     435507  640321576
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       209 commit batch requested                                                    1        140 2338940602
+       210 commit immediate requested                                                1     435367  796663742
+       211 commit batch/immediate performed                                          1     435507 3711642721
+       212 commit batch performed                                                    1        140 1391516579
+       213 commit immediate performed                                                1     435367 3494177237
+       214 commit wait/nowait requested                                              1          0 3800399491
+       215 commit nowait requested                                                   1          0 3697788123
+       216 commit wait requested                                                     1          0 2843300285
+       217 commit wait/nowait performed                                              1          0 1541239326
+       218 commit nowait performed                                                   1          0  485928497
+       219 commit wait performed                                                     1          0    8047752
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       220 global undo segment hints helped                                        128          0 1791494885
+       221 global undo segment hints were stale                                    128          0 3309048233
+       222 local undo segment hints helped                                         128          0 1047863356
+       223 local undo segment hints were stale                                     128          0 2070200837
+       224 undo segment header was pinned                                          128          0  248401831
+       225 total number of times SMON posted                                       128    1408474  399827284
+       226 SMON posted for undo segment recovery                                   128      22672 2117898593
+       227 SMON posted for txn recovery for other instances                        128          0 1263842513
+       228 SMON posted for instance recovery                                       128          0 4003178738
+       229 SMON posted for undo segment shrink                                     128       3851  579492169
+       230 SMON posted for dropping temp segment                                   128          1 3600495721
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       231 SMON posted for supplemental logging cleanup                            128          0 1356155743
+       232 IMU commits                                                             128   36553084 1914489094
+       233 IMU Flushes                                                             128   10162558 2099506212
+       234 IMU contention                                                          128    1026563 2909373607
+       235 IMU recursive-transaction flush                                         128       3240 2591100633
+       236 IMU undo retention flush                                                128          0 2087226422
+       237 IMU ktichg flush                                                        128    2036615 1206609541
+       238 IMU bind flushes                                                        128          0 2756376339
+       239 IMU mbu flush                                                           128          0 3723686946
+       240 IMU pool not allocated                                                  128  192193689  659017805
+       241 IMU CR rollbacks                                                        128    2561627 2225124543
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       242 IMU undo allocation size                                                128 2.4893E+11  244193920
+       243 IMU Redo allocation size                                                128 3.0016E+10 3945654623
+       244 IMU- failed to get a private strand                                     128  192193689 2412863545
+       245 Misses for writing mapping                                              128          7 2725329757
+       246 table scans (short tables)                                               64  255183984  345141973
+       247 table scans (long tables)                                                64       6595 1042655239
+       248 table scans (rowid ranges)                                               64         90 1303412790
+       249 table scans (cache partitions)                                           64        185  133545664
+       250 table scans (direct read)                                                64          0 3355423586
+       251 table scan rows gotten                                                   64 2.9352E+13 1400824662
+       252 table scan blocks gotten                                                 64 1.5421E+11 3741388076
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       253 table fetch by rowid                                                     64 1.6366E+12  681815839
+       254 table fetch continued row                                                64 1.3398E+10 1413702393
+       255 cluster key scans                                                        64 1095363161 3566804345
+       256 cluster key scan block gets                                              64 4405539223 2006808371
+       257 rows fetched via callback                                                64 1.6412E+11 3299365556
+       258 queue update without cp update                                          128          0  528828405
+       259 index crx upgrade (prefetch)                                             64          0 1907142657
+       260 index crx upgrade (found)                                                64   21522838 1444049043
+       261 index crx upgrade (positioned)                                           64 2.2398E+10 2632952759
+       262 leaf node splits                                                        128    2750562 1417124053
+       263 leaf node 90-10 splits                                                  128     354241 1285138251
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       264 branch node splits                                                      128      11972  399027615
+       265 failed probes on index block reclamation                                128     331362 2687444660
+       266 recursive aborts on index block reclamation                             128       1472 3075437189
+       267 native hash arithmetic execute                                           64          0  321852432
+       268 native hash arithmetic fail                                              64          0 1937851790
+       269 lob reads                                                                 8 1225181156 3626914479
+       270 lob writes                                                                8 1063597702 2682192071
+       271 lob writes unaligned                                                      8 1062949543 4224694283
+       272 index fast full scans (full)                                             64   14767602   12081473
+       273 index fast full scans (rowid ranges)                                     64          0 1555464060
+       274 index fast full scans (direct read)                                      64          0 1635662180
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       275 index fetch by key                                                      128 1.0703E+12 2808364230
+       276 index scans kdiixs1                                                     128 2.0219E+11 3589793292
+       277 queue splits                                                            128          0 1168925905
+       278 queue flush                                                             128          0 3150060076
+       279 queue position update                                                   128          0 2568542507
+       280 queue single row                                                        128          0 2713404457
+       281 queue ocp pages                                                         128          0 3899522644
+       282 queue qno pages                                                         128          0 2998782417
+       283 heap block compress                                                      64   36303851 2326757257
+       284 sql area purged                                                          64     331127 2763387941
+       285 sql area evicted                                                         64    3729198 3224599022
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       286 CCursor + sql area evicted                                               64          0  938276153
+       287 session cursor cache hits                                                64 6899368253 3678609077
+       288 session cursor cache count                                               64   72543864  568260813
+       289 java call heap total size                                                 1          0 1649812842
+       290 java call heap total size max                                             1          0  580075922
+       291 java call heap used size                                                  1          0  187277223
+       292 java call heap used size max                                              1          0  625960724
+       293 java call heap live size                                                  1          0 2431389341
+       294 java call heap live size max                                              1          0 1298432410
+       295 java call heap object count                                               1          0 3472185722
+       296 java call heap object count max                                           1          0 1862536587
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       297 java call heap live object count                                          1          0  632577394
+       298 java call heap live object count max                                      1          0 2964139762
+       299 java call heap gc count                                                   1          0 2284697213
+       300 java call heap collected count                                            1          0 2510746206
+       301 java call heap collected bytes                                            1          0 3585877838
+       302 java session heap used size                                               1          0 1661140639
+       303 java session heap used size max                                           1          0 1726629032
+       304 java session heap live size                                               1          0 2257986540
+       305 java session heap live size max                                           1          0 1960804148
+       306 java session heap object count                                            1          0 4072938679
+       307 java session heap object count max                                        1          0  469647992
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       308 java session heap live object count                                       1          0  225051972
+       309 java session heap live object count max                                   1          0 3755633366
+       310 java session heap gc count                                                1          0 3363147808
+       311 java session heap collected count                                         1          0 3795934475
+       312 java session heap collected bytes                                         1          0 3976434298
+       313 cursor authentications                                                  128    2029943 4069981174
+       314 queries parallelized                                                     32          0 3315614405
+       315 DML statements parallelized                                              32          0 3791923855
+       316 DDL statements parallelized                                              32         42 4115134636
+       317 DFO trees parallelized                                                   32         42 2753131890
+       318 Parallel operations not downgraded                                       32         42 2410168744
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       319 Parallel operations downgraded to serial                                 32          0 4286011915
+       320 Parallel operations downgraded 75 to 99 pct                              32          0  322858058
+       321 Parallel operations downgraded 50 to 75 pct                              32          0 3281923117
+       322 Parallel operations downgraded 25 to 50 pct                              32          0 3330456527
+       323 Parallel operations downgraded 1 to 25 pct                               32          0 3721245209
+       324 PX local messages sent                                                   32      43309  506655048
+       325 PX local messages recv'd                                                 32      48036 1437798390
+       326 PX remote messages sent                                                  32          0 2567415317
+       327 PX remote messages recv'd                                                32          0 2537140420
+       328 buffer is pinned count                                                   72 3.7801E+12 1300470380
+       329 buffer is not pinned count                                               72 8.3098E+11 2670431739
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       330 no buffer to keep pinned count                                           72        607 3528454686
+       331 table lookup prefetch client count                                        8          0 1926456670
+       332 workarea memory allocated                                                64       4593 2433935387
+       333 workarea executions - optimal                                            64 5495182895 3211650785
+       334 workarea executions - onepass                                            64     482094  798730793
+       335 workarea executions - multipass                                          64      11096 3804491469
+       336 parse time cpu                                                           64   22992821  206905303
+       337 parse time elapsed                                                       64   22909473 1431595225
+       338 parse count (total)                                                      64 8632677203   63887964
+       339 parse count (hard)                                                       64    5870715  143509059
+       340 parse count (failures)                                                   64     257828 1118776443
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       341 frame signature mismatch                                                 64          0  959148951
+       342 execute count                                                            64 3.6631E+10 2453370665
+       343 bytes sent via SQL*Net to client                                          1 2.8208E+12 2967415760
+       344 bytes received via SQL*Net from client                                    1 4.2932E+12  161936656
+       345 SQL*Net roundtrips to/from client                                         1 6844913444  159846526
+       346 bytes sent via SQL*Net to dblink                                          1 3638272148 1622773540
+       347 bytes received via SQL*Net from dblink                                    1   43086045 1983609624
+       348 SQL*Net roundtrips to/from dblink                                         1     111253 2420448902
+       349 sorts (memory)                                                           64 5898331442 2091983730
+       350 sorts (disk)                                                             64      20030 2533123502
+       351 sorts (rows)                                                             64 1.2088E+11 3757672740
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       352 OTC commit optimization attempts                                        128          0 2480822770
+       353 OTC commit optimization hits                                            128          0 4064864054
+       354 OTC commit optimization failure - setup                                 128          0 3633344886
+       355 Workload Capture: size (in bytes) of recording                            1          0 2146126248
+       356 Workload Capture: dbtime                                                  1          0 3533966785
+       357 Workload Capture: user calls                                              1          0 1228651202
+       358 Workload Capture: user calls flushed                                      1          0 2236307043
+       359 Workload Capture: unreplayable user calls                                 1          0 3283547595
+       360 Workload Capture: user txns                                               1          0 3034767909
+       361 Workload Capture: user logins                                             1          0 1296083012
+       362 Workload Capture: unsupported user calls                                  1          0 2224534227
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       363 Workload Capture: errors                                                  1          0 1278172735
+       364 OS User time used                                                        16          0 3628421385
+       365 OS System time used                                                      16          0 1159355779
+       366 OS Maximum resident set size                                             16          0  838789841
+       367 OS Integral shared text size                                             16          0 2409964096
+       368 OS Integral unshared data size                                           16          0   56092924
+       369 OS Integral unshared stack size                                          16          0 2957272649
+       370 OS Page reclaims                                                         16          0  800986673
+       371 OS Page faults                                                           16          0 3353033775
+       372 OS Swaps                                                                 16          0 1982803996
+       373 OS Block input operations                                                16          0  953749291
+
+STATISTIC# NAME                                                                  CLASS      VALUE    STAT_ID
+---------- ---------------------------------------------------------------- ---------- ---------- ----------
+       374 OS Block output operations                                               16          0  756247347
+       375 OS Socket messages sent                                                  16          0 1887989827
+       376 OS Socket messages received                                              16          0 2122589827
+       377 OS Signals received                                                      16          0  210375991
+       378 OS Voluntary context switches                                            16          0 2422402766
+       379 OS Involuntary context switches                                          16          0 3316937952
+
+380 rows selected.
+ 

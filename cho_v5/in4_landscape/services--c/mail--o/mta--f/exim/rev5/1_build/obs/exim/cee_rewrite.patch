@@ -1,0 +1,24 @@
+--- ./src/src/rewrite.c	2016-07-31 18:52:06.000000000 +0300
++++ ./src/src/rewrite.c_p	2016-08-02 12:22:20.206708414 +0300
+@@ -263,10 +263,18 @@
+         break;
+         }
+       }
++//     log_write(L_address_rewrite,
++//            LOG_MAIN, "\"%s\" from %s rewritten as \"%s\" by rule %d",
++//            yield, where, new, rule_number);
++
+     log_write(L_address_rewrite,
+-           LOG_MAIN, "\"%s\" from %s rewritten as \"%s\" by rule %d",
+-           yield, where, new, rule_number);
+-    }
++            LOG_CEE, "@cee: {"
++            "\"event_type\":\"mail\", \"event_class\":\"internal\", \"event_view\":\"rewrite\", " //HEADER_ALL
++            "\"message_id\":\"%s\","  //SECTION4
++            "\"rewrite_from\":\"%s\", \"rewrite_header\":\"%s\", \"rewrite_to\": \"%s\", \"rewrite_rule\":\"%d\"}", //CONTEXT
++             message_id, //SECTION4
++            yield, where, new, rule_number); //CONTEXT
++    }    
+ 
+   /* A header will only actually be added if header_last is non-NULL,
+   i.e. during message reception or delivery, but add_header should not

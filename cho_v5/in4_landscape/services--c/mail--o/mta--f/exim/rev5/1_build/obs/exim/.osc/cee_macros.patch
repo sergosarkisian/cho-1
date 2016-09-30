@@ -1,0 +1,11 @@
+--- ./src/src/macros.h	2016-08-02 03:30:44.912613267 +0300
++++ ./src/src/macros.h_p	2016-08-02 03:31:11.765056036 +0300
+@@ -778,6 +778,8 @@
+ #define LOG_CONFIG       128      /* Add "Exim configuration error" */
+ #define LOG_CONFIG_FOR  (256+128) /* Add " for" instead of ":\n" */
+ #define LOG_CONFIG_IN   (512+128) /* Add " in line x[ of file y]" */
++#define LOG_CEE   (1024) /* Add " in line x[ of file y]" */
++
+ 
+ /* and for debug_bits() logging action control: */
+ #define DEBUG_FROM_CONFIG       0x0001

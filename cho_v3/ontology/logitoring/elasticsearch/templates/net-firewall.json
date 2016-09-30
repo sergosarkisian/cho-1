@@ -1,0 +1,47 @@
+{
+	"template": "net-firewall-*",
+	"settings": {
+	"index.number_of_shards": 2
+	},
+	"mappings": {
+		"events": {
+			"_source": {
+			"enabled": true
+			},
+			"_timestamp": {
+				"enabled": true,
+				"path" : "es_timestamp"
+			},
+			"properties": {
+				"es_timestamp": {
+					"index": "not_analyzed",				
+					"type": "date"
+				},			
+				"host": {
+					"index": "not_analyzed",				
+					"type": "string"
+				},				
+				"fw_rule": {
+					"index": "not_analyzed",				
+					"type": "string"
+				},
+				"dpt": {
+					"index": "not_analyzed",				
+					"type": "long"
+				},          
+				"dst": {
+					"index": "not_analyzed",				
+					"type": "string"
+				},
+				"spt": {
+					"index": "not_analyzed",				
+					"type": "long"
+				},          
+				"src": {
+					"index": "not_analyzed",				
+					"type": "string"
+				}			
+			}
+		}
+	}
+}

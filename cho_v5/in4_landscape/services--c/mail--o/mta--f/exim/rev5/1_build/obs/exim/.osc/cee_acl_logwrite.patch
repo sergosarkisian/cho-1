@@ -1,0 +1,13 @@
+--- ./src/src/acl.c	2016-07-31 18:52:06.000000000 +0300
++++ ./src/src/acl.c_p	2016-08-02 03:10:49.160969720 +0300
+@@ -3646,7 +3646,9 @@
+         s++;
+         while (*s != ':')
+           {
+-          if (Ustrncmp(s, "main", 4) == 0)
++          if (Ustrncmp(s, "cee", 3) == 0)
++            { logbits |= LOG_CEE; s += 3; }              
++          else if (Ustrncmp(s, "main", 4) == 0)
+             { logbits |= LOG_MAIN; s += 4; }
+           else if (Ustrncmp(s, "panic", 5) == 0)
+             { logbits |= LOG_PANIC; s += 5; }

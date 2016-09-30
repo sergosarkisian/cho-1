@@ -1,0 +1,2 @@
+enable rev5_SuSEfirewall2_init_i@netfilter
+enable rev5_SuSEfirewall2_i@netfilter

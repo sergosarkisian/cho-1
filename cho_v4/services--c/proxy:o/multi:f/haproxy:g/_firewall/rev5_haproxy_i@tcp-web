@@ -1,0 +1,6 @@
+## Name: rev5_haproxyi@tcp-web ports
+## Description: Open ports for rev5_haproxyi@tcp-web
+
+# space separated list of allowed TCP ports
+TCP="80 443"
+ 

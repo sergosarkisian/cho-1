@@ -1,0 +1,5 @@
+<link project="openSUSE:Factory" package="xen" baserev="1b2106b67c4111cd9f3fe106e6bf3797">
+  <patches>
+    <topadd>%define with_kmp 1</topadd>
+  </patches>
+</link>

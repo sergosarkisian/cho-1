@@ -1,0 +1,117 @@
+########    #######    ########    #######    ########    ########
+##     / / / /    License    \ \ \ \ 
+##    Copyleft culture, Copyright (C) is prohibited here
+##    This work is licensed under a CC BY-SA 4.0
+##    Creative Commons Attribution-ShareAlike 4.0 License
+##    Refer to the http://creativecommons.org/licenses/by-sa/4.0/
+########    #######    ########    #######    ########    ########
+##    / / / /    Code Climate    \ \ \ \ 
+##    Language = DSL, systemd
+##    Indent = space;    4 chars;
+########    #######    ########    #######    ########    ########
+
+[Unit]
+    Description = rev5__services--c--mail--o--mta--f--exim--g--main--s
+    Documentation = man:{MAN}
+    Documentation = http://{WEBSITE}
+
+## DEPS ## 
+    Conflicts =, # Wants =,  # Before =, # PartOf =, #OnFailure =,  #PropagatesReloadTo =, ReloadPropagatedFrom =
+    Requires = var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
+    After = var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
+##
+    
+## DEPS - AFTER REV5.TARGET## 
+    Requires = rev5.target
+    After = rev5.target
+##
+
+## MISC ## 
+    #StopWhenUnneeded = true
+    #ConditionPathExists = 
+##
+
+[Service]
+ 
+## TYPE ##
+    Type = forking
+    PIDFile = 
+    # oneshot # => #Type=oneshot #RemainAfterExit=true
+##
+
+## EXECS ##
+    ExecStart = 
+    ExecStop =  
+    ExecReload = /bin/kill -HUP $MAINPID
+
+    #ExecStartPre = 
+    ExecStartPre = /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"unknown", "action":"start", "subaction":"pre", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ 
+    #ExecStartPost = 
+    ExecStartPost = /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"started", "action":"start", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ 
+    #ExecStopPost = 
+    ExecStopPost = /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"stopped", "action":"stop", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ 
+ #loging -  "instance":"%I"
+##
+ 
+## PERMISSIONS ##
+    WorkingDirectory = 
+    User = 
+    Group = 
+    SupplementaryGroups = sysdata
+    #UMask = 
+##
+
+## MISC ##
+    Restart = always
+    RestartSec = 30
+    #TimeoutSec = 300 # larger for DB/huge RAM ps
+    #EnvironmentFile = -/
+##
+
+## SYSLOG ##
+    SyslogIdentifier = rev5__services--c--mail--o--mta--f--exim--g--main--s_
+    SyslogFacility = local7
+    SyslogLevel = info
+    #SyslogLevelPrefix = false #Can be disabled for ...
+##
+ 
+
+## SECURITY ##
+    PrivateTmp = true
+    PrivateDevices = true
+    ProtectSystem = full
+    ProtectHome = true
+    NoNewPrivileges = true 
+    #SystemCallFilter = 
+    #AppArmorProfile = 
+    #PAMName = 
+    #SecureBits = 
+    #Capabilities = 
+    #ReadWriteDirectories =, ReadOnlyDirectories =, InaccessibleDirectories =
+##
+ 
+
+## LIMITS ##
+    Nice = 0
+    OOMScoreAdjust = -1000
+    IOSchedulingClass = best-effort
+    IOSchedulingPriority = 1
+    LimitNOFILE = 65535
+    #LimitMEMLOCK = infinity #For DB's
+    #MemoryLimit = 
+    #BlockIOReadBandwidth = 
+    #BlockIOWriteBandwidth = 
+## 
+
+ 
+[Install]
+    Alias = rev5__exim--g
+    WantedBy = multi-user.target
+    #RequiredBy = 
+
+    ## REV5 - WANTEDBY
+    #WantedBy = rev5.target
+    ##

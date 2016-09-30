@@ -1,0 +1,7 @@
+#dev-disk-by\\x2dlabel-swap.swap
+[Unit]
+SourcePath=/etc/fstab
+Documentation=man:fstab(5) man:systemd-fstab-generator(8)
+
+[Swap]
+What=/dev/disk/by-label/swap

@@ -1,0 +1,29 @@
+# check if we know a certain triple, add and defer message if not => ACCEPT
+	accept
+		# if above check returned unknown (no record yet)
+		condition        = ${if eq {$acl_c8} {unknown} {yes}}
+		# then also add a record
+		condition        = GREYLIST_ADD
+		#
+		set acl_c_rule = delivery_greylist_deny_new
+		set acl_c_msg_view = delivery
+		set acl_c_acl_action = greylist_deny
+		set acl_c_advlog_inc = $acl_c_advlog_inc_def
+        set acl_c_advlog = $acl_c_advlog \;  $acl_c_advlog_inc;
+		#		
+        .include /etc/exim/engine_path/engine/rules/_base/accept/accept_log.rule
+
+
+  # check if the triple is still blocked  => ACCEPT
+	accept
+		# if above check returned deferred then defer
+		condition        = ${if eq{$acl_c8} {deferred} {yes}}
+		# and note it down
+		condition        = GREYLIST_DEFER_HIT
+		#
+		set acl_c_rule = delivery_greylist_deny_too_fast
+		set acl_c_msg_view = delivery
+		set acl_c_acl_action = greylist_deny
+		set acl_c_advlog_inc = $acl_c_advlog_inc_def
+		#
+            .include /etc/exim/engine_path/engine/rules/_base/accept/accept_log.rule

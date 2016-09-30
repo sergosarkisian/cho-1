@@ -1,0 +1,9 @@
+[Unit]
+Description=UDP forwarder
+
+[Service]
+EnvironmentFile=..
+ExecStart=/usr/bin/socat -T15 tcp4-listen:$GATE_TCP_PORT,reuseaddr,fork UDP:$DST_NAME:623
+
+[Install]
+WantedBy=multi-user.target

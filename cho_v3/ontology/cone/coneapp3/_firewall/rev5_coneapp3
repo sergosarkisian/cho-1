@@ -1,0 +1,6 @@
+## Name: rev5_coneapp3 ports
+## Description: Open ports for rev5_coneapp3
+
+# space separated list of allowed TCP ports
+TCP="10000:15000"
+ 

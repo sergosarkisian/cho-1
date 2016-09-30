@@ -1,0 +1,41 @@
+########    #######    ########    #######    ########    ########
+##     / / / /    License    \ \ \ \ 
+##    Copyleft culture, Copyright (C) is prohibited here
+##    This work is licensed under a CC BY-SA 4.0
+##    Creative Commons Attribution-ShareAlike 4.0 License
+##    Refer to the http://creativecommons.org/licenses/by-sa/4.0/
+########    #######    ########    #######    ########    ########
+##    / / / /    Code Climate    \ \ \ \ 
+##    Language = DSL, exim, ACL section
+##    Indent = space;    4 chars;
+########    #######    ########    #######    ########    ########
+   
+## RULE DESCRIPTION
+warn
+    set acl_c_rule_fullname     = 2_check_mail__deny__spf_exclude_all
+    set acl_c_rule_description = Sender SPF policy has "-all" record
+
+    
+## RULE FUNCTION
+.ifndef DISABLE__RULES__$acl_c_rule_fullname
+    deny
+    
+        # 1) RULE AREA
+            !authenticated  = *
+            hosts                   = ! +local_networks
+
+        # 2) RULE DEFAULT BODY - pre vars
+            set acl_c_rule_bwl_field         = $sender_address
+            set acl_c_rule_bwl_operator = wildlsearch        
+            .include /etc/exim/engine_path/engine/rules/_base/rule_body_vars.rule                
+            
+        # 3) RULE DSL - conditions etc
+            condition =  ${if eq {$acl_c_spf_record}{v=spf1 -all}}     
+
+        # 4) RULE DEFAULT BODY - logitoring/vars/etc
+            .include /etc/exim/engine_path/engine/rules/_base/rule_body_after.rule
+            
+        # 5) RULE FACT
+            set acl_c_rule_fact__2_check_mail__deny__spf_exclude_all = 1
+        
+.endif

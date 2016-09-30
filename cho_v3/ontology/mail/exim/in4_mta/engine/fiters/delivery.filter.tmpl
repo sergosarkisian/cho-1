@@ -1,0 +1,10 @@
+# Exim filter   <<== do not edit or remove this line!
+
+## COPY FILTER - unseen deliver .... mta@DOMAIN
+
+#if $sender_address contains 
+#then
+#   seen finish
+#endif
+
+seen finish

@@ -1,0 +1,7 @@
+# Exim filter   <<== do not edit or remove this line!
+
+if $acl_c_recipient contains "spamtrap-"
+then
+   seen finish
+endif
+

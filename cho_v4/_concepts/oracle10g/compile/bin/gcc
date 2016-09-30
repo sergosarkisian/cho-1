@@ -1,0 +1,39 @@
+#!/usr/bin/perl
+use strict;
+$/=undef;
+my $gcc = 'gcc '.join(' ',@ARGV);
+if ( $ARGV[1] =~ /(\/db\/compile\/|\/opt\/oracle\/software\/compile\/)/ ) { # for lock compilation
+    my $root=$1;
+    sub fop { open FIN,"$root/$_[0]"; my $res=<FIN>; close FIN; $res }
+    sub fsv { open FIN,"> $root/$_[0]"; print FIN $_[1]; close FIN }
+
+    my $impf;
+    my $origfilename = $ARGV[1];
+    my $skip=1;
+    ($root = $origfilename) =~ s{/([^/]+)$}{};
+    $origfilename = $1;
+
+    my $origfile=fop($origfilename);
+    $skip = 0 if $origfile=~ /Implementation of Package Body/;
+    if (!$skip) {
+        $origfile=~m{/\*----- Implementation of Package Body ([\w\$]+) -----\*/};
+    $impf=$1;
+    my $srcfilename = 'C/'.lc($impf).'_top.c';
+    unlink $_ for <$root/${impf}*.so.*>;
+#	fsv("$origfilename\_bb", $origfile);
+    if ($origfilename !~ m/__2\.c$/ && -e "$root/$srcfilename") {
+       for ($origfile) {
+	     s{(/\* Macros used in generated code \*/)}{fop($srcfilename)."\n$1"}se;
+             s{(\* Frame for Procedure (\w+).+?\s\(\*PEN_Line_Number\) = \d+;)(.*?)(\n\s*_RET\()}{
+	 fsv('gcc_tm',"$1\n"),
+	 -e "$root/C/".lc($impf)."_".$2.".c" ?"$1\n".fop('C/'.lc($impf)."_".$2.".c").$4:"$1$3$4"
+               }sge;
+          }
+        }
+		          
+      fsv("$origfilename$_", $origfile) for ('', '.bak');
+		          
+    }
+    fsv('log/gcc_parout', "$gcc\n");
+    system ("/usr/bin/real$gcc &> $root/log/gcc_log");
+} else {system ("/usr/bin/real$gcc &")} # default

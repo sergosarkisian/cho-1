@@ -1,0 +1,3 @@
+#cee-ready logs
+prefix=<%prio:char-to:\x3e%>%src_date:date-rfc3164% %pname:char-to:\x5b%[%pid:char-to:\x5d%]: 
+rule=cee-ready:"class":%class:quoted-string%, "type":%type:quoted-string%, "date_raw":%date_raw:quoted-string%, %rest:rest%

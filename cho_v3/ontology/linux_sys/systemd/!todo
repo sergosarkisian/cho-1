@@ -1,0 +1,11 @@
++Автоматический запуск cone-сервисов (systemd-интеграция)
+
++Починить автозаполнение в ssystemd
+
++Bash completition
+
++Systemd notifications - как посылать уведомления о смене состояний в syslog/monitoring?
+
++ timer
+DefaultTimerAccuracySec
+Persistent

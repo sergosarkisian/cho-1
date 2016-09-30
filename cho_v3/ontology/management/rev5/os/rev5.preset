@@ -1,0 +1,7 @@
+enable rev5.timer
+enable rev5_auditd.service
+enable rev5_rsyslog_i@client.service
+enable rev5_sssd.service
+enable rev5_atop.service
+enable rev5_bareos-os.service
+enable rev5_monitoring-os.service

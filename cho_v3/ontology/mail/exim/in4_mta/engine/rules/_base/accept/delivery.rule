@@ -1,0 +1,11 @@
+accept 
+
+    set acl_c_event_view   = delivery
+    set acl_c_rule_action   = delivery
+    set acl_c_rule_action   = no    
+
+    logwrite = :cee: @cee:{\
+    .include /etc/exim/engine_path/engine/rules/_base/log_header_all.rulesec
+    .include /etc/exim/engine_path/engine/rules/_base/accept/log_delivery.rulesec
+    .include /etc/exim/engine_path/engine/rules/_base/log_final.rulesec 
+    } 

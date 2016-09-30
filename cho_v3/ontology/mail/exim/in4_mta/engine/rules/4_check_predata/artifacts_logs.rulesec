@@ -1,0 +1,5 @@
+"recipients_count":${quote:$recipients_count}, \
+"return_path":${quote:${from_utf8:$return_path}}, \
+"sender_verify_failure":${quote:${from_utf8:$sender_verify_failure}}, \
+"original_domain":${quote:${from_utf8:$original_domain}}, \
+"original_local_part":${quote:${from_utf8:$original_local_part}}, \

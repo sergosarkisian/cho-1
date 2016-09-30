@@ -1,0 +1,55 @@
+##BACULA
++SD-to-SD Migration/Copy jobs
+Selection Pattern
+Selection Type 
+
++verification jobs
+
++fd passwords
+
++Virtual backups (Consolidations)
+
++backup-driven snapshots
+
++Install, config  Reportula → PHP hosting
+ https://github.com/oliveiraped/Reportula
+ 
+ 
+##BAREOS
+
++ Audit
+Audit Events, Auditing
+
++ Absolute Job Timeout
+
++++ Backup Format = tar
+
++++ compression LZ4HC
+
++shadowing
+globalwarn
+
++quota
+Hard Quota
+Soft Quota
+Soft Quota Grace Period 
+Strict Quotas
+
++ Statistics
+Collect Statistics
+Collect Device Statistics
+Collect Job Statistics
+
++LMDB
+Always Use LMDB = yes @@ BUG
+
++++ messages to syslog
+
+
+???
+Key Encryption Key 
+Verify
+Allow Client Connect
+8.12 Profile Resource
++++ Compatible = no
+maximum block size = 1M

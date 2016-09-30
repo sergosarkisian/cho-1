@@ -1,0 +1,47 @@
+#!/bin/bash
+
+#VM DIRECTORIES
+vm_dirs=$1
+
+	echo $vm_dirs| while read vm_type; do
+
+	find /storage/snapshots/$vm_type/*/*/monthly/*/* -type f|while read dfile; do
+
+		domain=`echo $dfile|sed -e "s/\/storage\/snapshots\/$vm_type\///"|cut -d "/" -f 1`
+		hostname=`echo $dfile|sed -e "s/\/storage\/snapshots\/$vm_type\///"|cut -d "/" -f 2`
+		imgfld=`echo $dfile|sed -e "s/\/storage\/snapshots\/$vm_type\///"|cut -d "/" -f 4`
+		imagename=`echo $dfile|sed -e "s/\/storage\/snapshots\/$vm_type\///"|cut -d "/" -f 5`
+		count_images=`ls -1A /storage/snapshots/$vm_type/$domain/$hostname/monthly/$imgfld|wc -l`
+
+		if [ $count_images -gt 1 ]; then
+			file2del=`find /storage/snapshots/$vm_type/$domain/$hostname/monthly/$imgfld -type f -exec stat -c "%Y %n" {} \; | sort -n | head -1 | cut -d' ' -f2`
+			echo "Deleting $file2del"
+			rm -f $file2del
+		fi
+
+	done
+
+	find /storage/snapshots/$vm_type/*/*/weekly/*/* -type f| while read file; do
+
+		domain=`echo $file|sed -e "s/\/storage\/snapshots\/$vm_type\///"|cut -d "/" -f 1`
+		hostname=`echo $file|sed -e "s/\/storage\/snapshots\/$vm_type\///"|cut -d "/" -f 2`
+		imgfld=`echo $file|sed -e "s/\/storage\/snapshots\/$vm_type\///"|cut -d "/" -f 4`
+		imagename=`echo $file|sed -e "s/\/storage\/snapshots\/$vm_type\///"|cut -d "/" -f 5`
+
+		if [[ ! -d /storage/snapshots/$vm_type/$domain/$hostname/monthly/$imgfld ]]; then
+			mkdir -p /storage/snapshots/$vm_type/$domain/$hostname/monthly/$imgfld
+		fi
+
+		count_images=`ls -1A /storage/snapshots/$vm_type/$domain/$hostname/weekly/$imgfld|wc -l`
+
+		if [ $count_images -gt 5 ]; then
+			echo "Files count is more than 5: $count_images. Moving the last created file from weekly to monthly directory."
+			file2move=`find /storage/snapshots/$vm_type/$domain/$hostname/weekly/$imgfld -type f -exec stat -c "%Y %n" {} \; | sort -r | head -1 | cut -d' ' -f2`
+			mv -f $file2move /storage/snapshots/$vm_type/$domain/$hostname/monthly/$imgfld
+		fi
+
+	done
+done
+
+exit 0
+

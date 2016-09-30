@@ -1,0 +1,6 @@
+## Name: rev5_samba ports
+## Description: Open ports for rev5_samba
+
+# space separated list of allowed TCP ports
+TCP="445"
+ 

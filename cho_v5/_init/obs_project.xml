@@ -1,0 +1,26 @@
+<project name="home:conecenter:in4:form:technologies:{PROJECT}">
+  <title>{PROJECT}</title>
+  <description></description>
+  <person userid="conecenter" role="bugowner"/>
+  <person userid="conecenter" role="maintainer"/>
+  <build>
+      <enable/>
+  </build>
+  <publish>
+      <enable/>
+  </publish>
+  <debuginfo>
+      <disable/>
+      <disable arch="x86_64"/>
+  </debuginfo>
+  <repository name="openSUSE_Tumbleweed">
+      <path project="openSUSE:Tumbleweed" repository="standard"/>
+      <path project="openSUSE:Tumbleweed:Update" repository="standard"/>
+      <arch>x86_64</arch>
+  </repository>
+  <repository name="openSUSE_Leap_42.1">
+      <path project="openSUSE:Leap:42.1" repository="standard"/>
+      <path project="openSUSE:Leap:42.1:Update" repository="standard"/>    
+      <arch>x86_64</arch>
+  </repository>  
+</project>

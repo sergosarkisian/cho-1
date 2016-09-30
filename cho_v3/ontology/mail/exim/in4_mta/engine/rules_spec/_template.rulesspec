@@ -1,0 +1,90 @@
+begin acl
+
+#DISABLE_RULES_ACCEPT = yes
+#DISABLE_RULES_DD = yes
+ 
+### 1_CHECK_CONNECT SECTION
+ .include /etc/exim/engine_path/engine/rules/1_check_connect/1_check_connect.pre
+    ## RULES
+    #
+ .include /etc/exim/engine_path/engine/rules/_base/accept/accept.rule
+###
+ 
+ 
+ 
+ ### 2_CHECK_MAIL SECTION
+ .include /etc/exim/engine_path/engine/rules/2_check_mail/2_check_mail.pre
+    ## RULES
+    #           
+    warn set acl_c_rule_score = XXX
+        .include /etc/exim/engine_path/engine/rules/SECTION/ACTION/NAME.rule
+    #
+    ## // DD \\
+        .ifndef DISABLE_RULES_DD
+            warn set acl_c_rule_dd_descr = DD_SESCR
+            .include /etc/exim/engine_path/engine/rules/_base/deny_discard/score_hard_limit.rule
+        .endif    
+    ## \\ DD // 
+    #
+    ## // ACCEPT \\
+        .ifndef DISABLE_RULES_ACCEPT
+            .include /etc/exim/engine_path/engine/rules/_base/accept/local_net.rule
+        .endif
+    ## \\ ACCEPT //
+    #
+    ## 
+ .include /etc/exim/engine_path/engine/rules/_base/accept/accept.rule
+###
+ 
+ 
+ 
+### 3_CHECK_RCPT SECTION 
+ .include /etc/exim/engine_path/engine/rules/3_check_rcpt/3_check_rcpt.pre
+    #
+    #
+ .include /etc/exim/engine_path/engine/rules/_base/accept/accept.rule
+###
+  
+  
+  
+### 4_CHECK_PREDATA SECTION  
+ .include /etc/exim/engine_path/engine/rules/4_check_predata/4_check_predata.pre
+    ## RULES
+    # 
+    #
+    ## 
+ .include /etc/exim/engine_path/engine/rules/_base/accept/accept.rule
+###
+  
+
+   
+
+### 5_CHECK_MIME SECTION  
+ .include /etc/exim/engine_path/engine/rules/5_check_mime/5_check_mime.pre
+    ## RULES
+    #
+    #
+    ## 
+ .include /etc/exim/engine_path/engine/rules/_base/accept/accept.rule
+###
+  
+  
+  
+### 6_CHECK_DATA SECTION
+ .include /etc/exim/engine_path/engine/rules/6_check_data/6_check_data.pre
+    ## RULES
+    #
+    #
+    ## 
+ .include /etc/exim/engine_path/engine/rules/_base/accept/delivery.rule
+###
+
+### 7_OTHERS
+ .include /etc/exim/engine_path/engine/rules/7.acl_others.conf
+###
+   
+ #################
+
+ ### GREYLIST
+ .include /etc/exim/engine_path/engine/rules/greylist/greylist.pre
+###

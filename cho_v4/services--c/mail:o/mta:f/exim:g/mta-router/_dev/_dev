@@ -1,0 +1,38 @@
+DKIM
+
+dkim_verify_signers = $sender_address_domain:$dkim_signers
+
+
+
+#.ifdef  SCORE_AV_CHECK
+  warn
+		malware = *		
+		#
+		set acl_c_rule = score_no_subj_or_body
+		set acl_score_mta_inc = SCORE_AV_CHECK
+		set acl_score_mta_reason = No Subject or Body
+		#
+		set acl_score_mta_prev = $acl_score_mta
+		set acl_score_mta = ${eval:$acl_score_mta + $acl_score_mta_inc}
+        set acl_c_spamlog = $acl_c_spamlog $acl_score_mta_reason=+$acl_score_mta_inc;
+        #
+        add_header     = X-Spam-Score-Check: added $acl_score_mta_inc scores: $acl_score_mta_reason        
+		logwrite ="msg_class":"$acl_c_msg_class", "msg_view":"$acl_c_msg_view", "acl_action":"$acl_c_acl_action", "acl_section":"$acl_c_section", "acl_rule":"$acl_c_rule", "message_id":"$acl_c_message_id", "to":"$acl_c_local_part@$acl_c_domain", "from":"$sender_address_local_part@$sender_address_domain", "from_server":"$sender_fullhost", "acl_reason":"$acl_score_mta_reason", "acl_history":"$acl_c_spamlog", "acl_score_mta":"$acl_score_mta", "acl_c_advlog_inc":"$acl_c_advlog_inc", "acl_c_advlog":"$acl_c_advlog", "acl_score_mta_inc":"$acl_score_mta_inc", "acl_score_mta_prev":"$acl_score_mta_prev"
+#.endif
+
+#####
+
+
+temp mail addresses (session-based, for reg purp)
+
+
+##
+
+# Check for the presence of a Message-Id: header, which RFC2822 says SHOULD be present.
+# Some broken or misconfigured mailer software occasionally omits this from genuine  
+# messages too, though -- although it's not hard for the offender to fix 
+# after they receive a bounce because of it.
+#
+warn    condition  = ${if !def:h_Message-ID: {1}}
+        message    = RFC2822 says that all mail SHOULD have a Message-ID header.\n\
+                     Most messages without it are spam, so your mail has been rejected.+

@@ -1,0 +1,4 @@
+<directory name="samba" rev="1" srcmd5="d1bad6c0f4659a5acafa876d80159da3" vrev="1">
+  <linkinfo lsrcmd5="d1bad6c0f4659a5acafa876d80159da3" package="samba" project="network:samba:STABLE" srcmd5="5cb7ca4bb5c99ed7f5fdd39d3481b1ef" xsrcmd5="45b942cebcb6745b6f03d5ddc0ad848d" />
+  <entry md5="b578d83c703f520d3dc10c950d522a86" mtime="1424196817" name="_link" size="452" />
+</directory>

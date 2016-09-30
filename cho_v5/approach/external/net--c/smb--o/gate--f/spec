@@ -1,0 +1,42 @@
+ #ALL
+... linux iternals ..... meta-app
+ internals--c--management--o--infrastructure--f--in4--g--main--s 
+internals--c--management--o--infrastructure--f--systemd--g--main--s
+services--c--proxy--o--multi--f--haproxy--g--main--s
+
+--
+services--c--proxy--o--ftp--f--ftp-proxy--g--main--s
+services--c--proxy--o--multi--f--squid--g--main--s
+services--c--routing--o--netfilter--f--iptables--g
+services--c--routing--o--netfilter--f--sfw2_router--g
+services--c--server--o--ntp--f--ntpd--g--main--s
+
+
+ 
+ 
+ #### standalone
+logitoring--c--messagebus--o--syslog--f--rsyslog--g--gate--s
+services--c--mail--o--mta--f--exim--g--main--s
+
+--
+logitoring--c--agents--o--snmp--f--snmptrapd--g--main--s
+logitoring--c--monitoring--o--zabbix--f--zabbix-proxy--g--embedded--s
+services--c--database--o--rdbms--f--postgres--g--embedded--s
+services--c--mail--o--filters--f--spamassassin--g--main--s
+services--c--server--o--dns--f--bind9--g--main--s
+
+services--c--server--o--http--f--nginx--g--gate--s
+services--c--vpn--o--ssl--f--ocserv--g--main--s
+ 
+ 
+ 
+#### ha - "+"
+services--c--mail--o--mta--f--exim--g--ha--s
+services--c--vpn--o--ssl--f--ocserv--g--ha--s
+services--c--server--o--dns--f--bind9--g--ha--s
+--
+internals--c--cluster--o--ha--f--corosync--g--main--s
+internals--c--cluster--o--ha--f--pacemaker--g--main--s
+
+----
+

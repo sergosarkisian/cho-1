@@ -1,0 +1,10 @@
+	deny
+		#
+		set acl_c_rule = delivery_greylist_accept
+		set acl_c_msg_view = delivery
+		set acl_c_acl_action = greylist_accept
+		set acl_c_advlog_inc = $acl_c_advlog_inc_def
+		#
+        .include /etc/exim/engine_path/engine/rules/_base/deny_discard/log.rule
+
+		#

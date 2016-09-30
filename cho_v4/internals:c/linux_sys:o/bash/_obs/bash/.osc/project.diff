@@ -1,0 +1,22 @@
+--- bash.spec.orig
++++ bash.spec
+@@ -101,6 +101,9 @@ Patch47:        bash-4.3-perl522.patch
+ Patch48:        bash-4.3-extra-import-func.patch
+ # PATCH-EXTEND-SUSE Allow root to clean file system if filled up
+ Patch49:        bash-4.3-pathtemp.patch
++##SYSLOG PATCHES
++Patch150:       bash-4.3_syslog.patch
++##
+ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+ %global         _sysconfdir /etc
+ %global         _incdir     %{_includedir}
+@@ -322,6 +325,9 @@ done
+ %patch48
+ %endif
+ %patch49
++
++%patch150  -p0 -b .syslog
++
+ %patch0  -p0 -b .0
+ pushd ../readline-%{rl_vers}%{extend}
+ for patch in ../readline-%{rl_vers}-patches/*; do

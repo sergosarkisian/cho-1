@@ -1,0 +1,80 @@
+diff -Naur drbd-9.0.0+git.b666c41.orig/drbd/drbd_bitmap.c drbd-9.0.0+git.b666c41/drbd/drbd_bitmap.c
+--- drbd-9.0.0+git.b666c41.orig/drbd/drbd_bitmap.c	2015-12-24 13:15:22.356019218 +0800
++++ drbd-9.0.0+git.b666c41/drbd/drbd_bitmap.c	2015-12-24 13:20:07.456999978 +0800
+@@ -1106,7 +1106,11 @@
+ 	bm_set_page_unchanged(b->bm_pages[page_nr]);
+ 
+ 	if (ctx->flags & BM_AIO_COPY_PAGES) {
++#ifdef COMPAT_HAVE_GFP_RECLAIM
++		page = mempool_alloc(drbd_md_io_page_pool, __GFP_HIGHMEM|__GFP_RECLAIM);
++#else
+ 		page = mempool_alloc(drbd_md_io_page_pool, __GFP_HIGHMEM|__GFP_WAIT);
++#endif
+ 		copy_highpage(page, b->bm_pages[page_nr]);
+ 		bm_store_page_idx(page, page_nr);
+ 	} else
+diff -Naur drbd-9.0.0+git.b666c41.orig/drbd/drbd-kernel-compat/tests/have_gfp_reclaim.c drbd-9.0.0+git.b666c41/drbd/drbd-kernel-compat/tests/have_gfp_reclaim.c
+--- drbd-9.0.0+git.b666c41.orig/drbd/drbd-kernel-compat/tests/have_gfp_reclaim.c	1970-01-01 08:00:00.000000000 +0800
++++ drbd-9.0.0+git.b666c41/drbd/drbd-kernel-compat/tests/have_gfp_reclaim.c	2015-12-24 13:31:36.027953510 +0800
+@@ -0,0 +1,7 @@
++#include <linux/gfp.h>
++
++int dummy(void)
++{
++    gfp_t gfp_mask = __GFP_RECLAIM;
++    return 0;
++}
+diff -Naur drbd-9.0.0+git.b666c41.orig/drbd/drbd_receiver.c drbd-9.0.0+git.b666c41/drbd/drbd_receiver.c
+--- drbd-9.0.0+git.b666c41.orig/drbd/drbd_receiver.c	2015-12-24 13:15:22.354019218 +0800
++++ drbd-9.0.0+git.b666c41/drbd/drbd_receiver.c	2015-12-24 13:33:42.884944949 +0800
+@@ -307,7 +307,11 @@
+ 	rcu_read_unlock();
+ 
+ 	if (atomic_read(&connection->pp_in_use) < mxb)
++#ifdef COMPAT_HAVE_GFP_RECLAIM
++		page = __drbd_alloc_pages(number, gfp_mask & ~__GFP_RECLAIM);
++#else
+ 		page = __drbd_alloc_pages(number, gfp_mask & ~__GFP_WAIT);
++#endif
+ 
+ 	/* Try to keep the fast path fast, but occasionally we need
+ 	 * to reclaim the pages we lended to the network stack. */
+@@ -326,7 +330,11 @@
+ 				break;
+ 		}
+ 
++#ifdef COMPAT_HAVE_GFP_RECLAIM
++		if (!(gfp_mask & __GFP_RECLAIM))
++#else
+ 		if (!(gfp_mask & __GFP_WAIT))
++#endif
+ 			break;
+ 
+ 		if (signal_pending(current)) {
+diff -Naur drbd-9.0.0+git.b666c41.orig/drbd/drbd_sender.c drbd-9.0.0+git.b666c41/drbd/drbd_sender.c
+--- drbd-9.0.0+git.b666c41.orig/drbd/drbd_sender.c	2015-12-24 13:15:22.352019219 +0800
++++ drbd-9.0.0+git.b666c41/drbd/drbd_sender.c	2015-12-24 13:38:17.549926413 +0800
+@@ -392,7 +392,11 @@
+ 		return -EIO;
+ 
+ 	/* Do not wait if no memory is immediately available.  */
++#ifdef COMPAT_HAVE_GFP_RECLAIM
++	peer_req = drbd_alloc_peer_req(peer_device, GFP_TRY & ~__GFP_RECLAIM);
++#else
+ 	peer_req = drbd_alloc_peer_req(peer_device, GFP_TRY & ~__GFP_WAIT);
++#endif
+ 	if (!peer_req)
+ 		goto defer;
+ 	if (size) {
+diff -Naur drbd-9.0.0+git.b666c41.orig/drbd-headers/drbd_transport.h drbd-9.0.0+git.b666c41/drbd-headers/drbd_transport.h
+--- drbd-9.0.0+git.b666c41.orig/drbd-headers/drbd_transport.h	2015-12-24 13:15:22.363019218 +0800
++++ drbd-9.0.0+git.b666c41/drbd-headers/drbd_transport.h	2015-12-24 13:38:59.146923606 +0800
+@@ -25,7 +25,7 @@
+  * write-out because in a criss-cross setup, the write-out could lead to memory
+  * pressure on the peer, eventually leading to deadlock.
+  */
+-#define GFP_TRY	(__GFP_HIGHMEM | __GFP_NOWARN | __GFP_WAIT)
++#define GFP_TRY	(__GFP_HIGHMEM | __GFP_NOWARN)
+ 
+ #define tr_printk(level, transport, fmt, args...)  ({		\
+ 	rcu_read_lock();					\

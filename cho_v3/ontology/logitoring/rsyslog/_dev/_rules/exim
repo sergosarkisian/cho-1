@@ -1,0 +1,177 @@
+#
+annotate=ACL:+desc="log from ACL rules"
+prefix=<%prio:char-to:\x3e%>%date:date-rfc3164% exim[%pid:char-to:\x5d%]: 
+
+rule=ACL1_nomsgid_score:"msg_class":%msg_class:quoted-string%, "msg_view":%msg_view:quoted-string%, "acl_action":%acl_action:quoted-string%, "acl_section":%acl_section:quoted-string%, "acl_rule":%acl_rule:quoted-string%, "message_id":%message_id:quoted-string%, "sender_host_address":%sender_host_address:quoted-string%, "sender_host_name":%sender_host_name:quoted-string%, "to":%to:quoted-string%, "from":%from:quoted-string%, "from_server":%from_server:quoted-string%, "acl_score_mta_reason":%acl_score_mta_reason:quoted-string%, "acl_spamlog":%acl_spamlog:quoted-string%, "acl_score_mta":%acl_score_mta:quoted-string%, "acl_advlog_inc":%acl_advlog_inc:quoted-string%, "acl_advlog":%acl_c_advlog:quoted-string%, "acl_score_mta_inc":%acl_score_mta_inc:quoted-string%, "acl_score_mta_prev":%acl_score_mta_prev:quoted-string%
+rule=ACL1_msgid_score:%message_id:word% "msg_class":%msg_class:quoted-string%, "msg_view":%msg_view:quoted-string%, "acl_action":%acl_action:quoted-string%, "acl_section":%acl_section:quoted-string%, "acl_rule":%acl_rule:quoted-string%, "message_id":%message_id:quoted-string%, "sender_host_address":%sender_host_address:quoted-string%, "sender_host_name":%sender_host_name:quoted-string%, "to":%to:quoted-string%, "from":%from:quoted-string%, "from_server":%from_server:quoted-string%, "acl_score_mta_reason":%acl_score_mta_reason:quoted-string%, "acl_spamlog":%acl_spamlog:quoted-string%, "acl_score_mta":%acl_score_mta:quoted-string%, "acl_advlog_inc":%acl_advlog_inc:quoted-string%, "acl_advlog":%acl_c_advlog:quoted-string%, "acl_score_mta_inc":%acl_score_mta_inc:quoted-string%, "acl_score_mta_prev":%acl_score_mta_prev:quoted-string%
+
+rule=CONTENTFLT_nomsgid_score:"msg_class":%msg_class:quoted-string%, "msg_view":%msg_view:quoted-string%, "acl_action":%acl_action:quoted-string%, "acl_section":%acl_section:quoted-string%, "acl_rule":%acl_rule:quoted-string%, "message_id":%message_id:quoted-string%, "sender_host_address":%sender_host_address:quoted-string%, "sender_host_name":%sender_host_name:quoted-string%, "to":%to:quoted-string%, "from":%from:quoted-string%, "from_server":%from_server:quoted-string%, "acl_score_reason":%acl_score_reason:quoted-string%, "acl_spamlog":%acl_spamlog:quoted-string%, "acl_score_mta":%acl_score_mta:quoted-string%, "acl_score_content":%acl_score_content:quoted-string%, "acl_score_total":%acl_score_total:quoted-string%, "acl_advlog_inc":%acl_advlog_inc:quoted-string%, "acl_advlog":%acl_c_advlog:quoted-string%, "acl_score_inc":%acl_score_inc:quoted-string%, "acl_score_prev":%acl_score_prev:quoted-string%
+
+rule=CONTENTFLT_msgid_score:%message_id:word% "msg_class":%msg_class:quoted-string%, "msg_view":%msg_view:quoted-string%, "acl_action":%acl_action:quoted-string%, "acl_section":%acl_section:quoted-string%, "acl_rule":%acl_rule:quoted-string%, "message_id":%message_id:quoted-string%, "sender_host_address":%sender_host_address:quoted-string%, "sender_host_name":%sender_host_name:quoted-string%, "to":%to:quoted-string%, "from":%from:quoted-string%, "from_server":%from_server:quoted-string%, "acl_score_reason":%acl_score_reason:quoted-string%, "acl_spamlog":%acl_spamlog:quoted-string%, "acl_score_mta":%acl_score_mta:quoted-string%, "acl_score_content":%acl_score_content:quoted-string%, "acl_score_total":%acl_score_total:quoted-string%, "acl_advlog_inc":%acl_advlog_inc:quoted-string%, "acl_advlog":%acl_c_advlog:quoted-string%, "acl_score_inc":%acl_score_inc:quoted-string%, "acl_score_prev":%acl_score_prev:quoted-string%
+
+
+rule=ACL3_nomsgid_trace:"trace", %rest:rest%
+rule=ACL3_msgid_trace:%message_id:word% "trace", %rest:rest%
+
+##
+
+
+annotate=SMTP_connect:+desc="SMTP connection"
+prefix=<%prio:char-to:\x3e%>%date:date-rfc3164% exim[%pid:char-to:\x5d%]: SMTP connection from 
+rule=SMTP-1_1:%hostname:word% [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% %reason:rest%
+rule=SMTP-1_2:(%hostname:char-to:\x29%) [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% %rest:rest%
+rule=SMTP-1_3:[%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% (TCP/IP connection count = %conn_count:char-to:\x29%)
+rule=SMTP-1_4:%hostname:word% (%looks_like_helo:char-to:\x29%) [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% %reason:rest%
+rule=SMTP-1_5:%hostname:word% [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number %reason:rest%
+rule=SMTP-1_6:[%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number %reason:rest%
+
+
+prefix=<%prio:char-to:\x3e%>%date:date-rfc3164% exim[%pid:char-to:\x5d%]: 
+rule=SMTP-2_1:ident connection to %-:ipv4% timed out
+rule=SMTP-2_2:unexpected disconnection while reading SMTP command from %hostname:word% (%looks_like_helo:char-to:\x29%) [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number%
+rule=SMTP-2_3:unexpected disconnection while reading SMTP command from (%hostname:char-to:\x29%) [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number%
+rule=SMTP-2_4:unexpected disconnection while reading SMTP command from %hostname:word% [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number%
+rule=SMTP-2_5:rejected %header:word% from %hostname:word% [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% %rest:rest%
+rule=SMTP-2_6:SMTP protocol error in "AUTH LOGIN" H=%hostname:word% (%looks_like_helo:char-to:\x29%) [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% %rest:rest%
+rule=SMTP-2_7:SMTP protocol synchronization error %rest:rest%
+rule=SMTP-2_8:SMTP syntax error in %rest:rest%
+
+prefix=<%prio:char-to:\x3e%>%date:date-rfc3164% exim[%pid:char-to:\x5d%]: no 
+rule=SMTP-3_1:IP address found for host %hostname:word% (during SMTP connection from [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:char-to:\x29%)
+rule=SMTP-3_2:host name found for IP address %outgoing_ip:word%
+rule=SMTP-3_3:MAIL in SMTP connection from %hostname:word% (%looks_like_helo:char-to:\x29%) [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% D=%d:word% C=%c:word%
+rule=SMTP-3_4:MAIL in SMTP connection from %hostname:word% [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% D=%d:word% C=%c:word%
+rule=SMTP-3_5:MAIL in SMTP connection from [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% D=%d:word%
+
+##
+
+annotate=Greylist:+desc="Greylist rules"
+prefix=<%prio:char-to:\x3e%>%date:date-rfc3164% exim[%pid:char-to:\x5d%]: 
+rule=Greylist_1:Added host %outgoing_ip:word% with HELO '%helo:char-to:\x27%' to known resenders
+
+##
+
+annotate=TAG1:+desc="TAG1"
+prefix=%date:date-iso% %time:time-24hr% %message_id:word% %direction:word% %from:word% F=<%sender_mail:char-to:\x3e%> P=<%return_path:char-to:\x3e%> R=%router:word% T=%transport_name:word% S=%delivery_size:number% H=%hostname:word% 
+rule=TAG-1_1:[%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% C=%smtp_confirmation:quoted-string% QT=%queue_time:number%%qt_metric:word% DT=%deliver_time:number%%dt_metric:word%
+rule=TAG-1_2:[%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% X=%-:word% CV=%-:word% DN=%-:quoted-string% C=%smtp_confirmation:quoted-string% QT=%queue_time:number%%qt_metric:word% DT=%deliver_time:number%%dt_metric:word%
+rule=TAG-1_3:QT=%queue_time:number%%qt_metric:word% DT=%deliver_time:number%%dt_metric:word%
+
+prefix=%date:date-iso% %time:time-24hr% %message_id:word% %direction:word% %from:word% F=<%sender_mail:char-to:\x3e%>: 
+rule=TAG1_4:%rest:rest%
+
+##
+
+annotate=TAG2:+desc="TAG2"
+prefix=%date:date-iso% %time:time-24hr% %message_id:word% %direction:word% %mail:word% F=<> P=<> R=%router:word% T=%transport_name:word% S=%delivery_size:number% H=%hostname:word% [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% 
+rule=TAG-2_1:X=%tls_cipher:word% CV=%tls_certificate_verified:word% DN=%tls_peerdn:quoted-string% C=%smtp_confirmation:quoted-string% QT=%queue_time:number%%qt_metric:word% DT=%deliver_time:number%%dt_metric:word%
+rule=TAG-2_2:C=%smtp_confirmation:quoted-string% QT=%queue_time:number%%qt_metric:word% DT=%deliver_time:number%%dt_metric:word%
+
+prefix=%date:date-iso% %time:time-24hr% %message_id:word% %direction:word% %mail:word% F=<> P=<> R=%router:word% T=%transport_name:char-to:\x3a%: 
+rule=TAG-2_3:%rest:rest%
+
+##
+
+annotate=TAG3:+desc="TAG3"
+prefix=%date:date-iso% %time:time-24hr% %message_id:word% %direction:word% %mail:word% 
+rule=TAG-3_1:U=%user:word% P=%protocol:word% S=%delivery_size:number% M8S=%something:number% T=%topic:quoted-string% from <%mail_2:char-to:\x3e%> for %local_user:word%
+rule=TAG-3_2:[%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% %rest:rest%
+rule=TAG-3_3:R=%router:word% T=%transport_name:word% %rest:rest%
+rule=TAG-3_4:F=<>: %rest:rest%
+
+##
+
+annotate=TAG4:+desc="TAG4"
+
+prefix=<%prio:char-to:\x3e%>%date:date-rfc3164% exim[%pid:char-to:\x5d%]: %message_id:word% %direction:word% 
+rule=TAG-4_1:%from:word% H=(%hostname:char-to:\x29%) [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% P=%protocol:word% S=%delivery_size:number% M8S=%something:number% %rest:rest%
+rule=TAG-4_2:%from:word% H=%hostname:word% (%looks_like_helo:char-to:\x29%) [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% P=%protocol:word% S=%delivery_size:number% M8S=%something:number% %rest:rest%
+rule=TAG-4_3:%from:word% H=%hostname:word% [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% P=%protocol:word% S=%delivery_size:number% M8S=%something:number% %rest:rest%
+rule=TAG-4_4:%from:word% H=%hostname:word% [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% P=%protocol:word% PRX=%proxy:word% S=%delivery_size:number% M8S=%something:number% %rest:rest%
+rule=TAG-4_5:%from:word% H=%hostname:word% (%looks_like_helo:char-to:\x29%) [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% P=%protocol:word% PRX=%proxy:word% S=%delivery_size:number% M8S=%something:number% %rest:rest%
+
+prefix=<%prio:char-to:\x3e%>%date:date-rfc3164% exim[%pid:char-to:\x5d%]: %message_id:word% 
+rule=TAG-4_6:%mail:quoted-string% %rest:rest%
+
+prefix=<%prio:char-to:\x3e%>%date:date-rfc3164% exim[%pid:char-to:\x5d%]: 
+rule=TAG4_7:H=(%hostname:char-to:\x29%) [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% %rest:rest%
+rule=TAG4_8:H=%hostname:word% [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% %rest:rest%
+rule=TAG4_81:H=%hostname:word% [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% temporarily rejected DATA: Greylisted <> from <%from:char-to:\x3e%> for offences: Message has %spam_mta_score:number% SpamMTAScore points,
+rule=TAG4_82:H=%hostname:word% (%looks_like_helo:char-to:\x29%) [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% %rest:rest%
+rule=TAG4_83:rejected %header:word% from [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% %rest:rest%
+
+
+prefix=<%prio:char-to:\x3e%>%date:date-rfc3164% exim[%pid:char-to:\x5d%]: H=%hostname:word% (%looks_like_helo:char-to:\x29%) [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% I=[%local_ip:char-to:\x5d%]:%local_port:number% 
+rule=TAG-4_9:F=<> temporarily rejected %header:word% <%to:char-to:\x3e%>: %rest:rest%
+rule=TAG-4_10:sender verify defer for <%from:char-to:\x3e%>: %rest:rest%
+rule=TAG-4_11:temporarily rejected %header:word% <%from:char-to:\x3e%>: %rest:rest%
+rule=TAG-4_12:Warning: ACL %rest:rest%
+rule=TAG-4_13:incomplete transaction (%command:char-to:\x29%) from %rest:rest%
+
+##
+
+annotate=TAG5:+desc="TAG5"
+prefix=%date:date-iso% %time:time-24hr% %message_id:word% %direction:word% %mail:word% <%alias:char-to:\x3e%> 
+rule=TAG-5_1:F=<> P=<> R=%router:word% T=%transport_name:word% S=%delivery_size:number% H=%hostname:word% [%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% C=%smtp_confirmation:quoted-string% QT=%queue_time:number%%qt_metric:word% DT=%deliver_time:number%%dt_metric:word%
+rule=TAG-5_2:R=%router:word% T=%transport:word% %message_status:word% (%status_code:char-to:\x29%): %rest:rest%
+
+prefix=%date:date-iso% %time:time-24hr% %message_id:word% %direction:word% %mail:word% <%alias:char-to:\x3e%> F=<%sender_mail:char-to:\x3e%> P=<%return_path:char-to:\x3e%> R=%router:word% T=%transport_name:word% S=%delivery_size:number% H=%hostname:word% 
+rule=TAG-5_3:[%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% X=%tls_cipher:word% CV=%tls_certificate_verified:word% DN=%tls_peerdn:quoted-string% C=%smtp_confirmation:quoted-string% QT=%queue_time:number%%qt_metric:word% DT=%deliver_time:number%%dt_metric:word%
+rule=TAG-5_4:[%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% C=%smtp_confirmation:quoted-string% QT=%queue_time:number%%qt_metric:word% DT=%deliver_time:number%%dt_metric:word%
+rule=TAG-5_5:QT=%queue_time:number%%qt_metric:word% DT=%deliver_time:number%%dt_metric:word%
+
+##
+
+annotate=TAG6:+desc="TAG6"
+prefix=%date:date-iso% %time:time-24hr% %message_id:word% %direction:word% %mail:word% (%mail_3:char-to:\x29%) <%alias:char-to:\x3e%> F=<%sender_mail:char-to:\x3e%> P=<%return_path:char-to:\x3e%> R=%router:word% T=%transport_name:word% S=%delivery_size:number% H=%hostname:word% 
+rule=TAG-6_1:[%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% X=%tls_cipher:word% CV=%tls_certificate_verified:word% DN=%tls_peerdn:quoted-string% C=%smtp_confirmation:quoted-string% QT=%queue_time:number%%qt_metric:word% DT=%deliver_time:number%%dt_metric:word%
+rule=TAG-6_2:[%outgoing_ip:char-to:\x5d%]:%outgoing_port:number% C=%smtp_confirmation:quoted-string% QT=%queue_time:number%%qt_metric:word% DT=%deliver_time:number%%dt_metric:word%
+rule=TAG-6_3:QT=%queue_time:number%%qt_metric:word% DT=%deliver_time:number%%dt_metric:word%
+
+##
+
+annotate=TAG7:+desc="TAG7"
+prefix=%date:date-iso% %time:time-24hr% %message_id:word% 
+rule=TAG-7_1:%status:word% QT=%queue_time_overall:number%%qt_metric:word%
+rule=TAG-7_2:%status:word% (%info:char-to:\x29%)
+rule=TAG-7_4:Message is %status:word%
+rule=TAG-7_5:Spool file is locked %rest:rest%
+rule=TAG-7_6:== %mail:word% routing defer (%reason_id:char-to:\x29%): %reason:rest%
+rule=TAG-7_7:== %mail:word% R=%router:word% defer (%reason_id:char-to:\x29%): %reason:rest%
+rule=TAG-7_7:** %mail:word%: %reason:rest%
+
+prefix=%date:date-iso% %time:time-24hr% 
+rule=TAG-7_11:%message_status:char-to:\x3a%: pid=%-:number%
+rule=TAG-7_12:%message_id:word% removed by root
+
+
+##
+
+annotate=TAG8:+desc="TAG8"
+prefix=%date:date-iso% %time:time-24hr% %message_id:word% %direction:word% 
+rule=TAG-8_2:<> R=%reference:word% U=%local_user:word% P=%protocol:word% S=%delivery_size:number% M8S=%something:number% T=%topic:quoted-string% from <> for %mail_3:word%
+
+##
+
+annotate=TAG9:+desc="TAG9"
+prefix=<%prio:char-to:\x3e%>%date:date-rfc3164% exim[%pid:char-to:\x5d%]: 
+rule=TAG-9_1:Initializing SMTP %rest:rest%
+rule=TAG-9_2:Shutting down SMTP %rest:rest%
+rule=TAG-9_3:%message_id:word% DKIM: %rest:rest%
+rule=TAG-9_4:cwd=%rest:rest%
+rule=TAG-9_5:exim %-:word% daemon started: %rest:rest%
+
+##
+
+annotate=TAG10:+desc="TAG10"
+prefix=%date:date-iso% %time:time-24hr% cwd=%cwd:word% 
+rule=TAG-10_1:1 args: %task:word%
+rule=TAG-10_2:2 args: %exec:word% %task:word% %message_id:word%
+rule=TAG-10_3:3 args: %exec:word% %task:word% %message_id:word%
+rule=TAG-10_4:4 args: %exec:word% %rest:rest%
+rule=TAG-10_7:7 args: %exec:word% -t -oem -oi -f <> -%message_id:word%
+
+##
+
+
+prefix=

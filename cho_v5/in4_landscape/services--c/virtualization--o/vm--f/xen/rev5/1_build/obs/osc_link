@@ -1,0 +1,6 @@
+<link project="Virtualization" package="xen" baserev="a2179bad4bacc1ebe4e5b58fa61010b3">
+  <patches>
+    <topadd>%define with_kmp 1</topadd>
+    <add name="libxl_qemu_directsync.patch" popt="1" />
+  </patches>
+</link>

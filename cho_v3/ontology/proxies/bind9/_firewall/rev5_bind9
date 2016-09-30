@@ -1,0 +1,7 @@
+## Name: rev5_bind9
+## Description: Open ports for rev5_bind9
+
+# space separated list of allowed TCP ports
+UDP="53"
+TCP="53"
+ 

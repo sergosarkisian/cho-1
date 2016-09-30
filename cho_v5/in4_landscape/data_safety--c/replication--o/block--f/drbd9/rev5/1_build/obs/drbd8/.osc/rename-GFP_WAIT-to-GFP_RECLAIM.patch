@@ -1,0 +1,32 @@
+Index: drbd-8.4.6/drbd/drbd_bitmap.c
+===================================================================
+--- drbd-8.4.6.orig/drbd/drbd_bitmap.c
++++ drbd-8.4.6/drbd/drbd_bitmap.c
+@@ -1084,7 +1084,11 @@ static void bm_page_io_async(struct drbd
+ 	bm_set_page_unchanged(b->bm_pages[page_nr]);
+ 
+ 	if (ctx->flags & BM_AIO_COPY_PAGES) {
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,4,0)
++		page = mempool_alloc(drbd_md_io_page_pool, __GFP_HIGHMEM|__GFP_RECLAIM);
++#else
+ 		page = mempool_alloc(drbd_md_io_page_pool, __GFP_HIGHMEM|__GFP_WAIT);
++#endif
+ 		copy_highpage(page, b->bm_pages[page_nr]);
+ 		bm_store_page_idx(page, page_nr);
+ 	} else
+Index: drbd-8.4.6/drbd/drbd_receiver.c
+===================================================================
+--- drbd-8.4.6.orig/drbd/drbd_receiver.c
++++ drbd-8.4.6/drbd/drbd_receiver.c
+@@ -421,7 +421,11 @@ drbd_alloc_peer_req(struct drbd_peer_dev
+ 	}
+ 
+ 	if (has_payload && data_size) {
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,4,0)
++		page = drbd_alloc_pages(peer_device, nr_pages, (gfp_mask & __GFP_RECLAIM));
++#else
+ 		page = drbd_alloc_pages(peer_device, nr_pages, (gfp_mask & __GFP_WAIT));
++#endif
+ 		if (!page)
+ 			goto fail;
+ 	}

@@ -1,0 +1,14 @@
+###########################
+###  acl_6_check_data                       ###
+###########################
+
+acl_6_check_data:
+
+    ###
+###SCORES###
+warn
+set acl_c_section = 6_check_data
+set acl_c_message_id = $message_exim_id
+set acl_c_recipient = $recipients
+###SCORES###
+    ###

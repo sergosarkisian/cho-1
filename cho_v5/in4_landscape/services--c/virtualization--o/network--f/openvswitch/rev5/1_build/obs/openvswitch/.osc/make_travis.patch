@@ -1,0 +1,12 @@
+--- Makefile.am	2016-03-15 15:38:05.000000000 +0200
++++ Makefile.am1	2016-03-15 15:40:30.451775216 +0200
+@@ -97,9 +97,6 @@
+ EXTRA_DIST = \
+ 	$(docs) \
+ 	NOTICE \
+-	.travis.yml \
+-	.travis/build.sh \
+-	.travis/prepare.sh \
+ 	appveyor.yml \
+ 	boot.sh \
+ 	build-aux/cccl \

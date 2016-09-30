@@ -1,0 +1,6 @@
+## Name: rev5_rsyslog
+## Description: Open ports for rev5_rsyslog
+
+# space separated list of allowed TCP ports
+TCP="20516"
+ 

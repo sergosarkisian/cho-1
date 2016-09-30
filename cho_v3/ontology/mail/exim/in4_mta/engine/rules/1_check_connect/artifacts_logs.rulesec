@@ -1,0 +1,4 @@
+"event_tag_sec1":${quote:${from_utf8:${sender_host_address}_${sender_host_port}}}, \
+"sender_host_address":${quote:${from_utf8:$sender_host_address}}, \
+"sender_host_name":${quote:${from_utf8:$sender_host_name}}, \
+"sender_host_port":${quote:${from_utf8:$sender_host_port}}, \

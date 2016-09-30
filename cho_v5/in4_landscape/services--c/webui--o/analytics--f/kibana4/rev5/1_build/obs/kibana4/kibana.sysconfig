@@ -1,0 +1,10 @@
+# Override default config Path ("KIBANAROOT/config/kibana.yml")
+CONFIG_PATH=/etc/kibana/kibana.yml
+
+# Define Log Path
+LOG_PATH=/var/log/kibana
+
+# user id to be invoked as
+USER=kibana
+GROUP=kibana
+

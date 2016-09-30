@@ -1,0 +1,26 @@
+<package name="xtrabackup" project="home:conecenter:techpool:ontology:database:mariadb">
+  <title>Online backup for MySQL / InnoDB</title>
+  <description>Percona XtraBackup is an online (non-blocking) backup solution for InnoDB engines. It features uninterrupted transaction processing during backups for InnoDB, but can also backup MyISAM tables.
+
+</description>
+  <build>
+    <enable arch="i586" repository="Fedora_10"/>
+    <enable arch="x86_64" repository="Fedora_10"/>
+    <enable arch="i586" repository="Fedora_9"/>
+    <enable arch="x86_64" repository="Fedora_9"/>
+    <enable arch="x86_64" repository="SLE_12"/>
+    <disable repository="CentOS_6"/>
+    <disable repository="Fedora_15"/>
+    <disable repository="Fedora_16"/>
+    <disable repository="RedHat_RHEL-5"/>
+    <disable repository="RedHat_RHEL-6"/>
+    <disable repository="SLE_11"/>
+    <disable repository="SLE_11_SP1"/>
+    <disable repository="Fedora_17"/>
+    <disable repository="SLE_12"/>
+    <disable arch="ppc64" repository="SLE_11_SP2"/>
+    <disable arch="ppc64" repository="SLE_11_SP3"/>
+  </build>
+  <url>http://www.percona.com/software/percona-xtrabackup/</url>
+</package>
+

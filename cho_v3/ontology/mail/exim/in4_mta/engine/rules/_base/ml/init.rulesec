@@ -1,0 +1,18 @@
+
+    warn  
+        condition = ${if or {{eq {${substr{10}{2}{$tod_zulu}} }{00}}{eq {${substr{10}{2}{$tod_zulu}} }{30}} }{yes}{no}}
+        set acl_c_ml_clean = ML_CLEAN
+        
+ 
+    warn  
+        set acl_c_ml_check = ML_CHECK
+        set acl_c_ml_id  = ${extract{id}{$acl_c_ml_check}{$value}{-1}}
+        set acl_c_ml_check = ${extract{result}{$acl_c_ml_check}{$value}{unknown}}
+
+    warn
+        condition  = ${if eq {$acl_c_ml_check} {unknown} {yes}}
+        condition  = ML_ADD
+        
+    warn  
+        condition = ML_INC_COUNT
+        

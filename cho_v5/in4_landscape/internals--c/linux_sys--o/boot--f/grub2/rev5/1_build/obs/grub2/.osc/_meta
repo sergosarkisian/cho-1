@@ -1,0 +1,5 @@
+<package name="grub2" project="home:conecenter:rev5a1:ontology:internals--c:linux_sys--o:boot--f">
+  <title>grub2</title>
+  <description>grub2</description>
+</package>
+

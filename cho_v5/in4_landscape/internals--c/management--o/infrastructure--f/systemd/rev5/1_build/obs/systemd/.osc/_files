@@ -1,0 +1,5 @@
+<directory name="systemd" rev="3" srcmd5="77f3a8a1e3c3090c04e07fade898bc59" vrev="3">
+  <linkinfo lsrcmd5="77f3a8a1e3c3090c04e07fade898bc59" package="systemd" project="openSUSE:Factory" srcmd5="7dfba8217b4a37e41598a61b0f6ae61a" xsrcmd5="df0f61e62f7bf2fb59d837bc8fb7cd16" />
+  <serviceinfo code="succeeded" xsrcmd5="33b51298388423a8dd488c277a2ddf5c" />
+  <entry md5="0f0747ddfc64cf659e398fa380705a36" mtime="1390469432" name="_link" size="450" />
+</directory>

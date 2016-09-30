@@ -1,0 +1,118 @@
+
+    
+.ifdef LOGVAR_TRACE
+  warn
+	logwrite ="trace", "section":"$acl_c_section", \
+			"host":"$host", \
+			"host_address":"$host_address", \
+			"message_exim_id":"$message_exim_id", \
+			"rcpt_count":"$rcpt_count", \
+			"recipients_count":"$recipients_count", \
+			"reply_address":"$reply_address", \
+			"cc":"$h_cc", \
+			"bcc":"$h_bcc", \
+			"Envelope-to":"$h_envelope-to", \
+			"from":"$h_from", \			
+			"to":"$h_to" , \
+			"b_cc":"$bh_cc", \
+			"b_bcc":"$bh_bcc", \
+			"b_Envelope-to":"$bh_envelope-to", \
+			"b_from":"$bh_from", \			
+			"b_to":"$bh_to" , \			
+			"r_cc":"$rh_cc", \
+			"r_bcc":"$rh_bcc", \
+			"r_Envelope-to":"$rh_envelope-to", \
+			"r_from":"$rh_from", \			
+			"r_to":"$rh_to"			
+			
+.endif
+
+
+.ifdef  SCORE_NO_SUBJ_OR_BODY
+  # No Subject or Body => Score: SCORE_NO_SUBJ_OR_BODY 
+  warn   
+		!condition = ${if def:h_Subject:}
+		condition = ${if <{$body_linecount}{1}{true}{false}}
+		#
+		set acl_c_rule = score_no_subj_or_body
+		set acl_c_score_mta_inc = SCORE_NO_SUBJ_OR_BODY
+		set acl_c_score_reason = No Subject or Body
+		#
+		set acl_c_score_prev = $acl_c_score_total
+		set acl_c_score_mta = ${eval:$acl_c_score_mta + $acl_c_score_mta_inc}
+		set acl_c_score_total = ${eval10:$acl_c_score_mta + $acl_c_score_content}			
+      
+.endif
+
+###########  MTA SCORE END ###########
+
+        
+
+#  	Score $acl_c_score_total is > deny_hard ($acl_c_deny_hard) => DENY
+deny 
+		message = Sorry, your spam score is very high
+		condition = ${if >={$acl_c_score_total}{$acl_c_deny_hard}{yes}{no}}
+		#
+		set acl_c_rule = delivery_deny_data_1		
+		set acl_c_score_reason = Score $acl_c_score_total is > deny_hard ($acl_c_deny_hard)
+		set acl_c_msg_view = delivery
+		set acl_c_acl_action = deny
+	
+#SA
+
+
+
+.ifdef CONTENT_FILTRATION
+  # Content filtration => Score: $spam_score_int 
+  warn   
+		spam = nobody:true
+		condition = ${if < {$message_size}{300K}}
+		condition = ${if or {{>={$acl_c_score_mta}{SCORE_ACCEPT}}{eqi{$acl_c_recipient}{testuser@cone.ee}}}}
+		#
+		set acl_c_rule = score_content_filtration
+		set acl_c_score_mta_inc = $spam_score_int
+		set acl_c_score_reason = Content filtration
+		#
+		set acl_c_score_prev = $acl_c_score_total
+		set acl_c_score_content = ${eval10:$acl_c_score_content + $acl_c_score_mta_inc}
+		set acl_c_score_total = ${eval10:$acl_c_score_mta + $acl_c_score_content}	
+   	
+.endif
+
+
+
+
+###########  QUEUEING DELIVERY ###########
+
+.ifdef SCORE_FLAG_SPAM
+  ##Add spam flag for MS Exchange
+  warn
+		condition = ${if >={$acl_c_score_mta}{SCORE_FLAG_SPAM}{yes}{no}}
+		add_header     = X-Spam-Flag: Yes
+		add_header     = X-Spam-Flag: yes
+		add_header     = X-Spam-Flag: YES
+		add_header     = x-spam-flag: yes
+		#
+		set acl_c_fact_mta_score_flag_spam = 1			
+		
+.endif
+
+
+
+  warn 
+		add_header = X-Spam-Score-MTA: $acl_c_score_mta
+		add_header = X-Spam-Score-Content: $acl_c_score_content
+		add_header = X-Spam-Score-Total: $acl_c_score_total
+		add_header = X-Spam-Score-MTA-details: $acl_c_spamlog
+
+accept
+		#
+		set acl_c_score_reason = Accepted with score $acl_c_score_mta
+		set acl_c_rule = accept_final			
+		set acl_c_msg_view = delivery
+		set acl_c_acl_action = delivery
+		set acl_c_advlog_inc = $acl_c_advlog_inc_def
+        set acl_c_advlog = $acl_c_advlog \;  $acl_c_advlog_inc;		
+		#		
+		logwrite ="msg_class":"$acl_c_msg_class", "msg_view":"$acl_c_msg_view", "acl_action":"$acl_c_acl_action", "acl_section":"$acl_c_section", "acl_rule":"$acl_c_rule", "message_id":"$acl_c_message_id", "sender_host_address":"$sender_host_address", "sender_host_name":"$sender_host_name", "to":"$acl_c_recipient", "from":"$sender_address_local_part@$sender_address_domain", "from_server":"$sender_fullhost", "acl_score_reason":"$acl_c_score_reason", "acl_spamlog":"$acl_c_spamlog", "acl_score_mta":"$acl_c_score_mta", "acl_score_content":"$acl_c_score_content", "acl_score_total":"$acl_c_score_total", "acl_advlog_inc":"$acl_c_advlog_inc", "acl_advlog":"$acl_c_advlog", "acl_score_inc":"$acl_c_score_mta_inc", "acl_score_prev":"$acl_c_score_prev"
+		

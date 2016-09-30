@@ -1,0 +1,125 @@
+
+ server {
+    listen    83;
+    port_in_redirect off;
+    root        /web/_tmp/$host/htdocs;
+
+    ##Frequently-changed files
+    location ~* \.(css|txt|rtf|js|html|htm|xml)$
+    {
+        try_files  $uri $uri/ @we;
+        error_page   403  =  @we;
+        aio             on;
+        directio        512;
+        output_buffers  1 128k;
+
+        open_file_cache max=1024 inactive=60s;
+        open_file_cache_valid    60s;
+        open_file_cache_min_uses 60;
+        open_file_cache_errors   off;
+    }
+
+    ##Mostly unchanged files
+    location ~* \.(jpg|jpeg|gif|png|tif|tiff|bmp|svg|svgz|ico|zip|tgz|gz|rar|bz2|doc|docx|bdoc|xls|odt|odp|ddoc|pdf|tar|wav|flv|swf|mp3|ogg|mpeg|avi|rar)$
+    {
+        try_files  $uri $uri/ @swe;
+        error_page   403  =  @swe;
+        aio             on;
+        directio        512;
+        output_buffers  1 128k;
+
+        open_file_cache max=8096 inactive=60s;
+        open_file_cache_valid    600s;
+        open_file_cache_min_uses 1;
+        open_file_cache_errors   off;
+        open_file_cache_events  on;
+    }
+
+
+    location / {
+        #error_page   404  =  @we;
+        try_files  $uri $uri/ @we;
+        error_page   403  =  @we;
+
+        aio        on;
+        directio   512;
+        output_buffers  1 128k;
+        }
+
+        location /bereport {
+            perl 'sub{
+                my($r)=@_;
+                $r->send_http_header("text/plain");
+                $r->print(join"",map{"$_ => $vh2port{$_}\n"} sort keys %vh2port);
+                return OK;
+            }';
+        }
+        location /bereset {
+            perl 'sub{
+                my($r)=@_;
+                %vh2port = ();
+                $r->send_http_header("text/html");
+                $r->print("OK\n");
+                return OK;
+            }';
+        }
+
+        location @we {
+                proxy_pass http://$bepass;
+                proxy_redirect $bepass/ /;
+                expires -1d;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP     $remote_addr;
+                proxy_set_header X-Forwarded-For $http_x_forwarded_for;
+                proxy_set_header X-Client $http_x_client;
+            }
+
+        location @swe {
+                expires 14d;
+                add_header Last-Modified "Sat, 01 Jan 2010 00:00:15 GMT";
+                proxy_pass http://$bepass;
+                proxy_redirect $bepass/ /;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP     $remote_addr;
+                proxy_set_header X-Forwarded-For $http_x_forwarded_for;
+                proxy_set_header X-Client $http_x_client;
+            }
+
+    location /nstat {
+            stub_status on;
+            }
+
+      error_page  404              /error404.html;
+
+          }
+
+
+
+
+    perl_set $host_with_www 'sub{
+        my($r)=@_;
+	    return $r->variable("host")=~/^([\w\-]+)\.([\w\-]+)$/ ? "www.$1.$2" : "_undefined_host_";
+
+
+    }';
+
+    perl_set $root_for_host 'sub{
+        my($r)=@_;
+        my $h =  $r->variable("host");
+        return $h=~/^([\w\-]+)\.([\w\-]+)\.([\w\-]+)$/            ? "$2.$3/$1/_/htdocs" :
+                   $h=~/^([\w\-]+)\.([\w\-]+)\.([\w\-]+)\.([\w\-]+)$/ ? "$3.$4/$2/$1/htdocs" :
+                   $h=~/^([\w\-]+)\.([\w\-]+)$/                       ? "$1.$2/www/_/htdocs" :
+                   "_undefined_host_";
+    }';
+
+
+  perl_set $bepass 'sub{
+        my($r)=@_;
+        $host = $r->variable("host");
+        return $vh2port{$host} if exists $vh2port{$host};
+        open BEPORTF, "/web/_tmp/$host.pass";
+        ($beport = $vh2port{$host} = <BEPORTF>)=~s/\s//g;
+        close BEPORTF;
+        return $beport;
+    }';
+

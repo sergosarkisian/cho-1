@@ -1,0 +1,5 @@
+<directory name="xtrabackup" rev="1" srcmd5="4df8634c68ae9edaffb19cd509ea7d49" vrev="1">
+  <linkinfo lsrcmd5="4df8634c68ae9edaffb19cd509ea7d49" package="xtrabackup" project="server:database" srcmd5="c2d3b575d22ef01c7d07a61db6f94a34" xsrcmd5="576be7b7aafeee1c60522816df64d181" />
+  <serviceinfo code="succeeded" xsrcmd5="0443c4fe75fe65558b800a7f3dfc99b1" />
+  <entry md5="c30d09d432a42e2c2603ab763cbdfdea" mtime="1447322235" name="_link" size="452" />
+</directory>

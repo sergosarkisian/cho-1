@@ -1,0 +1,25 @@
+# THIS FILE WILL BE PARTIALLY OVERWRITTEN by perl-Bootloader
+# If you change this file, run 'grub2-mkconfig -o /boot/grub2/grub.cfg' afterwards to update
+
+GRUB_DISTRIBUTOR=openSUSE
+GRUB_DEFAULT="openSUSE, with Linux xen"
+GRUB_HIDDEN_TIMEOUT=0
+GRUB_HIDDEN_TIMEOUT_QUIET=true
+GRUB_TIMEOUT=4
+GRUB_CMDLINE_LINUX_DEFAULT=""
+# kernel command line options for failsafe mode
+GRUB_CMDLINE_LINUX_RECOVERY="showopts apm=off noresume edd=off powersaved=off nohz=off highres=off processor.max_cstate=1 nomodeset x11failsafe"
+GRUB_CMDLINE_LINUX="splash=silent quiet showopts ipv6.disable=1 elevator=noop vga=0x314 CPUFREQ=no panic=15 barrier=off xen_blkfront.max=64 rw"
+GRUB_TERMINAL=gfxterm
+GRUB_GFXMODE=auto
+# Uncomment if you don't want GRUB to pass "root=UUID=xxx" parameter to Linux
+#GRUB_DISABLE_LINUX_UUID=true
+GRUB_DISABLE_LINUX_RECOVERY=true
+GRUB_DISABLE_OS_PROBER=true
+GRUB_ENABLE_CRYPTODISK=n
+SUSE_BTRFS_SNAPSHOT_BOOTING=true
+GRUB_BACKGROUND=/boot/grub2/themes/openSUSE/background.png
+GRUB_THEME=/boot/grub2/themes/openSUSE/theme.txt
+GRUB_GFXPAYLOAD_LINUX=text
+
+GRUB_PRELOAD_MODULES="drbd"

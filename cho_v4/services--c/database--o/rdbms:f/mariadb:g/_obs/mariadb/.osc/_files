@@ -1,0 +1,4 @@
+<directory name="mariadb" rev="1" srcmd5="834a8042fefa92206ca6d834d5324e89" vrev="1">
+  <linkinfo lsrcmd5="834a8042fefa92206ca6d834d5324e89" package="mariadb" project="server:database" srcmd5="b0be1127b1635eac15412a266860973c" xsrcmd5="04e09b14d87a12760460e89e2977dce3" />
+  <entry md5="4f3d1b0a682f3e5ca88522fdf337ecf2" mtime="1402481410" name="_link" size="449" />
+</directory>

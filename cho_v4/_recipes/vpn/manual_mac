@@ -1,0 +1,23 @@
+Mac OS X
+
+I. Installation of VPN client (Cisco Anyconnect)
+
+1) Download CiscoAnyConnect client (http://public.edss.ee/software/Mac/VPN/anyconnect-macosx-i386-4.2.00096-k9.dmg)
+2) Install the Application as usual
+3) Uncheck all except "VPN" on the Installation Type screen
+
+
+II. Auto-configuration scenario (you should have priviliged(admin) rights )
+1) Download auto-configuration script using browser - http://public.edss.ee/software/Mac/VPN/vpn.zip
+2) Click "Open"
+3) Enter you company name ,login and password for download your organization configuration data
+4) Enter privileged password to continue the scenario.
+5) Launch Cisco Anyconnect client
+
+III. VPN Connect
+
+1 ) Click "Connect"
+2)  Enter vpn username (You will need enter once)
+3) Enter vpn password (You will need enter each time you are connecting)
+4) Click "Accept" when you see information message
+

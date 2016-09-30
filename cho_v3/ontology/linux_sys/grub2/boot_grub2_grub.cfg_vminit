@@ -1,0 +1,52 @@
+### BEGIN /etc/grub.d/00_header ###
+insmod drbd
+
+probe -s UUID -u $root
+set default="paravirt"
+
+if [ -f ${config_directory}/grubenv ]; then
+  load_env -f ${config_directory}/grubenv
+elif [ -s $prefix/grubenv ]; then
+  load_env
+fi
+
+if [ "${env_block}" ] ; then
+  load_env -f "${env_block}"
+fi
+
+if [ x"${feature_menuentry_id}" = xy ]; then
+  menuentry_id_option="--id"
+else
+  menuentry_id_option=""
+fi
+
+export menuentry_id_option
+
+font=unicode
+set timeout_style=menu
+set timeout=4
+
+
+### END /etc/grub.d/00_header ###
+
+### BEGIN /etc/grub.d/10_linux ###
+menuentry 'paravirt'  --class opensuse --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-paravirt' {
+        set gfxpayload=text
+        insmod gzio
+        insmod ext2
+        echo    'Loading Linux Xen ...'
+        linux   /boot/vmlinuz-xentemp root=LABEL=system splash=silent quiet showopts ipv6.disable=1 elevator=noop vga=0x314 CPUFREQ=no panic=15 barrier=off xen_blkfront.max=64  splash=silent quiet showopts
+		echo    'Loading initial ramdisk ...'
+		initrd  /boot/initrd-xentemp
+
+}
+
+menuentry 'hvm'  --class opensuse --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-hvm' {
+        set gfxpayload=text
+        insmod gzio
+        insmod ext2
+        echo    'Loading Linux HVM ...'
+        linux   /boot/vmlinuz  root=LABEL=system splash=silent quiet showopts ipv6.disable=1 elevator=noop vga=0x314 CPUFREQ=no panic=15 barrier=off xen_blkfront.max=64  splash=silent quiet showopts
+		echo    'Loading initial ramdisk ...'
+		initrd  /boot/initrd
+}

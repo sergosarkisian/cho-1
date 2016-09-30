@@ -1,0 +1,57 @@
+# Exim filter   <<== do not edit or remove this line!
+
+if $acl_c_recipient contains "spamtrap-"
+then
+   seen finish
+endif
+
+
+if ${acl_c_score_total} is below 0 
+then
+    headers add "X-Spam-Class: OK (TRUSTED)"
+endif   
+
+if ${acl_c_score_total} is above 0 and ${acl_c_score_total} is below ${acl_c_init_spam_lev1} 
+then
+    headers add "X-Spam-Class: OK (PRETTY CLEAR)"
+endif   
+
+if ${acl_c_score_total} is above ${acl_c_init_spam_lev1} and ${acl_c_score_total} is below ${acl_c_init_spam_lev2} 
+then
+    headers add "X-Spam-Class: MEDIUM (lev1)"
+    headers add "Old-Subject: $h_subject:"
+    headers remove "Subject"
+    headers add "Subject: (*** MEDIUM SPAM (lev1) - score $acl_c_score_total ***) $h_old-subject:"
+endif  
+
+if ${acl_c_score_total} is above ${acl_c_init_spam_lev2} and ${acl_c_score_total} is below ${acl_c_init_deny_hard} 
+then
+    headers add "X-Spam-Class: HEAVY (lev2)"
+    headers add "X-Spam-Flag: Yes"
+    headers add "X-Spam: YES"
+
+    headers add "Old-Subject: $h_subject:"
+    headers remove "Subject"
+    headers add "Subject: (*** HEAVY SPAM (lev2) - score $acl_c_score_total ***) $h_old-subject:"
+endif   
+
+if ${acl_c_init_demo} is "1"
+then
+    headers add "X-Spam-Score-MTA-details: $acl_c_spamlog"
+endif
+
+
+headers add "X-Spam-Score-MTA: $acl_c_score_mta"
+headers add "X-Spam-Score-Content: $acl_c_score_content"
+headers add "X-Spam-Score-Total: $acl_c_score_total"
+
+if ${acl_c_score_total} is above ${acl_c_init_spam_lev1} and ${acl_c_score_total} is below ${acl_c_init_deny_hard} 
+then
+    #unseen deliver $acl_c_spamanalysis_mailbox $acl_c_spamanalysis_mailbox
+    unseen deliver e.istomin@edss.ee errors_to e.istomin@edss.ee    
+endif
+
+#if $acl_c_rule_is_trusted is "1"
+#then
+#    unseen deliver CLIENTSIDE_COPYROUTE_TO CLIENTSIDE_COPYROUTE_TO
+#endif

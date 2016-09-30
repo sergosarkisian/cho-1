@@ -1,0 +1,25 @@
+--- Makefile	2015-06-25 12:07:31.000000000 +0300
++++ Makefile1	2015-12-15 15:41:00.834917230 +0200
+@@ -19,7 +19,8 @@
+ PMPATH2  = /usr/lib64/pm-utils/sleep.d
+ PMPATHD  = /usr/lib/systemd/system-sleep
+ 
+-CFLAGS  += -O2 -I. -Wall  	 # -DHTTPSTATS
++OPTFLAGS = -O2
++CFLAGS  += $(OPTFLAGS) -I.	 # -DHTTPSTATS
+ OBJMOD0  = version.o
+ OBJMOD1  = various.o  deviate.o   procdbase.o
+ OBJMOD2  = acctproc.o photoproc.o photosyst.o  rawlog.o ifprop.o parseable.o
+@@ -138,12 +139,8 @@
+ 		then	mkdir -p $(DESTDIR)$(ROTPATH);	fi
+ 		#
+ 		cp atop   		$(DESTDIR)$(BINPATH)/atop
+-		chown root		$(DESTDIR)$(BINPATH)/atop
+-		chmod 04711 		$(DESTDIR)$(BINPATH)/atop
+ 		ln -sf atop             $(DESTDIR)$(BINPATH)/atopsar
+ 		cp atopacctd  		$(DESTDIR)$(SBINPATH)/atopacctd
+-		chown root		$(DESTDIR)$(SBINPATH)/atopacctd
+-		chmod 0700 		$(DESTDIR)$(SBINPATH)/atopacctd
+ 		cp atop   		$(DESTDIR)$(BINPATH)/atop-$(VERS)
+ 		ln -sf atop-$(VERS)     $(DESTDIR)$(BINPATH)/atopsar-$(VERS)
+ 		cp atop.daily    	$(DESTDIR)$(SCRPATH)

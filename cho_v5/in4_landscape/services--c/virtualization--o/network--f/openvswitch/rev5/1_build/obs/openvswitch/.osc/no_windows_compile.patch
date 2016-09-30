@@ -1,0 +1,11 @@
+--- Makefile.am	2016-03-15 15:19:25.000000000 +0200
++++ Makefile.am1	2016-03-15 15:36:49.923823504 +0200
+@@ -396,8 +396,5 @@
+ include python/automake.mk
+ include tutorial/automake.mk
+ include vtep/automake.mk
+-include datapath-windows/automake.mk
+-include datapath-windows/include/automake.mk
+-include windows/automake.mk
+ include ovn/automake.mk
+ include selinux/automake.mk

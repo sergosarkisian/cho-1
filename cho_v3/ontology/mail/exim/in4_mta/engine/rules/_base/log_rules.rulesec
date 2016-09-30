@@ -1,0 +1,5 @@
+"rule_description":"$acl_c_rule_description", \
+"rule_main_lookup_var":"$acl_c_rule_main_lookup_var", \
+"rule_section":"$acl_c_rule_section", \
+"rule_type":"$acl_c_rule_type", \
+"rule_name":"$acl_c_rule_name", \

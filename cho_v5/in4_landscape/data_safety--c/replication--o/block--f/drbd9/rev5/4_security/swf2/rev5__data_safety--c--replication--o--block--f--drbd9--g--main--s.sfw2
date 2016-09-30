@@ -1,0 +1,6 @@
+## Name: data_safety--c--replication--o--block--f--drbd9--g--main--s
+## Description: Open ports for data_safety--c--replication--o--block--f--drbd9--g--main--s
+
+# space separated list of allowed TCP ports
+TCP=""
+ 

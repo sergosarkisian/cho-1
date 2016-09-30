@@ -1,0 +1,3 @@
+<aggregatelist>
+  <aggregate project="server:database:postgresql"/>
+</aggregatelist>

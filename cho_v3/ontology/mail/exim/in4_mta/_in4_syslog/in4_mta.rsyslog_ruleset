@@ -1,0 +1,14 @@
+##GLOBAL DYNAFILE PATH
+template(name="file_media_logs_in4_mta_all" type="string" string="/media/logs/syslog/hosts/%hostname%/%$day%.%$month%.%$year%/%programname%/cee/%!event_view%.view")
+
+template(name="file_media_logs_in4_mta_delivery_from" type="string" string="/media/logs/syslog/hosts/%hostname%/%$day%.%$month%.%$year%/%programname%/cee/%!event_view%/%!sender_address%")
+
+template(name="file_media_logs_in4_mta_delivery_to" type="string" string="/media/logs/syslog/hosts/%hostname%/%$day%.%$month%.%$year%/%programname%/cee/%!event_view%/%!to%")
+
+ruleset(name="file_media_logs_in4_mta" queue.filename="file_raw" queue.highwatermark="10000" queue.lowwatermark="500" queue.size="12000000" queue.discardmark="10000000" queue.type="linkedlist" queue.saveonshutdown="on" queue.checkpointinterval="30" queue.timeoutshutdown="2000" queue.workerthreads="2") {
+	action(type="omfile" ASyncWriting="on" FlushInterval="10" DirCreateMode="0750" FileCreateMode="0640" DirOwner="log" DirGroup="log" FileOwner="log" FileGroup="log" Template="RAW-All" DynaFile="file_media_logs_in4_mta_all")
+	action(type="omfile" ASyncWriting="on" FlushInterval="10" DirCreateMode="0750" FileCreateMode="0640" DirOwner="log" DirGroup="log" FileOwner="log" FileGroup="log" Template="RAW-All" DynaFile="file_media_logs_in4_mta_delivery_from")
+	action(type="omfile" ASyncWriting="on" FlushInterval="10" DirCreateMode="0750" FileCreateMode="0640" DirOwner="log" DirGroup="log" FileOwner="log" FileGroup="log" Template="RAW-All" DynaFile="file_media_logs_in4_mta_delivery_to")	
+}
+
+

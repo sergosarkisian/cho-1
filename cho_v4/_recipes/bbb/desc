@@ -1,0 +1,9 @@
+TCP ports 80, 1935, 9123 are accessible
+UDP ports 16384 - 32768 are accessible
+
++ LibreOffice 4.4
++ ffmpeg
++ bigbluebutton
++ bbb-demo
++ bbb-check
+4

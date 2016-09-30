@@ -1,0 +1,13 @@
+[Unit]
+Description=monitoring timer - rev5 {NAME}
+Requires=var-run.mount nss-lookup.target network.target remote-fs.target
+After=var-run.mount nss-lookup.target network.target remote-fs.target
+
+[Timer]
+OnBootSec=2sec
+OnUnitActiveSec=30sec
+Unit=monitoring-rev5_{NAME}.service
+
+
+[Install]
+WantedBy=multi-user.target

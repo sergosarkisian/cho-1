@@ -1,0 +1,48 @@
+########    #######    ########    #######    ########    ########
+##     / / / /    License    \ \ \ \ 
+##    Copyleft culture, Copyright (C) is prohibited here
+##    This work is licensed under a CC BY-SA 4.0
+##    Creative Commons Attribution-ShareAlike 4.0 License
+##    Refer to the http://creativecommons.org/licenses/by-sa/4.0/
+########    #######    ########    #######    ########    ########
+##    / / / /    Code Climate    \ \ \ \ 
+##    Language = DSL, systemd
+##    Indent = space;    4 chars;
+########    #######    ########    #######    ########    ########
+
+[Unit]
+    Description = rev5__services--c--webui--o--analytics--f--kibana4--g--main--s
+
+## DEPS ## 
+    Requires = var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
+    After = var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
+##
+
+## DEPS - AFTER REV5.TARGET## 
+    Requires = rev5.target
+    After = rev5.target
+##
+
+[Timer]
+    Unit = rev5__services--c--webui--o--analytics--f--kibana4--g--main--s
+
+### TIMERS
+    #OnBootSec = 
+    #OnUnitActiveSec = 
+    #OnCalendar = 00:02
+    OnCalendar = *:*:35
+### 
+
+### MISC
+    #AccuracySec = 5s
+    #RandomizedDelaySec = 
+###
+
+[Install]
+    Alias = rev5__kibana4--g
+    WantedBy = multi-user.target
+    #RequiredBy = 
+
+## REV5 - WANTEDBY
+    #WantedBy = rev5.target
+##

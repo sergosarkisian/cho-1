@@ -1,0 +1,51 @@
+########    #######    ########    #######    ########    ########
+##     / / / /    License    \ \ \ \ 
+##    Copyleft culture, Copyright (C) is prohibited here
+##    This work is licensed under a CC BY-SA 4.0
+##    Creative Commons Attribution-ShareAlike 4.0 License
+##    Refer to the http://creativecommons.org/licenses/by-sa/4.0/
+########    #######    ########    #######    ########    ########
+##    / / / /    Code Climate    \ \ \ \ 
+##    Language = DSL, exim, ACL section
+##    Indent = space;    4 chars;
+########    #######    ########    #######    ########    ########
+   
+## RULE DESCRIPTION
+warn
+    set acl_c_rule_fullname     = 2_check_mail__score__sender_is_dyn_net
+    set acl_c_rule_description = Is sender in dynamic DNS pools (providers, GPRS, default PTRs,...)
+    set acl_c_rule_main_lookup_var = $sender_host_name
+
+.ifndef DISABLE__RULES__$acl_c_rule_fullname
+
+## 1. RULE PRE
+    warn
+        # 1.1. WBL PARAMETERS
+            set acl_c_rule_bwl_operator = wildlsearch
+            
+        # 1.2. INIT  - pre vars, bwl exec
+            .include /etc/exim/engine_path/engine/rules/_base/score/_pre.rulesec   
+            
+
+## 2. RULE BODY
+    warn
+        # 2.1. APPLY AREA
+            !authenticated  = *
+            #hosts                   = ! +local_networks
+            
+        # 2.2. MAIN DSL LOGIC - conditions
+            condition = ${lookup{$acl_c_rule_main_lookup_var}wildlsearch{/etc/exim/engine_path/data/dynamic_pools}{yes}{no}}
+
+        # 2.3. SET RULE SUCCESS FLAG
+            set acl_c_rule_proccessed = yes
+            
+            
+## 3. RULE POST            
+    warn
+        # 3.1 ANALYSE - score calc/logitoring/vars/etc
+            .include /etc/exim/engine_path/engine/rules/_base/score/_post.rulesec
+            
+        # 3.2 FACT
+            set acl_c_rule_fact__2_check_mail__score__sender_is_dyn_net = 1
+        
+.endif

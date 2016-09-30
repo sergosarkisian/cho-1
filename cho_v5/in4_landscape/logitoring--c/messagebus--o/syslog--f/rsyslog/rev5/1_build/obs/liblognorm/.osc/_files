@@ -1,0 +1,5 @@
+<directory name="liblognorm" rev="11" srcmd5="de7994e2ac6c8df1a5216f0d40aaf086" vrev="11">
+  <serviceinfo code="succeeded" xsrcmd5="7b13fbd6bd796d2e82d31f069d86eda2" />
+  <entry md5="efd31e44852e04c3769d7c99ea3ecda4" mtime="1469608770" name="_service" size="490" />
+  <entry md5="a867cc73205db64be674502bf077b777" mtime="1464951630" name="liblognorm.spec" size="6919" />
+</directory>

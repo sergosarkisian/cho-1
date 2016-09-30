@@ -1,0 +1,4 @@
+<project name="home:conecenter:rev5a1:ontology:services--c:database--o:kv--f">
+  <package name="elasticsearch" state=" " />
+  <package name="elasticsearch-kit" state=" " />
+</project>

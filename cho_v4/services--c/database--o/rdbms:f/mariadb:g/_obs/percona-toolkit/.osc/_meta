@@ -1,0 +1,20 @@
+<package name="percona-toolkit" project="home:conecenter:techpool:ontology:database:mariadb">
+  <title>Advanced MySQL and system command-line tools</title>
+  <description>Percona Toolkit is a collection of advanced command-line tools used by Percona (http://www.percona.com/) support staff to perform a variety of MySQL and system tasks that are too difficult or complex to perform manually.
+
+These tools are ideal alternatives to private or "one-off" scripts because they are professionally developed, formally tested, and fully documented. They are also fully self-contained, so installation is quick and easy and
+no libraries are installed. 
+
+Percona Toolkit is developed and supported by Percona Inc.  For more information and other free, open-source software developed by Percona, visit http://www.percona.com/software/.
+
+</description>
+  <build>
+    <disable repository="CentOS_6"/>
+    <disable repository="Fedora_16"/>
+    <disable repository="Fedora_17"/>
+    <disable repository="RedHat_RHEL-5"/>
+    <disable repository="RedHat_RHEL-6"/>
+  </build>
+  <url>http://www.percona.com/software/percona-toolkit/</url>
+</package>
+

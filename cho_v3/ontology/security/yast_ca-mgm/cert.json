@@ -1,0 +1,9 @@
+{
+    "caname" : "test6",
+    "type" : "server",
+    "cn" : "testcert14",
+    "email" : "test2@edss.ee",
+    "days" : "21",
+    "keyPasswd" : "qwe123",
+    "capasswd" : "qwe123"    
+}

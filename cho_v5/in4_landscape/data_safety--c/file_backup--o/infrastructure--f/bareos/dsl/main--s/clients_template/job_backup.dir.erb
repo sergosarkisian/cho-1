@@ -1,0 +1,21 @@
+##
+Job {
+    JobDefs	    = backup.jobdef.F90-D35-I14
+    Client	            = <%= state["fqdn"] %>
+    Name		    = <%= state["fqdn"] %>
+    Pool		    = <%= state["fqdn"] %>.<%= state["sdFQDN"] %>
+
+    Full Backup Pool                      = f-<%= state["fqdn"] %>.<%= state["sdFQDN"] %>
+    Diﬀerential Backup Pool       = d-<%= state["fqdn"] %>.<%= state["sdFQDN"] %>
+    Incremental Backup Pool     = i-<%= state["fqdn"] %>.<%= state["sdFQDN"] %>
+
+    Schedule        = "F90-D35-I14_Type3-20-8_mon"
+    Priority  	   = <%= state["priority"] %>
+
+    #Client Run Before Job = %n
+    #Client Run After Job    = %n
+    
+}
+
+
+##

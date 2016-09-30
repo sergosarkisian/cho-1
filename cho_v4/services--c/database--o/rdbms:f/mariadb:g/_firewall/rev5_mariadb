@@ -1,0 +1,6 @@
+## Name: rev5_mariadb ports
+## Description: Open ports for rev5_mariadb
+
+# space separated list of allowed TCP ports
+TCP="3389"
+ 

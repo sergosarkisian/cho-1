@@ -1,0 +1,21 @@
+##
+Job {
+    JobDefs	    = backup.jobdef.F90-D35-I14
+    Client	            = client_dev.pool
+    Name		    = client_dev.pool
+    Pool		    = client_dev.pool.sd.test
+
+    Full Backup Pool                      = f-client_dev.pool.sd.test
+    Diﬀerential Backup Pool       = d-client_dev.pool.sd.test
+    Incremental Backup Pool     = i-client_dev.pool.sd.test
+
+    Schedule        = "F90-D35-I14_Type3-20-8_mon"
+    Priority  	   = 12
+
+    #Client Run Before Job = %n
+    #Client Run After Job    = %n
+    
+}
+
+
+##

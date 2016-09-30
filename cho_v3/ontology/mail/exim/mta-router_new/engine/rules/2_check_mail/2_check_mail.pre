@@ -1,0 +1,35 @@
+###########################  
+###  acl_2_check_mail                       ###
+###########################
+
+acl_2_check_mail:
+
+    ###
+###SCORES###
+warn
+#Core
+set acl_c_discard_hard 	     = 4000
+set acl_c_deny_hard 	             = 1000
+set acl_c_rule_score                = 10
+set acl_c_msg_class		     = mail
+#Initial
+set acl_c_known 		             = no
+set acl_c_rule 			     = 0
+set acl_c_score_mta 	             = 0
+set acl_c_score_content         = 0
+set acl_c_score_total               = 0
+set acl_c_spamlog 		     = 0
+set acl_c_message_id 	     = no
+set acl_c_advlog 		             = i
+set acl_c_advlog_inc_def         = warn
+set acl_c_msg_view_def	     = score
+set acl_c_acl_action_def         = add
+set acl_c_local_part                 = $local_part
+set acl_c_domain                     = $domain  
+set acl_c_recipient                   = $local_part@$domain
+set acl_c_score_dnsbl_count = 0
+#
+set acl_c_section 		= 2_check_mail
+
+###SCORES###
+    ###

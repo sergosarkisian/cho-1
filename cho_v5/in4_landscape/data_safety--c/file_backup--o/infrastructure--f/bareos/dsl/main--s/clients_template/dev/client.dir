@@ -1,0 +1,10 @@
+##
+Client {
+    FD Port        = 9102
+    Name	         = client_dev.pool
+    Address	 = client_dev.pool
+    Catalog	 = director.test
+    Password	 = "client_dev.pool"
+    Maximum Concurrent Jobs = 1
+}
+##

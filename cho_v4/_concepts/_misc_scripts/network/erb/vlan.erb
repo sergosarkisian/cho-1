@@ -1,0 +1,15 @@
+BOOTPROTO='static'
+BROADCAST=''
+ETHERDEVICE='<%= @interface -%>'
+ETHTOOL_OPTIONS=''
+IPADDR='<%= @ipaddress -%>/<%= @vlan_parameters["cidr"] -%>'
+MTU='<%= @vlan_parameters["mtu"] -%>'
+NAME=''
+NETWORK=''
+REMOTE_IPADDR=''
+STARTMODE='auto'
+USERCONTROL='no'
+VLAN_ID='<%= @vlan_parameters["vlan"] -%>'
+<%=  -%>
+
+<%=  -%>

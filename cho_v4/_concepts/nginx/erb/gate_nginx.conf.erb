@@ -1,0 +1,42 @@
+   
+##
+## Servers
+
+    server {
+	listen 83;
+	    ssl                  off;	
+	    rewrite ^/(.*) http://$host_with_www/$1 permanent;
+
+	    location /nstat {
+		stub_status on;
+		}
+	  }
+
+
+    server {
+	listen    83;
+	ssl                  off;
+
+	location / 
+	    {
+	    root /srv/www/htdocs/;
+	    aio             on;
+	    directio        512;
+	    output_buffers  1 128k;
+
+	    open_file_cache max=1024 inactive=60s;
+	    open_file_cache_valid    60s;
+	    open_file_cache_min_uses 60;
+	    open_file_cache_errors   off;
+	    }
+	  }
+
+## Servers
+##
+
+    perl_set $host_with_www 'sub{
+        my($r)=@_;
+	    return $r->variable("host")=~/^([\w\-]+)\.([\w\-]+)$/ ? "www.$1.$2" : "_undefined_host_";
+	
+
+    }';

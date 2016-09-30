@@ -1,0 +1,6 @@
+<project name="home:conecenter:rev5a1:ontology:logitoring--c:messagebus--o:syslog--f">
+  <package name="libfastjson" state=" " />
+  <package name="liblognorm" state=" " />
+  <package name="librelp" state=" " />
+  <package name="rsyslog" state=" " />
+</project>

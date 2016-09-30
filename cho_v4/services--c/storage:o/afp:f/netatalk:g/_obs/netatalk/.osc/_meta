@@ -1,0 +1,12 @@
+<package name="netatalk" project="home:conecenter:techpool:ontology:storage:netatalk">
+  <title>netatalk</title>
+  <description>NOTE: Automatically created during Factory devel project migration by admin.</description>
+  <build>
+    <disable/>
+    <enable repository="openSUSE_Factory"/>
+    <enable repository="openSUSE_12.3"/>
+    <enable repository="openSUSE_12.2"/>
+    <enable repository="openSUSE_12.1"/>
+  </build>
+</package>
+

@@ -1,0 +1,23 @@
+###########################  
+###  acl_2_check_mail                       ###
+###########################
+
+acl_2_check_mail:
+
+    ###
+###SCORES###
+warn
+## FIRST
+ .include /etc/exim/engine_path/engine/rules/_base/section_init_vars.rulesec 
+ ## 
+
+    set acl_c_rule_section 		= 2_check_mail
+    set acl_c_event_view   = sections
+    set acl_c_rule_action   = enter
+
+logwrite = :cee: @cee:{\
+ .include /etc/exim/engine_path/engine/rules/_base/log_header_all.rulesec
+ .include /etc/exim/engine_path/engine/rules/1_check_connect/artifacts_logs.rulesec
+ .include /etc/exim/engine_path/engine/rules/2_check_mail/artifacts_logs.rulesec
+ .include /etc/exim/engine_path/engine/rules/_base/log_final.rulesec 
+ } 

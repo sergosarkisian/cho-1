@@ -1,0 +1,4 @@
+<directory name="haproxy" rev="1" srcmd5="d24c44be35302f72dae23e342b58d2fa" vrev="1">
+  <linkinfo lsrcmd5="d24c44be35302f72dae23e342b58d2fa" package="haproxy" project="server:http" srcmd5="d6f7cf038f72e00a1a398333657e9e2d" xsrcmd5="5038d2ac8d38a6661472cb335c0dcbb8" />
+  <entry md5="c5bf3a47616b79933cdee3c7bd470a08" mtime="1412915172" name="_link" size="445" />
+</directory>

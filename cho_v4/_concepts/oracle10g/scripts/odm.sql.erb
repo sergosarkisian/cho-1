@@ -1,0 +1,9 @@
+connect "SYS"/"&&sysPassword" as SYSDBA
+set echo on
+spool /media/<%= @disk_label %>/database/oracle/<%= @sid %>/manage/conf/scripts/logs/odm.log
+
+@/opt/oracle/product/10g/rdbms/admin/dminst.sql SYSAUX TEMP;
+spool off
+<%=  -%>
+
+<%=  -%>

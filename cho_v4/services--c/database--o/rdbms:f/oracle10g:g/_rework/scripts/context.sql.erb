@@ -1,0 +1,10 @@
+connect "SYS"/"&&sysPassword" as SYSDBA
+set echo on
+spool /media/<%= @disk_label %>/database/oracle/<%= @sid %>/manage/conf/scripts/logs/context.log
+@/opt/oracle/product/10g/ctx/admin/catctx change_on_install SYSAUX TEMP NOLOCK;
+connect "CTXSYS"/"change_on_install"
+@/opt/oracle/product/10g/ctx/admin/defaults/dr0defin.sql "AMERICAN";
+spool off
+<%=  -%>
+
+<%=  -%>

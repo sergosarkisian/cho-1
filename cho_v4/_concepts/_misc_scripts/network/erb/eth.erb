@@ -1,0 +1,19 @@
+BOOTPROTO='static'
+STARTMODE='auto'
+NAME='<%= @parameters["interface"] -%>'
+BROADCAST=''
+ETHTOOL_OPTIONS=''
+<% if @parameters.has_key? "ip" -%>
+IPADDR='<%= @parameters["ip"] -%>/<%= @parameters["cidr"] -%>'
+<% else -%>
+IPADDR=''
+<% end -%>
+
+
+MTU='<%= @parameters["mtu"] -%>'
+NETWORK=''
+REMOTE_IPADDR=''
+USERCONTROL='no'
+<%=  -%>
+
+<%=  -%>

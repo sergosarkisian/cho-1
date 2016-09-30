@@ -1,0 +1,13 @@
+warn
+condition = ${if >{$acl_c_score_mta_inc}{1}{yes}{no}}
+add_header     = X-Spam-Score-Check: added $acl_c_score_mta_inc scores by rule $acl_c_rule_fullname: $acl_c_rule_description 
+
+set acl_c_event_view   = score
+set acl_c_rule_action   = add
+
+logwrite = :cee: @cee:{\
+ .include /etc/exim/engine_path/engine/rules/_base/log_header_all.rulesec
+ .include /etc/exim/engine_path/engine/rules/_base/log_rules.rulesec
+ .include /etc/exim/engine_path/engine/rules/_base/log_scores.rulesec
+ .include /etc/exim/engine_path/engine/rules/_base/log_final.rulesec 
+}

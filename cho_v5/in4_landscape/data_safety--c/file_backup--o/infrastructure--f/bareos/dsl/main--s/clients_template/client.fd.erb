@@ -1,0 +1,34 @@
+##
+FileDaemon {
+  Name			          = <%= state["fqdn"] %>
+  FDport		                  = <%= state["fdPort"] %>
+  WorkingDirectory	  = <%= state["workDir"] %>
+  Pid Directory		  = <%= state["workDir"] %>
+  Heartbeat Interval	  = 60
+  Maximum Concurrent Jobs = <%= state["fdMaxConcJobs"] %>
+  Compatible = no 
+  Allowed Script Dir = /media/sysdata/rev5/
+
+  
+  ## Encryption
+  #PKI Encryption   = yes
+  #PKI Signatures   = yes
+  #PKI Keypair         = {pemBothPath}
+  #PKI Master Key  = {pemMasterKey}
+  #Pki Cipher = AES256
+ ##
+ 
+}
+# List Directors who are permitted to contact this File daemon
+Director {
+  Name		= <%= state["directorFQDN"] %>
+  Password	= "<%= state["fqdn"] %>"
+
+}
+
+# Send all messages to the Director
+Messages {
+  Name		= zabbix
+  director	= <%= state["directorFQDN"] %> = all, !skipped, !restored
+}
+##

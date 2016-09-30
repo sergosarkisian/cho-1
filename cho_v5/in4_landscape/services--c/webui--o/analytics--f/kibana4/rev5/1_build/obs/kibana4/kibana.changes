@@ -1,0 +1,6 @@
+-------------------------------------------------------------------
+Wed Dec 09 13:00:00 UTC 2015 - t.neuburger@telekom.de
+
+- initial kibana build
+  * based on kibana-4.3.0-linux-x64.tar.bz2
+  * own created init script and systemd unit file

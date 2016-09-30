@@ -1,0 +1,17 @@
+###########################
+###  INCLUDES                            	###
+###########################
+
+.include /etc/exim/engine_path/engine/_globals/global.conf
+
+## VARS
+    hosts_proxy = *
+    daemon_smtp_ports = 34
+    syslog_processname = in4_mta__demo_dev_out
+    system_filter	 =  /etc/exim/engine_path/engine/fiters/devnull.filter
+    spool_directory = /var/spool/exim_demo_dev
+##
+
+# INCLUDE 
+    .include /etc/exim/engine_path/engine/instance/mta.inc
+#

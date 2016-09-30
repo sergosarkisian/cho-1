@@ -1,0 +1,15 @@
+
+http://therandomsecurityguy.com/openvswitch-cheat-sheet/
+
+  ovs-vsctl \
+       -- add-port br0 patch0 \
+       -- set interface patch0 type=patch options:peer=patch1 \
+       -- add-port br1 patch1 \
+       -- set interface patch1 type=patch options:peer=patch0
+
+
+## Q: Why are there so many different ways to dump flows?       
+ovs-ofctl dump-flows <br>
+ovs-appctl bridge/dump-flows <br>
+ovs-dpctl dump-flows [dp]
+ovs-appctl dpif/dump-flows <br>

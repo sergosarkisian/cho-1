@@ -1,0 +1,3 @@
+ -count of V$GLOBAL_TRANSACTION
+ -count of V$OPEN_CURSOR
+ 

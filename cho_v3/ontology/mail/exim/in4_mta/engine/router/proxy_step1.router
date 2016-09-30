@@ -1,0 +1,19 @@
+begin routers 
+
+mainroute:
+  driver = manualroute
+  transport = smtp_proxy
+  domains = +local_domains :  +hosted_domains
+  address_data = CLIENTSIDE_ADV_SMTP_MAINROUTE_ADDRESS  
+  headers_add = X-MTA-Path: mainroute by $address_data    
+  route_list =  "* $address_data byname"  
+no_more   
+
+dnslookup:
+  driver = dnslookup
+  ignore_target_hosts = <;  127.0.0.0/8 ; ::1; 0::0/0    
+  domains = ! +local_domains : ! +hosted_domains
+  headers_add = X-MTA-Path: dnslookup        
+  transport = smtp_proxy
+  cannot_route_message = Sorry, there are no such recipient(s)!
+  no_more   

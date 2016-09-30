@@ -1,0 +1,21 @@
+    server {
+        listen       81;
+        server_name  localhost core;
+
+        location / {
+            root   /srv/www/htdocs/;
+            aio             on;
+            directio        512;
+            output_buffers  1 128k;
+
+            open_file_cache max=1024 inactive=60s;
+            open_file_cache_valid    60s;
+            open_file_cache_min_uses 60;
+            open_file_cache_errors   off;
+
+            auth_basic            "Restricted";
+            auth_basic_user_file  /etc/nginx/htpasswd;
+        }
+
+    }
+

@@ -1,0 +1,20 @@
+<package name="mariadb" project="home:conecenter:techpool:ontology:database:mariadb">
+  <title>MariaDB</title>
+  <description>MariaDB is a backward compatible, drop-in replacement branch of the MySQL
+Database Server. It includes all major open source storage engines, including
+the Maria storage engine.
+
+Packaging is done at https://github.com/openSUSE/mysql-packaging/ - please submit your changes there</description>
+  <build>
+    <enable repository="CentOS_5"/>
+    <enable repository="Fedora_12"/>
+    <enable repository="Fedora_13"/>
+    <enable repository="Mandriva_2010"/>
+    <enable repository="Fedora_14"/>
+    <enable repository="Mandriva_2010.1"/>
+    <enable repository="Fedora_20"/>
+    <enable repository="CentOS_7"/>
+  </build>
+  <url>https://www.mariadb.org</url>
+</package>
+

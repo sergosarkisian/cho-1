@@ -1,0 +1,28 @@
+###########################
+###  acl_1_check_connect                 ###
+###########################
+acl_1_check_connect:
+
+    ###
+###INITIAL###
+warn
+
+## FIRST
+ .include /etc/exim/engine_path/engine/rules/_base/section_init_vars.rulesec 
+ ##
+ 
+set acl_c_scheme = SCHEME_NAME
+set acl_c_rule_section = 1_check_connect
+###INITIAL###
+    ###
+
+
+    
+set acl_c_event_view   = sections
+set acl_c_rule_action   = enter
+    
+logwrite = :cee: @cee:{\
+ .include /etc/exim/engine_path/engine/rules/_base/log_header_all.rulesec
+ .include /etc/exim/engine_path/engine/rules/1_check_connect/artifacts_logs.rulesec
+ .include /etc/exim/engine_path/engine/rules/_base/log_final.rulesec 
+ } 

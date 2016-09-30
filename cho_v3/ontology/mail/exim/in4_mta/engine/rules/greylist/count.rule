@@ -1,0 +1,9 @@
+	# use a warn verb to count records that were hit
+	warn  condition        = ${lookup pgsql{GREYLIST_OK_COUNT}}
+
+	# use a warn verb to set a new expire time on automatic records,
+	# but only if the mail was not a bounce, otherwise set to now().
+	warn  !senders         = : postmaster@* : Mailer-Daemon@*
+			condition        = GREYLIST_OK_NEWTIME
+	warn  senders          = : postmaster@* : Mailer-Daemon@*
+			condition        = GREYLIST_OK_BOUNCE 

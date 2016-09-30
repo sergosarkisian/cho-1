@@ -1,0 +1,19 @@
+##
+###### Definition of file storage devices
+##
+Storage {
+  Name		= 	<%= state["fqdn"] %>.<%= state["sdFQDN"] %># Do not use "localhost" here    
+  Address 	= 	<%= state["fqdn"] %>.<%= state["sdFQDN"] %>	
+  Device    	=	<%= state["fqdn"] %>.<%= state["sdFQDN"] %>	# Device name
+  Media Type	=	<%= state["fqdn"] %>.<%= state["sdFQDN"] %>	# Media name
+
+  SDPort	= 9103
+  Password	= "<%= state["fqdn"] %>"
+  AllowCompression = Yes
+  Maximum Concurrent Jobs = 5
+}
+
+##
+###### END
+##
+ 

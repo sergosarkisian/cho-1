@@ -1,0 +1,17 @@
+
+This package is based on the Debian openvswitch package as the
+original openvswitch package in the build service was next to useless
+due of being based on the xenserver/ directory of the sources, which
+tied the package completely to xen.
+
+Also, the original package was one big package depending even on Qt4.
+This package splits in varius subpackages.
+
+The xen part was removed. If it needs to be added again, it needs to
+be its subpackage.
+
+TODO:
+
+- [DONE] sysconfig is bogus, as the init scripts do not source it yet (uses debian defaults file)
+- pki component does not have the postun postin scripts yet
+

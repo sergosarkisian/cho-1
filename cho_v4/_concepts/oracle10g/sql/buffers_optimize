@@ -1,0 +1,19 @@
+SELECT component, current_size, min_size, max_size
+  FROM v$sga_dynamic_components;
+
+
+select NAME, SIZE_FOR_ESTIMATE, SIZE_FACTOR, ESTD_PHYSICAL_READS, ESTD_PCT_OF_DB_TIME_FOR_READS
+  from v$db_cache_advice;
+
+  select do.owner, ds.buffer_pool, do.object_name OBJECT_NAME,
+  ds.blocks OBJECT_BLOCKS, count(*) CACHED_BLOCKS
+  from DBA_OBJECTS do, DBA_SEGMENTS ds, v$bh v
+  where do.data_object_id=V.OBJD
+  and do.owner=ds.owner(+)
+  and do.object_name=ds.segment_name(+)
+  and do.OBJECT_TYPE=DS.SEGMENT_TYPE(+)
+  and v.dirty = 'N'
+--  and do.owner in ('E$TSC', 'E$CNT')
+  --and ds.buffer_pool in ('KEEP','RECYCLE')
+  group by do.owner, ds.buffer_pool, do.object_name, ds.blocks
+  order by CACHED_BLOCKS desc, OBJECT_BLOCKS desc, do.object_name, ds.buffer_pool

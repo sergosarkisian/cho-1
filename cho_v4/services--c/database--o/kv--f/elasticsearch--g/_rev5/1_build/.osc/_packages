@@ -1,0 +1,3 @@
+<project name="home:conecenter:techpool:ontology:logitoring:elasticsearch">
+  <package name="elasticsearch" state=" " />
+</project>

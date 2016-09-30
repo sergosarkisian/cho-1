@@ -1,0 +1,882 @@
+<html>
+<head>
+<link rel="STYLESHEET" href="../main.css" type="text/css">
+<title>Oracle Dynamic Performance Views</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head><body>
+
+<a href="../index.html"><b>Home</b></a>
+
+<h1>Oracle Dynamic Performance Views ( also know as <a href="#" title="they cannot be altered or removed">Fixed Views</a> )  
+<small><a href="view_catagories.html">Catagorized</a></small> </h1> 
+
+V$views are dynamic performance views based on the <a href="xtables.html">X$tables</a>. Query 
+<a href="V$FIXED_VIEW_DEFINITION.html">V$FIXED_VIEW_DEFINITION</a> for definitions of V$views. V$views are owned by 
+SYS and are public <a href="../orasql/synonym.html">synonyms</a> for corresponding V_$views. V$views are cumulative 
+in nature tracking information since startup. V$ & GV$ views are created from <tt><font color=#4F4F4F>$ORACLE_HOME/rdbms/admin/<a href="../catalog_scripts.html">catalog.sql</a></font></tt>. 
+Grant access to the V$_views or GV$_views and instruct users to access the views prefaced with SYS. <br><br>
+
+Only differance between GV$ and V$ views is the instance ID column.  Ensure 
+<a href="../oraparm/timed_statistics.html">timed_statistics</a> = <tt>TRUE</tt> for collection of all needed information.<br>
+Replication, RAC, Streams, Heterogeneous Services, Logical Standby and Other Views <a href="index2.html">here</a>
+<br><br> 
+
+For a complete list of the v$views use one of the three querys below: <br>
+<code><font color=#8B0000>select kqfvinam name from x$kqfvi order by kqfvinam;</font></code><br>
+<code><font color=#8B0000>select * from PUBLICSYN where sname like 'V$%' order by 3,1;</font></code><br>
+<code><font color=#8B0000>select table_name from <a href="../oradd/DICTIONARY.html">DICTIONARY</a> where table_name like 'V$%' order by 1;</font></code><br>
+<br>
+
+<center><table border=0 cellpadding=1 cellspacing=2 width=95%>
+<tr align=left valign=top>
+<td width=25%><b>View Name</b></td>
+<td width=75%><b>Description</b></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$_SEQUENCES.html">V$_SEQUENCES</a></td>
+<td width=75%><small>Allow users to query to see what the next sequence number will be without causing the sequence number to be incremented. </td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$ACCESS.html"><b>V$ACCESS</b></a></td>
+<td width=75%><small>Displays objects in the database that are currently locked and sessions that are accessing them.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$AQ.html"><b>V$AQ</b></a></td>
+<td width=75%><small>Messages in a specific database. Describes statistics for the queues in the database.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$AQ1.html"><b>V$AQ1</b></a></td>
+<td width=75%><small>Describes statistics for the queues in the database.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$ARCHIVE.html">V$ARCHIVE</a></td>
+<td width=75%><small>Contains information on redo log files in need of archiving. 
+Each row provides information for one thread. (also available in <a href="V$LOG.html">V$LOG</a>).</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$ARCHIVE_DEST.html"><b>V$ARCHIVE_DEST</b></a></td>
+<td width=75%><small>Describes, for the current instance, all the archive log destinations, their current value, mode, and status.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$ARCHIVE_DEST_STATUS.html"><b>V$ARCHIVE_DEST_STATUS</b></a></td>
+<td width=75%><small>Displays runtime and configuration information for the archived redo log destinations.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$ARCHIVE_GAP.html">V$ARCHIVE_GAP</a></td>
+<td width=75%><small>Displays information about archive gaps on a standby database.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$ARCHIVE_PROCESSES.html"><b>V$ARCHIVE_PROCESSES</b></a></td>
+<td width=75%><small>Provides information about the state of the various <a href="../oraelmt/arch.html">ARCH</a> 
+processes for the instance.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$ARCHIVED_LOG.html"><b>V$ARCHIVED_LOG</b></a></td>
+<td width=75%><small>Displays archived log information from the <a href="../orasql/controlfile_c.html">controlfile</a>, 
+including archive log names.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$BACKUP.html"><b>V$BACKUP</b></a></td>
+<td width=75%><small>Displays the backup status of all online datafiles.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$BACKUP_ASYNC_IO.html">V$BACKUP_ASYNC_IO</a></td>
+<td width=75%><small>Displays performance information about ongoing and recently completed 
+<a href="../orman/index.html">RMAN</a> backups and restores.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$BACKUP_CORRUPTION.html">V$BACKUP_CORRUPTION</a></td>
+<td width=75%><small>Displays information about corruptions in datafile backups from 
+the <a href="../orasql/controlfile_c.html">controlfile</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$BACKUP_DATAFILE.html">V$BACKUP_DATAFILE</a></td>
+<td width=75%><small>Displays backup datafile and backup <a href="../orasql/controlfile_c.html">controlfile</a> 
+information from the <a href="../orasql/controlfile_c.html">controlfile</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$BACKUP_DEVICE.html"><b>V$BACKUP_DEVICE</b></a></td>
+<td width=75%><small>Displays information about supported backup devices.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$BACKUP_PIECE.html">V$BACKUP_PIECE</a></td>
+<td width=75%><small>Displays information about backup pieces from the 
+<a href="../orasql/controlfile_c.html">controlfile</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$BACKUP_REDOLOG.html">V$BACKUP_REDOLOG</a></td>
+<td width=75%><small>Displays information about archived logs in backup sets from the 
+<a href="../orasql/controlfile_c.html">controlfile</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$BACKUP_SET.html">V$BACKUP_SET</a></td>
+<td width=75%><small>Displays backup set information from the 
+<a href="../orasql/controlfile_c.html">controlfile</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$BACKUP_SPFILE.html">V$BACKUP_SPFILE</a></td>
+<td width=75%><small>Displays information about server parameter files in backup sets.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$BACKUP_SYNC_IO.html">V$BACKUP_SYNC_IO</a></td>
+<td width=75%><small>Displays performance information about ongoing and recently completed 
+<a href="../orman/index.html">RMAN</a> backups and restores.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$BGPROCESS.html"><b>V$BGPROCESS</b></a></td>
+<td width=75%><small>Describes the background <a href="../oraelmt/processes.html">processes</a>.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$BH.html"><b>V$BH</b></a></td>
+<td width=75%><small>Shows the data object ID, status and number of pings for all blocks in the 
+<a href="../oraparm/system_global_area.html#database_cache">buffer pool</a>.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$BSP.html">V$BSP</a></td>
+<td width=75%><small><font color=#999999>Depreciated. Use <a href="V$CR_BLOCK_SERVER.html">V$CR_BLOCK_SERVER</a>.</font></small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$BUFFER_POOL.html"><b>V$BUFFER_POOL</b></a></td>
+<td width=75%><small>Displays information about all buffer pools available for the instance.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$BUFFER_POOL_STATISTICS.html">V$BUFFER_POOL_STATISTICS</a></td>
+<td width=75%><small>Displays information about all buffer pools available for the instance.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$CLASS_PING.html">V$CLASS_PING</a></td>
+<td width=75%><small><font color=#999999>Depreciated. Use <a href="V$CLASS_CACHE_TRANSFER.html">V$CLASS_CACHE_TRANSFER</a>.</font></small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$COMPATIBILITY.html"><b>V$COMPATIBILITY</b></a></td>
+<td width=75%><small>Displays features in use by the database instance that may prevent downgrading to a previous release.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$COMPATSEG.html"><b>V$COMPATSEG</b></a></td>
+<td width=75%><small>Lists the permanent features in use by the database that will prevent moving back to an earlier release.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$CONTEXT.html">V$CONTEXT</a></td>
+<td width=75%><small>Lists set attributes in the current session.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$CONTROLFILE.html"><b>V$CONTROLFILE</b></a></td>
+<td width=75%><small>Lists the names of the <a href="../orasql/controlfile_c.html">controlfile</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$CONTROLFILE_RECORD_SECTION.html"><b>V$CONTROLFILE_RECORD_SECTION</b></a></td>
+<td width=75%><small>Displays information about the <a href="../orasql/controlfile_c.html">controlfile</a> 
+record sections.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$COPY_CORRUPTION.html">V$COPY_CORRUPTION</a></td>
+<td width=75%><small>Displays information about datafile copy corruptions from the 
+<a href="../orasql/controlfile_c.html">controlfile</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$CR_BLOCK_SERVER.html">V$CR_BLOCK_SERVER</a></td>
+<td width=75%><small>Displays statistics on the block server background processes (BSPn) used in cache fusion. 
+Used by Oracle Services.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$DATABASE.html"><b>V$DATABASE</b></a></td>
+<td width=75%><small>Contains database information from the <a href="../orasql/controlfile_c.html">controlfile</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$DATABASE_BLOCK_CORRUPTION.html">V$DATABASE_BLOCK_CORRUPTION</a></td>
+<td width=75%><small>Displays information about database blocks that were corrupted after the last backup.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$DATABASE_INCARNATION.html"><b>V$DATABASE_INCARNATION</b></a></td>
+<td width=75%><small>Displays information about all database incarnations.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$DATAFILE.html"><b>V$DATAFILE</b></a></td>
+<td width=75%><small>Contains datafile information from the <a href="../orasql/controlfile_c.html">controlfile</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$DATAFILE_COPY.html"><b>V$DATAFILE_COPY</b></a></td>
+<td width=75%><small>Displays datafile copy information from the <a href="../orasql/controlfile_c.html">controlfile</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$DATAFILE_HEADER.html"><b>V$DATAFILE_HEADER</b></a></td>
+<td width=75%><small>Displays datafile information from the datafile headers.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$DB_CACHE_ADVICE.html"><b>V$DB_CACHE_ADVICE</b></a></td>
+<td width=75%><small>Contains rows that predict the number of physical reads for the cache size corresponding to each row.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$DB_OBJECT_CACHE.html"><b>V$DB_OBJECT_CACHE</b></a></td>
+<td width=75%><small>Displays database objects that are cached in the library cache.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$DB_PIPES.html">V$DB_PIPES</a></td>
+<td width=75%><small>Displays the pipes that are currently represented in the shared pool for this instance.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$DBFILE.html"><b>V$DBFILE</b></a></td>
+<td width=75%><small><font color=#999999>Depreciated. Use <a href="V$DATAFILE.html">V$DATAFILE</a> instead.</font></small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$DBLINK.html">V$DBLINK</a></td>
+<td width=75%><small>Describes all database links opened by the session issuing the query on V$DBLINK.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$DELETED_OBJECT.html">V$DELETED_OBJECT</a></td>
+<td width=75%><small>Displays information about deleted archived logs, datafile copies and backup pieces from the 
+<a href="../orasql/controlfile_c.html">controlfile</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$ENABLEDPRIVS.html"><b>V$ENABLEDPRIVS</b></a></td>
+<td width=75%><small>Displays which privileges are enabled. These privileges can be found in the 
+table SYS.<a href="../oratab/SYSTEM_PRIVILEGE_MAP.html">SYSTEM_PRIVILEGE_MAP</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$ENQUEUE_LOCK.html"><b>V$ENQUEUE_LOCK</b></a></td>
+<td width=75%><small>Displays all locks owned by enqueue state objects. The columns here are identical to 
+the columns in V$LOCK.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$ENQUEUE_STAT.html"><b>V$ENQUEUE_STAT</b></a></td>
+<td width=75%><small>Displays statistics on the number of enqueue (lock) requests for each type of lock.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$EVENT_NAME.html"><b>V$EVENT_NAME</b></a></td>
+<td width=75%><small>This view contains information about wait events.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$EXECUTION.html">V$EXECUTION</a></td>
+<td width=75%><small>Parallel Execution view.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$FAST_START_SERVERS.html">V$FAST_START_SERVERS</a></td>
+<td width=75%><small>Provides information about all the recovery slaves performing parallel transaction recovery.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$FAST_START_TRANSACTIONS.html">V$FAST_START_TRANSACTIONS</a></td>
+<td width=75%><small>Contains information about the progress of the transactions that Oracle is recovering.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$FILE_PING.html">V$FILE_PING</a></td>
+<td width=75%><small><font color=#999999>Depreciated. Use <a href="V$FILE_CACHE_TRANSFER.html">V$FILE_CACHE_TRANSFER</a>.</font></small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$FILESTAT.html"><b>V$FILESTAT</b></a></td>
+<td width=75%><small>Contains information about file read/write statistics.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$FILESTATXS.html"><b>V$FILESTATXS</b></a></td>
+<td width=75%><small><font color=#EEE8AA>Not listed in Oracle Documentation</font></small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$FIXED_TABLE.html"><b>V$FIXED_TABLE</b></a></td>
+<td width=75%><small>Displays all dynamic performance tables, views, and derived tables in the database. 
+V$Views and <a href="xtables.html">X$Tables</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$FIXED_VIEW_DEFINITION.html"><b>V$FIXED_VIEW_DEFINITION</b></a></td>
+<td width=75%><small>Contains the definitions of all the fixed views (views beginning with V$).</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$GLOBAL_BLOCKED_LOCKS.html">V$GLOBAL_BLOCKED_LOCKS</a></td>
+<td width=75%><small>Displays global blocked locks.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$GLOBAL_TRANSACTION.html">V$GLOBAL_TRANSACTION</a></td>
+<td width=75%><small>Displays information on the currently active global transactions.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$GLOBALCONTEXT.html">V$GLOBALCONTEXT</a></td>
+<td width=75%><small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$INDEXED_FIXED_COLUMN.html"><b>V$INDEXED_FIXED_COLUMN</b></a></td>
+<td width=75%><small>Displays the columns in dynamic performance tables that are indexed (X$ tables).</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$INSTANCE.html"><b>V$INSTANCE</b></a></td>
+<td width=75%><small>Displays the state of the current instance.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$INSTANCE_RECOVERY.html">V$INSTANCE_RECOVERY</a></td>
+<td width=75%><small>Monitors the mechanisms available to users to limit recovery I/O.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="X$KCCDI.html">V$KCCDI</a></td>
+<td width=75%><small><font color=#EEE8AA>Not listed in Oracle Documentation</font></small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$KCCFE.html">V$KCCFE</a></td>
+<td width=75%><small><font color=#EEE8AA>Not listed in Oracle Documentation</font></small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$_LOCK.html"><b>V$_LOCK</b></a></td>
+<td width=75%><small><font color=#EEE8AA>Not listed in Oracle Documentation</font></small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$_LOCK.html">V$_LOCK1</a></td>
+<td width=75%><small>Synonym for the table <a href="../oraview/V$_LOCK.html">V$_LOCK</a></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LATCH.html"><b>V$LATCH</b></a></td>
+<td width=75%><small>Lists statistics for non-parent latches and summary statistics for parent latches.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LATCH_CHILDREN.html"><b>V$LATCH_CHILDREN</b></a></td>
+<td width=75%><small>Contains statistics about child latches</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LATCH_MISSES.html"><b>V$LATCH_MISSES</b></a></td>
+<td width=75%><small>Contains statistics about missed attempts to acquire a latch.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LATCH_PARENT.html"><b>V$LATCH_PARENT</b></a></td>
+<td width=75%><small>Contains statistics about the parent latch.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LATCHHOLDER.html">V$LATCHHOLDER</a></td>
+<td width=75%><small>Contains information about the current latch holders.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LATCHNAME.html"><b>V$LATCHNAME</b></a></td>
+<td width=75%><small>Contains information about decoded latch names for the latches shown in V$LATCH.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LIBRARYCACHE.html"><b>V$LIBRARYCACHE</b></a></td>
+<td width=75%><small>Contains statistics about library cache performance and activity.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LIBRARY_CACHE_MEMORY.html"><b>V$LIBRARY_CACHE_MEMORY</b></a></td>
+<td width=75%><small>Displays information about memory allocated to library cache memory objects in different namespaces.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LICENSE.html"><b>V$LICENSE</b></a></td>
+<td width=75%><small>Contains information about license limits.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LOADISTAT.html">V$LOADISTAT</a></td>
+<td width=75%><small>Contains errors that occurred when updating indexes on a table during a load using the Direct Path API.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LOADPSTAT.html">V$LOADPSTAT</a></td>
+<td width=75%><small>Contains statistics about the number of rows loaded into a partition, or subpartition, during a load using the Direct Path API.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LOCK.html"><b>V$LOCK</b></a></td>
+<td width=75%><small>Lists the locks currently held by the Oracle server and outstanding requests for a lock 
+or latch.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LOCKED_OBJECT.html"><b>V$LOCKED_OBJECT</b></a></td>
+<td width=75%><small>Lists all locks acquired by every transaction on the system.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LOG.html"><b>V$LOG</b></a></td>
+<td width=75%><small>Contains log file information from the <a href="../orasql/controlfile_c.html">controlfile</a>s.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LOG_HISTORY.html"><b>V$LOG_HISTORY</b></a></td>
+<td width=75%><small>Contains log history information from the <a href="../orasql/controlfile_c.html">controlfile</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LOGFILE.html"><b>V$LOGFILE</b></a></td>
+<td width=75%><small>Contains information about <a href="../oraelmt/redo_log_files.html">redo log files</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$LOGHIST.html"><b>V$LOGHIST</b></a></td>
+<td width=75%><small><font color=#999999>Depreciated. Use <a href="V$LOG_HISTORY.html">V$LOG_HISTORY</a></font></small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$MAX_ACTIVE_SESS_TARGET_MTH.html">V$MAX_ACTIVE_SESS_TARGET_MTH</a></td>
+<td width=75%><small><font color=#999999>Depreciated. Use <a href="V$ACTIVE_SESS_POOL_MTH.html">V$ACTIVE_SESS_POOL_MTH</a>.</font></small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$MLS_PARAMETERS.html">V$MLS_PARAMETERS</a></td>
+<td width=75%><small>This is a Trusted Oracle7 server view that
+lists Trusted Oracle7 server-specific initialization parameters</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$MTS.html">V$MTS</a></td>
+<td width=75%><small><font color=#999999>Depreciated. Use <a href="V$SHARED_SERVER_MONITOR.html">V$SHARED_SERVER_MONITOR</a>.</font></small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$MTTR_TARGET_ADVICE.html">V$MTTR_TARGET_ADVICE</a></td>
+<td width=75%><small>Contains rows that predict the number of physical I/Os for the MTTR corresponding to each row.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$MYSTAT.html"><b>V$MYSTAT</b></a></td>
+<td width=75%><small>Contains statistics on the current session.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$NLS_PARAMETERS.html"><b>V$NLS_PARAMETERS</b></a></td>
+<td width=75%><small>Contains current values of <a href="../oraelmt/nls.html">NLS</a> parameters.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$NLS_VALID_VALUES.html"><b>V$NLS_VALID_VALUES</b></a></td>
+<td width=75%><small>Lists all valid values for <a href="../oraelmt/nls.html">NLS</a> parameters.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$OBJECT_DEPENDENCY.html"><b>V$OBJECT_DEPENDENCY</b></a></td>
+<td width=75%><small>Can be used to determine what objects are depended on by a package, procedure, 
+or cursor that is currently loaded in the shared pool.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$OBJECT_USAGE.html"><b>V$OBJECT_USAGE</b></a></td>
+<td width=75%><small>Use this view to monitor index usage.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$OBSOLETE_PARAMETER.html"><b>V$OBSOLETE_PARAMETER</b></a></td>
+<td width=75%><small>Lists obsolete parameters. If any value is true, you should examine why.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$OFFLINE_RANGE.html">V$OFFLINE_RANGE</a></td>
+<td width=75%><small>Displays datafile offline information from the 
+<a href="../orasql/controlfile_c.html">controlfile</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$OPEN_CURSOR.html"><b>V$OPEN_CURSOR</b></a></td>
+<td width=75%><small>Lists cursors that each user session currently has opened and parsed.
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$OPTION.html"><b>V$OPTION</b></a></td>
+<td width=75%><small>Lists options that are installed with the Oracle server.
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PARAMETER.html"><b>V$PARAMETER</b></a></td>
+<td width=75%><small>Lists parameters and their values in effect for current session.
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PARAMETER2.html"><b>V$PARAMETER2</b></a></td>
+<td width=75%><small>Lists parameters and their values in effect for current session
+with each value appearing as a row in the view.
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PGA_TARGET_ADVICE.html"><b>V$PGA_TARGET_ADVICE</b></a></td>
+<td width=75%><small>Predicts how the cache hit percentage and over allocation count statistics displayed 
+by the <a href="V$PGASTAT.html">V$PGASTAT</a> performance view would be impacted if the value of 
+the <a href="../oraparm/PGA_AGGREGATE_TARGET.html">PGA_AGGREGATE_TARGET</a> parameter is changed.
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PGA_TARGET_ADVICE_HISTOGRAM.html"><b>V$PGA_TARGET_ADVICE_HISTOGRAM</b></a></td>
+<td width=75%><small>Predicts how statistics displayed by the 
+<a href="V$SQL_WORKAREA_HISTOGRAM.html">V$SQL_WORKAREA_HISTOGRAM</a> dynamic view would be impacted if the value of 
+the <a href="../oraparm/PGA_AGGREGATE_TARGET.html">PGA_AGGREGATE_TARGET</a> parameter is changed.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PGASTAT.html"><b>V$PGASTAT</b></a></td>
+<td width=75%><small>Provides <a href="program_global_area.html">PGA</a> memory usage statistics as well as statistics 
+about the automatic <a href="program_global_area.html">PGA</a> memory manager when it is enabled.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PQ_SESSTAT.html"></b>V$PQ_SESSTAT</b></a></td>
+<td width=75%><small>Lists session statistics for parallel queries.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PQ_SLAVE.html">V$PQ_SLAVE</a></td>
+<td width=75%><small>Lists statistics for each of the active <a href="../oraelmt/parallel_execution.html">parallel</a> 
+execution servers on an instance.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PQ_SYSSTAT.html"></b>V$PQ_SYSSTAT</b></a></td>
+<td width=75%><small>Lists system statistics for parallel queries.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PQ_TQSTAT.html">V$PQ_TQSTAT</a></td>
+<td width=75%><small>This view contains statistics on <a href="../oraelmt/parallel_execution.html">parallel</a> 
+execution operations.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PROCESS.html"><b>V$PROCESS</b></a></td>
+<td width=75%><small>Contains information about the currently active processes.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PROXY_ARCHIVEDLOG.html">V$PROXY_ARCHIVEDLOG</a></td>
+<td width=75%><small>Contains descriptions of archived log backups which are taken with 
+a new feature called Proxy Copy.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PROXY_DATAFILE.html">V$PROXY_DATAFILE</a></td>
+<td width=75%><small>Contains descriptions of datafile and <a href="../orasql/controlfile_c.html">controlfile</a> 
+backups that are taken with Proxy Copy.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PWFILE_USERS.html"><b>V$PWFILE_USERS</b></a></td>
+<td width=75%><small>Lists users who have been granted <a href="../oraelmt/sysdba.html">SYSDBA</a> 
+and SYSOPER privileges as derived from the password file.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PX_PROCESS.html">V$PX_PROCESS</a></td>
+<td width=75%><small>Displays information about <a href="../oraelmt/parallel_execution.html">parallel</a> 
+processes running in a session.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PX_PROCESS_SYSSTAT.html"></b>V$PX_PROCESS_SYSSTAT</b></a></td>
+<td width=75%><small>Contains statistics about <a href="../oraelmt/parallel_execution.html">parallel</a> 
+processes.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PX_SESSION.html">V$PX_SESSION</a></td>
+<td width=75%><small>Contains session information about <a href="../oraelmt/parallel_execution.html">parallel</a> 
+processes.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$PX_SESSTAT.html">V$PX_SESSTAT</a></td>
+<td width=75%><small>Displays session statistics about <a href="../oraelmt/parallel_execution.html">parallel</a> 
+execution.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$RECOVER_FILE.html">V$RECOVER_FILE</a></td>
+<td width=75%><small>Displays the status of files needing media recovery.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$RECOVERY_FILE_STATUS.html">V$RECOVERY_FILE_STATUS</a></td>
+<td width=75%><small>Contains one row for each datafile for each <a href="../oraplus/plus_recover.html">RECOVER</a> 
+statement.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$RECOVERY_LOG.html">V$RECOVERY_LOG</a></td>
+<td width=75%><small>Lists information about archived logs that are needed to complete media recovery.</td>
+</tr>
+<tr align=left valign=top><td width=25%><a href="V$RECOVERY_PROGRESS.html">V$RECOVERY_PROGRESS</a></td>
+<td width=75%><small>Can be used to track database recovery operations to ensure that they are not stalled.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$RECOVERY_STATUS.html">V$RECOVERY_STATUS</a></td>
+<td width=75%><small>Contains statistics of the current recovery process.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$RESERVED_WORDS.html"><b>V$RESERVED_WORDS</b></a></td>
+<td width=75%><small>Provides a list of all the keywords that are used by the PL/SQL compiler.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$RESOURCE.html"><b>V$RESOURCE</b></a></td>
+<td width=75%><small>Contains resource name and address information.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$RESOURCE_LIMIT.html"><b>V$RESOURCE_LIMIT</b></a></td>
+<td width=75%><small>Displays information about global resource use for some of the system resources.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$RESUMABLE.html">V$RESUMABLE</a></td>
+<td width=75%><small>See <a href="../oradd/DBA_RESUMABLE.html">DBA_RESUMABLE</a>. This is a guess.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$RMAN_CONFIGURATION.html">V$RMAN_CONFIGURATION</a></td>
+<td width=75%><small>Lists information about <a href="../orman/index.html">RMAN</a> persistent configuration settings.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$ROLLNAME.html"><b>V$ROLLNAME</b></a></td>
+<td width=75%><small>Lists the names of all online rollback segments. Can only be accessed when the database is open.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$ROLLSTAT.html"><b>V$ROLLSTAT</b></a></td>
+<td width=75%><small>Contains rollback segment statistics.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$ROWCACHE.html"><b>V$ROWCACHE</b></a></td>
+<td width=75%><small>Displays statistics for data dictionary activity. Each row contains statistics for 
+one data dictionary cache.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$ROWCACHE_PARENT.html"><b>V$ROWCACHE_PARENT</b></a></td>
+<td width=75%><small>Displays information for parent objects in the data dictionary.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$ROWCACHE_SUBORDINATE.html"><b>V$ROWCACHE_SUBORDINATE</b></a></td>
+<td width=75%><small>Displays information for subordinate objects in the data dictionary.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SEGMENT_STATISTICS.html"><b>V$SEGMENT_STATISTICS</b></a></td>
+<td width=75%><small>Displays information about segment-level statistics.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SEGSTAT.html"><b>V$SEGSTAT</b></a></td>
+<td width=75%><small>Displays information about segment-level statistics.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SEGSTAT_NAME.html"><b>V$SEGSTAT_NAME</b></a></td>
+<td width=75%><small>Displays information about segment-level statistics properties.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SESS_IO.html"><b>V$SESS_IO</b></a></td>
+<td width=75%><small>Lists I/O statistics for each user session.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SESSION.html"><b>V$SESSION</b></a></td>
+<td width=75%><small>Lists session information for each current session.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SESSION_CONNECT_INFO.html"><b>V$SESSION_CONNECT_INFO</b></a></td>
+<td width=75%><small>Displays information about network connections for the current session.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SESSION_CURSOR_CACHE.html">V$SESSION_CURSOR_CACHE</a></td>
+<td width=75%><small>Displays information on cursor usage for the current session.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SESSION_EVENT.html"><b>V$SESSION_EVENT</b></a></td>
+<td width=75%><small>Lists information on waits for an event by a session.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SESSION_LONGOPS.html"><b>V$SESSION_LONGOPS</b></a></td>
+<td width=75%><small>Displays the status of various operations that run for longer than 6 seconds (in absolute time).</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SESSION_OBJECT_CACHE.html">V$SESSION_OBJECT_CACHE</a></td>
+<td width=75%><small>Displays object cache statistics for the current user session on the local server (instance).</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SESSION_WAIT.html"><b>V$SESSION_WAIT</b></a></td>
+<td width=75%><small>Lists the resources or events for which active sessions are waiting.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SESSTAT.html"><b>V$SESSTAT</b></a></td>
+<td width=75%><small>Lists user session statistics. Query the <a href="V$STATNAME.html">V$STATNAME</a> to 
+find the name of the statistic 
+associated with each statistic number (STATISTIC#).</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SGA.html"><b>V$SGA</b></a></td>
+<td width=75%><small>Contains summary information on the system global area 
+(<a href="../oraparm/system_global_area.html">SGA</a>).</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SGA_CURRENT_RESIZE_OPS.html">V$SGA_CURRENT_RESIZE_OPS</a></td>
+<td width=75%><small>Displays information about <a href="../oraparm/system_global_area.html">SGA</a> resize 
+operations which are currently in progress.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SGA_RESIZE_OPS.html">V$SGA_RESIZE_OPS</a></td>
+<td width=75%><small>Displays information about the last 100 completed 
+<a href="../oraparm/system_global_area.html">SGA</a> resize operations.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SGA_DYNAMIC_COMPONENTS.html"><b>V$SGA_DYNAMIC_COMPONENTS</b></a></td>
+<td width=75%><small>Displays information about the dynamic <a href="../oraparm/system_global_area.html">SGA</a> 
+components.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SGA_DYNAMIC_FREE_MEMORY.html">V$SGA_DYNAMIC_FREE_MEMORY</a></td>
+<td width=75%><small>Displays information about the amount of <a href="../oraparm/system_global_area.html">SGA</a> 
+memory available for future dynamic SGA resize operations.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SGASTAT.html"><b>V$SGASTAT</b></a></td>
+<td width=75%><small>Contains detailed information on the system global area 
+(<a href="../oraparm/system_global_area.html">SGA</a>).</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SHARED_POOL_ADVICE.html"><b>V$SHARED_POOL_ADVICE</b></a></td>
+<td width=75%><small>Displays information about estimated parse time savings in the 
+shared pool for different sizes.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SHARED_POOL_RESERVED.html">V$SHARED_POOL_RESERVED</a></td>
+<td width=75%><small>Fixed view lists statistics that help you tune the reserved pool and 
+space within the shared pool.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SORT_SEGMENT.html"><b>V$SORT_SEGMENT</b></a></td>
+<td width=75%><small>Contains information about every sort segment in a given instance. 
+This view is only updated when tablespace is a <a href="../orasql/temporary_tablespace.html">TEMPORARY</a> type.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SORT_USAGE.html"><b>V$SORT_USAGE</b></a></td>
+<td width=75%><small>Describes sort usage.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SPPARAMETER.html"><b>V$SPPARAMETER</b></a></td>
+<td width=75%><small>Lists the contents of the <a href="../orasql/spfile.html">SPFILE</a>. 
+The view returns NULL values if a <a href="../orasql/pfile.html">PFILE</a> 
+was used to start up the instance.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQL.html"><b>V$SQL</b></a></td>
+<td width=75%><small>Lists statistics on shared SQL area without the GROUP BY clause and 
+contains one row for each child of the original SQL text entered.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQL_BIND_DATA.html"><b>V$SQL_BIND_DATA</b></a></td>
+<td width=75%><small>Distinct bind variable in each cursor owned by the session querying this view.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQL_BIND_METADATA.html"><b>V$SQL_BIND_METADATA</b></a></td>
+<td width=75%><small>Distinct bind variable in each cursor owned by the session querying this view.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQL_CURSOR.html"><b>V$SQL_CURSOR</b></a></td>
+<td width=75%><small>Displays debugging information for each cursor associated with the session querying this view.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQL_PLAN.html"><b>V$SQL_PLAN</b></a></td>
+<td width=75%><small>Contains the execution plan information for each child cursor loaded in the library cache.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQL_PLAN_STATISTICS.html">V$SQL_PLAN_STATISTICS</a></td>
+<td width=75%><small>Provides execution statistics at the row source level for each child cursor.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQL_PLAN_STATISTICS_ALL.html">V$SQL_PLAN_STATISTICS_ALL</a></td>
+<td width=75%><small>Contains memory usage statistics for row sources that use SQL memory (sort or hash-join).</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQL_REDIRECTION.html">V$SQL_REDIRECTION</a></td>
+<td width=75%><small>Identifies SQL statements that are redirected.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQL_SHARED_CURSOR.html"><b>V$SQL_SHARED_CURSOR</b></a></td>
+<td width=75%><small>Describes explains why a particular child cursor is not shared with existing child cursors.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQL_SHARED_MEMORY.html"><b>V$SQL_SHARED_MEMORY</b></a></td>
+<td width=75%><small>Displays information about the cursor shared memory snapshot.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQL_WORKAREA.html"><b>V$SQL_WORKAREA</b></a></td>
+<td width=75%><small>Displays information about work areas used by SQL cursors.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQL_WORKAREA_ACTIVE.html">V$SQL_WORKAREA_ACTIVE</a></td>
+<td width=75%><small>Contains an instantaneous view of the work areas currently allocated by the system.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQL_WORKAREA_HISTOGRAM.html"><b>V$SQL_WORKAREA_HISTOGRAM</b></a></td>
+<td width=75%><small>Lists the number of optimal, one-pass and multiple-pass executions segmented by work area.</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQLAREA.html"><b>V$SQLAREA</b></a></td>
+<td width=75%><small>Lists statistics on shared SQL area and contains one row per SQL string.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQLTEXT.html"><b>V$SQLTEXT</b></a></td>
+<td width=75%><small>Contains the text of SQL statements belonging to shared SQL cursors in the 
+<a href="../oraparm/system_global_area.html">SGA</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQLTEXT_WITH_NEWLINES.html"><b>V$SQLTEXT_WITH_NEWLINES</b></a></td>
+<td width=75%><small>Identical to V$SQLTEXT except V$SQLTEXT_WITH_NEWLINES does not replace newlines 
+and tabs in the SQL statement with spaces.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SQLXS.html"><b>V$SQLXS</b></a></td>
+<td width=75%><small><font color=#EEE8AA>Not listed in Oracle Documentation</font></small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$STATISTICS_LEVEL.html"><b>V$STATISTICS_LEVEL</b></a></td>
+<td width=75%><small>Lists the status of the statistics/advisories controlled by statistics_level</small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$STATNAME.html"><b>V$STATNAME</b></a></td>
+<td width=75%><small>Displays decoded statistic names for the statistics shown in the 
+<a href="V$SESSTAT.html">V$SESSTAT</a> and <a href="V$SYSSTAT.html">V$SYSSTAT</a> tables.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SUBCACHE.html"><b>V$SUBCACHE</b></a></td>
+<td width=75%><small>Displays information about the subordinate caches currently loaded into library cache memory.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SYSSTAT.html"><b>V$SYSSTAT</b></a></td>
+<td width=75%><small>Lists system statistics. To find the name of the statistic associated with each 
+statistic number (STATISTIC#), query the <a href="V$STATNAME.html">V$STATNAME</a> view.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SYSTEM_CURSOR_CACHE.html">V$SYSTEM_CURSOR_CACHE</a></td>
+<td width=75%><small>Displays similar information to the 
+<a href="V$SESSION_CURSOR_CACHE.html">V$SESSION_CURSOR_CACHE</a> view except for system.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SYSTEM_EVENT.html"><b>V$SYSTEM_EVENT</b></a></td>
+<td width=75%><small>Contains information on total waits for an event.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SYSTEM_PARAMETER.html"><b>V$SYSTEM_PARAMETER</b></a></td>
+<td width=75%><small>Lists parameters and parameter values that are currently in effect for this instance of Oracle.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$SYSTEM_PARAMETER2.html"><b>V$SYSTEM_PARAMETER2</b></a></td>
+<td width=75%><small>Lists parameters and parameter values that are currently in effect for this instance of Oracle</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$TABLESPACE.html"><b>V$TABLESPACE</b></a></td>
+<td width=75%><small>Displays tablespace information from the 
+<a href="../orasql/controlfile_c.html">controlfile</a>.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$TARGETRBA.html">V$TARGETRBA</a></td>
+<td width=75%><small><font color=#999999>Depreciated. Use <a href="V$INSTANCE_RECOVERY.html">V$INSTANCE_RECOVERY</a>.</font></small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$TEMP_EXTENT_MAP.html"><b>V$TEMP_EXTENT_MAP</b></a></td>
+<td width=75%><small>Displays the status of each unit for all temporary tablespaces.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$TEMP_EXTENT_POOL.html">V$TEMP_EXTENT_POOL</a></td>
+<td width=75%><small>Displays the state of temporary space cached and used for a given instance.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$TEMP_PING.html">V$TEMP_PING</a></td>
+<td width=75%><small><font color=#999999>Depreciated. Use <a href="V$TEMP_CACHE_TRANSFER.html">V$TEMP_CACHE_TRANSFER</a>.</font></small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$TEMP_SPACE_HEADER.html">V$TEMP_SPACE_HEADER</a></td>
+<td width=75%><small>Displays aggregate information per file per 
+<a href="../orasql/temporary_tablespace.html">TEMPORARY</a> tablespace regarding how much space is currently 
+being used and how much is free.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$TEMPFILE.html">V$TEMPFILE</a></td>
+<td width=75%><small>Displays tempfile information.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$TEMPORARY_LOBS.html">V$TEMPORARY_LOBS</a></td>
+<td width=75%><small> Displays temporary lobs.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$TEMPSTAT.html">V$TEMPSTAT</a></td>
+<td width=75%><small>Contains information about file read/write statistics.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$TEMPSTATXS.html">V$TEMPSTATXS</a></td>
+<td width=75%><small><font color=#EEE8AA>Not listed in Oracle Documentation</font></small></td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$TIMER.html">V$TIMER</a></td>
+<td width=75%><small>Lists the elapsed time in hundredths of seconds.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$TIMEZONE_NAMES.html"><b>V$TIMEZONE_NAMES</b></a></td>
+<td width=75%><small>Lists valid time zone names.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$TRANSACTION.html"><b>V$TRANSACTION</b></a></td>
+<td width=75%><small>Lists the active transactions in the system.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$TRANSACTION_ENQUEUE.html">V$TRANSACTION_ENQUEUE</a></td>
+<td width=75%><small>Displays locks owned by transaction state objects.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$TYPE_SIZE.html"><b>V$TYPE_SIZE</b></a></td>
+<td width=75%><small>Lists the sizes of various database components for use in estimating data block capacity.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$UNDOSTAT.html"><b>V$UNDOSTAT</b></a></td>
+<td width=75%><small>Displays a histogram of statistical data to show how well the system is working.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$VERSION.html"><b>V$VERSION</b></a></td>
+<td width=75%><small>Version numbers of core library components in the Oracle server.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$VPD_POLICY.html">V$VPD_POLICY</a></td>
+<td width=75%><small>Lists all the fine-grained security policies and predicates associated with the cursors currently in the library cache.</td>
+</tr>
+<tr align=left valign=top>
+<td width=25%><a href="V$WAITSTAT.html"><b>V$WAITSTAT</b></a></td>
+<td width=75%><small>Lists block contention statistics. This table is only updated when timed statistics are enabled.</td>
+</tr>
+</table></center>
+
+</body>
+</html>

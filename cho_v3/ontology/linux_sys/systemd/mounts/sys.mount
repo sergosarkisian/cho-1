@@ -1,0 +1,11 @@
+#-.mount
+[Unit]
+SourcePath=/etc/fstab
+Documentation=man:fstab(5) man:systemd-fstab-generator(8)
+Before=local-fs.target
+
+[Mount]
+What=/dev/disk/by-label/system
+Where=/
+Type=ext4
+Options=noatime,acl,user_xattr

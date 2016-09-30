@@ -1,0 +1,2 @@
+addFilter("devel-file-in-non-devel-package .*/opt/kibana/node/include/node/.*")
+addFilter("zero-length .*/opt/kibana/node_modules/.*")

@@ -1,0 +1,19 @@
+<directory name="exim" rev="2b75f43f32e194bc4bdc76e4a4c782ed" srcmd5="2b75f43f32e194bc4bdc76e4a4c782ed">
+  <linkinfo baserev="26d38179ba119af9aa1943517501e380" lsrcmd5="37bf39e65d885f581df592674675c850" package="exim" project="server:mail" srcmd5="26d38179ba119af9aa1943517501e380" />
+  <entry md5="d02b82076a3dd83c15d2f5b192171cb5" mtime="1469633141" name="_service" size="477" />
+  <entry md5="c560bd072c4f9b770681defd9c3db610" mtime="1190937339" name="apparmor.usr.sbin.exim" size="786" />
+  <entry md5="c78ffe76232ab35666f843dd727db40f" mtime="1470098573" name="cee_acl_logwrite.patch" size="528" />
+  <entry md5="285a7c374b81950e4e8368b3c35f8c65" mtime="1471476889" name="cee_deliver.patch" size="7979" />
+  <entry md5="e9c85d904ade964bcbca627f0535a07d" mtime="1471451452" name="cee_expand.patch" size="397" />
+  <entry md5="0aeac77200181c447cf89f95865f6e67" mtime="1470101207" name="cee_log.patch" size="1905" />
+  <entry md5="df4a01cdeb3662221393266048aac72b" mtime="1470124414" name="cee_macros.patch" size="508" />
+  <entry md5="166d4057efeedec44bd57836cefc73fe" mtime="1470142135" name="cee_rewrite.patch" size="1068" />
+  <entry md5="dea704a38a878a0e9cdac0e20b28fc65" mtime="1469633142" name="exim-doc.tar.bz2" size="554022" />
+  <entry md5="89246dcc7fd2139cdcf94474412b4c21" mtime="1459785521" name="exim.changes" size="110174" />
+  <entry md5="b42e5f795f0fa58c0326f62e2b2ac4d8" mtime="1430947988" name="exim.service" size="268" />
+  <entry md5="cd2820ff7ee2c68faf516c08ba4d464c" mtime="1471451452" name="exim.spec" size="10839" />
+  <entry md5="ec493ac098ea71c1776e58e124346d9a" mtime="1141832100" name="exim4-manpages.tar.bz2" size="8392" />
+  <entry md5="4331db272cdf2d35ba93a60be0b829a9" mtime="1141832136" name="permissions.exim" size="33" />
+  <entry md5="f1d31f69602d3ee03ea2c4db75f14775" mtime="1144096774" name="sysconfig.exim" size="924" />
+  <entry md5="f6d4382ba53b600203fa8385dea057bb" mtime="1469629360" name="version.sh" size="306" />
+</directory>

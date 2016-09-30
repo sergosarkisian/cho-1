@@ -1,0 +1,7 @@
+#condition = ${if eq {$acl_c_rule_bwl_operator}{wildlsearch}\
+#    { if exists {/etc/exim/client_path/rules/$acl_c_rule_section/$acl_c_rule_type/$acl_c_rule_name.wl} \
+#        {${lookup{$acl_c_rule_bwl_field} wildlsearch \
+#            {/etc/exim/client_path/rules/$acl_c_rule_section/$acl_c_rule_type/$acl_c_rule_name.wl}{no}{yes}}\
+#        }\
+#    }\
+#}        

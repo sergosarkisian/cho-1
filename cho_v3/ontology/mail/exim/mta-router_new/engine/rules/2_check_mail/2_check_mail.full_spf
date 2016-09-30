@@ -1,0 +1,59 @@
+## TODO  !!!!  BUGGY		
+.ifdef SCORE_SPF_STRICT
+  # Allowed SPF servers != sender server & our server  =>  Score: SCORE_SPF_STRICT
+  warn  
+                spf = !pass
+                hosts = + spf_strict_domains
+		#condition = ${} 
+		condition = ${if or {{if match {$acl_c_spf_record}{a:{$GLOBAL_PRIMARY_HOSTNAME}}} {if match {$acl_c_spf_record}{include:{$GLOBAL_QUALIFY_DOMAIN}}}}}
+		
+		#
+		set acl_c_rule = score_spf_strict
+		set acl_c_score_mta_inc = SCORE_SPF_STRICT
+		set acl_c_score_reason = Strict SPF policy
+		set acl_c_msg_view = $acl_c_msg_view_def
+		set acl_c_acl_action = $acl_c_acl_action_def
+		set acl_c_advlog_inc = $acl_c_advlog_inc_def ; spf_received -> $spf_received; spf_result -> $spf_result;
+		#		
+.endif
+
+
+
+.ifdef SCORE_SPF_TOO_OPEN
+  # Allowed SPF servers contains "+all"  =>  Score: SCORE_SPF_TOO_OPEN
+  warn  
+		condition = ${if match {$acl_c_spf_record}{\\+all}}       
+		#
+		set acl_c_rule = score_spf_too_open
+		set acl_c_score_mta_inc = SCORE_SPF_TOO_OPEN
+		set acl_c_score_reason = SPF policy is too open ("+all")
+		set acl_c_msg_view = $acl_c_msg_view_def
+		set acl_c_acl_action = $acl_c_acl_action_def
+		set acl_c_advlog_inc = $acl_c_advlog_inc_def
+		#
+			
+.endif
+
+
+.ifdef SCORE_SPF_NON_LOCAL
+  # Allowed SPF servers != sender server  =>  Score: SCORE_SPF_NON_LOCAL
+  warn  
+                spf = fail : softfail : neutral
+                hosts = ! +local_networks        
+		#
+		set acl_c_rule = score_spf_non_local
+		set acl_c_score_mta_inc = SCORE_SPF_NON_LOCAL
+		set acl_c_score_reason = This sender is not valid due to SPF policy 
+		set acl_c_msg_view = $acl_c_msg_view_def
+		set acl_c_acl_action = $acl_c_acl_action_def
+		set acl_c_advlog_inc = $acl_c_advlog_inc_def ; spf_received -> $spf_received; spf_result -> $spf_result;
+		#			
+.endif
+     
+     
+##     
+
+
+
+
+

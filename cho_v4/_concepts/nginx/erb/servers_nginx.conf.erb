@@ -1,0 +1,61 @@
+
+  server {
+    listen    NGINX_PORT default;
+    port_in_redirect off;
+    root htdocs;
+    rewrite ^([^.]*[^/])$ $1/ permanent; 
+    
+    location /nstat {
+            stub_status on;
+            }    
+
+	location = /favicon.ico {
+			log_not_found off;
+			access_log off;
+	}
+	
+	location ~ /\.  { return 403; }
+            
+            
+    ##Frequently-changed files
+    location ~* \.(css|txt|rtf|js|html|htm|xml)$
+    {
+    try_files $uri $uri/ @dynamic;
+
+    open_file_cache max=1024 inactive=60s;
+    open_file_cache_valid    60s;
+    open_file_cache_min_uses 60;
+    open_file_cache_errors   off;
+    expires                  240h;    
+    }
+
+    ##Mostly unchanged files
+    location ~* \.(jpg|jpeg|gif|png|tif|tiff|bmp|svg|svgz|ico|zip|tgz|gz|rar|bz2|doc|xls|odt|odp|ddoc|pdf|tar|wav|flv|swf|mp3|mp4|ogv|webm|m4v|ogg|mpeg|avi|rar)$
+    {
+    try_files $uri $uri/ @dynamic;
+
+    open_file_cache max=8096 inactive=60s;
+    open_file_cache_valid    600s;
+    open_file_cache_min_uses 1;
+    open_file_cache_errors   off;
+    open_file_cache_events  on;
+    expires                  240h;    
+    }
+
+     ##Streaming MPEG4
+    #location ~* \.mp4$ 
+    #{
+    #mp4;
+    #mp4_buffer_size     1m;
+    #mp4_max_buffer_size 5m;
+    #}
+
+
+    location @rewrites { 
+        rewrite /robots /robots.txt last;
+    }
+
+
+
+    
+

@@ -1,0 +1,21 @@
+-------------------------------------------------------------------
+Tue Jun  7 06:48:05 UTC 2016 - kkaempf@suse.com
+
+- update to 2.3.3
+  See https://www.elastic.co/guide/en/elasticsearch/reference/current/release-notes-2.3.3.html
+
+-------------------------------------------------------------------
+Tue Jan 12 13:00:00 UTC 2016 - t.neuburger@telekom.de
+
+- fixes for SysV and systemd
+  * own sysVinit init script
+  * update systemd unit file
+  * new pre exec environment script for both SysV and systemd
+
+-------------------------------------------------------------------
+Wed Dec 09 13:00:00 UTC 2015 - t.neuburger@telekom.de
+
+- initial elasticsearch build
+  * based on elasticsearch-2.1.0.tar.gz
+  * sysVinit script from centos rpm
+  * own created systemd unit file

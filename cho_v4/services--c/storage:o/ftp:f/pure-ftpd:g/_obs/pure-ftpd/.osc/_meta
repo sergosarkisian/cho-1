@@ -1,0 +1,9 @@
+<package name="pure-ftpd" project="home:conecenter:techpool:ontology:storage:pure-ftpd">
+  <title>pure-ftpd</title>
+  <description>NOTE: Automatically created during Factory devel project migration by admin.</description>
+  <build>
+    <enable repository="openSUSE_11.2"/>
+    <enable repository="openSUSE_Factory"/>
+  </build>
+</package>
+

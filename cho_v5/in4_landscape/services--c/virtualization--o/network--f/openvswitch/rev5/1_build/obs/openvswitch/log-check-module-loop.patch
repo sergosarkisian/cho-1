@@ -1,0 +1,36 @@
+Index: lib/vlog.c
+===================================================================
+--- lib/vlog.c.orig
++++ lib/vlog.c
+@@ -227,7 +227,7 @@ set_facility_level(enum vlog_facility fa
+     ovs_mutex_lock(&log_file_mutex);
+     if (!module) {
+         struct vlog_module *mp;
+-        LIST_FOR_EACH (mp, list, &vlog_modules) {
++        LIST_FOR_EACH_CHECK (mp, list, &vlog_modules) {
+             mp->levels[facility] = level;
+             update_min_level(mp);
+         }
+@@ -347,7 +347,7 @@ vlog_set_log_file(const char *file_name)
+         log_writer = async_append_create(new_log_fd);
+     }
+ 
+-    LIST_FOR_EACH (mp, list, &vlog_modules) {
++    LIST_FOR_EACH_CHECK (mp, list, &vlog_modules) {
+         update_min_level(mp);
+     }
+     ovs_mutex_unlock(&log_file_mutex);
+Index: lib/list.h
+===================================================================
+--- lib/list.h.orig
++++ lib/list.h
+@@ -79,5 +79,9 @@ bool list_is_short(const struct list *);
+           ? ASSIGN_CONTAINER(NEXT, (ITER)->MEMBER.next, MEMBER), 1 \
+           : 0);                                                    \
+          (ITER) = (NEXT))
++#define LIST_FOR_EACH_CHECK(ITER, MEMBER, LIST)                                      \
++    for (ASSIGN_CONTAINER(ITER, (LIST)->next, MEMBER);                               \
++         &(ITER)->MEMBER != (LIST) && (ITER)->MEMBER.next != (ITER)->MEMBER.prev;    \
++         ASSIGN_CONTAINER(ITER, (ITER)->MEMBER.next, MEMBER))
+ 
+ #endif /* list.h */

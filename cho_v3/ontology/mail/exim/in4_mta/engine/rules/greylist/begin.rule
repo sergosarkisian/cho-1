@@ -1,0 +1,16 @@
+  # clean expired greylist records at 00 and 30 of all day minutes
+  warn  condition       = ${if or {{eq {${substr{10}{2}{$tod_zulu}} }{00}}{eq {${substr{10}{2}{$tod_zulu}} }{30}} }{yes}{no}}
+        set acl_c4      = GREYLIST_CLEAN
+        log_message     = clean expired greylist records
+
+  # For regular deliveries, check greylist.
+
+  # check greylist tuple, returning "accepted", "deferred" or "unknown"
+  # in acl_c8, and the record id in acl_c9  
+  warn  set acl_c8       = GREYLIST_TEST
+        # here acl_c8 = "result=x id=y"
+        set acl_c9       = ${extract{id}{$acl_c8}{$value}{-1}}
+        # now acl_c9 contains the record id (or -1)
+        set acl_c8       = ${extract{result}{$acl_c8}{$value}{unknown}}
+        # now acl_c8 contains unknown/deferred/accepted
+        log_message     = checking greylist tuple: setting to '$acl_c8' 

@@ -1,0 +1,30 @@
+
+    acl FORBIDDEN_HDR hdr_cnt(host) gt 1
+    acl FORBIDDEN_HDR hdr_cnt(content-length) gt 1
+    acl FORBIDDEN_HDR hdr_val(content-length) lt 0
+    acl FORBIDDEN_HDR hdr_cnt(proxy-authorization) gt 0
+    acl FORBIDDEN_HDR hdr_cnt(x-xsrf-token) gt 1
+    acl FORBIDDEN_HDR hdr_len(x-xsrf-token) gt 36
+    http-request tarpit if FORBIDDEN_HDR
+
+    
+    acl FORBIDDEN_URI url_reg -i .*(\.|%2e)(\.|%2e)(%2f|%5c|/|\\\\)
+    http-request tarpit if FORBIDDEN_URI
+
+    # TARPIT content-length larger than 20kB
+    acl REQUEST_TOO_BIG hdr_val(content-length) gt 20000
+    http-request deny if METH_POST REQUEST_TOO_BIG
+
+    # TARPIT requests with more than 10 Range headers
+    acl WEIRD_RANGE_HEADERS hdr_cnt(Range) gt 10
+    http-request tarpit if WEIRD_RANGE_HEADERS
+
+    
+    acl IS_API hdr_beg(host) -i api.
+
+    acl BADBOT hdr_reg(User-Agent) -i -f /etc/haproxy-ddos/blacklists/badbots.txt
+    http-request deny if !IS_API BADBOT
+
+    acl BADREFERER hdr_sub(Referer) -i -f /etc/haproxy-ddos/blacklists/badreferer.txt
+    http-request deny if !IS_API BADREFERER
+

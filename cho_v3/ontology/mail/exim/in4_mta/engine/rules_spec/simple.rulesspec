@@ -1,0 +1,44 @@
+begin acl
+
+### 1_CHECK_CONNECT SECTION
+ .include /etc/exim/engine_path/engine/rules/1_check_connect/1_check_connect.pre
+ .include /etc/exim/engine_path/engine/rules/_base/accept/accept.rule
+###
+ 
+ ### 2_CHECK_MAIL SECTION
+ .include /etc/exim/engine_path/engine/rules/2_check_mail/2_check_mail.pre
+ .include /etc/exim/engine_path/engine/rules/_base/accept/accept.rule
+###
+ 
+### 3_CHECK_RCPT SECTION 
+ .include /etc/exim/engine_path/engine/rules/3_check_rcpt/3_check_rcpt.pre
+    #
+    warn set acl_c_rule_score = 2000
+        .include /etc/exim/engine_path/engine/rules/3_check_rcpt/score/non_auth_relaying.rule    
+    #
+    warn set acl_c_rule_score = 1900
+        .include /etc/exim/engine_path/engine/rules/3_check_rcpt/score/spamtrap_address.rule
+    #    
+    warn set acl_c_rule_dd_descr = after_non_auth_relaying+spamtrap
+        .include /etc/exim/engine_path/engine/rules/_base/deny_discard/score_hard_limit.rule
+ .include /etc/exim/engine_path/engine/rules/_base/accept/accept.rule
+###
+  
+### 4_CHECK_PREDATA SECTION  
+ .include /etc/exim/engine_path/engine/rules/4_check_predata/4_check_predata.pre
+ .include /etc/exim/engine_path/engine/rules/_base/accept/accept.rule
+###
+
+### 5_CHECK_MIME SECTION  
+ .include /etc/exim/engine_path/engine/rules/5_check_mime/5_check_mime.pre
+ .include /etc/exim/engine_path/engine/rules/_base/accept/accept.rule
+###
+  
+### 6_CHECK_DATA SECTION
+ .include /etc/exim/engine_path/engine/rules/6_check_data/6_check_data.pre
+ .include /etc/exim/engine_path/engine/rules/_base/accept/delivery.rule
+###
+
+### 7_OTHERS
+ .include /etc/exim/engine_path/engine/rules/7.acl_others.conf
+###

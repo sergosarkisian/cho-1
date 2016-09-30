@@ -1,0 +1,22 @@
+###########################
+###  INCLUDES                            	###
+###########################
+
+.include /etc/exim/engine_path/engine/_globals/global.conf
+
+## VARS
+    SYSLOG_PROCESSNAME = in4_mta__proxy_step2_out
+    hosts_proxy = *
+    daemon_smtp_ports = 30
+    syslog_processname = SYSLOG_PROCESSNAME    
+    system_filter  =  /etc/exim/engine_path/engine/fiters/full_mta_delivery.filter
+    spool_directory = /var/spool/exim_proxy_step2
+##
+
+# INCLUDE 
+    .include /etc/exim/engine_path/engine/instance/proxy.inc
+#
+
+# ROUTER
+    .include /etc/exim/engine_path/engine/router/proxy_step2.router
+#

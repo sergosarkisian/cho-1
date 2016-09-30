@@ -1,0 +1,6 @@
+## Name: rev5_drbd8
+## Description: Open ports for rev5_drbd8
+
+# space separated list of allowed TCP ports
+TCP="7701:7709"
+ 

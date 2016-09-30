@@ -1,0 +1,15 @@
+<package name="qemu" project="home:conecenter:rev5a1:ontology:services--c:virtualization--o:vm--f">
+  <title>QEMU</title>
+  <description>QEMU is a quick emulator, using dynamic translation (TCG). It also serves as frontend for KVM and as backend for Xen device emulation.
+
+Note that this package is based on a Git patch queue and the .spec file is thus generated from qemu.spec.in.</description>
+  <group groupid="kvm-maintainers" role="bugowner"/>
+  <build>
+    <disable repository="SLE_11"/>
+    <disable arch="aarch64" repository="openSUSE_13.1"/>
+  </build>
+  <useforbuild>
+    <disable arch="armv7l"/>
+  </useforbuild>
+</package>
+

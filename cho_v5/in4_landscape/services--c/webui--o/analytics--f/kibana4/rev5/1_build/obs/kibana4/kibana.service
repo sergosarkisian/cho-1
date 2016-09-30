@@ -1,0 +1,19 @@
+#
+# kibana systemd service
+#
+
+[Unit]
+Description=Kibana
+Documentation=https://www.elastic.co/guide
+After=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/sysconfig/kibana
+User=kibana
+Group=kibana
+ExecStart=/opt/kibana/bin/kibana
+
+[Install]
+WantedBy=multi-user.target
+

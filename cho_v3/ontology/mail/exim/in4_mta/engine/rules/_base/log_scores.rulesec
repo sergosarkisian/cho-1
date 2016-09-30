@@ -1,0 +1,7 @@
+"score_wbl":"$acl_c_score_wbl", \
+"score_mta_inc":"$acl_c_score_mta_inc", \
+"score_prev":"$acl_c_score_prev", \
+"score_mta":"$acl_c_score_mta", \
+"score_content":"$acl_c_score_content", \
+"score_total":"$acl_c_score_total", \
+"score_rulelog":"$acl_c_score_rulelog", \

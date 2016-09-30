@@ -1,0 +1,30 @@
+[Unit]
+Description=Rsync - custom sync service
+ 
+[Service]
+## REV4 ##
+BlockIOAccounting=true
+CPUAccounting=true
+MemoryAccounting=true
+##
+
+## GENERAL
+User= root
+Group=root
+Type=oneshot
+Nice=19
+IOSchedulingClass=idle
+IOSchedulingPriority=7
+#48 hours
+TimeoutSec=172800 
+ ##
+
+ExecStartPre=/bin/bash /etc/faster/cmdb/techpool/cgroup/cgroup_applyer.sh %p  blkio throttle.read_bps_device 10000000 storage
+ExecStartPre=/bin/bash /etc/faster/cmdb/techpool/cgroup/cgroup_applyer.sh %p  blkio throttle.write_bps_device 10000000 storage
+ExecStartPre=/bin/bash /etc/faster/cmdb/techpool/cgroup/cgroup_applyer.sh %p  blkio throttle.read_iops_device 50 storage
+ExecStartPre=/bin/bash /etc/faster/cmdb/techpool/cgroup/cgroup_applyer.sh %p  blkio throttle.write_iops_device 50 storage
+
+ExecStart=/usr/bin/rsync -acu  --info=progress2  /media/storage/web/_dsch/alc/cc /media/storage1/
+ 
+[Install]
+WantedBy=multi-user.target

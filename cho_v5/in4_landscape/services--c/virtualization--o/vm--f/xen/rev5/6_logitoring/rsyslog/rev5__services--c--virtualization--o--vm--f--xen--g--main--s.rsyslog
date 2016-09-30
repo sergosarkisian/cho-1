@@ -1,0 +1,3 @@
+annotate=TAG:+="rev5__services--c--virtualization--o--vm--f--xen--g--main--s__log-..."
+prefix=<%prio:char-to:\x3e%>%date:date-rfc3164%....
+rule=

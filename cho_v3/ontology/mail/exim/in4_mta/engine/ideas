@@ -1,0 +1,39 @@
+   + delay = ${eval:$acl_c_spamscore/2}s
+   
+   + SPF policy - is my server (current mail server) permittable relay? (this check is not in exim source)
+
+   + smtp_active_hostname = ${if exists{/etc/virtual/helo_data}{${lookup{$interface_address}iplsearch{/etc/virtual/helo_data}{$value}{$primary_hostname}}}{$primary_hostname}}
+
+   + acl_smtp_auth
+   
+   + acl_smtp_dkim
+   
+   + acl_check_auth:
+  drop  set acl_m_authcount = ${eval10:0$acl_m_authcount+1}
+        condition = ${if >{$acl_m_authcount}{2}}
+        delay = 10s
+        message = ONLY_ONE_AUTH_PER_CONN
+
+    + acl_check_helo
+    # deny if the HELO pretends to be this host
+    deny message = HELO_HOST_IMPERSANATION
+      condition = ${if or { \
+                            {eq{$sender_helo_name}{$smtp_active_hostname}} \
+                            {eq{$sender_helo_name}{[$interface_address]}} \
+                          } {true}{false} }
+  # deny if the HELO is an IP address
+    deny message = HELO_IS_IP
+         condition   = ${if eq{$interface_port}{25}}
+         condition   = ${if isip{$sender_helo_name}}
+  # deny if hostname if ylmf-pc, which accounts for a HUGE percentage of BF attacks
+    deny message = HELO_BLOCKED_FOR_ABUSE
+         condition   = ${if eq{$sender_helo_name}{ylmf-pc}}
+  # deny if the HELO pretends to be one of the domains hosted on the server
+    deny message = HELO_IS_LOCAL_DOMAIN
+        condition = ${if match_domain{$sender_helo_name}{+local_domains}{true}{false}}
+        hosts = ! +relay_hosts
+        
+        
+        
+   
+   

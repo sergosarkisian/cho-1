@@ -1,0 +1,5 @@
+oneadmin    ALL=(ALL) NOPASSWD: /usr/sbin/xl *
+oneadmin    ALL=(ALL) NOPASSWD: /usr/sbin/xentop *
+oneadmin    ALL=(ALL) NOPASSWD: /usr/bin/ovs-vsctl *
+oneadmin    ALL=(ALL) NOPASSWD: /usr/bin/ovs-ofctl *
+ 

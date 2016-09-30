@@ -1,0 +1,5 @@
+<package name="postgres_aggregates" project="home:conecenter:techpool:ontology:database:postgres">
+  <title>postgres_aggregates</title>
+  <description></description>
+</package>
+

@@ -1,0 +1,8 @@
+<directory name="blktap" rev="9" srcmd5="ae32a06f92f3aa39ecfd9e2fab83f1e4" vrev="9">
+  <serviceinfo code="succeeded" xsrcmd5="e49b73d361b707f662a4780273631a9b" />
+  <entry md5="00113333e4fd04ff744e97b1b41fd963" mtime="1452619474" name="_service" size="482" />
+  <entry md5="1a12fd4076c21c02119d6b9e53421dcf" mtime="1455005669" name="blktap-gntcpy.patch" size="4898" />
+  <entry md5="27274352408e091fc4f399cfe0d0f6c5" mtime="1349945921" name="blktap-udev-ignore-tapdevs.patch" size="425" />
+  <entry md5="80c76ad9b300bcd49ebb56930d0dd416" mtime="1455378692" name="blktap.spec" size="3520" />
+  <entry md5="ffedd7ba87742671abe418f9857578a5" mtime="1452663485" name="thin_log_define.patch" size="253" />
+</directory>

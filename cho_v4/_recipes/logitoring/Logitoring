@@ -1,0 +1,13 @@
+Zabbix:
+1) Templates (sets of others obj)
+2) Items (classes of)
+3) Triggers 
+4) Graphs (sets of => screens)
+5) Actions (an least notifications)
+6) Maintenance (muted periods)
+7) Users & groups
+
+
+Logitoring:
+2) Items JSON => @cee {"ram_free":"3443", "swap_pfree":"32"}
+5) Scala mail send

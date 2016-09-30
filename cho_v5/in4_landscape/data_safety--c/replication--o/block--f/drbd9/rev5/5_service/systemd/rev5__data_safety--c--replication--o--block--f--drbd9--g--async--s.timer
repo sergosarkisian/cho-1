@@ -1,0 +1,35 @@
+[Unit]
+Description		= rev5__data_safety--c--replication--o--block--f--drbd9--g--async--s
+
+## DEPS ## 
+ Requires		= var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
+ After			= var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
+##
+
+## DEPS - AFTER REV5.TARGET## 
+ #Requires		= rev5.target
+ #After			= rev5.target
+##
+
+[Timer]
+Unit                                 = rev5__data_safety--c--replication--o--block--f--drbd9--g--async--s.service
+
+### TIMERS
+#OnBootSec                 = 
+#OnUnitActiveSec       =
+OnCalendar                  = 00:02
+### 
+
+### MISC
+#AccuracySec            = 5s
+#RandomizedDelaySec = 
+###
+
+[Install]
+Alias   = rev5__genus--g
+WantedBy			= multi-user.target
+#RequiredBy= 
+
+## REV5 - WANTEDBY
+#WantedBy			= rev5.target
+##

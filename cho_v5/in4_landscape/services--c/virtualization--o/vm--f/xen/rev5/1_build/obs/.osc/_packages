@@ -1,0 +1,5 @@
+<project name="home:conecenter:rev5a1:ontology:services--c:virtualization--o:vm--f">
+  <package name="xen" state=" " />
+  <package name="blktap" state=" " />
+  <package name="qemu" state=" " />
+</project>

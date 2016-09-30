@@ -1,0 +1,11 @@
+<directory name="drbd8" rev="8" srcmd5="276fa467bb3d55196d59bb6fe1b41bc8" vrev="8">
+  <serviceinfo code="succeeded" xsrcmd5="7f285f7c961601fa978fc036e7d76758" />
+  <entry md5="3069a4a220c3345bfffb49c2bcc10949" mtime="1454948525" name="0001-Support-zeroout-device-in-initial-sync.patch" size="18856" />
+  <entry md5="fd5d4c9b3b82cdcd69f1ad338f10d924" mtime="1454952685" name="Module.supported" size="16" />
+  <entry md5="811c069a79062585c24b2574c82e5bf7" mtime="1455003149" name="_service" size="467" />
+  <entry md5="2c77fe1762033a9f35394b36b6feb6e6" mtime="1455003469" name="drbd8.spec" size="3675" />
+  <entry md5="2e93066490c55aeb67ce5db50a459eed" mtime="1454948526" name="drbd_git_revision" size="52" />
+  <entry md5="ed44365f77ae282600fed59e5a04473b" mtime="1454948526" name="new-bio-struct.patch" size="13663" />
+  <entry md5="f843b21976ab962a47e90efc5a1a729d" mtime="1454948526" name="rename-GFP_WAIT-to-GFP_RECLAIM.patch" size="1174" />
+  <entry md5="e623f77d794be85adf06fef7d72d81a4" mtime="1454948526" name="update-to-8.4.6-5.patch" size="42118" />
+</directory>

@@ -1,0 +1,10 @@
+    
+    location @dynamic {
+        proxy_pass http://localhost:<%= @dynamic_port %>;
+        proxy_redirect localhost/ /;
+        expires -1d;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP     $remote_addr;
+        proxy_set_header X-Forwarded-For $http_x_forwarded_for;
+        proxy_set_header X-Client $http_x_client;
+    } 

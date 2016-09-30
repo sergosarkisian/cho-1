@@ -1,0 +1,17 @@
+default 0
+timeout 4
+##YaST - generic_mbr
+##YaST - activate
+
+###Don't change this comment - YaST2 identifier: Original name: xen_domu###
+title Xen(DomU)
+    root (hd0)
+    kernel /boot/vmlinuz-xen root=/dev/disk/by-label/system resume=/dev/disk/by-label/swap splash=silent quiet showopts ipv6.disable=1 elevator=noop vga=0x314
+    initrd /boot/initrd-xen
+
+###Don't change this comment - YaST2 identifier: Original name: HVM_domu###
+title HVM(DomU)
+    root (hd0,1)
+    kernel /boot/vmlinuz root=/dev/disk/by-label/system resume=/dev/disk/by-label/swap splash=silent quiet showopts ipv6.disable=1 elevator=noop vga=0x314
+    initrd /boot/initrd
+ 

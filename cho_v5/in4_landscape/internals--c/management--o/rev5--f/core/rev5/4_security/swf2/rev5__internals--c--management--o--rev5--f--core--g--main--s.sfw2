@@ -1,0 +1,6 @@
+## Name: internals--c--management--o--rev5--f--core--g--main--s
+## Description: Open ports for internals--c--management--o--rev5--f--core--g--main--s
+
+# space separated list of allowed TCP ports
+TCP=""
+ 

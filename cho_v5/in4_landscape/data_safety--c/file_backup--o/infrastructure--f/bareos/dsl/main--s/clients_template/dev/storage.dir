@@ -1,0 +1,19 @@
+##
+###### Definition of file storage devices
+##
+Storage {
+  Name		= 	client_dev.pool.sd.test# Do not use "localhost" here    
+  Address 	= 	client_dev.pool.sd.test	
+  Device    	=	client_dev.pool.sd.test	# Device name
+  Media Type	=	client_dev.pool.sd.test	# Media name
+
+  SDPort	= 9103
+  Password	= "client_dev.pool"
+  AllowCompression = Yes
+  Maximum Concurrent Jobs = 5
+}
+
+##
+###### END
+##
+ 

@@ -1,0 +1,70 @@
+From 9d3c06336ec443b6763c92f929013afcfce70c4a Mon Sep 17 00:00:00 2001
+From: Kevin O'Connor <kevin@koconnor.net>
+Date: Thu, 9 Apr 2015 11:57:44 -0400
+Subject: [PATCH] smbios: Use integer signature instead of string signature
+
+Change the smbios structure to use a 4 byte u32 signature field
+instead of a 4 byte character string field.  In practice, this allows
+the compiler to place the signature in the initialize code segment and
+thus makes it less likely the signature would be found in the
+f-segment.  (If the smbios signature is found in the f-segment it can
+confuse some table scans.)
+
+Reviewed-by: Bruce Rogers <brogers@suse.com>
+Tested-by: Bruce Rogers <brogers@suse.com>
+Signed-off-by: Kevin O'Connor <kevin@koconnor.net>
+Signed-off-by: Andreas Färber <afaerber@suse.de>
+---
+ src/fw/biostables.c | 2 +-
+ src/fw/smbios.c     | 2 +-
+ src/std/smbios.h    | 4 +++-
+ 3 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/src/fw/biostables.c b/src/fw/biostables.c
+index 50a891b..450aca2 100644
+--- a/src/fw/biostables.c
++++ b/src/fw/biostables.c
+@@ -271,7 +271,7 @@ copy_smbios(void *pos)
+     if (SMBiosAddr)
+         return;
+     struct smbios_entry_point *p = pos;
+-    if (memcmp(p->anchor_string, "_SM_", 4))
++    if (p->signature != SMBIOS_SIGNATURE)
+         return;
+     if (checksum(pos, 0x10) != 0)
+         return;
+diff --git a/src/fw/smbios.c b/src/fw/smbios.c
+index dba0541..f3b5ad9 100644
+--- a/src/fw/smbios.c
++++ b/src/fw/smbios.c
+@@ -37,7 +37,7 @@ smbios_entry_point_setup(u16 max_structure_size,
+ 
+     struct smbios_entry_point ep;
+     memset(&ep, 0, sizeof(ep));
+-    memcpy(ep.anchor_string, "_SM_", 4);
++    ep.signature = SMBIOS_SIGNATURE;
+     ep.length = 0x1f;
+     ep.smbios_major_version = 2;
+     ep.smbios_minor_version = 4;
+diff --git a/src/std/smbios.h b/src/std/smbios.h
+index 0513716..4ccf2ea 100644
+--- a/src/std/smbios.h
++++ b/src/std/smbios.h
+@@ -3,11 +3,13 @@
+ 
+ #include "types.h" // u32
+ 
++#define SMBIOS_SIGNATURE 0x5f4d535f // "_SM_"
++
+ /* SMBIOS entry point -- must be written to a 16-bit aligned address
+    between 0xf0000 and 0xfffff.
+  */
+ struct smbios_entry_point {
+-    char anchor_string[4];
++    u32 signature;
+     u8 checksum;
+     u8 length;
+     u8 smbios_major_version;
+-- 
+2.1.4
+

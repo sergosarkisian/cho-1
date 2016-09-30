@@ -1,0 +1,84 @@
+
+
+
+
+Pool {
+  Name            = f-client_dev.pool.sd.test
+  Storage        = client_dev.pool.sd.test
+  #Next Pool     = 
+  
+  ## TUNABLE
+  Maximum Volume Files      = 100000
+  Maximum Volume Bytes    = 300 g
+  Volume Retention                = 94
+
+  ## DEFAULTS
+  Pool Type                               = Backup
+  Maximum Block Size           = 1M
+  Minimum Block Size            = 1M
+  Maximum Volume Jobs       = 1
+  Job Retention                         = 3m
+  File Retention                        = 3m
+  Action On Purge                   = Truncate
+  AutoPrune                             = yes
+  Recycle                                   = yes
+  Recycle Oldest Volume       = yes
+  Label Format                         = "${Job}-.-${Year}-${Month:p/2/0/r}-${Day:p/2/0/r}-${Hour:p/2/0/r}:-${Minute:p/2/0/r}.-ID:${JobId}"    
+  
+  }
+  
+  
+
+Pool {
+  Name            = d-client_dev.pool.sd.test
+  Storage        = client_dev.pool.sd.test
+  #Next Pool     = 
+  
+  ## TUNABLE
+  Maximum Volume Files      = 100000
+  Maximum Volume Bytes    = 100 g
+  Volume Retention                = 37
+
+  ## DEFAULTS
+  Pool Type                               = Backup
+  Maximum Block Size           = 1M
+  Minimum Block Size            = 1M
+  Maximum Volume Jobs       = 1
+  Job Retention                         = 3m
+  File Retention                        = 3m
+  Action On Purge                   = Truncate
+  AutoPrune                             = yes
+  Recycle                                   = yes
+  Recycle Oldest Volume       = yes
+  Label Format                         = "${Job}-.-${Year}-${Month:p/2/0/r}-${Day:p/2/0/r}-${Hour:p/2/0/r}:-${Minute:p/2/0/r}.-ID:${JobId}"    
+  
+  }
+  
+  
+
+Pool {
+  Name            = i-client_dev.pool.sd.test
+  Storage        = client_dev.pool.sd.test
+  #Next Pool     = 
+  
+  ## TUNABLE
+  Maximum Volume Files      = 100000
+  Maximum Volume Bytes    = 40 g
+  Volume Retention                = 15
+
+  ## DEFAULTS
+  Pool Type                               = Backup
+  Maximum Block Size           = 1M
+  Minimum Block Size            = 1M
+  Maximum Volume Jobs       = 1
+  Job Retention                         = 3m
+  File Retention                        = 3m
+  Action On Purge                   = Truncate
+  AutoPrune                             = yes
+  Recycle                                   = yes
+  Recycle Oldest Volume       = yes
+  Label Format                         = "${Job}-.-${Year}-${Month:p/2/0/r}-${Day:p/2/0/r}-${Hour:p/2/0/r}:-${Minute:p/2/0/r}.-ID:${JobId}"    
+  
+  }
+  
+  

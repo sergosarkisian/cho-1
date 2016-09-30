@@ -1,0 +1,5 @@
+    .ifdef RULES__$acl_c_rule_fullname
+        set acl_c_score_mta_inc_def = RULES__$acl_c_rule_fullname
+    .else
+        set acl_c_score_mta_inc_def = $acl_c_rule_score
+    .endif 

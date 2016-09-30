@@ -1,0 +1,47 @@
+node server01
+node server02
+
+
+primitive vip3 ocf:heartbeat:IPaddr2 \
+    params ip="10.2.0.1" cidr_netmask="8" nic="eth2" \
+    op monitor interval="40s" timeout="20s"
+    ??	meta is-managed="true"
+
+    
+primitive PING-NET ocf:pacemaker:ping \
+	params dampen="5s" multiplier="100" host_list="192.168.2.1 192.168.2.36 8.8.8.8" \
+	op monitor interval="60s" timeout="60" \
+	op start interval="0" timeout="60s" \
+	op stop interval="0" timeout="60s"
+	
+primitive APACHE2 lsb:apache2 \
+	op monitor interval="35s" timeout="20s" start-delay="0s"
+	
+primitive Asterisk_fs ocf:heartbeat:Filesystem \
+        params device="/dev/drbd/by-res/asterisk" directory="/mnt/asterisk/" fstype="ext3"
+
+??primitive FAILOVER-SRC ocf:heartbeat:IPsrcaddr \
+	params ipaddress="192.168.2.100"
+	
+	??group
+	
+??ms Asterisk_ms Asterisk_drbd \
+        meta master-max="1" master-node-max="1" clone-max="2" clone-node-max="1" notify="true"
+??ms rseries0_ms rseries0 \
+        meta master-max="1" master-node-max="1" clone-max="2" clone-node-max="1" target-role="Master"
+??clone GatewayStatusClone GatewayStatus	
+
+??location Asterisk-with-ping Asterisk \
+        rule $id="Asterisk-with-ping-rule" -inf: not_defined pingd or pingd lte 0
+??colocation Everything-with-Asterisk inf: ( rseries0_ms:Master Asterisk_ms:Master ) ( ClusterIP Asterisk_fs ) Asterisk
+??order Asterisk-after-Everything inf: ( rseries0_ms:promote Asterisk_ms:promote ) ( ClusterIP Asterisk_fs ) Asterisk:start
+	
+property $id="cib-bootstrap-options" \
+    dc-version="1.1.8-7.el6-394e906" \
+    cluster-infrastructure="openais" \
+    expected-quorum-votes="2" \
+    stonith-enabled="false" \
+    no-quorum-policy="ignore"
+rsc_defaults $id="rsc-options" \
+	default-action-timeout="240" \
+    resource-stickiness="100" 

@@ -1,0 +1,12 @@
+<constraints>
+  <overwrite>
+    <conditions>
+      <package>qemu-testsuite</package>
+    </conditions>
+    <hardware>
+      <physicalmemory>
+        <size unit="M">1500</size>
+      </physicalmemory>
+    </hardware>
+  </overwrite>
+</constraints>

@@ -1,0 +1,10 @@
+<directory name="rsyslog" rev="16" srcmd5="a8dd1e13b4ef2218f5ca52a4db16fe19" vrev="16">
+  <serviceinfo code="running" />
+  <entry md5="2335e315a91128bbf9d0def3c834a7f1" mtime="1469608904" name="_service" size="488" />
+  <entry md5="b8a251df9b0d0953f3a87239e53d9a8e" mtime="1364559261" name="rsyslog-service-prepare.in" size="726" />
+  <entry md5="2fa6c2ceae19c1e841f5409edcd94e99" mtime="1412077643" name="rsyslog-unit.patch" size="737" />
+  <entry md5="58abe557d968bb11096e8a078a4ff3c2" mtime="1367330504" name="rsyslog.conf.in" size="4453" />
+  <entry md5="b9e56b6da3f9039b3c4054fd924f8cd6" mtime="1329740837" name="rsyslog.d.remote.conf.in" size="3260" />
+  <entry md5="caaf27deeec3d8ff42bc51cd19e74551" mtime="1458061652" name="rsyslog.spec" size="28425" />
+  <entry md5="bac711f14d2d380d02b10fe2cafce917" mtime="1352741035" name="rsyslog.sysconfig" size="502" />
+</directory>

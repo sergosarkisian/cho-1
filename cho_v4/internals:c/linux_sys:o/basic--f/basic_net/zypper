@@ -1,0 +1,2 @@
+basic - ipset wicked conntrack-tools fping telnet dhcp-client 
+basic_client - tnftp w3m wget mailx ncftp

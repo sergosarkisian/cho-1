@@ -1,0 +1,1 @@
+d /var/run/elasticsearch 0775 elasticsearch elasticsearch

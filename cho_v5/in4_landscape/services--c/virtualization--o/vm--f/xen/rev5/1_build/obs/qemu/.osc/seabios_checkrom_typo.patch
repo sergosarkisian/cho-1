@@ -1,0 +1,32 @@
+From 6b0e2bd9d914f6421c015ec28d96cf069fb8015f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>
+Date: Thu, 19 Mar 2015 17:13:00 +0100
+Subject: [PATCH] checkrom: Fix typo in error message
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+increate -> increase
+
+Reviewed-by: Alistair Francis <alistair.francis@xilinx.com>
+Signed-off-by: Andreas Färber <afaerber@suse.de>
+---
+ scripts/checkrom.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scripts/checkrom.py b/scripts/checkrom.py
+index 377277d..aced5e2 100755
+--- a/scripts/checkrom.py
++++ b/scripts/checkrom.py
+@@ -39,7 +39,7 @@ def main():
+                 finalsize = 256*1024
+     if datasize > finalsize:
+         print("Error!  ROM doesn't fit (%d > %d)" % (datasize, finalsize))
+-        print("   You have to either increate the size (CONFIG_ROM_SIZE)")
++        print("   You have to either increase the size (CONFIG_ROM_SIZE)")
+         print("   or turn off some features (such as hardware support not")
+         print("   needed) to make it fit.  Trying a more recent gcc version")
+         print("   might work too.")
+-- 
+2.1.4
+

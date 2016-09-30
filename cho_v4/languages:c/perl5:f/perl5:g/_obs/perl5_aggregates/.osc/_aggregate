@@ -1,0 +1,28 @@
+<aggregatelist>
+  <aggregate project="devel:languages:perl:CPAN-A"/>
+  <aggregate project="devel:languages:perl:CPAN-B"/>
+  <aggregate project="devel:languages:perl:CPAN-C"/>
+  <aggregate project="devel:languages:perl:CPAN-D"/>
+  <aggregate project="devel:languages:perl:CPAN-E"/>
+  <aggregate project="devel:languages:perl:CPAN-F"/>
+  <aggregate project="devel:languages:perl:CPAN-G"/>
+  <aggregate project="devel:languages:perl:CPAN-H"/>
+  <aggregate project="devel:languages:perl:CPAN-I"/>
+  <aggregate project="devel:languages:perl:CPAN-J"/>
+  <aggregate project="devel:languages:perl:CPAN-K"/>
+  <aggregate project="devel:languages:perl:CPAN-L"/>
+  <aggregate project="devel:languages:perl:CPAN-M"/>
+  <aggregate project="devel:languages:perl:CPAN-N"/>
+  <aggregate project="devel:languages:perl:CPAN-O"/>
+  <aggregate project="devel:languages:perl:CPAN-P"/>
+  <aggregate project="devel:languages:perl:CPAN-Q"/>
+  <aggregate project="devel:languages:perl:CPAN-R"/>
+  <aggregate project="devel:languages:perl:CPAN-S"/>
+  <aggregate project="devel:languages:perl:CPAN-T"/>
+  <aggregate project="devel:languages:perl:CPAN-U"/>
+  <aggregate project="devel:languages:perl:CPAN-V"/>
+  <aggregate project="devel:languages:perl:CPAN-W"/>
+  <aggregate project="devel:languages:perl:CPAN-X"/>
+  <aggregate project="devel:languages:perl:CPAN-Y"/>
+  <aggregate project="devel:languages:perl:CPAN-Z"/>
+</aggregatelist>

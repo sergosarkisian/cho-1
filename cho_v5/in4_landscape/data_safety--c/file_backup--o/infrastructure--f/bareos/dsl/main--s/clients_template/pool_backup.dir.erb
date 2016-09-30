@@ -1,0 +1,38 @@
+<% 
+@data["poolType"]["f"]["volRetentionDays"]=94
+@data["poolType"]["d"]["volRetentionDays"]=37
+@data["poolType"]["i"]["volRetentionDays"]=15
+
+@data["poolType"]["f"]["maxSizeGB"]=300
+@data["poolType"]["d"]["maxSizeGB"]=100
+@data["poolType"]["i"]["maxSizeGB"]=40
+%>
+
+<% @data["poolType"].each do |poolType,v| %>
+
+Pool {
+  Name            = <%= poolType %>-<%= state["fqdn"] %>.<%= state["sdFQDN"] %>
+  Storage        = <%= state["fqdn"] %>.<%= state["sdFQDN"] %>
+  #Next Pool     = 
+  
+  ## TUNABLE
+  Maximum Volume Files      = 100000
+  Maximum Volume Bytes    = <%= v["maxSizeGB"] %> g
+  Volume Retention                = <%= v["volRetentionDays"] %>
+
+  ## DEFAULTS
+  Pool Type                               = Backup
+  Maximum Block Size           = 1M
+  Minimum Block Size            = 1M
+  Maximum Volume Jobs       = 1
+  Job Retention                         = 3m
+  File Retention                        = 3m
+  Action On Purge                   = Truncate
+  AutoPrune                             = yes
+  Recycle                                   = yes
+  Recycle Oldest Volume       = yes
+  Label Format                         = "${Job}-.-${Year}-${Month:p/2/0/r}-${Day:p/2/0/r}-${Hour:p/2/0/r}:-${Minute:p/2/0/r}.-ID:${JobId}"    
+  
+  }
+  
+  <% end %>

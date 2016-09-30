@@ -1,0 +1,157 @@
+<buildinfo project="home:conecenter:techpool:ontology:virtualization:openvswitch" repository="openSUSE_Tumbleweed" package="openvswitch" downloadurl="http://download.opensuse.org/repositories">
+  <arch>x86_64</arch>
+  <debuginfo>0</debuginfo>
+  <subpack>openvswitch</subpack>
+  <subpack>openvswitch-devel</subpack>
+  <subpack>openvswitch-switch</subpack>
+  <subpack>openvswitch-pki</subpack>
+  <subpack>openvswitch-vtep</subpack>
+  <subpack>openvswitch-brcompat</subpack>
+  <subpack>python-openvswitch</subpack>
+  <subpack>python-openvswitch-test</subpack>
+  <subpack>openvswitch-test</subpack>
+  <bdep name="aaa_base" preinstall="1" runscripts="1" notmeta="1" version="13.2+git20150625.4df5033" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="attr" preinstall="1" notmeta="1" version="2.4.47" release="7.19" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="bash" preinstall="1" notmeta="1" version="4.3" release="86.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="coreutils" preinstall="1" notmeta="1" version="8.24" release="3.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="diffutils" preinstall="1" notmeta="1" version="3.3" release="9.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="filesystem" preinstall="1" notmeta="1" version="13.3" release="9.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="fillup" preinstall="1" notmeta="1" version="1.42" release="273.4" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="glibc" preinstall="1" notmeta="1" version="2.22" release="4.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="grep" preinstall="1" notmeta="1" version="2.21" release="5.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libbz2-1" preinstall="1" notmeta="1" version="1.0.6" release="35.22" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libgcc_s1" preinstall="1" notmeta="1" version="5.2.1+r228589" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="m4" preinstall="1" notmeta="1" version="1.4.17" release="5.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libncurses5" preinstall="1" notmeta="1" version="6.0" release="2.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libncurses6" preinstall="1" notmeta="1" version="6.0" release="2.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="pam" preinstall="1" notmeta="1" version="1.2.1" release="2.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="permissions" preinstall="1" notmeta="1" version="2015.09.28.1626" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libreadline6" preinstall="1" notmeta="1" version="6.3" release="86.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="rpm" preinstall="1" notmeta="1" version="4.12.0.1" release="9.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="sed" preinstall="1" notmeta="1" version="4.2.2" release="9.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="tar" preinstall="1" notmeta="1" version="1.28" release="8.3" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libz1" preinstall="1" notmeta="1" version="1.2.8" release="11.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libselinux1" preinstall="1" notmeta="1" version="2.3" release="5.19" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="liblzma5" preinstall="1" notmeta="1" version="5.2.2" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libcap2" preinstall="1" notmeta="1" version="2.22" release="14.20" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libacl1" preinstall="1" notmeta="1" version="2.2.52" release="7.19" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libattr1" preinstall="1" notmeta="1" version="2.4.47" release="7.19" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libpopt0" preinstall="1" notmeta="1" version="1.16" release="28.20" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libelf1" preinstall="1" notmeta="1" version="0.163" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="liblua5_3" preinstall="1" notmeta="1" version="5.3.1" release="3.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libpcre1" preinstall="1" notmeta="1" version="8.37" release="1.19" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="util-linux" vminstall="1" version="2.27" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libmount1" vminstall="1" version="2.27" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="perl-base" vminstall="1" version="5.22.0" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libdb-4_8" vminstall="1" version="4.8.30" release="30.20" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libsepol1" vminstall="1" notmeta="1" version="2.3" release="3.20" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libblkid1" vminstall="1" version="2.27" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libuuid1" vminstall="1" version="2.27" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libsmartcols1" vminstall="1" version="2.27" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="kernel-obs-build" vminstall="1" notmeta="1" version="4.2.4" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="iproute2" vminstall="1" notmeta="1" version="4.2" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="autoconf" version="2.69" release="13.2" arch="noarch" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="automake" version="1.15" release="3.2" arch="noarch" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="fdupes" version="1.51" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="gcc" version="5" release="1.24" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="glibc-devel" version="2.22" release="4.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="graphviz" version="2.38.0" release="7.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libopenssl-devel" version="1.0.2d" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libtool" version="2.4.6" release="3.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="make" version="4.1" release="3.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="openssl" version="1.0.2d" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="perl" version="5.22.0" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="pkg-config" version="0.29" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="python-devel" version="2.7.10" release="3.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="python-xml" version="2.7.10" release="3.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="valgrind-devel" version="3.10.1" release="3.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="rpm-build" version="4.12.0.1" release="9.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="info" version="6.0" release="2.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="llvm-clang" version="3.7.0" release="3.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="gcc5" version="5.2.1+r228589" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="cpp" version="5" release="1.24" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="linux-glibc-devel" version="4.2" release="1.1" arch="noarch" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libstdc++6" version="5.2.1+r228589" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libX11-6" version="1.6.3" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libXt6" version="1.1.5" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libexpat1" version="2.1.0" release="16.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libXmu6" version="1.1.2" release="5.3" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libltdl7" version="2.4.6" release="3.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="zlib-devel" version="1.2.8" release="11.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libopenssl1_0_0" version="1.0.2d" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libgdbm4" version="1.11" release="5.19" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="python-base" version="2.7.10" release="3.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="python" version="2.7.10" release="3.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libpython2_7-1_0" version="2.7.10" release="3.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="valgrind" version="3.10.1" release="3.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="xz" version="5.2.2" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="cpio" version="2.12" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="file" version="5.25" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="findutils" version="4.5.14" release="5.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="net-tools" version="1.60" release="768.19" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="bzip2" version="1.0.6" release="35.22" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="gawk" version="4.1.3" release="1.19" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="binutils" version="2.25.0" release="6.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="gzip" version="1.6" release="10.20" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="glibc-locale" version="2.22" release="4.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="which" version="2.21" release="2.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="patch" version="2.7.5" release="1.19" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="systemd-rpm-macros" version="3" release="2.1" arch="noarch" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libzio1" version="1.02" release="1.20" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libstdc++-devel" version="5" release="1.24" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libLLVM" version="3.7.0" release="3.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libclang" version="3.7.0" release="3.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="llvm" version="3.7.0" release="3.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libgmp10" version="6.0.0a" release="2.19" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libmpfr4" version="3.1.3" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libisl13" version="0.14" release="1.21" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libmpc3" version="1.0.3" release="1.19" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libgomp1" version="5.2.1+r228589" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="cpp5" version="5.2.1+r228589" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libasan2" version="5.2.1+r228589" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libatomic1" version="5.2.1+r228589" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libcilkrts5" version="5.2.1+r228589" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libitm1" version="5.2.1+r228589" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="liblsan0" version="5.2.1+r228589" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libmpx0" version="5.2.1+r228589" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libmpxwrappers0" version="5.2.1+r228589" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libtsan0" version="5.2.1+r228589" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libubsan0" version="5.2.1+r228589" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libxcb1" version="1.11.1" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libX11-data" version="1.6.3" release="1.3" arch="noarch" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libICE6" version="1.0.9" release="3.3" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libSM6" version="1.2.2" release="5.3" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libXext6" version="1.3.3" release="3.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="xbitmaps" version="1.1.1" release="12.1" arch="noarch" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libsqlite3-0" version="3.9.1" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="glibc-32bit" version="2.22" release="4.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libcap-ng0" version="0.7.4" release="4.21" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libaudit1" version="2.4.4" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libutempter0" version="1.1.6" release="8.21" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libfdisk1" version="2.27" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="insserv-compat" version="0.1" release="15.2" arch="noarch" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libmagic1" version="5.25" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="hostname" version="3.16" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="update-alternatives" version="1.18.1" release="1.21" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="terminfo-base" version="6.0" release="2.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libstdc++6-devel-gcc5" version="5.2.1+r228589" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libXau6" version="1.0.8" release="6.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libcrack2" version="2.9.5" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="file-magic" version="5.25" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="cracklib" version="2.9.5" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="gettext-tools-mini" version="0.19.6" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="gettext-runtime-mini" version="0.19.6" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libXaw7" version="1.0.13" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="libXpm4" version="3.5.11" release="5.4" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="pam-modules" notmeta="1" version="12.1" release="25.6" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="build-mkbaselibs" notmeta="1" version="20151006" release="1.1" arch="noarch" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="brp-check-suse" notmeta="1" version="13.2+git20150217.031533d" release="2.1" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="post-build-checks" notmeta="1" version="13.2+git20150810.2703d2a" release="1.12" arch="noarch" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="rpmlint-Factory" notmeta="1" version="1.0" release="89.317" arch="noarch" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="build-compare" notmeta="1" version="20150821T175907.9b8c0be" release="1.2" arch="noarch" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="brp-extract-appdata" notmeta="1" version="2012.02.13" release="26.1" arch="noarch" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="aaa_base-malloccheck" notmeta="1" version="13.2+git20150625.4df5033" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <bdep name="rpmlint-mini" notmeta="1" version="1.5" release="10.77" arch="x86_64" project="openSUSE:Factory" repository="snapshot" />
+  <path project="home:conecenter:techpool:ontology:virtualization:openvswitch" repository="openSUSE_Tumbleweed" />
+  <path project="openSUSE:Factory" repository="snapshot" />
+</buildinfo>

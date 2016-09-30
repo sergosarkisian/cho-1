@@ -1,0 +1,36 @@
++xl config-update
+xl config-update domid [configfile] 
+
++pvgrub
+http://wiki.xenproject.org/wiki/PvGrub
+
++Vm image rights => as admin user
+
++New interface using hotpug: udev xen special rules
+
++ PVH, pvh=1
+
++ COLO
+
++console
+#/etc/inittab
+h0:12345:respawn:/sbin/agetty -L 9600 hvc0 screen
+#Add hvc0 to /etc/securetty
+#GRUB - earlyprintk=xen console=hvc0
+
++ ceph access
+
+disk = ['rbd:mypool/myimage,raw,xvdb,w,backendtype=qdisk' ] 
+See docs/misc/xl-disk-configuration.txt. You need to make use of the 
+fact that an explicit target= eats the rest of the line without 
+interpreting it. 
+
++ systemd start with cgroups limit
+
++ stubdomains
+http://wiki.xen.org/wiki/Device_Model_Stub_Domains
+
++ storage-driver domains
+http://wiki.xen.org/wiki/Storage_driver_domains
+disk=[ 'format=raw,backendtype=phy,backend=provider,vdev=hda,target=/dev/zvol/pool0/testdev' ] 
+

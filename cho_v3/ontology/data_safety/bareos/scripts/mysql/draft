@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#  create backup
+innobackupex --user=bkpuser  --password=bkppassword --no-timestamp /backupdir
+
+xtrabackup --backup --target-dir=/data/backups/mysql/
+
+# prepare backup
+innobackupex --apply-log /backupdir
+
+
+Twice
+xtrabackup --prepare --target-dir=/data/backups/mysql/
+xtrabackup --prepare --target-dir=/data/backups/mysql/
+
+
+....
+Job {
+  Name = "job-name"
+  Type = Backup
+  ....
+  ClientRunBeforeJob = "/script.sh"
+  ClientRunAfterJob = "/bin/rm -rf /backupdir/backup.sql"

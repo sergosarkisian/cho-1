@@ -1,0 +1,5 @@
+<aggregatelist>
+  <aggregate project="devel:languages:php"/>
+  <aggregate project="server:php:extensions"/>  
+  <aggregate project="server:php:applications"/>  
+</aggregatelist>

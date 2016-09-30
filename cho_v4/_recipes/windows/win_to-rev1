@@ -1,0 +1,54 @@
+
+##I. System##
+1. Create firewall rules: RDP(TCP 3389), ICMP, Zabbix (TCP 10050), Bareos (TCP 9102), 
+2. enable RDP administration
+3. create user "localadmin"
+4. add localadmin to admin & RDP group
+5. change workgroup & name
+6. updates -> download, but not install.
+7. Check for updates + install
+8. Change timezone to "Tallinn"
+9. Change to UTC time - [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\TimeZoneInformation] - "RealTimeIsUniversal"=dword:00000001)
+10. Add proxy (in IE):x:55555
+11. For network adapter:
+ 1. Disable all features exept ipv4 & QoS scheduler
+ 2. add DNS suffix "services.pool" in net connection & zone
+ 3. uncheck "register in DNS"
+
+ 
+## 2. Applications - chocolatey:##
+ 
+powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
+ 
+choco install zabbix-agent -y
+choco install 7zip -y
+choco install wireshark -y
+choco install google-chrome-x64 -y
+choco install firefox -y
+choco install putty -y
+choco install notepadplusplus.install -y
+choco install filezilla -y
+choco install chocolateygui -y
+choco install svn -y
+choco install winscp -y
+choco install totalcommander -y
+choco install stunnel -y
+choco install googlechrome -y
+choco install classic-shell -y
+choco install far -y
+choco install jre8 –y
+choco install adobereader -y
+#add bareos
+
+3. Windows add
+telnet
+
+4. Licence
+62YTM-NPM2T-R96MX-68JR6-GMRR8
+
+5. Reconf 
++ zabbix c
+
+5. after network config
+netsh interface ipv4 show interfaces
+netsh interface ipv4 set subinterface "{INTERFACE_NUMBER}" mtu=9000 store=persistent

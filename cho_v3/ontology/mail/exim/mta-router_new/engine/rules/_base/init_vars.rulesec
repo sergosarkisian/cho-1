@@ -1,0 +1,8 @@
+    # SET
+    set acl_c_rule_parseable_name= ${sg{$acl_c_rule_fullname}{__}{-}}
+    set acl_c_rule_section = ${extract{1}{-}{$acl_c_rule_parseable_name}}
+    set acl_c_rule_type = ${extract{2}{-}{$acl_c_rule_parseable_name}}
+    set acl_c_rule_name = ${extract{3}{-}{$acl_c_rule_parseable_name}}
+    set acl_c_msg_view = $acl_c_msg_view_def
+    set acl_c_acl_action = $acl_c_acl_action_def
+    set acl_c_advlog_inc = $acl_c_advlog_inc_def

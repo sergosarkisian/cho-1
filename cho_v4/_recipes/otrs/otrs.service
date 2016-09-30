@@ -1,0 +1,16 @@
+[Unit]
+Description=Web application - otrs (apache-backed)
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+StandardOutput=syslog+console
+Type=forking
+PIDFile=/home/storage/IT/webapp/otrs/_sys/apache.pid
+WorkingDirectory=/home/storage/IT/webapp/otrs/otrs-app/
+ExecStart=/usr/sbin/httpd -D SYSTEMD  -k start -d /home/storage/IT/webapp/otrs/otrs-app/ -f /home/storage/IT/rev5_landscape/_rework_form/_recipes/otrs/apache.conf
+ExecReload=/usr/sbin/httpd -D SYSTEMD  -k graceful -d /home/storage/IT/webapp/otrs/otrs-app/ -f /home/storage/IT/rev5_landscape/_rework_form/_recipes/otrs/apache.conf
+ExecStop=/usr/sbin/httpd -D SYSTEMD  -k graceful-stop -d /home/storage/IT/webapp/otrs/otrs-app/ -f /home/storage/IT/rev5_landscape/_rework_form/_recipes/otrs/apache.conf
+
+
+[Install]
+WantedBy=multi-user.target

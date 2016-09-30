@@ -1,0 +1,75 @@
+zypper --gpg-auto-import-keys --non-interactive ar -c -f --name devel_languages_perl_CPAN-B_13.1 http://download.opensuse.org/repositories/devel:/languages:/perl:/CPAN-B/openSUSE_13.1 devel_languages_perl_CPAN-B_13.1
+zypper --gpg-auto-import-keys --non-interactive ar -c -f --name devel_languages_perl_CPAN-C_13.1 http://download.opensuse.org/repositories/devel:/languages:/perl:/CPAN-C/openSUSE_13.1 devel_languages_perl_CPAN-C_13.1
+zypper --gpg-auto-import-keys --non-interactive ar -c -f --name devel_languages_perl_CPAN-E_13.1 http://download.opensuse.org/repositories/devel:/languages:/perl:/CPAN-E/openSUSE_13.1 devel_languages_perl_CPAN-E_13.1
+zypper --gpg-auto-import-keys --non-interactive ar -c -f --name devel_languages_perl_CPAN-J_13.1 http://download.opensuse.org/repositories/devel:/languages:/perl:/CPAN-J/openSUSE_13.1 devel_languages_perl_CPAN-J_13.1
+zypper --gpg-auto-import-keys --non-interactive ar -c -f --name devel_languages_perl_CPAN-P_13.1 http://download.opensuse.org/repositories/devel:/languages:/perl:/CPAN-P/openSUSE_13.1 devel_languages_perl_CPAN-P_13.1
+zypper --gpg-auto-import-keys --non-interactive ar -c -f --name devel_languages_perl_CPAN-S_13.1 http://download.opensuse.org/repositories/devel:/languages:/perl:/CPAN-S/openSUSE_13.1 devel_languages_perl_CPAN-S_13.1
+zypper --gpg-auto-import-keys --non-interactive ar -c -f --name devel_languages_perl_CPAN-U_13.1 http://download.opensuse.org/repositories/devel:/languages:/perl:/CPAN-U/openSUSE_13.1 devel_languages_perl_CPAN-U_13.1
+zypper --gpg-auto-import-keys --non-interactive ar -c -f --name devel_languages_perl_CPAN-X_13.1 http://download.opensuse.org/repositories/devel:/languages:/perl:/CPAN-X/openSUSE_13.1 devel_languages_perl_CPAN-X_13.1
+zypper --gpg-auto-import-keys --non-interactive ar -c -f --name devel_languages_python_13.1 http://download.opensuse.org/repositories/devel:/languages:/python/openSUSE_13.1 devel_languages_python_13.1
+zypper --gpg-auto-import-keys --non-interactive ar -c -f --name server_mail_13.1 http://download.opensuse.org/repositories/server:/mail/openSUSE_13.1 server_mail_13.1
+zypper --gpg-auto-import-keys --non-interactive ar -c -f --name server_proxy_13.1 http://download.opensuse.org/repositories/server:/proxy/openSUSE_13.1 server_proxy_13.1
+zypper --gpg-auto-import-keys --non-interactive ar -c -f --name server_http_13.1 http://download.opensuse.org/repositories/server:/http/openSUSE_13.1 server_http_13.1
+zypper --gpg-auto-import-keys --non-interactive ar -c -f --name devel_languages_perl_13.1 http://download.opensuse.org/repositories/devel:/languages:/perl/openSUSE_13.1 devel_languages_perl_13.1
+
+zypper --gpg-auto-import-keys --non-interactive ar -c -f --name home_conecenter_coneapp_13.1 http://download.opensuse.org/repositories/home:/conecenter:/coneapp/openSUSE_13.1 home_conecenter_coneapp_13.1
+
+
+zypper --gpg-auto-import-keys in -C --auto-agree-with-licenses --oldpackage --no-recommends 'exim' 'nginx-syslog-cone' 'python-Twisted' 'python-pyflakes' 'python-pep8' 'python-distribute' 'python-pip' 'apache2-cone' 'apache2-cone-mod_auth_kerb' 'apache2-cone-mod_perl' 'haproxy-1.5' 'bison' 'flex' 'gcc' 'make' 'gcc-c++' 'pcre-devel' 'zlib-devel' 'patch' 'm4' 'glibc' 'binutils' 'glibc-devel' 'libaio1' 'libaio-devel' 'libelf0' 'libelf1' 'libelf-devel' 'numactl' 'libtool' 'libstdc++6' 'libstdc++-devel' 'libgcc_s1' 'expat' 'openssl-devel' 'gcc-java' 'java-1_7_0-openjdk' 'java-1_7_0-openjdk-devel' 'javacc' 'javacc3' 'gcc-java' 'java-1_7_0-openjdk' 'log4j' 'bouncycastle' 'apache-commons-codec' 'libv8-3' 'v8-devel' 'perl-Crypt-OpenSSL-RSA' 'perl-Crypt-X509' 'perl-Email-Folder' 'perl-Email-FolderType' 'perl-Email-MIME-Attachment-Stripper' 'perl-Email-FolderType-Net' 'perl-PDF-API2' 'perl-Spreadsheet-WriteExcel' 'perl-Spreadsheet-ParseExcel' 'perl-Convert-ASN1' 'perl-Unicode-Transform' 'perl-XML-Twig' 'perl-XML-RSS' 'perl-Text-CSV_XS' 'perl-List-MoreUtils' 'perl-MIME-Lite' 'perl-Archive-Zip' 'perl-Xbase' 'perl-PerlMagick' 'perl-GD' 'perl-GD-Barcode' 'perl-Spreadsheet-XLSX' 'perl-Printer' 'perl-Net-OpenSSH' 'perl-Net-Daemon' 'perl-Sys-Syslog-OO' 'perl-JSON-XS' 'perl-SOAP-Lite' 'perl-ldap' 'perl-LWP-Protocol-https' 'perl-Net-SFTP-Foreign' 'perl-Math-Round' 'apache2-mod_perl' 'perl-Business-PayPal-IPN' 'perl-HTML-Tree' 'perl-MLDBM' 'python' 'python-base' 'dbus-1-python' 'audit-libs-python' 'python-numpy' 'python-httplib2' 'python-pycurl' 'python-jsonschema' 'python-simplejson' 'python-anyjson' 'python-pycrypto' 'python-pyasn1-modules' 'perl-DBD-XBase' 'perl-JavaScript-V8' 'python-cairo'
+zypper dup --no-recommends 
+
+
+
+
+ template "/web/htt/logrotator.sh" do
+        cookbook "faster"
+        source "logrotate/logrotator.erb"
+        owner "http"
+        group "http"
+        mode "0750"
+    end
+
+ template "/usr/lib/systemd/system/cone-notd.service" do
+        cookbook "faster"
+        source "systemd/cone-notd.service.erb"
+        owner "root"
+        group "root"
+        mode "0740"
+        variables({
+            :scheme => scheme
+        })
+    end
+
+            systemctl --system daemon-reload
+            systemctl enable cone-notd.service
+
+
+ mkdir -p /media/storage/web
+ chmod 755 /media/storage
+            
+            #BUG in ln - recursive
+            ln -s /media/storage/web /web
+            
+            mkdir -p /web/_deploy /web/_data /web/_dsch
+            groupadd -g 9000 http   
+            useradd -u 9000 -md /web/http -G users -g http http
+            
+            echo "*/5 * * * * rm -R /web/_data/removing/*" > /tmp/http_cron
+            crontab -u http /tmp/http_cron
+
+            systemctl restart cron.service
+            systemctl --system daemon-reload
+            
+            wget -q -nc http://public.edss.ee/software/Linux/Oracle/instantclient10_1.zip -P /tmp
+            unzip -oqq /tmp/instantclient10_1.zip -d /web/_data/
+            
+            chown -R http:http /media/storage/web
+            setfacl -R -m d:u:http:rwx /media/storage/web
+            setfacl -R -m d:g:http:rwx /media/storage/web
+            
+            setfacl -R -m u:http:rwx /media/storage/web
+            setfacl -R -m g:http:rwx /media/storage/web
+            
+            setfacl -R -m d:u::rwx /media/storage/web
+            setfacl -R -m u::rwx /media/storage/web
+

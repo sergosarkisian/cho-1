@@ -1,0 +1,98 @@
+[Unit]
+Description		= In4 spamassassin
+
+## DEPS ## 
+ #Conflicts=, # Wants=,  # Before=, # PartOf=, #OnFailure=,  #PropagatesReloadTo=, ReloadPropagatedFrom=
+ Requires			= var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
+ After			= var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
+##
+
+## REV5 DEPS - OS ##
+ #Wants			= in4.service in4_rsyslog_i@client.service in4.timer in4_sssd.service in4_atop.service in4_bareos-os.service in4_monitoring-os.service in4_SuSEfirewall2_init_i@simple in4_SuSEfirewall2_i@simple
+ #After			= in4.service in4_rsyslog_i@client.service in4.timer in4_sssd.service in4_atop.service in4_bareos-os.service in4_monitoring-os.service in4_SuSEfirewall2_init_i@simple in4_SuSEfirewall2_i@simple
+##
+
+## LOGITORING DEPS ##
+ #Requires 			= monitoring-in4_spamassassin.timer logging-in4_spamassassin.timer
+ #Before   			= monitoring-in4_spamassassin.timer logging-in4_spamassassin.timer
+##
+
+## MISC ## 
+ #StopWhenUnneeded	= true
+ #ConditionPathExists	=
+##
+
+[Service]
+ 
+## TYPE ##
+ Type			= forking
+ PIDFile			= /var/run/spamd.pid
+##
+
+## EXECS ##
+ ExecStart		= /usr/bin/spamd --pidfile /var/run/spamd.pid -d -c -m 15 --ipv4
+ ExecReload		= /bin/kill -HUP $MAINPID #MAY BE -USR2
+
+ ExecStartPre=/bin/bash -c "sa-update || true"
+ #ExecStartPre		= 
+ ExecStartPre		= /bin/sh /media/sysdata/in4/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"unknown", "action":"start", "subaction":"pre", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ 
+ #ExecStartPost	= 
+ ExecStartPost		= /bin/sh /media/sysdata/in4/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"started", "action":"start", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ 
+ #ExecStopPost	= 
+ ExecStopPost		= /bin/sh /media/sysdata/in4/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"stopped", "action":"stop", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ 
+ #loging -  "instance":"%I"
+##
+ 
+## PERMISSIONS ##
+ #WorkingDirectory	= 
+ User			= root
+ Group			= root
+ SupplementaryGroups = sysapp
+ #UMask			= 
+##
+
+## MISC ##
+ Restart			= always
+ PrivateTmp		= true
+ #TimeoutSec		= 300 # larger for DB/huge RAM ps
+ #EnvironmentFile	= -/
+##
+
+## SYSLOG ##
+ SyslogIdentifier	= in4__spamassassin_
+ SyslogFacility		= local7
+ SyslogLevel		= info
+ #SyslogLevelPrefix	= false #Can be disabled for ...
+##
+ 
+
+## SECURITY ##
+ ProtectSystem		= full
+ ProtectHome		= true
+ #AppArmorProfile	= 
+ #PAMName		= 
+ #SecureBits		= 
+ #Capabilities		= 
+ #ReadWriteDirectories=, ReadOnlyDirectories=, InaccessibleDirectories=
+##
+ 
+
+## LIMITS ##
+ Nice				= 0
+ OOMScoreAdjust	= -1000 #no OOM for this proccess
+ IOSchedulingClass 	= best-effort
+ IOSchedulingPriority= 1
+ LimitNOFILE=65535
+ #LimitMEMLOCK=infinity #For DB's
+ #MemoryLimit		= 
+ #BlockIOReadBandwidth = 
+ #BlockIOWriteBandwidth = 
+## 
+
+ 
+[Install]
+WantedBy			= multi-user.target
+#RequiredBy=, #Alias = 

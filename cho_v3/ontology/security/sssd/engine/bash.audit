@@ -1,0 +1,114 @@
+#!/bin/bash
+######################## CUSTOM ########################
+#do not source this file twice; also do not source it if we are in forcecommand.sh, source it later from "-bash-li"
+#if we would source it from forcecommand.sh, the environment would be lost after the call of 'exec -l bash -li' 
+if [ "$AUDIT_INCLUDED" == "$$" ]; then
+return
+else
+declare -rx AUDIT_INCLUDED="$$"
+fi
+
+
+#USER TUNING
+#'history' options
+declare -rx HISTFILE="$HOME/.bash_history"
+chattr +a "$HISTFILE" # set append-only
+#declare -rx HISTTIMEFORMAT= 
+declare -rx HISTSIZE=500000 #nbr of cmds in memory
+declare -rx HISTFILESIZE=500000 #nbr of cmds on file
+declare -rx HISTCONTROL="" #does not ignore spaces or duplicates
+declare -rx HISTIGNORE="" #does not ignore patterns
+declare -rx HISTCMD #history line number
+history -r #to reload history from file if a prior HISTSIZE has truncated it
+if groups | grep -q root; then declare -x TMOUT=3600; fi #timeout for root's sessions
+
+
+#enable forward search (ctrl-s)
+#http://ruslanspivak.com/2010/11/25/bash-history-incremental-search-forward/
+stty -ixon
+
+
+
+#sopts
+shopt -s histverify
+shopt -s histappend
+shopt -s cmdhist
+shopt -s checkwinsize
+
+#bash audit & traceabilty
+declare -rx AUDIT_LOGINUSER="$(who -mu | awk '{print $1}')"
+declare -rx AUDIT_LOGINPID="$(who -mu | awk '{print $6}')"
+declare -rx AUDIT_USER="$USER" #defined by pam during su/sudo
+declare -rx AUDIT_PID="$$"
+declare -rx AUDIT_TTY="$(who -mu | awk '{print $2}')"
+declare -rx AUDIT_SSH_SA="$([ -n "$SSH_CONNECTION" ] && echo "$SSH_CONNECTION" | awk '{print $1}')"
+declare -rx AUDIT_SSH_SP="$([ -n "$SSH_CONNECTION" ] && echo "$SSH_CONNECTION" | awk '{print $2}')"
+declare -rx AUDIT_SSH_DA="$([ -n "$SSH_CONNECTION" ] && echo "$SSH_CONNECTION" | awk '{print $3}')"
+declare -rx AUDIT_SSH_DP="$([ -n "$SSH_CONNECTION" ] && echo "$SSH_CONNECTION" | awk '{print $4}')"
+declare -x AUDIT_LASTHISTLINE=""                            #to avoid logging the same line twice
+declare -rx LOGGER='logger -p user.info -t shell'
+
+#another solution is to use 'trap' DEBUG, which is executed *before* the command.
+#http://superuser.com/questions/175799/does-bash-have-a-hook-that-is-run-before-executing-a-command
+#http://www.davidpashley.com/articles/xterm-titles-with-bash.html
+set +o functrace #disable trap DEBUG inherited in functions, command substitutions or subshells, normally the default setting already
+#enable extended pattern matching operators
+shopt -s extglob
+
+
+#CTR+C BUG!!!
+
+function AUDIT_DEBUG() {
+  if [ -z "$AUDIT_LASTHISTLINE" ]; then                     #initialization
+    local AUDIT_CMD="$(fc -l -1 -1)"                        #previous history command
+    AUDIT_LASTHISTLINE="${AUDIT_CMD%%+([^0-9])*}"
+    
+  else
+    AUDIT_LASTHISTLINE="$AUDIT_HISTLINE"
+  fi
+  local AUDIT_CMD="$(history 1)"                            #current history command
+  local AUDIT_HISTLINE_PRE="${AUDIT_CMD%%+([^ 0-9])*}"
+  AUDIT_HISTLINE="${AUDIT_HISTLINE_PRE%%+([0-9])}"  
+
+  if [ "${AUDIT_HISTLINE:-0}" -ne "${AUDIT_LASTHISTLINE:-0}" ] || [ "${AUDIT_HISTLINE:-0}" -eq "1" ]; then  #avoid logging unexecuted commands after 'ctrl-c', 'empty+enter', or after 'ctrl-d'
+    echo -ne "${_backnone}${_frontgrey}"                    #disable prompt colors for the command's output
+    #remove in last history cmd its line number (if any) and send to syslog
+    local AUDIT_STR="@cee: {\"msg_class\":\"security\", \"msg_view\":\"shell\", \"type\":\"commands\", \"luser\":\"$AUDIT_LOGINUSER\", \"lpid\":\"$AUDIT_LOGINPID\", \"ruser\":\"$AUDIT_USER\", \"rpid\":\"$AUDIT_PID\", \"command\":\"${AUDIT_CMD##*( )?(+([0-9])?(\*)+( ))}\", \"dir\":\"$PWD\", \"tty\":\"$AUDIT_TTY\", \"ssh_sa\":\"$AUDIT_SSH_SA\", \"ssh_sp\":\"$AUDIT_SSH_SP\", \"ssh_da\":\"$AUDIT_SSH_DA\", \"ssh_dp\":\"$AUDIT_SSH_DP\" }"
+      if ! $LOGGER  "$AUDIT_STR"; then
+        echo error "$AUDIT_STR"
+      fi
+    return 0
+  else
+    return 1
+  fi
+}
+
+
+
+function audit_EXIT() {
+    local AUDIT_STATUS="$?"
+    local AUDIT_CMD="#=== bash session ended. ==="
+    local AUDIT_STR="@cee: {\"msg_class\":\"security\", \"msg_view\":\"shell\", \"type\":\"commands\", \"luser\":\"$AUDIT_LOGINUSER\", \"lpid\":\"$AUDIT_LOGINPID\", \"ruser\":\"$AUDIT_USER\", \"rpid\":\"$AUDIT_PID\", \"command\":\"${AUDIT_CMD##*( )?(+([0-9])?(\*)+( ))}\", \"dir\":\"$PWD\", \"tty\":\"$AUDIT_TTY\", \"ssh_sa\":\"$AUDIT_SSH_SA\", \"ssh_sp\":\"$AUDIT_SSH_SP\", \"ssh_da\":\"$AUDIT_SSH_DA\", \"ssh_dp\":\"$AUDIT_SSH_DP\" }"
+    $LOGGER  "$AUDIT_STR"
+    exit "$AUDIT_STATUS"
+}
+#make audit trap functions readonly; disable trap DEBUG inherited (normally the default setting already)
+declare -fr +t audit_DEBUG
+declare -fr +t audit_EXIT
+
+AUDIT_CMD="#=== New bash session started. ===" #audit the session openning
+AUDIT_STR="@cee: {\"msg_class\":\"security\", \"msg_view\":\"shell\", \"type\":\"commands\", \"luser\":\"$AUDIT_LOGINUSER\", \"lpid\":\"$AUDIT_LOGINPID\", \"ruser\":\"$AUDIT_USER\", \"rpid\":\"$AUDIT_PID\", \"command\":\"${AUDIT_CMD##*( )?(+([0-9])?(\*)+( ))}\", \"dir\":\"$PWD\", \"tty\":\"$AUDIT_TTY\", \"ssh_sa\":\"$AUDIT_SSH_SA\", \"ssh_sp\":\"$AUDIT_SSH_SP\", \"ssh_da\":\"$AUDIT_SSH_DA\", \"ssh_dp\":\"$AUDIT_SSH_DP\" }"
+$LOGGER  "$AUDIT_STR"
+
+#when a bash command is executed it launches first the audit_DEBUG(),
+#then the trap DEBUG is disabled to avoid a useless rerun of audit_DEBUG() during the execution of pipes-commands;
+#at the end, when the prompt is displayed, re-enable the trap DEBUG
+#declare -rx PROMPT_COMMAND="trap 'audit_DEBUG; trap DEBUG' DEBUG"
+declare -rx PROMPT_COMMAND="[ -n \"\$AUDIT_DONE\" ] && echo '-----------------------------'; AUDIT_DONE=; trap 'AUDIT_DEBUG && AUDIT_DONE=1; trap DEBUG' DEBUG"
+declare -rx BASH_COMMAND #current command executed by user or a trap
+declare -rx SHELLOPT #shell options, like functrace  
+trap audit_EXIT EXIT #audit the session closing
+
+
+
+

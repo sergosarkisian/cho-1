@@ -1,0 +1,11 @@
+###########################
+###  acl_1_check_connect                 ###
+###########################
+acl_1_check_connect:
+
+    ###
+###INITIAL###
+warn
+set acl_c_scheme = SCHEME_NAME
+###INITIAL###
+    ###

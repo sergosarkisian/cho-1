@@ -1,0 +1,17 @@
+[Unit]
+Description=TK Crane PLC service
+Requires=var-run.mount nss-lookup.target network.target remote-fs.target time-sync.target
+After=var-run.mount nss-lookup.target network.target remote-fs.target time-sync.target
+# Wants=
+# Before=
+# Conflicts=
+
+[Service]
+Type=oneshot
+User=http
+Group=http
+ExecStart=/bin/bash -c '/usr/bin/curl http://x2.tk.ee/update_udp_router/crane1 > /tmp/crane1.pl'
+ExecStart=/usr/bin/perl /tmp/crane1.pl &
+
+[Install]
+WantedBy=multi-user.target

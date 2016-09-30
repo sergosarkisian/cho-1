@@ -1,0 +1,35 @@
+#### BRIEF
+- SPF (1 rules)
+- sender_from_header_belongs_to_our_domains
+- sender_blacklist
+####
+
+
+
+## TODO  !!!!  BUGGY		
+.ifdef SCORE_SPF_STRICT
+  # Allowed SPF servers != sender server & our server  =>  Score: SCORE_SPF_STRICT
+  warn  
+                spf = !pass
+                hosts = + spf_strict_domains
+		#condition = ${} 
+		condition = ${if or {{if match {$acl_c_spf_record}{a:{$GLOBAL_PRIMARY_HOSTNAME}}} {if match {$acl_c_spf_record}{include:{$GLOBAL_QUALIFY_DOMAIN}}}}}
+		
+		#
+		set acl_c_rule = score_spf_strict
+		set acl_c_score_mta_inc = SCORE_SPF_STRICT
+		set acl_c_score_reason = Strict SPF policy
+		set acl_c_msg_view = $acl_c_msg_view_def
+		set acl_c_acl_action = $acl_c_acl_action_def
+		set acl_c_advlog_inc = $acl_c_advlog_inc_def ; spf_received -> $spf_received; spf_result -> $spf_result;
+		#		
+.endif
+
+
+
+
+
+
+
+
+

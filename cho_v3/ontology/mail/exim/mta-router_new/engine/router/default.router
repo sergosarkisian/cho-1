@@ -1,0 +1,65 @@
+####################################################################                                                                                                                                                                        
+#                    		ROUTER 		                           #                                                                                                                                                                        
+#################################################################### 
+
+begin routers 
+
+  
+common:
+  driver = manualroute
+  transport = GET_DESTINATION_TRANSPORT
+  condition = GET_DESTINATION_TRANSPORT
+  domains =  +local_domains :  +hosted_domains  
+  address_data = GET_DESTINATION_DOMAIN  
+  route_list =  "* $address_data byname"
+  no_more   
+  
+common_alias_to_destination:
+  driver = redirect
+  allow_fail
+  allow_defer
+  domains = +hosted_domains  
+  data = ALIAS_TO_DESTINATION
+  user = mail
+  group = mail
+  
+relaytomx:
+  driver = manualroute
+  transport = smtp
+  condition = RELAYTOMX_DOMAINS
+  address_data = RELAYTOMX_DOMAINS  
+  route_list =  "* $address_data/MX"
+  no_more    
+  
+relaytohost:
+  driver = manualroute
+  transport = smtp
+  condition = RELAYTOHOST_DOMAINS
+  address_data = RELAYTOHOST_DOMAINS  
+  route_list =  "* $address_data byname"
+  no_more    
+  
+dnslookup:
+  driver = dnslookup
+  domains = ! +local_domains : ! +hosted_domains
+  transport = smtp
+  ignore_target_hosts = 0.0.0.0 : 127.0.0.0/8
+  cannot_route_message = Sorry, there are no such recipient(s)!
+  no_more   
+
+special:
+  driver = manualroute
+  transport = GET_HANDLER_TRANSPORT
+  condition = ALIAS_TO_HANDLER
+  address_data = ALIAS_TO_HANDLER  
+  route_list =  "* $address_data byname"
+  no_more      
+  
+  
+#####  
+#devnull:
+#  driver = manualroute
+#  transport = devnull
+#  local_parts = devnull*
+#  senders = devnull*
+#  no_more     

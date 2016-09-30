@@ -1,0 +1,79 @@
+[Unit]
+Description		= rev5_init_auto_xen
+
+## DEPS ## 
+ Before			= network.target
+##
+
+## LOGITORING DEPS ##
+ #Requires 			= monitoring-rev5_rev5.timer logging-rev5_rev5.timer
+ #Before   			= monitoring-rev5_rev5.timer logging-rev5_rev5.timer
+##
+
+## MISC ## 
+ #StopWhenUnneeded	= true
+ #ConditionPathExists	=
+##
+
+[Service]
+ 
+## TYPE ##
+ Type			= oneshot
+##
+
+## EXECS ##
+ ExecStart		= /bin/sh /media/sysdata/rev5/static/rev5_init_auto_xen.sh
+ 
+ #loging -  "instance":"%I"
+ ##
+ 
+## PERMISSIONS ##
+ #WorkingDirectory	= 
+ User			= root
+ Group			= root
+ SupplementaryGroups = sysapp
+ #UMask			= 
+##
+
+## MISC ##
+ #Restart			= always
+ PrivateTmp		= true
+ #TimeoutSec		= 300 # larger for DB/huge RAM ps
+ #EnvironmentFile	= -/
+##
+
+## SYSLOG ##
+ SyslogIdentifier	= rev5_
+ SyslogFacility		= local7
+ SyslogLevel		= info
+ #SyslogLevelPrefix	= false #Can be disabled for ...
+##
+ 
+
+## SECURITY ##
+ #ProtectSystem	= full
+ #ProtectHome	= true
+ #AppArmorProfile	= 
+ #PAMName		= 
+ #SecureBits		= 
+ #Capabilities		= 
+ #ReadWriteDirectories=, ReadOnlyDirectories=, InaccessibleDirectories=
+##
+ 
+
+## LIMITS ##
+ Nice				= 0
+ OOMScoreAdjust	= -1000
+ IOSchedulingClass 	= best-effort
+ IOSchedulingPriority= 1
+ LimitNOFILE=65535
+ #LimitMEMLOCK=infinity #For DB's
+ #MemoryLimit		= 
+ #BlockIOReadBandwidth = 
+ #BlockIOWriteBandwidth = 
+## 
+
+ 
+[Install]
+WantedBy			= multi-user.target
+#RequiredBy=, #Alias = 

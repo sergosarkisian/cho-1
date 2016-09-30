@@ -1,0 +1,74 @@
+####################################################################                                                                                                                                                                        
+#                    		ROUTER 		                           #                                                                                                                                                                        
+#################################################################### 
+
+begin routers 
+ 
+common:
+  driver = manualroute
+  ignore_target_hosts = <;  127.0.0.0/8 ; ::1; 0::0/0    
+  transport = GET_DESTINATION_TRANSPORT
+  condition = GET_DESTINATION_TRANSPORT
+  domains =  +local_domains :  +hosted_domains
+  address_data = GET_DESTINATION_DOMAIN  
+  headers_add = X-MTA-Path: common using $address_data by $acl_c_syslog_processname    
+  route_list =  "* $address_data byname"
+  no_more   
+  
+common_alias_to_destination:
+  driver = redirect
+  allow_fail
+  allow_defer
+  domains = +hosted_domains
+  data = ALIAS_TO_DESTINATION
+  user = mail
+  group = mail
+  
+relaytomx:
+  driver = manualroute
+  ignore_target_hosts = <;  127.0.0.0/8 ; ::1; 0::0/0    
+  transport = smtp_proxy
+  condition = RELAYTOMX_DOMAINS
+  address_data = RELAYTOMX_DOMAINS  
+  headers_add = X-MTA-Path: relaytomx using $address_data by $acl_c_syslog_processname    
+  route_list =  "* $address_data/MX"
+  no_more    
+  
+relaytohost:
+  driver = manualroute
+  ignore_target_hosts = <;  127.0.0.0/8 ; ::1; 0::0/0    
+  transport = smtp_proxy
+  condition = RELAYTOHOST_DOMAINS
+  address_data = RELAYTOHOST_DOMAINS  
+  headers_add = X-MTA-Path: relaytohost using $address_data by $acl_c_syslog_processname    
+  route_list =  "* $address_data byname"
+  no_more    
+  
+dnslookup:
+  driver = dnslookup
+  ignore_target_hosts = <;  127.0.0.0/8 ; ::1; 0::0/0    
+  domains = ! +local_domains : ! +hosted_domains
+  headers_add = X-MTA-Path: dnslookup   by $acl_c_syslog_processname
+  transport = smtp_proxy
+  cannot_route_message = Sorry, there are no such recipient(s)!
+  no_more   
+
+special:
+  driver = manualroute
+  ignore_target_hosts = <;  127.0.0.0/8 ; ::1; 0::0/0    
+  transport = GET_HANDLER_TRANSPORT
+  condition = ALIAS_TO_HANDLER
+  address_data = ALIAS_TO_HANDLER  
+  headers_add = X-MTA-Path: $address_data    
+  route_list =  "* $address_data byname"
+  no_more      
+  
+#####  
+#devnull:
+#  driver = manualroute
+#  transport = devnull
+#   route_list =  "*"
+# OR
+#  local_parts = devnull*
+#  senders = devnull*
+#  no_more     

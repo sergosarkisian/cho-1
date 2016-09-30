@@ -1,0 +1,15 @@
+[Socket]
+ListenStream=80
+KeepAlive=yes
+NoDelay=yes
+IPTTL=10
+IPTOS=low-delay
+TCPCongestion=cubic
+
+#ExecStartPre=
+#ExecStartPost=
+#ExecStopPre=
+#ExecStopPost=
+
+[Install]
+WantedBy=sockets.target

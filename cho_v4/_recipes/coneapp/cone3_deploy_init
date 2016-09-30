@@ -1,0 +1,26 @@
+All info - based on swk command
+
+1) DEV
+git config --global user.email 'deployer@cone.ee'
+git config --global user.name 'deployer'
+
+export GIT_DIR={class}.git
+git init
+git remote add origin http@{SERVER}:/media/storage/web/_deploy/c3{NAME}_{class}/.git
+
+2) PROD
+mkdir /media/storage/web/_deploy/c3{NAME}_{class}/
+cd to DIR
+git init
+git config receive.denyCurrentBranch ignore
+
+3) First push from DEV
+export GIT_DIR={class}.git
+git push origin master
+
+4) First pull on PROD
+git --git-dir=.git --work-tree=. reset --hard
+
+5) Application start on PROD
+systemctl --user enable cone3@c3{NAME}_{class}
+systemctl --user restart cone3@c3{NAME}_{class}

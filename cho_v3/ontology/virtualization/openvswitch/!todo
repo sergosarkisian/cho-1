@@ -1,0 +1,13 @@
++ gre tunnels like
+ovs-vsctl add-port br1 gr1 -- set interface gr1 type=gre options:remote_ip=IP OF OVS CENTRAL SWITCH
+
++ Настройка отправки netflow-статистики на netflow-server с дальнейшим преобразованием в CEE syslog
+ ovs-vsctl -- set Bridge s1 netflow=@nf -- --id=@nf create NetFlow targets=\"192.168.1.2:5566\" active-timeout=10/
+ ovs-vsctl -- set Bridge ovsbr1 netflow=@nf --   --id=@nf  create   NetFlow   targets=\"${COLLECTOR_IP}:${COLLECTOR_PORT}\" active-timeout=${TIMEOUT}
+ ovs-vsctl clear Bridge ovsbr1 netflow
+ vs-vsctl set NetFlow ovsbr1 active_timeout=20
+ 
++ Концепт соединения потоков всех серверов одного клиента с использование топологии "звезда с резервированием" 
+
++ ovs mac learning on ext interfaces
+http://git.openvswitch.org/cgi-bin/gitweb.cgi?p=openvswitch;a=blob_plain;f=tutorial/Tutorial;hb=HEAD

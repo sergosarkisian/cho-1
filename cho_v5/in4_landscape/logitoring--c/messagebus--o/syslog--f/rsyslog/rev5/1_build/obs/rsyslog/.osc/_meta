@@ -1,0 +1,5 @@
+<package name="rsyslog" project="home:conecenter:rev5a1:ontology:logitoring--c:messagebus--o:syslog--f">
+  <title>rsyslog</title>
+  <description>rsyslog</description>
+</package>
+

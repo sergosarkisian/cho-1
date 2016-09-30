@@ -1,0 +1,15 @@
+########    #######    ########    #######    ########    ########
+##     / / / /    License    \ \ \ \ 
+##    Copyleft culture, Copyright (C) is prohibited here
+##    This work is licensed under a CC BY-SA 4.0
+##    Creative Commons Attribution-ShareAlike 4.0 License
+##    Refer to the http://creativecommons.org/licenses/by-sa/4.0/
+########    #######    ########    #######    ########    ########
+##    / / / /    Code Climate    \ \ \ \ 
+##    Language = DSL, rsyslog DSL, liblognorm/mmnormalize
+##    Indent = space;    4 chars;
+########    #######    ########    #######    ########    ########
+
+annotate=TAG:+="rev5__internals--c--management--o--infrastructure--f--systemd--g--main--s__log-..."
+prefix=<%prio:char-to:\x3e%>%date:date-rfc3164%....
+rule=

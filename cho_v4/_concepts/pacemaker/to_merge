@@ -1,0 +1,50 @@
+primitive ha-ip-eth1 		ocf:heartbeat:IPaddr2 params ip=10.100.2.254    nic=eth1 cidr_netmask=24 op monitor interval=2s
+primitive ha-ip-eth2 		ocf:heartbeat:IPaddr2 params ip=217.159.186.130 nic=eth2 cidr_netmask=25 op monitor interval=2s
+primitive ha-ip-route 		ocf:heartbeat:Route params destination="0.0.0.0/0" gateway="217.159.186.129" 
+
+primitive ha-app-haproxy 	lsb:haproxy 	op monitor interval=2s
+primitive ha-app-nginx-ssl 	lsb:nginx-ssl 	op monitor interval=2s
+primitive ha-app-zabbix-proxy 	lsb:zabbix-proxy op monitor interval=2s
+
+primitive lb-app-named 		lsb:named 	op monitor interval=2s
+clone	clone-lb-app-named 	lb-app-named 	meta ordered="true"
+primitive lb-app-bacula-fd 	lsb:bacula-fd 	op monitor interval=2s
+clone	clone-lb-app-bacula-fd 	lb-app-bacula-fd meta ordered="true"
+primitive check-routerping 	ocf:pacemaker:pingd  params host_list=217.159.186.129 multiplier=100 op monitor interval=2s timeout=5s
+
+primitive check-routerping 	ocf:pacemaker:ping params host_list="217.159.186.129" multiplier="100" op monitor interval="10s" timeout="20s" op start interval="0" timeout="90s" op stop interval="0" timeout="100s"
+clone	clone-check-routerping 	check-routerping meta interleave="true"
+
+group ha 	ha-ip-eth1 ha-ip-eth2 ha-ip-route ha-app-haproxy ha-app-nginx-ssl ha-app-zabbix-proxy
+group lb-app 	clone-lb-app-bacula-fd clone-lb-app-named
+
+
+property stonith-enabled=false
+property default-resource-stickiness="100"q
+property no-quorum-policy="ignore"
+
+verify
+
+
+
+???
+location my_web_cluster_on_connected_node my_web_cluster rule -inf: not_defined pingd or pingd lte 0
+
+clone WebIP ClusterIP  meta ordered="true" interleave="true"
+
+location prefer-pcmk-1 WebSite 50: node1
+
+
+primitive resO2CB ocf:pacemaker:o2cb        op monitor interval="120s"
+
+clone cloneO2CB resO2CB         meta globally-unique="false" interleave="true"
+colocation colDLMDRBD inf: cloneDLM msDRBD:Master
+colocation colO2CBDLM inf: cloneO2CB cloneDLM
+order ordDLMO2CB 0: cloneDLM cloneO2CB
+order ordDRBDDLM 0: msDRBD:promote cloneDLM
+
+
+colocation collation-ha inf: ha ha-app
+order order-ha mandatory: ha ha-app 
+
+location ha-ip-on-connected-node ha-ip rule $id="ha-ip-on-connected-node-rule" pingd: defined pingd

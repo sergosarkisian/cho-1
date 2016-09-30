@@ -1,0 +1,5 @@
+^\N.*opendocument.*\N
+^\N.*officedocument.*\N
+^\N.*pdf.*\N
+^\N.*vnd.ms-.*\N
+^\Napplication/msword\N 

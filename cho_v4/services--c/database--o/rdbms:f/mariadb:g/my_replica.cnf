@@ -1,0 +1,142 @@
+[client]                                                                                                                  
+  port            = 3306
+  socket          = /var/run/mysql/mysql.sock                                                                              
+
+
+[mysqld_safe]
+  socket                          = /var/run/mysql/mysqld.sock
+  nice                            = 0                                   #Bitrix
+  open-files-limit = 8192                                               #InnoDB 
+
+#[server]
+#plugin-load-add=auth_pam=auth_pam.so
+  
+[mysqld]          
+  port          = 3306
+  server-id=1
+  pid-file      = /var/run/mysql/mysql.pid 
+  socket        = /var/run/mysql/mysql.sock
+  datadir       = /media/storage/database/mysql
+  tmpdir        = /var/run/mysql                 
+  plugin_dir    = /usr/lib64/mysql/plugin             
+  slow-query-log-file=/media/logs/files/mysql.slow.log
+
+  user=mysql
+  long_query_time=5                       
+  log-warnings                            
+  log-queries-not-using-indexes           
+  skip-external-locking                                                 
+  skip-character-set-client-handshake 
+  
+
+#Connections
+  max_connections       = 200
+  max_connect_errors	= 1000000
+  back_log              = 20  
+  wait_timeout          = 3600
+
+  net_buffer_length     = 1048576
+  max_allowed_packet    = 300M
+
+#Tmp tables
+  tmp_table_size        = 350M 
+  max_heap_table_size   = 350M                                               
+
+#Buffers
+  sort_buffer_size      = 20M    
+  join_buffer_size      = 60M    
+  read_buffer_size      = 10M    
+  read_rnd_buffer_size  = 30M
+  key_buffer_size       = 32M  
+  bulk_insert_buffer_size = 64M   
+  myisam_sort_buffer_size = 8M
+
+
+
+#Table cache
+  table_open_cache      = 524288
+  table_definition_cache= 1700    
+
+#Default engine & character
+  innodb_file_format=Barracuda
+  default-storage_engine = innodb
+  myisam-recover-options                = FORCE,BACKUP
+  collation_server      = utf8_unicode_ci
+  character_set_server  = utf8   
+    
+#Query cache
+  query_cache_type      = 1
+  query_cache_size      = 120M
+  query_cache_limit     = 4M
+
+
+#Thread cache
+  thread_cache_size     = 40  
+  thread_stack          = 192K    
+                                                                                 
+
+# IO & CPU performance
+  thread_concurrency    = 34            
+  optimizer_search_depth= 20   
+
+
+#Misc
+  safe-user-create
+  ft_min_word_len = 4  
+  userstat = 1
+
+
+                 
+              
+#InnoDB data
+  innodb_data_home_dir =  /media/storage/database/mysql
+  innodb_data_file_path=ibdata2:1000M;ibdata1:1000M;ibdata:1000M:autoextend
+  innodb_log_group_home_dir =  /media/storage/database/mysql                   
+
+                
+
+#InnoDB memory
+  innodb_buffer_pool_size       = 1200M
+  innodb_log_file_size          = 400M
+  innodb_log_buffer_size        = 30M
+
+
+#InnoDB IO performance
+  innodb_commit_concurrency     = 0
+  innodb_thread_concurrency     = 16
+  innodb_concurrency_tickets    = 500
+  innodb_file_io_threads         = 4
+  innodb_flush_log_at_trx_commit = 2
+  innodb_lock_wait_timeout      = 120
+  transaction-isolation         = READ-COMMITTED
+  innodb_flush_method           = O_DIRECT
+
+  innodb_max_dirty_pages_pct    = 90
+  #transaction-isolation        = REPEATABLE-READ                       #InnoDB
+  #innodb_flush_method          =O_DSYNC                                #InnoDB
+  #innodb_read_io_threads       = 2  # number of CPUs                   #Not supported
+  #innodb_write_io_threads      = 2                                     #Not supported 
+
+  [mysqldump]
+  quick
+  max_allowed_packet = 16M
+
+  [mysql]
+  no-auto-rehash
+  # Remove the next comment character if you are not familiar with SQL
+  #safe-updates
+
+  [isamchk]
+  key_buffer     = 20M
+  sort_buffer_size = 20M
+  read_buffer   = 8M
+  write_buffer  = 8M
+
+  [myisamchk]
+  key_buffer    = 20M
+  sort_buffer_size = 20M
+  read_buffer   = 2M
+  write_buffer  = 2M
+
+  [mysqlhotcopy]
+  interactive-timeout

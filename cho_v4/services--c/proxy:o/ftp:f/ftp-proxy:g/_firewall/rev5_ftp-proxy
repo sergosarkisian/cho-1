@@ -1,0 +1,6 @@
+## Name: rev5_ftp-proxy
+## Description: Open ports for rev5_ftp-proxy
+
+# space separated list of allowed TCP ports
+TCP="20 21 45000:47999"
+ 

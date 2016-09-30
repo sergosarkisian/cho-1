@@ -1,0 +1,393 @@
+ select substr(name,1,100) latch_name, gets, misses, sleeps, immediate_gets, immediate_misses, waiters_woken, waits_holding_latch, spin_gets, wait_time
+from V$LATCH where gets > 1 order by latch_name desc;  2  
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+user lock                                                              2277          0          0              0                0             0
+                  0          0          0
+
+undo global data                                                     125410          0          0              0                0             0
+                  0          0          0
+
+transaction branch allocation                                        360023          2          1              0                0             1
+                  0          1       3916
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+transaction allocation                                                 2219          0          0              0                0             0
+                  0          0          0
+
+trace latch                                                             122          0          0              0                0             0
+                  0          0          0
+
+state object free list                                                    4          0          0              0                0             0
+                  0          0          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+spilled msgs queues list latch                                         1578          0          0              0                0             0
+                  0          0          0
+
+sort extent pool                                                      15724          0          0              0                0             0
+                  0          0          0
+
+simulator lru latch                                                  330250          8          0         485255                5             0
+                  0          8          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+simulator hash latch                                                5241765          4          0              0                0             0
+                  0          4          0
+
+shared pool                                                         6047908       2389        382              0                0           380
+                378       2011    9823602
+
+session timer                                                         16498          0          0              0                0             0
+                  0          0          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+session switching                                                       786          0          0              0                0             0
+                  0          0          0
+
+session idle bit                                                    3436784          1          0              0                0             0
+                  0          1          2
+
+session allocation                                                   390538        205          1              0                0             1
+                  0        204        942
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+sequence cache                                                        15534          0          0              0                0             0
+                  0          0          0
+
+row cache objects                                                   8680919        423          9            947                0             9
+                  9        414    1301974
+
+row cache enqueue latch                                             8642248        293          0              0                0             0
+                  0        293          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+redo writing                                                         162228          1          0              0                0             0
+                  0          1          0
+
+redo copy                                                               144          0          0         430379             1043             0
+                  0          0          0
+
+redo allocation                                                      516116        844          1              0                0             1
+                  1        843         18
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+process group creation                                                 4839          0          0              0                0             0
+                  0          0          0
+
+process allocation                                                     4839          0          0           2475                0             0
+                  0          0          0
+
+post/wait queue                                                        7178          2          0           4676                0             0
+                  0          2          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+parameter list                                                            2          0          0              0                0             0
+                  0          0          0
+
+object stats modification                                               925          0          0              2                0             0
+                  0          0          0
+
+ncodef allocation latch                                                 786          0          0              0                0             0
+                  0          0          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+multiblock read objects                                              484362          2          0              2                0             0
+                  0          2          0
+
+mostly latch-free SCN                                                 48175         87          0              0                0             0
+                  0         87          0
+
+messages                                                             251803         17          0              0                0             0
+                  0         17          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+message pool operations parent latch                                    119          0          0              0                0             0
+                  0          0          0
+
+managed standby latch                                                     2          0          0              0                0             0
+                  0          0          0
+
+longop free list parent                                                 456          0          0             15                0             0
+                  0          0          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+loader state object freelist                                           2070          0          0              0                0             0
+                  0          0          0
+
+list of block allocation                                               1510          0          0              0                0             0
+                  0          0          0
+
+library cache pin allocation                                        3334336         20          0              0                0             0
+                  0         20          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+library cache pin                                                   5411416         23          0              0                0             0
+                  0         23          0
+
+library cache load lock                                               10660          0          0              0                0             0
+                  0          0          0
+
+library cache                                                       9915116       1539        153          46433              190           153
+                148       1391    2435099
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+lgwr LWN SCN                                                          48089         42          0              0                0             0
+                  0         42          0
+
+kwqit: protect wakeup time                                             1573          0          0              0                0             0
+                  0          0          0
+
+ktm global data                                                         207          0          0              0                0             0
+                  0          0          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+job_queue_processes parameter latch                                    1495          0          0              2                0             0
+                  0          0          0
+
+job workq parent latch                                                   34         34          0           3176              466             0
+                  0         34          0
+
+hash table modification latch                                            19          0          0              2                0             0
+                  0          0          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+hash table column usage latch                                           982          0          0        1434383                0             0
+                  0          0          0
+
+granule operation                                                         3          0          0              0                0             0
+                  0          0          0
+
+global tx hash mapping                                               359351          0          0              0                0             0
+                  0          0          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+global ctx hash table latch                                              14          0          0              0                0             0
+                  0          0          0
+
+file number translation table                                            19          0          0              0                0             0
+                  0          0          0
+
+event range base latch                                                    3          0          0              0                0             0
+                  0          0          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+event group latch                                                      2475          0          0              0                0             0
+                  0          0          0
+
+enqueues                                                             949531         91          1              0                0             1
+                  0         90       3554
+
+enqueue hash chains                                                 1668985         41          0              0                0             0
+                  0         41          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+dummy allocation                                                       8014          0          0              0                0             0
+                  0          0          0
+
+dml lock allocation                                                  176938          2          1              0                0             1
+                  1          1     132147
+
+dictionary lookup                                                       159          0          0              0                0             0
+                  0          0          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+constraint object allocation                                            116          0          0              0                0             0
+                  0          0          0
+
+commit callback allocation                                              194          0          0              0                0             0
+                  0          0          0
+
+child cursor hash table                                              247886          3          0              0                0             0
+                  0          3          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+checkpoint queue latch                                              1801626          1          0          21704                0             0
+                  0          1          0
+
+channel operations parent latch                                       89480          0          0              0                0             0
+                  0          0          0
+
+channel handle pool latch                                              5040          0          0              0                0             0
+                  0          0          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+cache buffers lru chain                                               58065        143          2        9914444             2671             2
+                  2        141       2250
+
+cache buffers chains                                              183383623       1653         18        9827390              144             0
+                145       1642     115741
+
+cache buffer handles                                                   9480          0          0              0                0             0
+                  0          0          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+begin backup scn array                                                13724          0          0              0                0             0
+                  0          0          0
+
+archive process latch                                                  1620          9          9              0                0             9
+                  9          0     783412
+
+archive control                                                        1842          0          0              0                0             0
+                  0          0          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+alert log latch                                                         373          0          0              2                0             0
+                  0          0          0
+
+active checkpoint queue latch                                         19694          0          0              2                0             0
+                  0          0          0
+
+Token Manager                                                             2          0          0              2                0             0
+                  0          0          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+SQL memory manager workarea list latch                              1083755          0          0              0                0             0
+                  0          0          0
+
+OS file lock latch                                                        2          0          0              0                0             0
+                  0          0          0
+
+NLS data objects                                                          9          0          0              0                0             0
+                  0          0          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+KWQP Prop Status                                                       1553          0          0              0                0             0
+                  0          0          0
+
+FOB s.o list latch                                                     4489          0          0              0                0             0
+                  0          0          0
+
+FIB s.o chain latch                                                    1254          0          0              0                0             0
+                  0          0          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+FAL request queue                                                       942          0          0              0                0             0
+                  0          0          0
+
+Direct I/O Adaptor                                                        2          0          0              0                0             0
+                  0          0          0
+
+Consistent RBA                                                        37360         44          0              0                0             0
+                  0         44          0
+
+
+LATCH_NAME                                                             GETS     MISSES     SLEEPS IMMEDIATE_GETS IMMEDIATE_MISSES WAITERS_WOKEN
+---------------------------------------------------------------- ---------- ---------- ---------- -------------- ---------------- -------------
+WAITS_HOLDING_LATCH  SPIN_GETS  WAIT_TIME
+------------------- ---------- ----------
+AQ Propagation Scheduling System Load                                   152          0          0              0                0             0
+                  0          0          0
+
+AQ Propagation Scheduling Proc Table                                   3559          0          0              0                0             0
+                  0          0          0
+
+
+83 rows selected.

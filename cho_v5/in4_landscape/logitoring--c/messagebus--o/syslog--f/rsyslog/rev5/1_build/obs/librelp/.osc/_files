@@ -1,0 +1,5 @@
+<directory name="librelp" rev="6" srcmd5="72ad1cc8b4f95e09cb6907d1ecb4bd2a" vrev="6">
+  <serviceinfo code="succeeded" xsrcmd5="c4f3eff382d1f76d55a118be9fe68245" />
+  <entry md5="2f3750abf5896f5be0d16c31aa25ee71" mtime="1469608880" name="_service" size="485" />
+  <entry md5="1714afbf656823fa8a7b336d25188508" mtime="1447510566" name="librelp.spec" size="6413" />
+</directory>

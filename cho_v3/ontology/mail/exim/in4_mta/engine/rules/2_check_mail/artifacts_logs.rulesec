@@ -1,0 +1,7 @@
+"event_tag_sec2":${quote:${sender_host_address}_${sender_host_port}_${sender_address}}, \
+"message_size":${quote:${from_utf8:$message_size}}, \
+"sender_address":${quote:${from_utf8:$sender_address}}, \
+"sender_address_domain":${quote:${from_utf8:$sender_address_domain}}, \
+"sender_address_local_part":${quote:${from_utf8:$sender_address_local_part}}, \
+"sender_fullhost":${quote:${from_utf8:$sender_fullhost}}, \
+"sender_helo_name":${quote:${from_utf8:$sender_helo_name}}, \

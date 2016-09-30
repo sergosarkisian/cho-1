@@ -1,0 +1,121 @@
+[Unit]
+Description             = rev5__data_safety--c--replication--o--block--f--drbd9--g--up--s
+Documentation   = man:{MAN} 
+Documentation   = http://{WEBSITE} 
+## DEPS ##                                                                                                                                                                         
+ #Conflicts=, # Wants=,  # Before=, # PartOf=, #OnFailure=,  #PropagatesReloadTo=, ReloadPropagatedFrom=                                                                           
+ Requires               = var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service                                                             
+ After                  = var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service                                                             
+##                                                                                                                                                                                 
+                                                                                                                                                                                   
+## DEPS - AFTER REV5.TARGET##                                                                                                                                                      
+ #Requires              = rev5.target                                                                                                                                              
+ #After                 = rev5.target                                                                                                                                              
+##                                                                                                                                                                                 
+                                                                                                                                                                                   
+                                                                                                                                                                                   
+## MISC ##                                                                                                                                                                         
+ #StopWhenUnneeded      = true                                                                                                                                                     
+ #ConditionPathExists   =                                                                                                                                                          
+##                                                                                                                                                                                 
+                                                                                                                                                                                   
+[Service]                                                                                                                                                                          
+                                                                                                                                                                                   
+## TYPE ##
+Type                          = oneshot
+RemainAfterExit     = true
+##
+
+## EXECS #
+ ExecStartPre=/bin/bash  /etc/faster/cmdb/techpool/cgroup/cgroup_applyer.sh '{"systemdService":"%p","cgoupModule":"blkio","cgoupMetric":"throttle.read_bps_device","cgoupValue":"${READ_BPS_DEVICE}","context":"${DISK}"}'
+ ExecStartPre=/bin/bash  /etc/faster/cmdb/techpool/cgroup/cgroup_applyer.sh '{"systemdService":"%p","cgoupModule":"blkio","cgoupMetric":"throttle.write_bps_device","cgoupValue":"${WRITE_BPS_DEVICE}","context":"${DISK}"}'
+ ExecStartPre=/bin/bash  /etc/faster/cmdb/techpool/cgroup/cgroup_applyer.sh '{"systemdService":"%p","cgoupModule":"blkio","cgoupMetric":"throttle.read_iops_device","cgoupValue":"${READ_IOPS_DEVICE}","context":"${DISK}"}'
+ ExecStartPre=/bin/bash  /etc/faster/cmdb/techpool/cgroup/cgroup_applyer.sh '{"systemdService":"%p","cgoupModule":"blkio","cgoupMetric":"throttle.write_iops_device","cgoupValue":"${WRITE_IOPS_DEVICE}","context":"${DISK}"}' 
+   
+ ExecStart              = /sbin/drbdadm up all
+ ExecStart              = /usr/bin/sleep 2
+ ExecStart              = /bin/bash  /etc/faster/cmdb/techpool/cgroup/cgroup_joiner.sh '{"systemdService":"%p","procHarvesterName":"drbd"}'
+ ExecStart              = /sbin/drbdadm wait-sync all
+
+ ExecStop               = /bin/bash  /etc/faster/cmdb/techpool/cgroup/cgroup_joiner.sh '{"systemdService":"rc-local","procHarvesterName":"drbd"}'
+ ExecStop               = /sbin/drbdadm down all
+ ExecStopPost           = /bin/bash  /etc/faster/cmdb/techpool/cgroup/cgroup_joiner.sh '{"systemdService":"rc-local","procHarvesterName":"drbd"}'
+ ExecStopPost           = /sbin/drbdadm down all
+
+ ExecReload             = /sbin/drbdadm adjust all
+ ExecReload = /bin/bash  /etc/faster/cmdb/techpool/cgroup/cgroup_applyer.sh '{"systemdService":"%p","cgoupModule":"blkio","cgoupMetric":"throttle.read_bps_device","cgoupValue":"${READ_BPS_DEVICE}","context":"${DISK}"}'
+ ExecReload = /bin/bash  /etc/faster/cmdb/techpool/cgroup/cgroup_applyer.sh '{"systemdService":"%p","cgoupModule":"blkio","cgoupMetric":"throttle.write_bps_device","cgoupValue":"${WRITE_BPS_DEVICE}","context":"${DISK}"}'
+ ExecReload = /bin/bash  /etc/faster/cmdb/techpool/cgroup/cgroup_applyer.sh '{"systemdService":"%p","cgoupModule":"blkio","cgoupMetric":"throttle.read_iops_device","cgoupValue":"${READ_IOPS_DEVICE}","context":"${DISK}"}'
+ ExecReload = /bin/bash  /etc/faster/cmdb/techpool/cgroup/cgroup_applyer.sh '{"systemdService":"%p","cgoupModule":"blkio","cgoupMetric":"throttle.write_iops_device","cgoupValue":"${WRITE_IOPS_DEVICE}","context":"${DISK}"}' 
+ 
+ 
+ #ExecStartPre  = 
+ ExecStartPre           = /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"unknown", "action":"start", "subaction":"pre", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ 
+ #ExecStartPost = 
+ ExecStartPost  = /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"started", "action":"start", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ #ExecStopPost  = 
+ ExecStopPost   = /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"stopped", "action":"stop", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ 
+ #loging -  "instance":"%I"
+##
+ 
+## PERMISSIONS ##
+ WorkingDirectory       = /media/
+ User                   = 
+ Group                  = 
+ SupplementaryGroups = sysapp
+ #UMask                 = 
+##
+
+## MISC ##
+ #Restart                       = always
+ #RestartSec            = 30
+ #TimeoutSec            = 300 # larger for DB/huge RAM ps
+ EnvironmentFile       = /tmp/drbd9_up.env
+##
+
+## SYSLOG ##
+ SyslogIdentifier       = rev5__data_safety--c--replication--o--block--f--drbd9--g--up--s_
+ SyslogFacility = local7
+ SyslogLevel            = info
+ #SyslogLevelPrefix     = false #Can be disabled for ...
+##
+ 
+
+## SECURITY ##
+ PrivateTmp             = true
+ #PrivateDevices   = true
+# ProtectSystem  = full
+# ProtectHome    = true
+ NoNewPrivileges    = true 
+ #SystemCallFilter = 
+ #AppArmorProfile       = 
+ #PAMName               = 
+ #SecureBits            = 
+ #Capabilities          = 
+ #ReadWriteDirectories=, ReadOnlyDirectories=, InaccessibleDirectories=
+##
+ 
+
+## LIMITS ##
+ Nice                           = 0
+ OOMScoreAdjust         = -1000
+ IOSchedulingClass      = best-effort
+ IOSchedulingPriority   = 1
+ LimitNOFILE                 = 65535
+ #LimitMEMLOCK=infinity #For DB's
+ #MemoryLimit           = 
+ #BlockIOReadBandwidth = 
+ #BlockIOWriteBandwidth = 
+## 
+
+ 
+[Install]
+WantedBy                        = multi-user.target
+#RequiredBy=, #
+Alias   = rev5__drbd9--g--up--s
+
+## REV5 - WANTEDBY
+#WantedBy                       = rev5.target
+##

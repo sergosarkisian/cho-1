@@ -1,0 +1,10 @@
+kibana-4.4.2-linux-x64.tar.bz2
+kibana-4.x.zip
+kibana.changes
+kibana.conf
+kibana.conf.sysv
+kibana.logrotate
+kibana-rpmlintrc
+kibana.service
+kibana.spec
+kibana.sysconfig

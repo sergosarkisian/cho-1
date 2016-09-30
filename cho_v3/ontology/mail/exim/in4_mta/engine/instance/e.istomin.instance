@@ -1,0 +1,29 @@
+###########################
+###  INCLUDES                            	###
+###########################
+
+## VARS
+    exim_user  = e.istomin
+    exim_group = users
+    system_filter_user = e.istomin
+    system_filter_group = users
+    daemon_smtp_ports = 2600
+    system_filter	 =  /etc/exim/engine_path/engine/fiters/devnull.filter
+    spool_directory = /tmp/exim/
+##
+# GLOBAL RE-DEFINITIONS
+    .include /etc/exim/engine_path/engine/_globals/macros_redef.conf
+
+# ROUTER LOOKUPS
+    .include /etc/exim/engine_path/engine/router/default_sql.lookup
+#    
+    
+# GLOBAL FUNC    
+    .include /etc/exim/engine_path/engine/_globals/retry.conf
+    .include /etc/exim/engine_path/engine/_globals/transport.conf
+    .include /etc/exim/engine_path/engine/_globals/auth.conf
+#
+
+# ROUTER
+    .include /etc/exim/engine_path/engine/router/default.router
+#

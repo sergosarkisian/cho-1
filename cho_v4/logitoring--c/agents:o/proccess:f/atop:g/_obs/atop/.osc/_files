@@ -1,0 +1,6 @@
+<directory name="atop" rev="19" srcmd5="225633667b4391bee7614dfd59492a14" vrev="19">
+  <serviceinfo code="succeeded" xsrcmd5="8f87025c06bf01ddd9d626080ad79456" />
+  <entry md5="246f3c653da2834c4525fed1f32e68b7" mtime="1447511923" name="_service" size="329" />
+  <entry md5="050a77dcb3dcec91cfff33425b567aa5" mtime="1450186906" name="atop-makefile.patch" size="1000" />
+  <entry md5="7f0112418b092dade29f8b5fc63c5c9e" mtime="1450197780" name="atop.spec" size="5372" />
+</directory>

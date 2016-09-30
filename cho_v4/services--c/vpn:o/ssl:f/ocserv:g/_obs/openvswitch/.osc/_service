@@ -1,0 +1,15 @@
+<services>
+  <service name="tar_scm">
+    <param name="url">https://github.com/openvswitch/ovs.git</param>
+    <param name="revision">branch-2.4</param>
+    
+    <param name="scm">git</param>
+    <param name="versionformat">git_+Ver+2.4.1+Date+%cd+Comm+%h+</param>
+    <param name="exclude">.git</param>    
+    <param name="exclude">windows/</param>        
+  </service>
+  <service name="recompress">
+    <param name="file">*.tar</param>
+    <param name="compression">gz</param>
+  </service>
+</services>

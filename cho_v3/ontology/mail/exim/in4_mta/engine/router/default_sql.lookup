@@ -1,0 +1,257 @@
+####################################################################
+#                    SQL resolvers - mail accounts		   #
+####################################################################
+	
+## // COMMON \\ ##
+     
+ALIAS_TO_DESTINATION = \
+	${lookup DB_TYPE { SQLITE_FILE_DATA \
+		SELECT r.to_user || '@'|| d.name email \
+		FROM router r \
+		JOIN domains d on d.id = r.to_domain and d.name != 'handler' \
+		WHERE LOWER(r.from_user) = LOWER('${quote_DB_TYPE:$local_part}') AND \
+		exists (select 1 \
+		from domains d1 \
+		where d1.id = r.from_domain \
+		and d1.name = '${quote_DB_TYPE:$domain}' \
+		and d1.type = 'hosted' \
+		) \
+}}
+
+ALIAS_TO_HANDLER = \
+	${lookup DB_TYPE { SQLITE_FILE_DATA \
+		SELECT r.to_user email \
+		FROM router r \
+		JOIN domains d on d.id = r.to_domain and d.name = 'handler' \
+		WHERE LOWER(r.from_user) = LOWER('${quote_DB_TYPE:$local_part}') AND \
+		exists (select 1 \
+		from domains d1 \
+		where d1.id = r.from_domain \
+		and d1.name = '${quote_DB_TYPE:$domain}' \
+		and d1.type = 'hosted' \
+		) \
+}}
+
+GET_DESTINATION_DOMAIN = \
+	${lookup DB_TYPE { SQLITE_FILE_DATA \
+	SELECT d.name \
+		FROM router r \
+		JOIN domains d on d.id = r.to_domain and d.type = 'backend' \
+		and  d.name != 'handler' \		
+		WHERE LOWER(r.from_user) = LOWER('${quote_DB_TYPE:$local_part}') AND \
+		exists (select 1 \
+		from domains d1 \
+		where d1.id = r.from_domain \
+		and d1.name = '${quote_DB_TYPE:$domain}' \
+		and d1.type = 'hosted' \
+		) \
+}}
+	
+GET_DESTINATION_TRANSPORT = \
+	${lookup DB_TYPE { SQLITE_FILE_DATA \
+		SELECT r.transport  \
+		FROM router r \
+		JOIN domains d on d.id = r.to_domain and d.type = 'backend' \
+		and  d.name != 'handler' \		
+		WHERE LOWER(r.from_user) = LOWER('${quote_DB_TYPE:$local_part}') AND \
+		exists (select 1 \
+		from domains d1 \
+		where d1.id = r.from_domain \
+		and d1.name = '${quote_DB_TYPE:$domain}' \
+		and d1.type = 'hosted' \
+		) \
+}}
+
+GET_HANDLER_TRANSPORT = \
+	${lookup DB_TYPE { SQLITE_FILE_DATA \
+		SELECT r.transport  \
+		FROM router r \
+		JOIN domains d on d.id = r.to_domain and d.name = 'handler' \		
+		WHERE LOWER(r.from_user) = LOWER('${quote_DB_TYPE:$local_part}') AND \
+		exists (select 1 \
+		from domains d1 \
+		where d1.id = r.from_domain \
+		and d1.name = LOWER('${quote_DB_TYPE:$domain}') \
+		and d1.type = 'hosted' \
+		) \
+}}
+
+
+### HOSTED
+    domainlist hosted_domains = \
+            ${lookup DB_TYPE { SQLITE_FILE_DATA \
+                    SELECT d.name \
+                    FROM domains d \
+                    WHERE d.name = '${quote_DB_TYPE:$domain}' \
+                    and d.type='hosted' \
+}}
+###
+
+
+### REGISTERED
+    domainlist registered_domains = \
+            ${lookup DB_TYPE { SQLITE_FILE_DATA \
+                    SELECT d.name \
+                    FROM domains d \
+                    WHERE d.name = '${quote_DB_TYPE:$domain}' \
+                    and d.type='registered' \
+}}
+###
+
+
+### RELAYFROM
+    domainlist relayfrom_domains = \
+            ${lookup DB_TYPE { SQLITE_FILE_DATA \
+                    SELECT d.name \
+                    FROM domains d \
+                    WHERE d.name = '${quote_DB_TYPE:$domain}' \
+                    and d.type='relayfrom' \
+}}
+###
+
+
+### RELAYTOMX
+
+    domainlist relaytomx_domains = \
+            ${lookup DB_TYPE { SQLITE_FILE_DATA \
+                    SELECT d.name \
+                    FROM domains d \
+                    WHERE d.name = '${quote_DB_TYPE:${if def:sender_address_domain{${domain:$h_from:}}{${domain:$h_from:}} }}' \		
+                    and d.type='relaytomx' \
+}}
+    
+    RELAYTOMX_DOMAINS = \
+            ${lookup DB_TYPE { SQLITE_FILE_DATA \
+                    SELECT d.name \
+                    FROM domains d \
+                    WHERE d.name = '${quote_DB_TYPE:${if def:sender_address_domain{${domain:$h_from:}}{${domain:$h_from:}} }}' \		
+                    and d.type='relaytomx' \
+}}
+###
+
+
+### RELAYTOHOST
+    RELAYTOHOST_DOMAINS = \
+            ${lookup DB_TYPE { SQLITE_FILE_DATA \
+                    SELECT d.name \
+                    FROM domains d \
+                    WHERE d.name = '${quote_DB_TYPE:$domain}' \
+                    and d.type='relaytohost' \
+}}
+###
+########################################################
+
+IS_SERVER_CRED_IN_HELO = \
+	${lookup DB_TYPE { SQLITE_FILE_DATA \
+	SELECT d.name  \
+	FROM domains d \
+	WHERE d.name = '${quote_DB_TYPE:$sender_helo_name}' \
+	and d.type='hosted' \
+}}
+
+
+
+##SPF
+
+hostlist spf_strict_domains = \
+	${lookup DB_TYPE { SQLITE_FILE_DATA \
+		SELECT d.name \
+		FROM domains d \
+		WHERE d.name = '${quote_DB_TYPE:$domain}' \
+		and d.rcv_from='strict' \
+}}
+
+
+
+## \\ COMMON // ##
+
+ 
+ 
+## // OTHERS \\ ##
+
+hostlist relay_from_hosts = \
+        ${lookup DB_TYPE { SQLITE_FILE_DATA \
+                SELECT id \
+                FROM relay_from \
+                WHERE  ip = '${quote_DB_TYPE:$sender_host_address}'\
+            }{yes}fail}
+  
+## \\ OTHERS // ##
+
+## // AUTH \\ ##
+
+AUTH_PLAIN = \
+${if eq{${md5:$auth3}}{${lookup DB_TYPE { SQLITE_FILE_DATA \
+        SELECT password \
+        FROM accounts \
+        WHERE (username = '$auth2' OR username = '${local_part:$auth2}')}}}{yes}{no}}
+
+AUTH_LOGIN = \
+    ${lookup DB_TYPE {  SQLITE_FILE_DATA \
+        SELECT username \
+        FROM accounts \
+        WHERE (username = '$auth1' OR username = '${local_part:$auth1}') \
+        AND password = '${md5:$auth2}'}{yes}{no}}
+
+## \\ AUTH // ##
+
+
+## // GREYLIST \\ ##
+
+
+GREYLIST_TEST = \
+    ${lookup DB_TYPE { SQLITE_FILE_DATA \
+	SELECT CASE WHEN DB_NOW > block_expires THEN 'accepted' \
+                       ELSE 'deferred' END AS result, id FROM greylist \
+                       WHERE DB_NOW < record_expires \
+                       AND sender_type LIKE ${if def:sender_address_domain{'NORMAL'}{'BOUNCE'}} \
+                       AND sender      LIKE '${quote_DB_TYPE:${if def:sender_address_domain{${domain:$h_from:}}{${domain:$h_from:}} }}' \
+                       AND recipient   LIKE '${quote_DB_TYPE:${if def:acl_c_domain{$acl_c_domain}{${domain:$h_to:}} }}' \
+                       AND relay_ip    LIKE '${quote_DB_TYPE:${mask:$sender_host_address/24}}' \
+                       ORDER BY result DESC LIMIT 1 \
+}{$value}{result=unknown}}
+                       
+                       
+GREYLIST_ADD  = \
+    ${lookup DB_TYPE { SQLITE_FILE_DATA \
+        DELETE FROM greylist  WHERE relay_ip = '${quote_DB_TYPE:${mask:$sender_host_address/24}}'; \
+            INSERT INTO greylist (relay_ip, sender_type, sender, recipient, block_expires, record_expires, create_time, type) VALUES \
+                ('${quote_DB_TYPE:${mask:$sender_host_address/24}}', ${if def:sender_address_domain{'NORMAL'}{'BOUNCE'}}, \
+                 '${quote_DB_TYPE:${if def:sender_address_domain{${domain:$h_from:}}{${domain:$h_from:}} }}', \
+                 '${quote_DB_TYPE:${if def:acl_c_domain{$acl_c_domain}{${domain:$h_to:}} }}', \
+                DB_NOW + 'GREYLIST_INITIAL_DELAY', DB_NOW + 'GREYLIST_INITIAL_LIFETIME',DB_NOW, 'AUTO'); \
+}{yes}{no}}
+                                   
+                                                                      
+  GREYLIST_DEFER_HIT= \
+    ${lookup DB_TYPE { SQLITE_FILE_DATA \
+    UPDATE greylist SET blockcount=blockcount+1, last_block=DB_NOW WHERE id = $acl_c9 \
+  }{yes}{yes}}
+  
+  GREYLIST_OK_COUNT  = \
+    ${lookup DB_TYPE { SQLITE_FILE_DATA \
+    UPDATE greylist SET passcount=passcount+1, last_pass=DB_NOW WHERE id = $acl_c9 \
+  }}
+  
+  GREYLIST_OK_NEWTIME = \
+    ${lookup DB_TYPE { SQLITE_FILE_DATA \
+    UPDATE greylist SET record_expires = DB_NOW + 'GREYLIST_WHITE_LIFETIME' WHERE id = $acl_c9 AND type='AUTO'\
+  }}
+  
+  GREYLIST_OK_BOUNCE = \
+    ${lookup DB_TYPE { SQLITE_FILE_DATA \
+    UPDATE greylist SET record_expires = DB_NOW + 'GREYLIST_BOUNCE_LIFETIME' WHERE id = $acl_c9 AND type='AUTO'\
+  }}
+  
+  GREYLIST_CLEAN     = \
+    ${lookup DB_TYPE { SQLITE_FILE_DATA \
+    DELETE FROM greylist WHERE (record_expires < DB_NOW - 'GREYLIST_CLEAR_LIFETIME') AND (type='AUTO')\
+  }}
+  
+  GREYLIST_LOG  = \
+    ${lookup DB_TYPE { SQLITE_FILE_DATA \
+    INSERT INTO greylist_log (listid, timestamp, kind) VALUES ($acl_c9, DB_NOW, '$acl_c8') \
+  }}
+
+
+## \\ GREYLIST // ##

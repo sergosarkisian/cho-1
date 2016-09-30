@@ -1,0 +1,22 @@
+##
+###### Definition of storage device
+##
+Device {
+  Name			     = <%= state["fqdn"] %>.<%= state["sdFQDN"] %>
+  Media Type	             = <%= state["fqdn"] %>.<%= state["sdFQDN"] %>
+  Archive Device       = /media/storage/datasafety/bareos/<%= state["fqdn"] %>
+  Mount Point	     = /media/storage/datasafety/bareos  
+  Device Type	     = File
+  Label Media	     = yes;                
+  Random Access      = yes;
+  Requires Mount      = yes;
+  Removable Media  = no;
+  Always Open	     = yes;
+  Automatic Mount   = yes;
+  Mount Command   = "mkdir -p %a"
+  Unmount Command = "echo 'Unmount'"
+  Maximum File Size = 10g
+   }
+##
+###### END
+##

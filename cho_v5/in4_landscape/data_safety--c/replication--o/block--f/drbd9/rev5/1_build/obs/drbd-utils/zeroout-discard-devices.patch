@@ -1,0 +1,52 @@
+diff -Naur drbd-utils-8.9.5.orig/documentation/v84/drbdsetup.xml drbd-utils-8.9.5/documentation/v84/drbdsetup.xml
+--- drbd-utils-8.9.5.orig/documentation/v84/drbdsetup.xml	2015-12-24 14:13:13.928784939 +0800
++++ drbd-utils-8.9.5/documentation/v84/drbdsetup.xml	2015-12-24 14:14:51.533778352 +0800
+@@ -1889,6 +1889,24 @@
+               <para>Clears the sync bitmap in addition to generating a new current UUID.</para>
+             </listitem>
+           </varlistentry>
++
++          <varlistentry>
++            <term><option>--zeroout-devices</option></term>
++
++            <listitem>
++              <para>Start to zeroing out the device on both side in addition to generating
++              a new current UUID .</para>
++            </listitem>
++          </varlistentry>
++
++          <varlistentry>
++            <term><option>--discard-devices</option></term>
++
++            <listitem>
++              <para>Start to allocate a thinly provided backing device on both side in
++              addition to generating a new current UUID .</para>
++            </listitem>
++          </varlistentry>
+         </variablelist></para>
+ 
+       <para>This can be used to skip the initial sync, if you want to start from scratch. This
+diff -Naur drbd-utils-8.9.5.orig/user/v84/config_flags.c drbd-utils-8.9.5/user/v84/config_flags.c
+--- drbd-utils-8.9.5.orig/user/v84/config_flags.c	2015-12-24 14:13:13.937784939 +0800
++++ drbd-utils-8.9.5/user/v84/config_flags.c	2015-12-24 14:15:44.450774781 +0800
+@@ -1028,6 +1028,8 @@
+ 	NLA_POLICY(new_c_uuid_parms),
+ 	.fields = {
+ 		{ "clear-bitmap", FLAG(clear_bm) },
++        { "zeroout-devices", FLAG(zeroout_devices) },
++        { "discard-devices", FLAG(discard_devices) },
+ 		{ } },
+ };
+ 
+diff -Naur drbd-utils-8.9.5.orig/user/v84/linux/drbd_genl.h drbd-utils-8.9.5/user/v84/linux/drbd_genl.h
+--- drbd-utils-8.9.5.orig/user/v84/linux/drbd_genl.h	2015-12-24 14:13:13.940784938 +0800
++++ drbd-utils-8.9.5/user/v84/linux/drbd_genl.h	2015-12-24 14:16:30.426771679 +0800
+@@ -239,6 +239,8 @@
+ 
+ GENL_struct(DRBD_NLA_NEW_C_UUID_PARMS, 10, new_c_uuid_parms,
+ 	__flg_field(1, DRBD_GENLA_F_MANDATORY, clear_bm)
++    __flg_field(2, 0, zeroout_devices)
++    __flg_field(3, 0, discard_devices)
+ )
+ 
+ GENL_struct(DRBD_NLA_TIMEOUT_PARMS, 11, timeout_parms,

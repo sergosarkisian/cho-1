@@ -1,0 +1,7 @@
+<directory name="bash" rev="3" srcmd5="fbe33450e31317fc0d51b479d49c9dc2" vrev="3">
+  <linkinfo baserev="ab8b8f5c057c02ac93ea219bb03c2198" lsrcmd5="fbe33450e31317fc0d51b479d49c9dc2" package="bash" project="shells" srcmd5="ab8b8f5c057c02ac93ea219bb03c2198" xsrcmd5="2eca3ff51255466c32cf0347963c8b28" />
+  <serviceinfo code="succeeded" xsrcmd5="b1e1ba91848e29f32b6de0588795ff25" />
+  <entry md5="5b3acde5d9abc1d1126c0b44f51261fc" mtime="1447331528" name="_link" size="239" />
+  <entry md5="1a2eda61cfc7ad31fc08cc14b5d6b881" mtime="1447331528" name="bash-4.3_syslog.patch" size="1333" />
+  <entry md5="1af7d2e92639b2d53184b33edd570e62" mtime="1447331528" name="project.diff" size="636" />
+</directory>

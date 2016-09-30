@@ -1,0 +1,46 @@
+rm -R /media/storage/software/oracle/software/compile* && cd /media/storage/software/oracle/software/
+wget http://public.edss.ee/software/Linux/Oracle/compile.tar.gz
+tar -xzf ./compile.tar.gz
+mkdir -p  /media/storage/software/oracle/cone
+
+
+setfacl -R -m d:u:oracle:rwx /media/backup/database
+setfacl -R -m d:g:oinstall:rwx /media/backup/database
+setfacl -R -m u:oracle:rwx /media/backup/database
+setfacl -R -m g:oinstall:rwx /media/backup/database
+setfacl -R -m d:u:oracle:rwx /media/storage/database
+setfacl -R -m d:g:oinstall:rwx /media/storage/database
+setfacl -R -m u:oracle:rwx /media/storage/database
+setfacl -R -m g:oinstall:rwx /media/storage/database
+setfacl -R -m d:u:oracle:rwx /media/storage/software
+setfacl -R -m d:g:oinstall:rwx /media/storage/software
+setfacl -R -m u:oracle:rwx /media/storage/software
+setfacl -R -m g:oinstall:rwx /media/storage/software
+
+mv /usr/bin/gcc-4.8 /usr/bin/realgcc
+cp /opt/oracle/software/compile/bin/gcc /usr/bin/gcc-4.8 && chmod 755 /usr/bin/gcc-4.8
+
+
+su - oracle 
+sqlplus 'E$CORE'
+
+	set echo on
+	set verify off
+	set serveroutput on;
+	alter session set plsql_compiler_flags="NATIVE";
+	alter package lck compile;
+	alter package lckv compile;
+	alter package lck compile body;
+	BEGIN                                                                                                                                                                               
+	LCK.CLEAR(0);                                                                                                                                                                
+	END; 
+	/
+	exit;
+
+####
+	RESULT:
+ls  /media/storage/software/oracle/cone  => sfile
+
+###
+
+        mv -f /usr/bin/realgcc /usr/bin/gcc-4.8

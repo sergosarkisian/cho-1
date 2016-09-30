@@ -1,0 +1,17 @@
+## ORDERED
+.include /media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/engine/global.conf
+.include /media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/engine/lookup_pgsql.conf
+.include /media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/engine/retry.conf
+.include /media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/engine/router.conf
+.include /media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/engine/transport.conf
+.include /media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/engine/auth.conf
+#ACLS 
+begin acl
+.include /media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/engine/acls/1.acl_check_connect.conf
+.include /media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/engine/acls/2.acl_check_mail.conf
+.include /media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/engine/acls/3.acl_check_rcpt.conf
+.include /media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/engine/acls/4.acl_check_predata.conf
+.include /media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/engine/acls/5.acl_check_mime.conf
+.include /media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/engine/acls/6.acl_check_data.conf
+.include /media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/engine/acls/7.acl_others.conf
+.include /media/sysdata/rev5/techpool/ontology/mail/exim/mta-router/engine/acls/acl_greylist.conf

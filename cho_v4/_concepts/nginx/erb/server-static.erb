@@ -1,0 +1,10 @@
+	location ~ /\.  { return 403; }
+
+	location / {
+        try_files $uri @rewrites;    
+
+    }   
+    
+    location @dynamic {
+		set $true 1;
+    }

@@ -1,0 +1,11 @@
+select * from V$BACKUP;
+
+     FILE# STATUS                CHANGE# TIME
+---------- ------------------ ---------- ---------
+         1 NOT ACTIVE         1.8826E+10 05-JUL-10
+         2 NOT ACTIVE         1.8826E+10 05-JUL-10
+         3 NOT ACTIVE         1.8826E+10 05-JUL-10
+         4 NOT ACTIVE         1.8826E+10 05-JUL-10
+         5 NOT ACTIVE         1.8826E+10 05-JUL-10
+         6 NOT ACTIVE         1.8826E+10 05-JUL-10
+ 

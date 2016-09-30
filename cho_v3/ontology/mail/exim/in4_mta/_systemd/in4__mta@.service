@@ -1,0 +1,82 @@
+[Unit]
+Description		= in4 exim - %i
+
+## DEPS ## 
+ #Conflicts=, # Wants=,  # Before=, # PartOf=, #OnFailure=,  #PropagatesReloadTo=, ReloadPropagatedFrom=
+ Requires			= var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
+ After			= var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
+ Conflicts			= sendmail.service postfix.service exim.service
+
+##
+
+
+## MISC ## 
+ #StopWhenUnneeded	= true
+ #ConditionPathExists	=
+##
+
+[Service]
+ ## TYPE ##
+ #Type			= forking
+ #PIDFile			= /var/run/exim-%i.pid
+##
+
+## EXECS ##
+ ExecStart		= /usr/sbin/exim -bd -q2m -L exim -C /etc/exim/client_path/%i.conf
+ ExecReload		= /bin/kill -HUP $MAINPID
+
+
+ 
+ #loging -  "instance":"%I"
+##
+ 
+## PERMISSIONS ##
+ #WorkingDirectory	= 
+ User			= root
+ Group			= root
+ SupplementaryGroups = sysapp
+ #UMask			= 
+##
+
+## MISC ##
+ #Restart			= always
+ PrivateTmp		= true
+ #TimeoutSec		= 300 # larger for DB/huge RAM ps
+ #EnvironmentFile	= -/
+##
+
+## SYSLOG ##
+ SyslogIdentifier	= exim_%i_
+ SyslogFacility		= local7
+ SyslogLevel		= info
+ #SyslogLevelPrefix	= false #Can be disabled for ...
+##
+ 
+
+## SECURITY ##
+ ProtectSystem		= full
+ ProtectHome		= true
+ #AppArmorProfile	= 
+ #PAMName		= 
+ #SecureBits		= 
+ #Capabilities		= 
+ #ReadWriteDirectories=, ReadOnlyDirectories=, InaccessibleDirectories=
+##
+ 
+
+## LIMITS ##
+ Nice				= 0
+ OOMScoreAdjust	= -1000
+ IOSchedulingClass 	= best-effort
+ IOSchedulingPriority= 1
+ LimitNOFILE=65535
+ #LimitMEMLOCK=infinity #For DB's
+ #MemoryLimit		= 
+ #BlockIOReadBandwidth = 
+ #BlockIOWriteBandwidth = 
+## 
+
+ 
+[Install]
+WantedBy			= multi-user.target
+#RequiredBy=, #Alias = 

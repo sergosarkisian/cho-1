@@ -1,0 +1,13 @@
+"sender_host_address":${quote:$sender_host_address}, \
+"sender_host_name":${quote:$sender_host_name}, \
+"sender_address":${quote:$sender_address}, \
+"sender_fullhost":${quote:$sender_fullhost}, \
+"sender_helo_name":${quote:$sender_helo_name}, \
+"domain":${quote:$domain}, \
+"local_part":${quote:$local_part}, \
+"rcpt_count":${quote:$rcpt_count}, \
+"recipients_count":${quote:$recipients_count}, \
+"message_exim_id":${quote:$message_exim_id}, \
+"message_size":${quote:$message_size}, \
+"subject":${quote:$h_Subject:}, \
+"to":${quote:$acl_c_recipient}, \

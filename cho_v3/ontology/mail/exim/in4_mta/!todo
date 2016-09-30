@@ -1,0 +1,21 @@
++Небольшой процент логов не имеет заголовка From.
+
++Концепция сессионного белого листа
+
++Отсутствует мониторинг состояния приложения "cone3 mct_spamflt"
+
++Визуальный просмотр алиасов (Web PG admin)
+
++Логиторинг импорт-job'ов
+
++PAM auth
+
++ add culculated rules
+DNSBL +  Dangerous (ext) archived content in attachment(s)
+
++ smtp_active_hostname = ${if exists{/etc/virtual/helo_data}{${lookup{$interface_address}iplsearch{/etc/virtual/helo_data}{$value}{$primary_hostname}}}{$primary_hostname}}
+
+
++ http://files.directadmin.com/services/SpamBlocker/4.4.2/exim.conf-SpamBlockerTechnology-v4.4.2.txt
+
++ http://files.directadmin.com/services/blockcracking/1.4/auth.conf

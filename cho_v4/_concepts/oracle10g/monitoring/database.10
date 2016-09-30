@@ -1,0 +1,28 @@
+select * from V$DATABASE;
+
+      DBID NAME      CREATED   RESETLOGS_CHANGE# RESETLOGS PRIOR_RESETLOGS_CHANGE# PRIOR_RES LOG_MODE     CHECKPOINT_CHANGE# ARCHIVE_CHANGE# CONTROL CONTROLFI CONTROLFILE_SEQUENCE# CONTROLFILE_CHANGE# CONTROLFI OPEN_RESETL VERSION_T OPEN_MODE
+---------- --------- --------- ----------------- --------- ----------------------- --------- ------------ ------------------ --------------- ------- --------- --------------------- ------------------- --------- ----------- --------- ----------
+PROTECTION_MODE      PROTECTION_LEVEL     REMOTE_A ACTIVATION# SWITCHOVER# DATABASE_ROLE    ARCHIVELOG_CHANGE# ARCHIVEL SWITCHOVER_STATUS    DATAGUAR GUARD_S SUPPLEME SUP SUP FOR PLATFORM_ID
+-------------------- -------------------- -------- ----------- ----------- ---------------- ------------------ -------- -------------------- -------- ------- -------- --- --- --- -----------
+PLATFORM_NAME                                                                                         RECOVERY_TARGET_INCARNATION# LAST_OPEN_INCARNATION# CURRENT_SCN FLASHBACK_ON       SUP SUP DB_UNIQUE_NAME                 STANDBY_BECAME_PRIMARY_SCN
+----------------------------------------------------------------------------------------------------- ---------------------------- ---------------------- ----------- ------------------ --- --- ------------------------------ --------------------------
+FS_FAILOVER_STATUS    FS_FAILOVER_CURRENT_TARGET     FS_FAILOVER_THRESHOLD FS_FAIL
+--------------------- ------------------------------ --------------------- -------
+FS_FAILOVER_OBSERVER_HOST
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2078939695 WK10      14-AUG-07        1.8752E+10 01-JUL-10                       1 14-AUG-07 ARCHIVELOG           2.4734E+10      2.4734E+10 CURRENT 14-AUG-07             724382643          2.4734E+10 26-MAY-11 NOT ALLOWED 01-JUL-10 READ WRITE
+MAXIMUM PERFORMANCE  MAXIMUM PERFORMANCE  ENABLED   2171626993  2171626993 PRIMARY                  2.4734E+10 DISABLED SESSIONS ACTIVE      DISABLED NONE    NO       NO  NO  NO           13
+Linux x86 64-bit                                                                                                                 2                      2  2.4734E+10 NO                 NO  NO  wk10                                      1.8752E+10
+
+      DBID NAME      CREATED   RESETLOGS_CHANGE# RESETLOGS PRIOR_RESETLOGS_CHANGE# PRIOR_RES LOG_MODE     CHECKPOINT_CHANGE# ARCHIVE_CHANGE# CONTROL CONTROLFI CONTROLFILE_SEQUENCE# CONTROLFILE_CHANGE# CONTROLFI OPEN_RESETL VERSION_T OPEN_MODE
+---------- --------- --------- ----------------- --------- ----------------------- --------- ------------ ------------------ --------------- ------- --------- --------------------- ------------------- --------- ----------- --------- ----------
+PROTECTION_MODE      PROTECTION_LEVEL     REMOTE_A ACTIVATION# SWITCHOVER# DATABASE_ROLE    ARCHIVELOG_CHANGE# ARCHIVEL SWITCHOVER_STATUS    DATAGUAR GUARD_S SUPPLEME SUP SUP FOR PLATFORM_ID
+-------------------- -------------------- -------- ----------- ----------- ---------------- ------------------ -------- -------------------- -------- ------- -------- --- --- --- -----------
+PLATFORM_NAME                                                                                         RECOVERY_TARGET_INCARNATION# LAST_OPEN_INCARNATION# CURRENT_SCN FLASHBACK_ON       SUP SUP DB_UNIQUE_NAME                 STANDBY_BECAME_PRIMARY_SCN
+----------------------------------------------------------------------------------------------------- ---------------------------- ---------------------- ----------- ------------------ --- --- ------------------------------ --------------------------
+FS_FAILOVER_STATUS    FS_FAILOVER_CURRENT_TARGET     FS_FAILOVER_THRESHOLD FS_FAIL
+--------------------- ------------------------------ --------------------- -------
+FS_FAILOVER_OBSERVER_HOST
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DISABLED                                                                 0
+ 

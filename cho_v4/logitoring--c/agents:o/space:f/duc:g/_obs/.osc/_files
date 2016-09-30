@@ -1,0 +1,5 @@
+<directory name="duc" rev="1" srcmd5="d0a5712968e4a662552b33e0919757cb" vrev="1">
+  <serviceinfo code="succeeded" xsrcmd5="07315de03131c5492e06716d42eeeec0" />
+  <entry md5="976b1bcae949f29e3fee08b47f2c0949" mtime="1453125698" name="_service" size="468" />
+  <entry md5="98f64b141a07aff55cef2ee21f3adfbb" mtime="1453130245" name="duc.spec" size="2908" />
+</directory>

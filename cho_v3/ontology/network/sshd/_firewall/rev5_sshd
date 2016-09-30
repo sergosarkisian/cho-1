@@ -1,0 +1,6 @@
+## Name: rev5_sshd ports
+## Description: Open ports for rev5_sshd
+
+# space separated list of allowed TCP ports
+TCP="1000"
+ 

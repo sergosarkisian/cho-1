@@ -1,0 +1,6 @@
+<directory name="xen" rev="15" srcmd5="1463e26e208c7efa29819d96d952ec99" vrev="15">
+  <linkinfo baserev="1b2106b67c4111cd9f3fe106e6bf3797" lsrcmd5="1463e26e208c7efa29819d96d952ec99" package="xen" project="openSUSE:Factory" srcmd5="494cd99450b66e32f0dd20f566525818" xsrcmd5="e647cc355dfbf5deb0a0898b7a862a27" />
+  <serviceinfo code="succeeded" xsrcmd5="db1240a25f17627bf663173299d8dcd1" />
+  <entry md5="afc0828b5ee20d454d1807dfd99f5926" mtime="1467628868" name="_link" size="164" />
+  <entry md5="fb567f9583596d1c417551f7c73a0894" mtime="1462275451" name="libxl_qemu_directsync.patch" size="2682" />
+</directory>

@@ -1,0 +1,6 @@
+driver = sqlite
+connect = /etc/dovecot/authdb.sqlite
+
+default_pass_scheme = MD5
+password_query = SELECT password FROM users WHERE username = '%n' AND domain = '%d' AND active = '1'
+user_query = SELECT 1002 AS uid, 100 AS gid, '/home/imap/%d/%n' AS home, ('*:storage=' || quota || 'M') AS quota_rule FROM users WHERE username = '%n' AND domain = '%d' AND active = '1'

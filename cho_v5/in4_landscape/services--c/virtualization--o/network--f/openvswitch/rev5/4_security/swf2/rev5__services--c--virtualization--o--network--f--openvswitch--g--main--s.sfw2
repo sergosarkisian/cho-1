@@ -1,0 +1,6 @@
+## Name: services--c--virtualization--o--network--f--openvswitch--g--main--s
+## Description: Open ports for services--c--virtualization--o--network--f--openvswitch--g--main--s
+
+# space separated list of allowed TCP ports
+TCP=""
+ 

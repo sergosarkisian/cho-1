@@ -1,0 +1,59 @@
+{
+	"template": "web-haproxy-*",
+	"settings": {
+	"index.number_of_shards": 2
+	},
+	"mappings": {
+		"events": {
+			"_source": {
+			"enabled": true
+			},
+			"_timestamp": {
+				"enabled": true,
+				"path" : "es_timestamp"
+			},
+			"properties": {
+				"es_timestamp": {
+					"index": "not_analyzed",				
+					"type": "date"
+				},			
+				"host": {
+					"index": "not_analyzed",				
+					"type": "string"
+				},					
+				"client_port": {
+					"index": "not_analyzed",				
+					"type": "long"
+				},
+				"unixtime": {
+					"index": "not_analyzed",				
+					"type": "long"
+				},          
+				"fe_curr_conn": {
+					"index": "not_analyzed",				
+					"type": "long"
+				},
+				"status": {
+					"index": "not_analyzed",
+					"type": "long"
+				},
+				"srv_conn": {
+					"index": "not_analyzed",
+					"type": "long"
+				},
+				"srv_curr_con": {
+					"index": "not_analyzed",				
+					"type": "long"
+				},
+				"ssl_ciphers": {
+					"index": "not_analyzed",				
+					"type": "string"
+				},
+				"srv_name": {
+					"index": "not_analyzed",				
+					"type": "string"
+				}  					
+			}
+		}
+	}
+}

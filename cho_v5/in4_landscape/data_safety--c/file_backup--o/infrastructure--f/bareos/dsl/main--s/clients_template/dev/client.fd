@@ -1,0 +1,34 @@
+##
+FileDaemon {
+  Name			          = client_dev.pool
+  FDport		                  = 9102
+  WorkingDirectory	  = /var/lib/bareos
+  Pid Directory		  = /var/lib/bareos
+  Heartbeat Interval	  = 60
+  Maximum Concurrent Jobs = 1
+  Compatible = no 
+  Allowed Script Dir = /media/sysdata/rev5/
+
+  
+  ## Encryption
+  #PKI Encryption   = yes
+  #PKI Signatures   = yes
+  #PKI Keypair         = {pemBothPath}
+  #PKI Master Key  = {pemMasterKey}
+  #Pki Cipher = AES256
+ ##
+ 
+}
+# List Directors who are permitted to contact this File daemon
+Director {
+  Name		= director.test
+  Password	= "client_dev.pool"
+
+}
+
+# Send all messages to the Director
+Messages {
+  Name		= zabbix
+  director	= director.test = all, !skipped, !restored
+}
+##

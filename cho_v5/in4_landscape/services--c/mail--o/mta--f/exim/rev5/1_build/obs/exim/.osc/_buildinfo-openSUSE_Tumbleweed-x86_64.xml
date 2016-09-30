@@ -1,0 +1,341 @@
+<buildinfo project="home:conecenter:rev5a1:ontology:services--c:mail--o:mta--f" repository="openSUSE_Tumbleweed" package="exim" downloadurl="http://download.opensuse.org/repositories">
+  <arch>x86_64</arch>
+  <debuginfo>0</debuginfo>
+  <subpack>MACRO</subpack>
+  <bdep name="aaa_base" preinstall="1" runscripts="1" notmeta="1" version="13.2+git20160426.f25dcda" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="attr" preinstall="1" notmeta="1" version="2.4.47" release="7.99" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="bash" preinstall="1" notmeta="1" version="4.3" release="88.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="coreutils" preinstall="1" notmeta="1" version="8.25" release="2.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="diffutils" preinstall="1" notmeta="1" version="3.3" release="10.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="filesystem" preinstall="1" notmeta="1" version="13.3" release="10.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="fillup" preinstall="1" notmeta="1" version="1.42" release="273.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="glibc" preinstall="1" notmeta="1" version="2.23" release="6.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="grep" preinstall="1" notmeta="1" version="2.25" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libbz2-1" preinstall="1" notmeta="1" version="1.0.6" release="37.77" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libgcc_s1" preinstall="1" notmeta="1" version="6.1.1+r238085" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="m4" preinstall="1" notmeta="1" version="1.4.17" release="5.4" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libncurses5" preinstall="1" notmeta="1" version="6.0" release="11.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libncurses6" preinstall="1" notmeta="1" version="6.0" release="11.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="pam" preinstall="1" notmeta="1" version="1.3.0" release="1.10" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="permissions" preinstall="1" notmeta="1" version="20160413" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libreadline6" preinstall="1" notmeta="1" version="6.3" release="88.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="rpm" preinstall="1" notmeta="1" version="4.12.0.1" release="13.14" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="sed" preinstall="1" notmeta="1" version="4.2.2" release="9.57" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="tar" preinstall="1" notmeta="1" version="1.29" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libz1" preinstall="1" notmeta="1" version="1.2.8" release="11.74" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libselinux1" preinstall="1" notmeta="1" version="2.5" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="liblzma5" preinstall="1" notmeta="1" version="5.2.2" release="4.87" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libcap2" preinstall="1" notmeta="1" version="2.22" release="14.100" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libacl1" preinstall="1" notmeta="1" version="2.2.52" release="8.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libattr1" preinstall="1" notmeta="1" version="2.4.47" release="7.99" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libpopt0" preinstall="1" notmeta="1" version="1.16" release="28.91" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libelf1" preinstall="1" notmeta="1" version="0.166" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="liblua5_3" preinstall="1" notmeta="1" version="5.3.3" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libpcre1" preinstall="1" notmeta="1" version="8.39" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="util-linux" vminstall="1" version="2.28" release="4.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libmount1" vminstall="1" version="2.28" release="4.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="perl-base" vminstall="1" version="5.24.0" release="3.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libdb-4_8" vminstall="1" version="4.8.30" release="31.78" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libsepol1" vminstall="1" notmeta="1" version="2.5" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libblkid1" vminstall="1" version="2.28" release="4.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libuuid1" vminstall="1" version="2.28" release="4.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libsmartcols1" vminstall="1" version="2.28" release="4.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="kernel-obs-build" vminstall="1" notmeta="1" version="4.6.4" release="2.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="iproute2" vminstall="1" notmeta="1" version="4.6" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="cyrus-sasl-devel" version="2.1.26" release="12.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libidn-devel" version="1.32" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libspf2-devel" version="1.2.10" release="3.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libtool" version="2.4.6" release="4.67" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="pam-devel" version="1.3.0" release="1.10" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="openldap2-devel" version="2.4.44" release="19.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="pcre-devel" version="8.39" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libopenssl-devel" version="1.0.2h" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="tcpd-devel" version="7.6" release="888.79" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="xorg-x11-devel" version="7.6" release="47.2" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="postgresql-devel" version="9.4" release="1.2" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="sqlite3-devel" version="3.13.0" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="rpm-build" version="4.12.0.1" release="13.14" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="pkg-config" version="0.29.1" release="1.80" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="glibc-devel" version="2.23" release="6.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libsasl2-3" version="2.1.26" release="12.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libdb-4_8-devel" version="4.8.30" release="31.78" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libidn11" version="1.32" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libspf2-2" version="1.2.10" release="3.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="automake" version="1.15" release="4.2" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libltdl7" version="2.4.6" release="4.67" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="info" version="6.1" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libldap-2_4-2" version="2.4.44" release="19.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libstdc++-devel" version="6" release="1.18" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libpcre16-0" version="8.39" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libpcrecpp0" version="8.39" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libpcreposix0" version="8.39" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="zlib-devel" version="1.2.8" release="11.74" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libopenssl1_0_0" version="1.0.2h" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="openssl" version="1.0.2h" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libwrap0" version="7.6" release="888.79" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="freetype2-devel" version="2.6.5" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="fontconfig-devel" version="2.12.0" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="xorg-x11-util-devel" version="7.6_1" release="10.2" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="Mesa-libGL-devel" version="12.0.1" release="141.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="Mesa-libEGL-devel" version="12.0.1" release="141.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libSM-devel" version="1.2.2" release="5.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libX11-devel" version="1.6.3" release="2.15" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxkbfile-devel" version="1.0.9" release="2.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libFS-devel" version="1.0.7" release="1.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libICE-devel" version="1.0.9" release="3.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXTrap-devel" version="1.0.1" release="9.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXau-devel" version="1.0.8" release="6.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXaw-devel" version="1.0.13" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXcomposite-devel" version="0.4.4" release="10.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXcursor-devel" version="1.1.14" release="6.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXdamage-devel" version="1.1.4" release="9.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXdmcp-devel" version="1.1.2" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXevie-devel" version="1.0.3" release="12.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXext-devel" version="1.3.3" release="3.17" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXfixes-devel" version="5.0.2" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXfont-devel" version="1.5.1" release="2.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXfontcache-devel" version="1.0.5" release="12.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXft-devel" version="2.3.2" release="4.17" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXi-devel" version="1.7.6" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXinerama-devel" version="1.1.3" release="5.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXmu-devel" version="1.1.2" release="5.19" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXp-devel" version="1.0.3" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXpm-devel" version="3.5.11" release="5.7" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXprintAppUtil-devel" version="1.0.1" release="12.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXprintUtil-devel" version="1.0.1" release="12.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXrandr-devel" version="1.5.0" release="2.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXrender-devel" version="0.9.9" release="1.18" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXres-devel" version="1.0.7" release="5.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXt-devel" version="1.1.5" release="1.17" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXtst-devel" version="1.2.2" release="5.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXv-devel" version="1.0.10" release="5.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXvMC-devel" version="1.0.9" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXxf86dga-devel" version="1.1.4" release="5.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXxf86misc-devel" version="1.0.3" release="12.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXxf86vm-devel" version="1.1.4" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libdmx-devel" version="1.1.3" release="5.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libfontenc-devel" version="1.1.3" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="liblbxutil-devel" version="1.1.0" release="12.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="liboldX-devel" version="1.0.1" release="11.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-devel" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxkbui-devel" version="1.0.2" release="12.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="xbitmaps-devel" version="1.1.1" release="12.2" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="xcb-util-devel" version="0.4.0" release="1.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXss-devel" version="1.2.2" release="11.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libpciaccess-devel" version="0.13.4" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libpixman-1-0-devel" version="0.34.0" release="2.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="font-util" version="1.3.1" release="2.4" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="xtrans" version="1.3.5" release="1.3" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libmysqlclient-devel" version="10.0.22" release="3.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="postgresql94-devel" version="9.4.8" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libsqlite3-0" version="3.13.0" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="findutils" version="4.6.0" release="2.20" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="xz" version="5.2.2" release="4.87" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="gcc" version="6" release="1.18" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="cpio" version="2.12" release="3.86" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="file" version="5.25" release="3.79" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="net-tools" version="1.60" release="769.25" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="bzip2" version="1.0.6" release="37.77" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="make" version="4.2.1" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="gawk" version="4.1.3" release="2.25" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="gzip" version="1.8" release="1.25" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="binutils" version="2.26.1" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="glibc-locale" version="2.23" release="6.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="which" version="2.21" release="3.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="patch" version="2.7.5" release="1.108" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="systemd-rpm-macros" version="3" release="5.26" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="linux-glibc-devel" version="4.6" release="1.24" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="autoconf" version="2.69" release="13.81" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libzio1" version="1.02" release="1.107" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libaudit1" version="2.5" release="1.76" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libtirpc3" version="1.0.1" release="3.22" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libcrack2" version="2.9.5" release="1.79" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libnsl2" version="1.0.4" release="1.23" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libstdc++6-devel-gcc6" version="6.1.1+r238085" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libbz2-devel" version="1.0.6" release="37.77" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libfreetype6" version="2.6.5" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libexpat-devel" version="2.2.0" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="fontconfig" version="2.12.0" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="imake" version="1.0.7" release="3.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="makedepend" version="1.0.5" release="6.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="lndir" version="1.0.3" release="9.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="gccmakedep" version="1.0.3" release="3.3" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="xorg-cf-files" version="1.0.6" release="1.2" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="xorg-sgml-doctools" version="1.11" release="9.2" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libdrm-devel" version="2.4.68" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="Mesa-libGL1" version="12.0.1" release="141.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="Mesa-libEGL1" version="12.0.1" release="141.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="xproto-devel" version="7.0.29" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libSM6" version="1.2.2" release="5.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="kbproto-devel" version="1.0.7" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libX11-6" version="1.6.3" release="2.15" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libX11-xcb1" version="1.6.3" release="2.15" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxkbfile1" version="1.0.9" release="2.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="fontsproto-devel" version="2.1.3" release="4.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libFS6" version="1.0.7" release="1.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libICE6" version="1.0.9" release="3.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="trapproto-devel" version="3.4.3" release="4.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXTrap6" version="1.0.1" release="9.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXau6" version="1.0.8" release="6.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXaw7" version="1.0.13" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXaw6" version="1.0.13" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXaw8" version="1.0.13" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="compositeproto-devel" version="0.4.2" release="4.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXcomposite1" version="0.4.4" release="10.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXcursor1" version="1.1.14" release="6.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="damageproto-devel" version="1.2.1" release="4.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXdamage1" version="1.1.4" release="9.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXdmcp6" version="1.1.2" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXevie1" version="1.0.3" release="12.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="xextproto-devel" version="7.3.0" release="4.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXext6" version="1.3.3" release="3.17" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="fixesproto-devel" version="5.0" release="4.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXfixes3" version="5.0.2" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXfont1" version="1.5.1" release="2.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="fontcacheproto-devel" version="0.1.3" release="4.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXfontcache1" version="1.0.5" release="12.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXft2" version="2.3.2" release="4.17" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="inputproto-devel" version="2.3.2" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXi6" version="1.7.6" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="xineramaproto-devel" version="1.2.1" release="4.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXinerama1" version="1.1.3" release="5.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXmu6" version="1.1.2" release="5.19" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXmuu1" version="1.1.2" release="5.19" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="printproto-devel" version="1.0.5" release="4.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXp6" version="1.0.3" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXpm4" version="3.5.11" release="5.7" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXprintAppUtil1" version="1.0.1" release="12.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXprintUtil1" version="1.0.1" release="12.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXrandr2" version="1.5.0" release="2.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="randrproto-devel" version="1.5.0" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="renderproto-devel" version="0.11.1" release="4.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXrender1" version="0.9.9" release="1.18" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXRes1" version="1.0.7" release="5.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXt6" version="1.1.5" release="1.17" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="recordproto-devel" version="1.14.2" release="4.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXtst6" version="1.2.2" release="5.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="videoproto-devel" version="2.3.3" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXv1" version="1.0.10" release="5.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXvMC1" version="1.0.9" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="xf86dgaproto-devel" version="2.1" release="4.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXxf86dga1" version="1.1.4" release="5.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="xf86miscproto-devel" version="0.9.3" release="4.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXxf86misc1" version="1.0.3" release="12.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="xf86vidmodeproto-devel" version="2.3.1" release="4.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXxf86vm1" version="1.1.4" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="dmxproto-devel" version="2.3.1" release="4.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libdmx1" version="1.1.3" release="5.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libfontenc1" version="1.1.3" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="liblbxutil1" version="1.1.0" release="12.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="liboldX6" version="1.0.1" release="11.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="pthread-stubs-devel" version="0.3" release="3.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-composite0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-damage0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-dpms0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-dri2-0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-dri3-0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-glx0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-present0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-randr0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-record0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-render0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-res0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-screensaver0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-shape0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-shm0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-sync1" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-xf86dri0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-xfixes0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-xinerama0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-xkb1" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-xtest0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-xv0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-xvmc0" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxkbui1" version="1.0.2" release="12.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb-util1" version="0.4.0" release="1.6" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="scrnsaverproto-devel" version="1.2.2" release="4.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libXss1" version="1.2.2" release="11.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libpciaccess0" version="0.13.4" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libpixman-1-0" version="0.34.0" release="2.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libmysqlclient18" version="10.0.22" release="3.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libmysqlclient_r18" version="10.0.22" release="3.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libpq5" version="9.4.8" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libecpg6" version="9.4.8" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="update-alternatives" version="1.18.4" release="4.22" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libgmp10" version="6.1.1" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libcap-ng0" version="0.7.7" release="1.88" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libutempter0" version="1.1.6" release="8.108" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libfdisk1" version="2.28" release="4.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="insserv-compat" version="0.1" release="17.89" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="gcc6" version="6.1.1+r238085" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="cpp" version="6" release="1.18" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libmagic1" version="5.25" release="3.79" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="hostname" version="3.16" release="2.89" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="terminfo-base" version="6.0" release="11.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libtirpc-netconfig" version="1.0.1" release="3.22" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="cracklib" version="2.9.5" release="1.79" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libstdc++6" version="6.1.1+r238085" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libpng16-16" version="1.6.22" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libexpat1" version="2.2.0" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libdrm2" version="2.4.68" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libdrm_amdgpu1" version="2.4.68" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libdrm_intel1" version="2.4.68" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libdrm_nouveau2" version="2.4.68" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libdrm_radeon1" version="2.4.68" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxcb1" version="1.12" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libxshmfence1" version="1.2" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="Mesa-libglapi0" version="12.0.1" release="141.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="Mesa" version="12.0.1" release="141.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libwayland-client0" version="1.11.0" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libwayland-server0" version="1.11.0" release="1.3" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libgbm1" version="12.0.1" release="141.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libX11-data" version="1.6.3" release="2.15" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="xkeyboard-config" version="2.18" release="1.1" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="xbitmaps" version="1.1.1" release="12.2" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libmpfr4" version="3.1.4" release="1.86" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libisl15" version="0.16.1" release="1.86" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libmpc3" version="1.0.3" release="1.105" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="cpp6" version="6.1.1+r238085" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libasan3" version="6.1.1+r238085" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libatomic1" version="6.1.1+r238085" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libcilkrts5" version="6.1.1+r238085" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libgomp1" version="6.1.1+r238085" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libitm1" version="6.1.1+r238085" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="liblsan0" version="6.1.1+r238085" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libmpx2" version="6.1.1+r238085" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libmpxwrappers2" version="6.1.1+r238085" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libtsan0" version="6.1.1+r238085" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libubsan0" version="6.1.1+r238085" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="file-magic" version="5.25" release="3.79" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libgdbm4" version="1.12" release="1.17" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libLLVM" version="3.8.0" release="8.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libffi4" version="5.3.1+r234891" release="1.25" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libedit0" version="3.1.snap20150325" release="1.5" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="systemd-mini-devel" version="228" release="10.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libsystemd0-mini" version="228" release="10.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="krb5-mini" version="1.14.2" release="2.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libcom_err2" version="1.43.1" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libkeyutils1" version="1.5.9" release="5.29" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libverto1" version="0.2.6" release="4.26" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="gettext-tools-mini" version="0.19.8.1" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="gettext-runtime-mini" version="0.19.8.1" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="pam-modules" notmeta="1" version="12.1" release="27.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="perl" notmeta="1" version="5.24.0" release="3.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="build-mkbaselibs" notmeta="1" version="20160629" release="1.1" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="brp-check-suse" notmeta="1" version="13.2+git20150521.971ea2f" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="post-build-checks" notmeta="1" version="13.2+git20160512.be9650e" release="1.2" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="rpmlint-Factory" notmeta="1" version="1.0" release="89.415" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="build-compare" notmeta="1" version="20160406T155640.b74db7f" release="1.14" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="brp-extract-appdata" notmeta="1" version="2016.05.04" release="1.1" arch="noarch" project="openSUSE:Factory" repository="standard" />
+  <bdep name="ncurses-utils" notmeta="1" version="6.0" release="11.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="aaa_base-malloccheck" notmeta="1" version="13.2+git20160426.f25dcda" release="1.2" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="rpmlint-mini" notmeta="1" version="1.8" release="2.33" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="shadow" notmeta="1" version="4.2.1" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libsemanage1" notmeta="1" version="2.5" release="1.1" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <bdep name="libustr-1_0-1" notmeta="1" version="1.0.4" release="34.98" arch="x86_64" project="openSUSE:Factory" repository="standard" />
+  <path project="home:conecenter:rev5a1:ontology:services--c:mail--o:mta--f" repository="openSUSE_Tumbleweed" url="http://download.opensuse.org/repositories/home:/conecenter:/rev5a1:/ontology:/services--c:/mail--o:/mta--f/openSUSE_Tumbleweed/" />
+  <path project="openSUSE:Tumbleweed" repository="standard" />
+  <path project="openSUSE:Tumbleweed:Update" repository="standard" />
+  <path project="openSUSE:Factory:Update" repository="standard" />
+  <path project="openSUSE:Factory" repository="standard" />
+</buildinfo>

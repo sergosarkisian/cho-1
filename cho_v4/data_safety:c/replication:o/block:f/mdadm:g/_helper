@@ -1,0 +1,6 @@
+DEVICE /dev/sd[e-m]
+DEVICE /dev/xvd[e-m]
+DEVICE /dev/hd[e-m]
+
+#mdadm --create /dev/md/storage --name=mkm_coneccm_storage --raid-devices=2 /dev/sdc /dev/sdd --level=1 --metadata=1.2 
+ARRAY /dev/md/storage name=mkm_coneccm_storage

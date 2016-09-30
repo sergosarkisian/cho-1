@@ -1,0 +1,25 @@
+<% vlan =  @vlan_parameters["vlan"] -%>
+
+BOOTPROTO='static'
+BROADCAST=''
+ETHERDEVICE='<%= @interface -%>'
+ETHTOOL_OPTIONS=''
+IPADDR='<%= @ipaddress -%>/<%= @vlan_parameters["cidr"] -%>'
+MTU='<%= @vlan_parameters["mtu"] -%>'
+NAME=''
+NETWORK=''
+REMOTE_IPADDR=''
+STARTMODE='auto'
+USERCONTROL='no'
+VLAN_ID='<%= vlan -%>'
+<% inc = 0 -%>
+<% if @eth0_map_ips.has_key? vlan-%>
+<% @eth0_map_ips["#{vlan}"].each do |ip| -%>
+<% inc += 1 -%>
+IPADDR_<%= inc -%>='<%= ip -%>/<%= @vlan_parameters["cidr"] -%>'
+LABEL_<%= inc -%>='<%= inc -%>'
+<% end -%>
+<% end -%>
+<%=  -%>
+
+<%=  -%>

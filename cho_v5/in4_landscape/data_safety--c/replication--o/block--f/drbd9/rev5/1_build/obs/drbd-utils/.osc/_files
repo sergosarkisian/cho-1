@@ -1,0 +1,8 @@
+<directory name="drbd-utils" rev="13" srcmd5="12cf08aa348bc0e5dfa749afef30dd91" vrev="13">
+  <serviceinfo code="succeeded" xsrcmd5="c708b2bc1ddfd0083b0fc78c99c323b8" />
+  <entry md5="bb59a56c5d23035203da8c26709bfafb" mtime="1454956761" name="_service" size="518" />
+  <entry md5="143774b74dbbd364d32f17fc172dfae0" mtime="1455002367" name="drbd-utils.spec" size="4487" />
+  <entry md5="ec626cc1137ad43ff573c3840d5c3b7f" mtime="1455002246" name="drbd_git_revision" size="52" />
+  <entry md5="943b323febf648c606572c53d8d26d51" mtime="1424454327" name="fix-libdir-in-Makefile.patch" size="2137" />
+  <entry md5="f9a92667698cf246521637d19c68f180" mtime="1450938537" name="zeroout-discard-devices.patch" size="2273" />
+</directory>

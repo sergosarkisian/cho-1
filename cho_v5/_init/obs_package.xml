@@ -1,0 +1,4 @@
+<package name="{NAME}" project="home:conecenter:in4:form:technologies:{PROJECT}">
+  <title>{NAME}</title>
+  <description>{NAME}</description>
+</package>

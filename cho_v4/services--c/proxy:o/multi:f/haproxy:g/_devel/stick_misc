@@ -1,0 +1,52 @@
+# maximum SSL session ID length is 32 bytes.
+    stick-table type binary len 32 size 30k expire 30m store gpc0 peers peers_gate_tcp-ssl_cli_cert
+
+	# make sure we cover type 1 (fallback)
+    acl clienthello req_ssl_hello_type 1
+    acl serverhello rep_ssl_hello_type 2
+    
+    # use tcp content accepts to detects ssl client and server hello.
+    tcp-request inspect-delay 5s
+    tcp-request content accept if clienthello
+
+    # no timeout on response inspect delay by default.
+    tcp-response content accept if serverhello
+    
+	stick on payload_lv(43,1) if clienthello
+	
+    stick match payload_lv(43,1) if clienthello
+    
+	#
+	
+	
+	
+sc0_clr_gpc0	
+sc0_conn_cnt
+	
+	tcp-request content track-sc2 base32+src if METH_POST wp_login	
+	acl flag_bruteforce sc1_inc_gpc0 gt 0
+	tcp-response content close if { sc0_get_gpc0 gt 0 }
+	#track-sc0
+	
+         acl click_too_fast sc1_http_req_rate gt 10
+            acl mark_as_abuser sc0_inc_gpc0 gt 0
+            tcp-request content track-sc1 src
+            tcp-request content reject if click_too_fast mark_as_abuser	
+	#
+	#
+    stick store-response payload_lv(43,1) if serverhello
+    
+	server socket_cli_sk_https_sni unix@cli_sk_https_sni send-proxy-v2	
+
+	
+	
+	
+	
+        # block if 5 consecutive requests continue to come faster than 10 sess
+        # per second, and reset the counter as soon as the traffic slows down.
+        
+        acl abuse sc0_http_req_rate gt 10
+        acl kill  sc0_inc_gpc0 gt 2
+        acl save  sc0_clr_gpc0 ge 0
+        tcp-request connection accept if !abuse save
+        tcp-request connection reject if abuse kill	

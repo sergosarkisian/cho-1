@@ -1,0 +1,6 @@
+"event_type":"$acl_c_event_type", \
+"event_class":"$acl_c_event_class", \
+"event_view":"$acl_c_event_view", \
+"rule_section":"$acl_c_rule_section", \
+"rule_action":"$acl_c_rule_action", \
+"exim_flow":"in", \

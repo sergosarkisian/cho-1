@@ -1,0 +1,6 @@
+## Name: rev5_postgres ports
+## Description: Open ports for rev5_postgres
+
+# space separated list of allowed TCP ports
+TCP="5432"
+ 

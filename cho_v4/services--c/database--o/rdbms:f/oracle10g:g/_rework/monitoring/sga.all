@@ -1,0 +1,9 @@
+SQL> select * from V$SGA;
+
+NAME                      VALUE
+-------------------- ----------
+Fixed Size              2122368
+Variable Size        9445576064
+Database Buffers     1.2012E+10
+Redo Buffers           14651392
+ 

@@ -1,0 +1,19 @@
+// uschar *log_section;
+// if (sender_host_address != NULL && sender_host_name != NULL && sender_host_port != NULL) {
+//     log_section = log_section +  " \"sender_host_address\":\"%s\", \"sender_host_name\":\"%s\", \"sender_host_port\":\"%s\","
+//     ....
+//     sender_host_address, sender_host_name, sender_host_port, //SECTION1
+//...
+//             "\"sender_address\":\"%s\", " //SECTION2
+//sender_address, //SECTION2
+
+// }
+    
+    log_write(L_address_rewrite,
+            LOG_CEE, "@cee: {"
+            "\"event_type\":\"mail\", \"event_class\":\"internal\", \"event_view\":\"rewrite\", " //HEADER_ALL
+            "\"message_id\":\"%s\","  //SECTION4
+            "\"rewrite_from\":\"%s\", \"rewrite_header\":\"%s\", \"rewrite_to\": \"%s\", \"rewrite_rule\":\"%d\"}", //CONTEXT
+             message_id, //SECTION4
+            yield, where, new, rule_number); //CONTEXT
+    }  

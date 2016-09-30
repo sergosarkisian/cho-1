@@ -1,0 +1,12 @@
+--- ./src/src/expand.c.orig	2016-07-31 18:52:06.000000000 +0300
++++ ./src/src/expand.c	2016-08-17 19:07:01.586565476 +0300
+@@ -6831,8 +6831,7 @@
+ 
+         if (c == EOP_QUOTE)
+           {
+-          while (!needs_quote && *(++t) != 0)
+-            needs_quote = !isalnum(*t) && !strchr("_-.", *t);
++            needs_quote = 1;
+           }
+         else  /* EOP_QUOTE_LOCAL_PART */
+           {

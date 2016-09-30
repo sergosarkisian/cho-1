@@ -1,0 +1,10 @@
+auth    requisite   pam_nologin.so 
+auth    required        pam_env.so
+auth    required        pam_sss.so    domains=sshd
+
+account     requisite   pam_nologin.so
+account     include     common-account
+password    include     common-password
+session     required    pam_loginuid.so
+session     include     common-session
+session  optional       pam_lastlog.so   silent noupdate showfailed

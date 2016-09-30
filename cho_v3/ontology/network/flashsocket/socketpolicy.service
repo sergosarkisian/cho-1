@@ -1,0 +1,16 @@
+[Unit]
+Description=Websocket socketpolicy for Flash
+After=network.target
+
+[Service]
+WorkingDirectory= /tmp
+ExecStart=/usr/bin/perl /etc/faster/cmdb/techpool/flashsocket/socketpolicy.pl
+
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=flashsocket                                                                                                                                                                                                                                                   
+SyslogFacility=local6                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                               
+[Install]                                                                                                                                                                                                                                                                      
+WantedBy=multi-user.target   

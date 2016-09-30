@@ -1,0 +1,12 @@
+
+# brute force protection
+acl wp_login path_beg -i /wp-login.php
+stick-table type binary len 20 size 500 store http_req_rate(20s) peers local
+
+tcp-request content track-sc2 base32+src if METH_POST wp_login
+stick store-request base32+src if METH_POST wp_login
+
+acl bruteforce_detection sc2_http_req_rate gt 5
+acl flag_bruteforce sc1_inc_gpc0 gt 0
+http-request deny if bruteforce_detection flag_bruteforce
+

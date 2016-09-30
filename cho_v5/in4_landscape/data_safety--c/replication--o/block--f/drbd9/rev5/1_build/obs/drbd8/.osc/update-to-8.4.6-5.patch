@@ -1,0 +1,1241 @@
+diff --git a/ChangeLog b/ChangeLog
+index 47d535d..eddc3a7 100644
+--- a/ChangeLog
++++ b/ChangeLog
+@@ -1,6 +1,14 @@
+ Latest:
+ ------
+- For even more detail, use "git log" or visit http://git.drbd.org/.
++ For even more detail, visit http://git.linbit.com/drbd-8.4.git
++
++ * fix latency regression introduced with 8.4.5
++   protocol A was sometimes synchronous, C sometimes double-latency
++ * avoid potential deadlock during handshake
++ * avoid potential deadlock in disconnect during resync
++   with fencing resource-and-stonith
++ * allow IO during some bitmap bulk IO operations
++ * fix "endless" transfer log walk in protocol A
+ 
+ 8.4.6 (api:genl1/proto:86-101)
+ -------
+diff --git a/drbd-kernel.spec b/drbd-kernel.spec
+index 489b09f..9b70767 100644
+--- a/drbd-kernel.spec
++++ b/drbd-kernel.spec
+@@ -1,7 +1,7 @@
+ Name: drbd-kernel
+ Summary: Kernel driver for DRBD
+ Version: 8.4.6
+-Release: 1%{?dist}
++Release: 5%{?dist}
+ Source: http://oss.linbit.com/drbd/drbd-%{version}.tar.gz
+ License: GPLv2+
+ Group: System Environment/Kernel
+@@ -97,6 +97,12 @@ echo "override drbd * weak-updates" \
+ rm -rf %{buildroot}
+ 
+ %changelog
++* Wed Sep 16 2015  Lars Ellenberg <lars@linbit.com> - 8.4.6-5
++- New upstream release.
++
++* Thu Jul 30 2015 Lars Ellenberg <lars@linbit.com> - 8.4.6-4
++- New upstream release.
++
+ * Fri Apr  3 2015 Philipp Reisner <phil@linbit.com> - 8.4.6-1
+ - New upstream release.
+ 
+diff --git a/drbd-km.spec b/drbd-km.spec
+index 859aa51..0cb976d 100644
+--- a/drbd-km.spec
++++ b/drbd-km.spec
+@@ -10,7 +10,7 @@
+ Name: drbd-km
+ Summary: DRBD driver for Linux
+ Version: 8.4.6
+-Release: 1
++Release: 5
+ Source: http://oss.linbit.com/%{name}/8.4/drbd-%{version}.tar.gz
+ License: GPLv2+
+ ExclusiveOS: linux
+@@ -32,7 +32,7 @@ setting up high availability (HA) clusters.
+ Summary: Kernel driver for DRBD.
+ Group: System Environment/Kernel
+ # always require a suitable userland and depmod.
+-Requires: drbd-utils = %{version}, /sbin/depmod
++Requires: drbd-utils >= 8.9.2, /sbin/depmod
+ # to be able to override from build scripts which flavor of kernel we are building against.
+ Requires: %{expand: %(echo ${DRBD_KMOD_REQUIRES:-kernel})}
+ # TODO: break up this generic .spec file into per distribution ones,
+@@ -92,6 +92,12 @@ uname -r | grep BOOT ||
+ 
+ 
+ %changelog
++* Wed Sep 16 2015  Lars Ellenberg <lars@linbit.com> - 8.4.6-5
++- New upstream release.
++
++* Thu Jul 30 2015 Lars Ellenberg <lars@linbit.com> - 8.4.6-4
++- New upstream release.
++
+ * Fri Apr  3 2015 Philipp Reisner <phil@linbit.com> - 8.4.6-1
+ - New upstream release.
+ 
+diff --git a/drbd/compat/tests/have_WB_congested_enum.c b/drbd/compat/tests/have_WB_congested_enum.c
+new file mode 100644
+index 0000000..37fb32d
+--- /dev/null
++++ b/drbd/compat/tests/have_WB_congested_enum.c
+@@ -0,0 +1,13 @@
++#include <linux/backing-dev.h>
++
++
++/* With commit 4452226 (linux v4.2)
++   BDI_async_congested was renamed to WB_async_congested and
++   BDI_sync_congested was renamed to WB_sync_congested.
++   */
++
++void foo(void)
++{
++	int a = WB_async_congested;
++	int b = WB_sync_congested;
++}
+diff --git a/drbd/compat/tests/have_generic_start_io_acct.c b/drbd/compat/tests/have_generic_start_io_acct.c
+new file mode 100644
+index 0000000..14a18d1
+--- /dev/null
++++ b/drbd/compat/tests/have_generic_start_io_acct.c
+@@ -0,0 +1,8 @@
++#include <linux/bio.h>
++
++/* Introduced by mainline commit 394ffa503b, available since v3.19 */
++
++void foo(void)
++{
++	generic_start_io_acct(WRITE, 0, (struct hd_struct *) NULL);
++}
+diff --git a/drbd/compat/tests/have_simple_positive.c b/drbd/compat/tests/have_simple_positive.c
+new file mode 100644
+index 0000000..410f157
+--- /dev/null
++++ b/drbd/compat/tests/have_simple_positive.c
+@@ -0,0 +1,8 @@
++#include <linux/dcache.h>
++
++/* Since dc3f4198e (linux v4.2) simple_positive is accessible for modules */
++
++void foo(void)
++{
++	int r = simple_positive((struct dentry *)NULL);
++}
+diff --git a/drbd/compat/tests/sock_create_kern_has_five_parameters.c b/drbd/compat/tests/sock_create_kern_has_five_parameters.c
+new file mode 100644
+index 0000000..342af09
+--- /dev/null
++++ b/drbd/compat/tests/sock_create_kern_has_five_parameters.c
+@@ -0,0 +1,11 @@
++#include <linux/net.h>
++
++
++/* With commit eeb1bd5 (linux v4.2) a new parameter was inserted in
++   first position */
++
++void foo(void)
++{
++	int err;
++	err = sock_create_kern((struct net *)NULL, 0, 0, 0, (struct socket **)NULL);
++}
+diff --git a/drbd/drbd_actlog.c b/drbd/drbd_actlog.c
+index 00c7956..1a274c5 100644
+--- a/drbd/drbd_actlog.c
++++ b/drbd/drbd_actlog.c
+@@ -312,7 +312,162 @@ bool drbd_al_begin_io_prepare(struct drbd_device *device, struct drbd_interval *
+ 	return need_transaction;
+ }
+ 
+-static int al_write_transaction(struct drbd_device *device);
++#if (PAGE_SHIFT + 3) < (AL_EXTENT_SHIFT - BM_BLOCK_SHIFT)
++/* Currently BM_BLOCK_SHIFT, BM_EXT_SHIFT and AL_EXTENT_SHIFT
++ * are still coupled, or assume too much about their relation.
++ * Code below will not work if this is violated.
++ * Will be cleaned up with some followup patch.
++ */
++# error FIXME
++#endif
++
++static unsigned int al_extent_to_bm_page(unsigned int al_enr)
++{
++	return al_enr >>
++		/* bit to page */
++		((PAGE_SHIFT + 3) -
++		/* al extent number to bit */
++		 (AL_EXTENT_SHIFT - BM_BLOCK_SHIFT));
++}
++
++static sector_t al_tr_number_to_on_disk_sector(struct drbd_device *device)
++{
++	const unsigned int stripes = device->ldev->md.al_stripes;
++	const unsigned int stripe_size_4kB = device->ldev->md.al_stripe_size_4k;
++
++	/* transaction number, modulo on-disk ring buffer wrap around */
++	unsigned int t = device->al_tr_number % (device->ldev->md.al_size_4k);
++
++	/* ... to aligned 4k on disk block */
++	t = ((t % stripes) * stripe_size_4kB) + t/stripes;
++
++	/* ... to 512 byte sector in activity log */
++	t *= 8;
++
++	/* ... plus offset to the on disk position */
++	return device->ldev->md.md_offset + device->ldev->md.al_offset + t;
++}
++
++static int __al_write_transaction(struct drbd_device *device, struct al_transaction_on_disk *buffer)
++{
++	struct lc_element *e;
++	sector_t sector;
++	int i, mx;
++	unsigned extent_nr;
++	unsigned crc = 0;
++	int err = 0;
++
++	memset(buffer, 0, sizeof(*buffer));
++	buffer->magic = cpu_to_be32(DRBD_AL_MAGIC);
++	buffer->tr_number = cpu_to_be32(device->al_tr_number);
++
++	i = 0;
++
++	/* Even though no one can start to change this list
++	 * once we set the LC_LOCKED -- from drbd_al_begin_io(),
++	 * lc_try_lock_for_transaction() --, someone may still
++	 * be in the process of changing it. */
++	spin_lock_irq(&device->al_lock);
++	list_for_each_entry(e, &device->act_log->to_be_changed, list) {
++		if (i == AL_UPDATES_PER_TRANSACTION) {
++			i++;
++			break;
++		}
++		buffer->update_slot_nr[i] = cpu_to_be16(e->lc_index);
++		buffer->update_extent_nr[i] = cpu_to_be32(e->lc_new_number);
++		if (e->lc_number != LC_FREE)
++			drbd_bm_mark_for_writeout(device,
++					al_extent_to_bm_page(e->lc_number));
++		i++;
++	}
++	spin_unlock_irq(&device->al_lock);
++	BUG_ON(i > AL_UPDATES_PER_TRANSACTION);
++
++	buffer->n_updates = cpu_to_be16(i);
++	for ( ; i < AL_UPDATES_PER_TRANSACTION; i++) {
++		buffer->update_slot_nr[i] = cpu_to_be16(-1);
++		buffer->update_extent_nr[i] = cpu_to_be32(LC_FREE);
++	}
++
++	buffer->context_size = cpu_to_be16(device->act_log->nr_elements);
++	buffer->context_start_slot_nr = cpu_to_be16(device->al_tr_cycle);
++
++	mx = min_t(int, AL_CONTEXT_PER_TRANSACTION,
++		   device->act_log->nr_elements - device->al_tr_cycle);
++	for (i = 0; i < mx; i++) {
++		unsigned idx = device->al_tr_cycle + i;
++		extent_nr = lc_element_by_index(device->act_log, idx)->lc_number;
++		buffer->context[i] = cpu_to_be32(extent_nr);
++	}
++	for (; i < AL_CONTEXT_PER_TRANSACTION; i++)
++		buffer->context[i] = cpu_to_be32(LC_FREE);
++
++	device->al_tr_cycle += AL_CONTEXT_PER_TRANSACTION;
++	if (device->al_tr_cycle >= device->act_log->nr_elements)
++		device->al_tr_cycle = 0;
++
++	sector = al_tr_number_to_on_disk_sector(device);
++
++	crc = crc32c(0, buffer, 4096);
++	buffer->crc32c = cpu_to_be32(crc);
++
++	if (drbd_bm_write_hinted(device))
++		err = -EIO;
++	else {
++		bool write_al_updates;
++		rcu_read_lock();
++		write_al_updates = rcu_dereference(device->ldev->disk_conf)->al_updates;
++		rcu_read_unlock();
++		if (write_al_updates) {
++			if (drbd_md_sync_page_io(device, device->ldev, sector, WRITE)) {
++				err = -EIO;
++				drbd_chk_io_error(device, 1, DRBD_META_IO_ERROR);
++			} else {
++				device->al_tr_number++;
++				device->al_writ_cnt++;
++			}
++		}
++	}
++
++	return err;
++}
++
++static int al_write_transaction(struct drbd_device *device)
++{
++	struct al_transaction_on_disk *buffer;
++	int err;
++
++	if (!get_ldev(device)) {
++		drbd_err(device, "disk is %s, cannot start al transaction\n",
++			drbd_disk_str(device->state.disk));
++		return -EIO;
++	}
++
++	/* The bitmap write may have failed, causing a state change. */
++	if (device->state.disk < D_INCONSISTENT) {
++		drbd_err(device,
++			"disk is %s, cannot write al transaction\n",
++			drbd_disk_str(device->state.disk));
++		put_ldev(device);
++		return -EIO;
++	}
++
++	/* protects md_io_buffer, al_tr_cycle, ... */
++	buffer = drbd_md_get_buffer(device, __func__);
++	if (!buffer) {
++		drbd_err(device, "disk failed while waiting for md_io buffer\n");
++		put_ldev(device);
++		return -ENODEV;
++	}
++
++	err = __al_write_transaction(device, buffer);
++
++	drbd_md_put_buffer(device);
++	put_ldev(device);
++
++	return err;
++}
++
+ 
+ void drbd_al_begin_io_commit(struct drbd_device *device)
+ {
+@@ -444,153 +599,6 @@ void drbd_al_complete_io(struct drbd_device *device, struct drbd_interval *i)
+ 	wake_up(&device->al_wait);
+ }
+ 
+-#if (PAGE_SHIFT + 3) < (AL_EXTENT_SHIFT - BM_BLOCK_SHIFT)
+-/* Currently BM_BLOCK_SHIFT, BM_EXT_SHIFT and AL_EXTENT_SHIFT
+- * are still coupled, or assume too much about their relation.
+- * Code below will not work if this is violated.
+- * Will be cleaned up with some followup patch.
+- */
+-# error FIXME
+-#endif
+-
+-static unsigned int al_extent_to_bm_page(unsigned int al_enr)
+-{
+-	return al_enr >>
+-		/* bit to page */
+-		((PAGE_SHIFT + 3) -
+-		/* al extent number to bit */
+-		 (AL_EXTENT_SHIFT - BM_BLOCK_SHIFT));
+-}
+-
+-static sector_t al_tr_number_to_on_disk_sector(struct drbd_device *device)
+-{
+-	const unsigned int stripes = device->ldev->md.al_stripes;
+-	const unsigned int stripe_size_4kB = device->ldev->md.al_stripe_size_4k;
+-
+-	/* transaction number, modulo on-disk ring buffer wrap around */
+-	unsigned int t = device->al_tr_number % (device->ldev->md.al_size_4k);
+-
+-	/* ... to aligned 4k on disk block */
+-	t = ((t % stripes) * stripe_size_4kB) + t/stripes;
+-
+-	/* ... to 512 byte sector in activity log */
+-	t *= 8;
+-
+-	/* ... plus offset to the on disk position */
+-	return device->ldev->md.md_offset + device->ldev->md.al_offset + t;
+-}
+-
+-int al_write_transaction(struct drbd_device *device)
+-{
+-	struct al_transaction_on_disk *buffer;
+-	struct lc_element *e;
+-	sector_t sector;
+-	int i, mx;
+-	unsigned extent_nr;
+-	unsigned crc = 0;
+-	int err = 0;
+-
+-	if (!get_ldev(device)) {
+-		drbd_err(device, "disk is %s, cannot start al transaction\n",
+-			drbd_disk_str(device->state.disk));
+-		return -EIO;
+-	}
+-
+-	/* The bitmap write may have failed, causing a state change. */
+-	if (device->state.disk < D_INCONSISTENT) {
+-		drbd_err(device,
+-			"disk is %s, cannot write al transaction\n",
+-			drbd_disk_str(device->state.disk));
+-		put_ldev(device);
+-		return -EIO;
+-	}
+-
+-	/* protects md_io_buffer, al_tr_cycle, ... */
+-	buffer = drbd_md_get_buffer(device, __func__);
+-	if (!buffer) {
+-		drbd_err(device, "disk failed while waiting for md_io buffer\n");
+-		put_ldev(device);
+-		return -ENODEV;
+-	}
+-
+-	memset(buffer, 0, sizeof(*buffer));
+-	buffer->magic = cpu_to_be32(DRBD_AL_MAGIC);
+-	buffer->tr_number = cpu_to_be32(device->al_tr_number);
+-
+-	i = 0;
+-
+-	/* Even though no one can start to change this list
+-	 * once we set the LC_LOCKED -- from drbd_al_begin_io(),
+-	 * lc_try_lock_for_transaction() --, someone may still
+-	 * be in the process of changing it. */
+-	spin_lock_irq(&device->al_lock);
+-	list_for_each_entry(e, &device->act_log->to_be_changed, list) {
+-		if (i == AL_UPDATES_PER_TRANSACTION) {
+-			i++;
+-			break;
+-		}
+-		buffer->update_slot_nr[i] = cpu_to_be16(e->lc_index);
+-		buffer->update_extent_nr[i] = cpu_to_be32(e->lc_new_number);
+-		if (e->lc_number != LC_FREE)
+-			drbd_bm_mark_for_writeout(device,
+-					al_extent_to_bm_page(e->lc_number));
+-		i++;
+-	}
+-	spin_unlock_irq(&device->al_lock);
+-	BUG_ON(i > AL_UPDATES_PER_TRANSACTION);
+-
+-	buffer->n_updates = cpu_to_be16(i);
+-	for ( ; i < AL_UPDATES_PER_TRANSACTION; i++) {
+-		buffer->update_slot_nr[i] = cpu_to_be16(-1);
+-		buffer->update_extent_nr[i] = cpu_to_be32(LC_FREE);
+-	}
+-
+-	buffer->context_size = cpu_to_be16(device->act_log->nr_elements);
+-	buffer->context_start_slot_nr = cpu_to_be16(device->al_tr_cycle);
+-
+-	mx = min_t(int, AL_CONTEXT_PER_TRANSACTION,
+-		   device->act_log->nr_elements - device->al_tr_cycle);
+-	for (i = 0; i < mx; i++) {
+-		unsigned idx = device->al_tr_cycle + i;
+-		extent_nr = lc_element_by_index(device->act_log, idx)->lc_number;
+-		buffer->context[i] = cpu_to_be32(extent_nr);
+-	}
+-	for (; i < AL_CONTEXT_PER_TRANSACTION; i++)
+-		buffer->context[i] = cpu_to_be32(LC_FREE);
+-
+-	device->al_tr_cycle += AL_CONTEXT_PER_TRANSACTION;
+-	if (device->al_tr_cycle >= device->act_log->nr_elements)
+-		device->al_tr_cycle = 0;
+-
+-	sector = al_tr_number_to_on_disk_sector(device);
+-
+-	crc = crc32c(0, buffer, 4096);
+-	buffer->crc32c = cpu_to_be32(crc);
+-
+-	if (drbd_bm_write_hinted(device))
+-		err = -EIO;
+-	else {
+-		bool write_al_updates;
+-		rcu_read_lock();
+-		write_al_updates = rcu_dereference(device->ldev->disk_conf)->al_updates;
+-		rcu_read_unlock();
+-		if (write_al_updates) {
+-			if (drbd_md_sync_page_io(device, device->ldev, sector, WRITE)) {
+-				err = -EIO;
+-				drbd_chk_io_error(device, 1, DRBD_META_IO_ERROR);
+-			} else {
+-				device->al_tr_number++;
+-				device->al_writ_cnt++;
+-			}
+-		}
+-	}
+-
+-	drbd_md_put_buffer(device);
+-	put_ldev(device);
+-
+-	return err;
+-}
+-
+ static int _try_lc_del(struct drbd_device *device, struct lc_element *al_ext)
+ {
+ 	int rv;
+@@ -630,21 +638,24 @@ void drbd_al_shrink(struct drbd_device *device)
+ 	wake_up(&device->al_wait);
+ }
+ 
+-int drbd_initialize_al(struct drbd_device *device, void *buffer)
++int drbd_al_initialize(struct drbd_device *device, void *buffer)
+ {
+ 	struct al_transaction_on_disk *al = buffer;
+ 	struct drbd_md *md = &device->ldev->md;
+-	sector_t al_base = md->md_offset + md->al_offset;
+ 	int al_size_4k = md->al_stripes * md->al_stripe_size_4k;
+ 	int i;
+ 
+-	memset(al, 0, 4096);
+-	al->magic = cpu_to_be32(DRBD_AL_MAGIC);
+-	al->transaction_type = cpu_to_be16(AL_TR_INITIALIZED);
+-	al->crc32c = cpu_to_be32(crc32c(0, al, 4096));
++	__al_write_transaction(device, al);
++	/* There may or may not have been a pending transaction. */
++	spin_lock_irq(&device->al_lock);
++	lc_committed(device->act_log);
++	spin_unlock_irq(&device->al_lock);
+ 
+-	for (i = 0; i < al_size_4k; i++) {
+-		int err = drbd_md_sync_page_io(device, device->ldev, al_base + i * 8, WRITE);
++	/* The rest of the transactions will have an empty "updates" list, and
++	 * are written out only to provide the context, and to initialize the
++	 * on-disk ring buffer. */
++	for (i = 1; i < al_size_4k; i++) {
++		int err = __al_write_transaction(device, al);
+ 		if (err)
+ 			return err;
+ 	}
+diff --git a/drbd/drbd_debugfs.c b/drbd/drbd_debugfs.c
+index da50b19..df9b4a8 100644
+--- a/drbd/drbd_debugfs.c
++++ b/drbd/drbd_debugfs.c
+@@ -429,14 +429,6 @@ static int in_flight_summary_show(struct seq_file *m, void *pos)
+ #endif
+ 
+ 
+-/* simple_positive(file->f_path.dentry) respectively debugfs_positive(),
+- * but neither is "reachable" from here.
+- * So we have our own inline version of it above.  :-( */
+-static inline int debugfs_positive(struct dentry *dentry)
+-{
+-        return dentry->d_inode && !d_unhashed(dentry);
+-}
+-
+ /* make sure at *open* time that the respective object won't go away. */
+ static int drbd_single_open(struct file *file, int (*show)(struct seq_file *, void *),
+ 		                void *data, struct kref *kref,
+@@ -454,7 +446,7 @@ static int drbd_single_open(struct file *file, int (*show)(struct seq_file *, vo
+ 	/* serialize with d_delete() */
+ 	mutex_lock(&parent->d_inode->i_mutex);
+ 	/* Make sure the object is still alive */
+-	if (debugfs_positive(file->f_dentry)
++	if (simple_positive(file->f_dentry)
+ 	&& kref_get_unless_zero(kref))
+ 		ret = 0;
+ 	mutex_unlock(&parent->d_inode->i_mutex);
+diff --git a/drbd/drbd_int.h b/drbd/drbd_int.h
+index 08d6648..d1e2bc0 100644
+--- a/drbd/drbd_int.h
++++ b/drbd/drbd_int.h
+@@ -36,6 +36,9 @@
+ #include <linux/crypto.h>
+ #include <linux/tcp.h>
+ #include <linux/mutex.h>
++#include <linux/major.h>
++#include <linux/blkdev.h>
++#include <linux/backing-dev.h>
+ #include <linux/genhd.h>
+ #include <linux/idr.h>
+ #include <net/tcp.h>
+@@ -98,14 +101,10 @@ extern int fault_devs;
+ 
+ extern char usermode_helper[];
+ 
+-#include <linux/major.h>
+ #ifndef DRBD_MAJOR
+ # define DRBD_MAJOR 147
+ #endif
+ 
+-#include <linux/blkdev.h>
+-#include <linux/bio.h>
+-
+ /* This is used to stop/restart our threads.
+  * Cannot use SIGTERM nor SIGKILL, since these
+  * are sent out by init on runlevel changes
+@@ -593,7 +592,6 @@ enum {
+ 
+ 	MD_NO_BARRIER,		/* meta data device does not support barriers,
+ 				   so don't even try */
+-	SUSPEND_IO,		/* suspend application io */
+ 	BITMAP_IO,		/* suspend application io;
+ 				   once no more io in flight, start bitmap io */
+ 	BITMAP_IO_QUEUED,       /* Started bitmap IO */
+@@ -986,6 +984,7 @@ struct drbd_device {
+ 	atomic_t rs_pending_cnt; /* RS request/data packets on the wire */
+ 	atomic_t unacked_cnt;	 /* Need to send replies for */
+ 	atomic_t local_cnt;	 /* Waiting for local completion */
++	atomic_t suspend_cnt;
+ 
+ 	/* Interval tree of pending local write requests */
+ 	struct rb_root read_requests;
+@@ -1785,7 +1784,7 @@ extern int __drbd_change_sync(struct drbd_device *device, sector_t sector, int s
+ #define drbd_rs_failed_io(device, sector, size) \
+ 	__drbd_change_sync(device, sector, size, RECORD_RS_FAILED)
+ extern void drbd_al_shrink(struct drbd_device *device);
+-extern int drbd_initialize_al(struct drbd_device *, void *);
++extern int drbd_al_initialize(struct drbd_device *, void *);
+ 
+ /* drbd_nl.c */
+ /* state info broadcast */
+@@ -2376,7 +2375,7 @@ static inline bool may_inc_ap_bio(struct drbd_device *device)
+ 
+ 	if (drbd_suspended(device))
+ 		return false;
+-	if (test_bit(SUSPEND_IO, &device->flags))
++	if (atomic_read(&device->suspend_cnt))
+ 		return false;
+ 
+ 	/* to avoid potential deadlock or bitmap corruption,
+diff --git a/drbd/drbd_main.c b/drbd/drbd_main.c
+index f41aa8a..31bf43f 100644
+--- a/drbd/drbd_main.c
++++ b/drbd/drbd_main.c
+@@ -2435,7 +2435,7 @@ static void drbd_cleanup(void)
+  * @congested_data:	User data
+  * @bdi_bits:		Bits the BDI flusher thread is currently interested in
+  *
+- * Returns 1<<BDI_async_congested and/or 1<<BDI_sync_congested if we are congested.
++ * Returns 1<<WB_async_congested and/or 1<<WB_sync_congested if we are congested.
+  */
+ static int drbd_congested(void *congested_data, int bdi_bits)
+ {
+@@ -2452,14 +2452,14 @@ static int drbd_congested(void *congested_data, int bdi_bits)
+ 	}
+ 
+ 	if (test_bit(CALLBACK_PENDING, &first_peer_device(device)->connection->flags)) {
+-		r |= (1 << BDI_async_congested);
++		r |= (1 << WB_async_congested);
+ 		/* Without good local data, we would need to read from remote,
+ 		 * and that would need the worker thread as well, which is
+ 		 * currently blocked waiting for that usermode helper to
+ 		 * finish.
+ 		 */
+ 		if (!get_ldev_if_state(device, D_UP_TO_DATE))
+-			r |= (1 << BDI_sync_congested);
++			r |= (1 << WB_sync_congested);
+ 		else
+ 			put_ldev(device);
+ 		r &= bdi_bits;
+@@ -2475,9 +2475,9 @@ static int drbd_congested(void *congested_data, int bdi_bits)
+ 			reason = 'b';
+ 	}
+ 
+-	if (bdi_bits & (1 << BDI_async_congested) &&
++	if (bdi_bits & (1 << WB_async_congested) &&
+ 	    test_bit(NET_CONGESTED, &first_peer_device(device)->connection->flags)) {
+-		r |= (1 << BDI_async_congested);
++		r |= (1 << WB_async_congested);
+ 		reason = reason == 'b' ? 'a' : 'n';
+ 	}
+ 
+@@ -3601,7 +3601,12 @@ static int w_bitmap_io(struct drbd_work *w, int unused)
+ 	struct bm_io_work *work = &device->bm_io_work;
+ 	int rv = -EIO;
+ 
+-	D_ASSERT(device, atomic_read(&device->ap_bio_cnt) == 0);
++	if (work->flags != BM_LOCKED_CHANGE_ALLOWED) {
++		int cnt = atomic_read(&device->ap_bio_cnt);
++		if (cnt)
++			drbd_err(device, "FIXME: ap_bio_cnt %d, expected 0; queued for '%s'\n",
++					cnt, work->why);
++	}
+ 
+ 	if (get_ldev(device)) {
+ 		drbd_bm_lock(device, work->why, work->flags);
+@@ -3659,7 +3664,9 @@ void drbd_queue_bitmap_io(struct drbd_device *device,
+ 
+ 	spin_lock_irq(&device->resource->req_lock);
+ 	set_bit(BITMAP_IO, &device->flags);
+-	if (atomic_read(&device->ap_bio_cnt) == 0) {
++	/* don't wait for pending application IO if the caller indicates that
++	 * application IO does not conflict anyways. */
++	if (flags == BM_LOCKED_CHANGE_ALLOWED || atomic_read(&device->ap_bio_cnt) == 0) {
+ 		if (!test_and_set_bit(BITMAP_IO_QUEUED, &device->flags))
+ 			drbd_queue_work(&first_peer_device(device)->connection->sender_work,
+ 					&device->bm_io_work.w);
+@@ -3679,18 +3686,20 @@ void drbd_queue_bitmap_io(struct drbd_device *device,
+ int drbd_bitmap_io(struct drbd_device *device, int (*io_fn)(struct drbd_device *),
+ 		char *why, enum bm_flag flags)
+ {
++	/* Only suspend io, if some operation is supposed to be locked out */
++	const bool do_suspend_io = flags & (BM_DONT_CLEAR|BM_DONT_SET|BM_DONT_TEST);
+ 	int rv;
+ 
+ 	D_ASSERT(device, current != first_peer_device(device)->connection->worker.task);
+ 
+-	if ((flags & BM_LOCKED_SET_ALLOWED) == 0)
++	if (do_suspend_io)
+ 		drbd_suspend_io(device);
+ 
+ 	drbd_bm_lock(device, why, flags);
+ 	rv = io_fn(device);
+ 	drbd_bm_unlock(device);
+ 
+-	if ((flags & BM_LOCKED_SET_ALLOWED) == 0)
++	if (do_suspend_io)
+ 		drbd_resume_io(device);
+ 
+ 	return rv;
+diff --git a/drbd/drbd_nl.c b/drbd/drbd_nl.c
+index 9c14cf3..bb7e1b0 100644
+--- a/drbd/drbd_nl.c
++++ b/drbd/drbd_nl.c
+@@ -903,9 +903,11 @@ char *ppsize(char *buf, unsigned long long size)
+  * and can be long lived.
+  * This changes an device->flag, is triggered by drbd internals,
+  * and should be short-lived. */
++/* It needs to be a counter, since multiple threads might
++   independently suspend and resume IO. */
+ void drbd_suspend_io(struct drbd_device *device)
+ {
+-	set_bit(SUSPEND_IO, &device->flags);
++	atomic_inc(&device->suspend_cnt);
+ 	if (drbd_suspended(device))
+ 		return;
+ 	wait_event(device->misc_wait, !atomic_read(&device->ap_bio_cnt));
+@@ -913,8 +915,8 @@ void drbd_suspend_io(struct drbd_device *device)
+ 
+ void drbd_resume_io(struct drbd_device *device)
+ {
+-	clear_bit(SUSPEND_IO, &device->flags);
+-	wake_up(&device->misc_wait);
++	if (atomic_dec_and_test(&device->suspend_cnt))
++		wake_up(&device->misc_wait);
+ }
+ 
+ /**
+@@ -927,27 +929,32 @@ void drbd_resume_io(struct drbd_device *device)
+ enum determine_dev_size
+ drbd_determine_dev_size(struct drbd_device *device, enum dds_flags flags, struct resize_parms *rs) __must_hold(local)
+ {
+-	sector_t prev_first_sect, prev_size; /* previous meta location */
+-	sector_t la_size_sect, u_size;
++	struct md_offsets_and_sizes {
++		u64 last_agreed_sect;
++		u64 md_offset;
++		s32 al_offset;
++		s32 bm_offset;
++		u32 md_size_sect;
++
++		u32 al_stripes;
++		u32 al_stripe_size_4k;
++	} prev;
++	sector_t u_size, size;
+ 	struct drbd_md *md = &device->ldev->md;
+-	u32 prev_al_stripe_size_4k;
+-	u32 prev_al_stripes;
+-	sector_t size;
+ 	char ppb[10];
+ 	void *buffer;
+ 
+ 	int md_moved, la_size_changed;
+ 	enum determine_dev_size rv = DS_UNCHANGED;
+ 
+-	/* race:
+-	 * application request passes inc_ap_bio,
+-	 * but then cannot get an AL-reference.
+-	 * this function later may wait on ap_bio_cnt == 0. -> deadlock.
++	/* We may change the on-disk offsets of our meta data below.  Lock out
++	 * anything that may cause meta data IO, to avoid acting on incomplete
++	 * layout changes or scribbling over meta data that is in the process
++	 * of being moved.
+ 	 *
+-	 * to avoid that:
+-	 * Suspend IO right here.
+-	 * still lock the act_log to not trigger ASSERTs there.
+-	 */
++	 * Move is not exactly correct, btw, currently we have all our meta
++	 * data in core memory, to "move" it we just write it all out, there
++	 * are no reads. */
+ 	drbd_suspend_io(device);
+ 	buffer = drbd_md_get_buffer(device, __func__); /* Lock meta-data IO */
+ 	if (!buffer) {
+@@ -955,19 +962,17 @@ drbd_determine_dev_size(struct drbd_device *device, enum dds_flags flags, struct
+ 		return DS_ERROR;
+ 	}
+ 
+-	/* no wait necessary anymore, actually we could assert that */
+-	wait_event(device->al_wait, lc_try_lock(device->act_log));
+-
+-	prev_first_sect = drbd_md_first_sector(device->ldev);
+-	prev_size = device->ldev->md.md_size_sect;
+-	la_size_sect = device->ldev->md.la_size_sect;
++	/* remember current offset and sizes */
++	prev.last_agreed_sect = md->la_size_sect;
++	prev.md_offset = md->md_offset;
++	prev.al_offset = md->al_offset;
++	prev.bm_offset = md->bm_offset;
++	prev.md_size_sect = md->md_size_sect;
++	prev.al_stripes = md->al_stripes;
++	prev.al_stripe_size_4k = md->al_stripe_size_4k;
+ 
+ 	if (rs) {
+ 		/* rs is non NULL if we should change the AL layout only */
+-
+-		prev_al_stripes = md->al_stripes;
+-		prev_al_stripe_size_4k = md->al_stripe_size_4k;
+-
+ 		md->al_stripes = rs->al_stripes;
+ 		md->al_stripe_size_4k = rs->al_stripe_size / 4;
+ 		md->al_size_4k = (u64)rs->al_stripes * rs->al_stripe_size / 4;
+@@ -980,7 +985,7 @@ drbd_determine_dev_size(struct drbd_device *device, enum dds_flags flags, struct
+ 	rcu_read_unlock();
+ 	size = drbd_new_dev_size(device, device->ldev, u_size, flags & DDSF_FORCED);
+ 
+-	if (size < la_size_sect) {
++	if (size < prev.last_agreed_sect) {
+ 		if (rs && u_size == 0) {
+ 			/* Remove "rs &&" later. This check should always be active, but
+ 			   right now the receiver expects the permissive behavior */
+@@ -1001,30 +1006,29 @@ drbd_determine_dev_size(struct drbd_device *device, enum dds_flags flags, struct
+ 		err = drbd_bm_resize(device, size, !(flags & DDSF_NO_RESYNC));
+ 		if (unlikely(err)) {
+ 			/* currently there is only one error: ENOMEM! */
+-			size = drbd_bm_capacity(device)>>1;
++			size = drbd_bm_capacity(device);
+ 			if (size == 0) {
+ 				drbd_err(device, "OUT OF MEMORY! "
+ 				    "Could not allocate bitmap!\n");
+ 			} else {
+ 				drbd_err(device, "BM resizing failed. "
+-				    "Leaving size unchanged at size = %lu KB\n",
+-				    (unsigned long)size);
++				    "Leaving size unchanged\n");
+ 			}
+ 			rv = DS_ERROR;
+ 		}
+ 		/* racy, see comments above. */
+ 		drbd_set_my_capacity(device, size);
+-		device->ldev->md.la_size_sect = size;
++		md->la_size_sect = size;
+ 		drbd_info(device, "size = %s (%llu KB)\n", ppsize(ppb, size>>1),
+ 		     (unsigned long long)size>>1);
+ 	}
+ 	if (rv <= DS_ERROR)
+ 		goto err_out;
+ 
+-	la_size_changed = (la_size_sect != device->ldev->md.la_size_sect);
++	la_size_changed = (prev.last_agreed_sect != md->la_size_sect);
+ 
+-	md_moved = prev_first_sect != drbd_md_first_sector(device->ldev)
+-		|| prev_size	   != device->ldev->md.md_size_sect;
++	md_moved = prev.md_offset    != md->md_offset
++		|| prev.md_size_sect != md->md_size_sect;
+ 
+ 	if (la_size_changed || md_moved || rs) {
+ 		u32 prev_flags;
+@@ -1033,20 +1037,29 @@ drbd_determine_dev_size(struct drbd_device *device, enum dds_flags flags, struct
+ 		 * Clear the timer, to avoid scary "timer expired!" messages,
+ 		 * "Superblock" is written out at least twice below, anyways. */
+ 		del_timer(&device->md_sync_timer);
+-		drbd_al_shrink(device); /* All extents inactive. */
+ 
++		/* We won't change the "al-extents" setting, we just may need
++		 * to move the on-disk location of the activity log ringbuffer.
++		 * Lock for transaction is good enough, it may well be "dirty"
++		 * or even "starving". */
++		wait_event(device->al_wait, lc_try_lock_for_transaction(device->act_log));
++
++		/* mark current on-disk bitmap and activity log as unreliable */
+ 		prev_flags = md->flags;
+-		md->flags &= ~MDF_PRIMARY_IND;
++		md->flags |= MDF_FULL_SYNC | MDF_AL_DISABLED;
+ 		drbd_md_write(device, buffer);
+ 
++		drbd_al_initialize(device, buffer);
++
+ 		drbd_info(device, "Writing the whole bitmap, %s\n",
+ 			 la_size_changed && md_moved ? "size changed and md moved" :
+ 			 la_size_changed ? "size changed" : "md moved");
+ 		/* next line implicitly does drbd_suspend_io()+drbd_resume_io() */
+ 		drbd_bitmap_io(device, md_moved ? &drbd_bm_write_all : &drbd_bm_write,
+ 			       "size changed", BM_LOCKED_MASK);
+-		drbd_initialize_al(device, buffer);
+ 
++		/* on-disk bitmap and activity log is authoritative again
++		 * (unless there was an IO error meanwhile...) */
+ 		md->flags = prev_flags;
+ 		drbd_md_write(device, buffer);
+ 
+@@ -1055,20 +1068,22 @@ drbd_determine_dev_size(struct drbd_device *device, enum dds_flags flags, struct
+ 				  md->al_stripes, md->al_stripe_size_4k * 4);
+ 	}
+ 
+-	if (size > la_size_sect)
+-		rv = la_size_sect ? DS_GREW : DS_GREW_FROM_ZERO;
+-	if (size < la_size_sect)
++	if (size > prev.last_agreed_sect)
++		rv = prev.last_agreed_sect ? DS_GREW : DS_GREW_FROM_ZERO;
++	if (size < prev.last_agreed_sect)
+ 		rv = DS_SHRUNK;
+ 
+ 	if (0) {
+ 	err_out:
+-		if (rs) {
+-			md->al_stripes = prev_al_stripes;
+-			md->al_stripe_size_4k = prev_al_stripe_size_4k;
+-			md->al_size_4k = (u64)prev_al_stripes * prev_al_stripe_size_4k;
+-
+-			drbd_md_set_sector_offsets(device, device->ldev);
+-		}
++		/* restore previous offset and sizes */
++		md->la_size_sect = prev.last_agreed_sect;
++		md->md_offset = prev.md_offset;
++		md->al_offset = prev.al_offset;
++		md->bm_offset = prev.bm_offset;
++		md->md_size_sect = prev.md_size_sect;
++		md->al_stripes = prev.al_stripes;
++		md->al_stripe_size_4k = prev.al_stripe_size_4k;
++		md->al_size_4k = (u64)prev.al_stripes * prev.al_stripe_size_4k;
+ 	}
+ 	lc_unlock(device->act_log);
+ 	wake_up(&device->al_wait);
+@@ -2764,6 +2779,7 @@ int drbd_adm_resize(struct sk_buff *skb, struct genl_info *info)
+ 		mutex_unlock(&device->resource->conf_update);
+ 		synchronize_rcu();
+ 		kfree(old_disk_conf);
++		new_disk_conf = NULL;
+ 	}
+ 
+ 	ddsf = (rs.resize_force ? DDSF_FORCED : 0) | (rs.no_resync ? DDSF_NO_RESYNC : 0);
+@@ -2797,6 +2813,7 @@ int drbd_adm_resize(struct sk_buff *skb, struct genl_info *info)
+ 
+  fail_ldev:
+ 	put_ldev(device);
++	kfree(new_disk_conf);
+ 	goto fail;
+ }
+ 
+@@ -3216,8 +3233,8 @@ static void device_to_statistics(struct device_statistics *s,
+ 		q = bdev_get_queue(device->ldev->backing_bdev);
+ 		s->dev_lower_blocked =
+ 			bdi_congested(&q->backing_dev_info,
+-				      (1 << BDI_async_congested) |
+-				      (1 << BDI_sync_congested));
++				      (1 << WB_async_congested) |
++				      (1 << WB_sync_congested));
+ 		put_ldev(device);
+ 	}
+ 	s->dev_size = drbd_get_capacity(device->this_bdev);
+diff --git a/drbd/drbd_receiver.c b/drbd/drbd_receiver.c
+index 5e6b149..06e5667 100644
+--- a/drbd/drbd_receiver.c
++++ b/drbd/drbd_receiver.c
+@@ -673,7 +673,7 @@ static struct socket *drbd_try_connect(struct drbd_connection *connection, int u
+ 		((struct sockaddr_in *)&src_in6)->sin_port = 0; /* AF_INET & AF_SCI */
+ 
+ 	what = "sock_create_kern_in_try_connect";
+-	err = sock_create_kern(((struct sockaddr *)&src_in6)->sa_family,
++	err = sock_create_kern(&init_net, ((struct sockaddr *)&src_in6)->sa_family,
+ 			       SOCK_STREAM, IPPROTO_TCP, &sock);
+ 	if (err < 0) {
+ 		sock = NULL;
+@@ -767,7 +767,7 @@ static struct socket *create_listen_socket(struct drbd_connection *connection,
+ 	rcu_read_unlock();
+ 
+ 	what = "sock_create_kern";
+-	err = sock_create_kern(addr->sa_family, SOCK_STREAM, IPPROTO_TCP, &s_listen);
++	err = sock_create_kern(&init_net, addr->sa_family, SOCK_STREAM, IPPROTO_TCP, &s_listen);
+ 	if (err) {
+ 		s_listen = NULL;
+ 		goto out;
+@@ -5173,9 +5173,11 @@ static int drbd_disconnected(struct drbd_peer_device *peer_device)
+ 
+ 	drbd_md_sync(device);
+ 
+-	/* serialize with bitmap writeout triggered by the state change,
+-	 * if any. */
+-	wait_event(device->misc_wait, !test_bit(BITMAP_IO, &device->flags));
++	if (get_ldev(device)) {
++		drbd_bitmap_io(device, &drbd_bm_write_copy_pages,
++				"write from disconnected", BM_LOCKED_CHANGE_ALLOWED);
++		put_ldev(device);
++	}
+ 
+ 	/* tcp_close and release of sendpage pages can be deferred.  I don't
+ 	 * want to use SO_LINGER, because apparently it can be deferred for
+diff --git a/drbd/drbd_req.c b/drbd/drbd_req.c
+index 38fe40d..305fe71 100644
+--- a/drbd/drbd_req.c
++++ b/drbd/drbd_req.c
+@@ -31,73 +31,41 @@
+ #include "drbd_req.h"
+ 
+ 
+-/* We only support diskstats for 2.6.16 and up.
+- * see also commit commit a362357b6cd62643d4dda3b152639303d78473da
+- * Author: Jens Axboe <axboe@suse.de>
+- * Date:   Tue Nov 1 09:26:16 2005 +0100
+- *     [BLOCK] Unify the separate read/write io stat fields into arrays */
+-#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,16)
+-#define _drbd_start_io_acct(...) do {} while (0)
+-#define _drbd_end_io_acct(...)   do {} while (0)
+-#else
+ 
+ static bool drbd_may_do_local_read(struct drbd_device *device, sector_t sector, int size);
+ 
++#ifndef __disk_stat_inc
+ /* Update disk stats at start of I/O request */
+ static void _drbd_start_io_acct(struct drbd_device *device, struct drbd_request *req)
+ {
+-	const int rw = bio_data_dir(req->master_bio);
+-#ifndef __disk_stat_inc
+-	int cpu;
+-#endif
+-
+-#ifndef COMPAT_HAVE_ATOMIC_IN_FLIGHT
+-	spin_lock_irq(&device->resource->req_lock);
+-#endif
+-
+-#ifdef __disk_stat_inc
+-	__disk_stat_inc(device->vdisk, ios[rw]);
+-	__disk_stat_add(device->vdisk, sectors[rw], req->i.size >> 9);
+-	disk_round_stats(device->vdisk);
+-	device->vdisk->in_flight++;
+-#else
+-	cpu = part_stat_lock();
+-	part_round_stats(cpu, &device->vdisk->part0);
+-	part_stat_inc(cpu, &device->vdisk->part0, ios[rw]);
+-	part_stat_add(cpu, &device->vdisk->part0, sectors[rw], req->i.size >> 9);
+-	(void) cpu; /* The macro invocations above want the cpu argument, I do not like
+-		       the compiler warning about cpu only assigned but never used... */
+-	part_inc_in_flight(&device->vdisk->part0, rw);
+-	part_stat_unlock();
+-#endif
+-
+-#ifndef COMPAT_HAVE_ATOMIC_IN_FLIGHT
+-	spin_unlock_irq(&device->resource->req_lock);
+-#endif
++	generic_start_io_acct(bio_data_dir(req->master_bio), req->i.size >> 9,
++			      &device->vdisk->part0);
+ }
+ 
+ /* Update disk stats when completing request upwards */
+ static void _drbd_end_io_acct(struct drbd_device *device, struct drbd_request *req)
+ {
+-	int rw = bio_data_dir(req->master_bio);
++	generic_end_io_acct(bio_data_dir(req->master_bio),
++			    &device->vdisk->part0, req->start_jif);
++}
++#else
++static void _drbd_start_io_acct(struct drbd_device *device, struct drbd_request *req)
++{
++	const int rw = bio_data_dir(req->master_bio);
++	BUILD_BUG_ON(sizeof(atomic_t) != sizeof(device->vdisk->in_flight));
++	disk_stat_inc(device->vdisk, ios[rw]);
++	disk_stat_add(device->vdisk, sectors[rw], req->i.size >> 9);
++	disk_round_stats(device->vdisk);
++	atomic_inc((atomic_t*)&device->vdisk->in_flight);
++}
++static void _drbd_end_io_acct(struct drbd_device *device, struct drbd_request *req)
++{
++	const int rw = bio_data_dir(req->master_bio);
+ 	unsigned long duration = jiffies - req->start_jif;
+-#ifndef __disk_stat_inc
+-	int cpu;
+-#endif
+-
+-#ifdef __disk_stat_add
+-	__disk_stat_add(device->vdisk, ticks[rw], duration);
++	disk_stat_add(device->vdisk, ticks[rw], duration);
+ 	disk_round_stats(device->vdisk);
+-	device->vdisk->in_flight--;
+-#else
+-	cpu = part_stat_lock();
+-	part_stat_add(cpu, &device->vdisk->part0, ticks[rw], duration);
+-	part_round_stats(cpu, &device->vdisk->part0);
+-	part_dec_in_flight(&device->vdisk->part0, rw);
+-	part_stat_unlock();
+-#endif
++	atomic_dec((atomic_t*)&device->vdisk->in_flight);
+ }
+-
+ #endif
+ 
+ static struct drbd_request *drbd_req_new(struct drbd_device *device,
+@@ -509,7 +477,7 @@ static void mod_rq_state(struct drbd_request *req, struct bio_and_error *m,
+ 			atomic_add(req->i.size >> 9, &device->ap_in_flight);
+ 			set_if_null_req_not_net_done(peer_device, req);
+ 		}
+-		if (s & RQ_NET_PENDING)
++		if (req->rq_state & RQ_NET_PENDING)
+ 			set_if_null_req_ack_pending(peer_device, req);
+ 	}
+ 
+@@ -1028,16 +996,20 @@ static void complete_conflicting_writes(struct drbd_request *req)
+ 	sector_t sector = req->i.sector;
+ 	int size = req->i.size;
+ 
+-	i = drbd_find_overlap(&device->write_requests, sector, size);
+-	if (!i)
+-		return;
+-
+ 	for (;;) {
+-		prepare_to_wait(&device->misc_wait, &wait, TASK_UNINTERRUPTIBLE);
+-		i = drbd_find_overlap(&device->write_requests, sector, size);
+-		if (!i)
++		drbd_for_each_overlap(i, &device->write_requests, sector, size) {
++			/* Ignore, if already completed to upper layers. */
++			if (i->completed)
++				continue;
++			/* Handle the first found overlap.  After the schedule
++			 * we have to restart the tree walk. */
+ 			break;
++		}
++		if (!i)	/* if any */
++			break;
++
+ 		/* Indicate to wake up device->misc_wait on progress.  */
++		prepare_to_wait(&device->misc_wait, &wait, TASK_UNINTERRUPTIBLE);
+ 		i->waiting = true;
+ 		spin_unlock_irq(&device->resource->req_lock);
+ 		schedule();
+diff --git a/drbd/drbd_state.c b/drbd/drbd_state.c
+index a64cf22..4cf2c93 100644
+--- a/drbd/drbd_state.c
++++ b/drbd/drbd_state.c
+@@ -1490,7 +1490,7 @@ int drbd_bitmap_io_from_worker(struct drbd_device *device,
+ 	D_ASSERT(device, current == first_peer_device(device)->connection->worker.task);
+ 
+ 	/* open coded non-blocking drbd_suspend_io(device); */
+-	set_bit(SUSPEND_IO, &device->flags);
++	atomic_inc(&device->suspend_cnt);
+ 
+ 	drbd_bm_lock(device, why, flags);
+ 	rv = io_fn(device);
+@@ -1940,12 +1940,17 @@ static void after_state_ch(struct drbd_device *device, union drbd_state os,
+ 
+ 	/* This triggers bitmap writeout of potentially still unwritten pages
+ 	 * if the resync finished cleanly, or aborted because of peer disk
+-	 * failure, or because of connection loss.
++	 * failure, or on transition from resync back to AHEAD/BEHIND.
++	 *
++	 * Connection loss is handled in drbd_disconnected() by the receiver.
++	 *
+ 	 * For resync aborted because of local disk failure, we cannot do
+ 	 * any bitmap writeout anymore.
++	 *
+ 	 * No harm done if some bits change during this phase.
+ 	 */
+-	if (os.conn > C_CONNECTED && ns.conn <= C_CONNECTED && get_ldev(device)) {
++	if ((os.conn > C_CONNECTED && os.conn < C_AHEAD) &&
++	    (ns.conn == C_CONNECTED || ns.conn >= C_AHEAD) && get_ldev(device)) {
+ 		drbd_queue_bitmap_io(device, &drbd_bm_write_copy_pages, NULL,
+ 			"write from resync_finished", BM_LOCKED_CHANGE_ALLOWED);
+ 		put_ldev(device);
+diff --git a/drbd/drbd_wrappers.h b/drbd/drbd_wrappers.h
+index ea2a1fe..d7a4138 100644
+--- a/drbd/drbd_wrappers.h
++++ b/drbd/drbd_wrappers.h
+@@ -1421,4 +1421,57 @@ do {								\
+ } while (0)
+ #endif
+ 
++#ifndef COMPAT_HAVE_GENERIC_START_IO_ACCT
++#ifndef __disk_stat_inc
++static inline void generic_start_io_acct(int rw, unsigned long sectors,
++					 struct hd_struct *part)
++{
++	int cpu;
++	BUILD_BUG_ON(sizeof(atomic_t) != sizeof(part->in_flight[0]));
++
++	cpu = part_stat_lock();
++	part_round_stats(cpu, part);
++	part_stat_inc(cpu, part, ios[rw]);
++	part_stat_add(cpu, part, sectors[rw], sectors);
++	(void) cpu; /* The macro invocations above want the cpu argument, I do not like
++		       the compiler warning about cpu only assigned but never used... */
++	/* part_inc_in_flight(part, rw); */
++	atomic_inc((atomic_t*)&part->in_flight[rw]);
++	part_stat_unlock();
++}
++
++static inline void generic_end_io_acct(int rw, struct hd_struct *part,
++				  unsigned long start_time)
++{
++	unsigned long duration = jiffies - start_time;
++	int cpu;
++
++	cpu = part_stat_lock();
++	part_stat_add(cpu, part, ticks[rw], duration);
++	part_round_stats(cpu, part);
++	/* part_dec_in_flight(part, rw); */
++	atomic_dec((atomic_t*)&part->in_flight[rw]);
++	part_stat_unlock();
++}
++#endif /* __disk_stat_inc */
++#endif /* COMPAT_HAVE_GENERIC_START_IO_ACCT */
++
++
++#ifndef COMPAT_SOCK_CREATE_KERN_HAS_FIVE_PARAMETERS
++#define sock_create_kern(N,F,T,P,S) sock_create_kern(F,T,P,S)
++#endif
++
++#ifndef COMPAT_HAVE_WB_CONGESTED_ENUM
++#define WB_async_congested BDI_async_congested
++#define WB_sync_congested BDI_sync_congested
++#endif
++
++#ifndef COMPAT_HAVE_SIMPLE_POSITIVE
++#include <linux/dcache.h>
++static inline int simple_positive(struct dentry *dentry)
++{
++        return dentry->d_inode && !d_unhashed(dentry);
++}
++#endif
++
+ #endif
+diff --git a/drbd/linux/lru_cache.h b/drbd/linux/lru_cache.h
+index 98e231c..a1347c5 100644
+--- a/drbd/linux/lru_cache.h
++++ b/drbd/linux/lru_cache.h
+@@ -300,7 +300,7 @@ extern unsigned int lc_put(struct lru_cache *lc, struct lc_element *e);
+ extern void lc_committed(struct lru_cache *lc);
+ 
+ struct seq_file;
+-extern size_t lc_seq_printf_stats(struct seq_file *seq, struct lru_cache *lc);
++extern void lc_seq_printf_stats(struct seq_file *seq, struct lru_cache *lc);
+ 
+ extern void lc_seq_dump_details(struct seq_file *seq, struct lru_cache *lc, char *utext,
+ 				void (*detail) (struct seq_file *, struct lc_element *));
+diff --git a/drbd/lru_cache.c b/drbd/lru_cache.c
+index 76308df..038c986 100644
+--- a/drbd/lru_cache.c
++++ b/drbd/lru_cache.c
+@@ -233,7 +233,7 @@ void lc_reset(struct lru_cache *lc)
+  * @seq: the seq_file to print into
+  * @lc: the lru cache to print statistics of
+  */
+-size_t lc_seq_printf_stats(struct seq_file *seq, struct lru_cache *lc)
++void lc_seq_printf_stats(struct seq_file *seq, struct lru_cache *lc)
+ {
+ 	/* NOTE:
+ 	 * total calls to lc_get are
+@@ -242,10 +242,9 @@ size_t lc_seq_printf_stats(struct seq_file *seq, struct lru_cache *lc)
+ 	 * progress) and "changed", when this in fact lead to an successful
+ 	 * update of the cache.
+ 	 */
+-	return seq_printf(seq, "\t%s: used:%u/%u "
+-		"hits:%lu misses:%lu starving:%lu locked:%lu changed:%lu\n",
+-		lc->name, lc->used, lc->nr_elements,
+-		lc->hits, lc->misses, lc->starving, lc->locked, lc->changed);
++	seq_printf(seq, "\t%s: used:%u/%u hits:%lu misses:%lu starving:%lu locked:%lu changed:%lu\n",
++		   lc->name, lc->used, lc->nr_elements,
++		   lc->hits, lc->misses, lc->starving, lc->locked, lc->changed);
+ }
+ 
+ static struct hlist_head *lc_hash_slot(struct lru_cache *lc, unsigned int enr)
+diff --git a/preamble b/preamble
+index 603c8ca..a230a24 100644
+--- a/preamble
++++ b/preamble
+@@ -1,5 +1,5 @@
+ # always require a suitable userland
+-Requires: drbd-utils = 8.4.5
++Requires: drbd-utils >= 8.9.2
+ 
+ %if %{defined suse_kernel_module_package}
+ %if 0%{?sles_version} == 10

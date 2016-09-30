@@ -1,0 +1,32 @@
+<package name="bash" project="home:conecenter:techpool:ontology:linux_sys:bash">
+  <title>bash</title>
+  <description>The origin of this package belongs to the project Base:System
+</description>
+  <build>
+    <disable repository="Fedora_10"/>
+    <disable repository="CentOS_5"/>
+    <disable repository="SLES_9"/>
+    <disable repository="SLE_10"/>
+    <disable repository="SLE_10_SP2"/>
+    <disable repository="SLE_10_SP3"/>
+    <enable arch="armv5el" repository="openSUSE_Factory"/>
+    <enable arch="armv7hl" repository="openSUSE_Factory"/>
+    <enable arch="armv7l" repository="openSUSE_Factory"/>
+  </build>
+  <publish>
+    <disable repository="CentOS_5"/>
+    <disable repository="Fedora_10"/>
+    <disable repository="SLES_9"/>
+    <disable repository="SLE_10"/>
+    <disable repository="SLE_10_SP2"/>
+    <disable repository="SLE_10_SP3"/>
+  </publish>
+  <debuginfo>
+    <enable repository="openSUSE_Factory"/>
+    <enable repository="openSUSE_11.2"/>
+  </debuginfo>
+  <useforbuild>
+    <disable/>
+  </useforbuild>
+</package>
+

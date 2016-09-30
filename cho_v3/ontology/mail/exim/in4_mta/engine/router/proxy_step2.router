@@ -1,0 +1,67 @@
+begin routers 
+
+
+mtaroute:
+  driver = manualroute
+  transport = smtp
+  domains = +local_domains :  +hosted_domains
+  condition = MTAROUTE_CONDITION
+  errors_to = CLIENTSIDE_FREEZE_TELL
+  address_data = CLIENTSIDE_ADV_SMTP_MTAROUTE_ADDRESS
+  headers_add = X-MTA-Path: mtaroute using $address_data by $acl_c_syslog_processname
+  route_list =  "* $address_data byname"  
+  self = send
+  
+mtaroute_also:
+  driver = manualroute
+  transport = smtp
+  domains = +local_domains :  +hosted_domains
+  condition = MTAROUTE_ALSO_CONDITION
+  errors_to = CLIENTSIDE_FREEZE_TELL
+  address_data = CLIENTSIDE_ADV_SMTP_MTAROUTE_ADDRESS
+  headers_add = X-MTA-Path: mtaroute_also using $address_data by $acl_c_syslog_processname
+  route_list =  "* $address_data byname"
+  headers_remove = Subject  
+  headers_add = "Subject:  CLONE OF: $h_subject"
+  self = send
+  unseen = yes
+  
+
+mainroute:
+  driver = manualroute
+  transport = smtp_proxy
+  domains = +local_domains :  +hosted_domains  
+  address_data = CLIENTSIDE_ADV_SMTP_MAINROUTE_ADDRESS
+  headers_add = X-MTA-Path: mainroute using $address_data by $acl_c_syslog_processname
+  route_list =  "* $address_data byname"  
+  unseen = yes
+  
+common_alias_to_destination:
+  driver = redirect
+  allow_fail
+  allow_defer
+  domains = +hosted_domains
+  data = ALIAS_TO_DESTINATION
+  user = mail
+  group = mail  
+  
+cloneroute:
+  driver = manualroute
+  transport = smtp
+  domains = +local_domains :  +hosted_domains  
+  errors_to = ""
+  address_data = CLIENTSIDE_ADV_SMTP_CLONEROUTE_ADDRESS  
+  headers_add = X-MTA-Path: cloneroute using $address_data by $acl_c_syslog_processname
+  route_list =  "* $address_data byname"   
+  headers_remove = Subject  
+  headers_add = "Subject:  CLONE OF: $h_subject"  
+  self = send
+  
+dnslookup:
+  driver = dnslookup
+  ignore_target_hosts = <;  127.0.0.0/8 ; ::1; 0::0/0    
+  domains = ! +local_domains : ! +hosted_domains
+  headers_add = X-MTA-Path: dnslookup  by $acl_c_syslog_processname
+  transport = smtp_proxy
+  cannot_route_message = Sorry, there are no such recipient(s)!
+  no_more   

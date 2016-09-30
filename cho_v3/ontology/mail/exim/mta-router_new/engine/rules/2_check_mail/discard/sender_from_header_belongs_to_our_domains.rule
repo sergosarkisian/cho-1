@@ -1,0 +1,45 @@
+########    #######    ########    #######    ########    ########
+##     / / / /    License    \ \ \ \ 
+##    Copyleft culture, Copyright (C) is prohibited here
+##    This work is licensed under a CC BY-SA 4.0
+##    Creative Commons Attribution-ShareAlike 4.0 License
+##    Refer to the http://creativecommons.org/licenses/by-sa/4.0/
+########    #######    ########    #######    ########    ########
+##    / / / /    Code Climate    \ \ \ \ 
+##    Language = DSL, exim, ACL section
+##    Indent = space;    4 chars;
+########    #######    ########    #######    ########    ########
+   
+## RULE DESCRIPTION
+warn
+    set acl_c_rule_fullname     = 2_check_mail__discard__sender_from_header_belongs_to_our_domains
+    set acl_c_rule_description = Sender From header is belongs to our domains
+
+    
+## RULE FUNCTION
+.ifndef DISABLE__RULES__$acl_c_rule_fullname
+    discard
+    
+        # 1) RULE AREA
+            !authenticated  = *
+            hosts                   = ! +local_networks
+
+        # 2) RULE DEFAULT BODY - pre vars
+            set acl_c_rule_bwl_field         = $sender_address
+            set acl_c_rule_bwl_operator = wildlsearch        
+            .include /etc/exim/engine_path/engine/rules/_base/rule_body_vars.rule                
+            
+        # 3) RULE DSL - conditions etc
+            condition = ${if or{\
+                    {eqi{$sender_address_domain}{local_domains}}\
+                    {eqi{$sender_address_domain}{hosted_domains}}\
+                    }\
+            }       
+
+        # 4) RULE DEFAULT BODY - logitoring/vars/etc
+            .include /etc/exim/engine_path/engine/rules/_base/rule_body_after.rule
+            
+        # 5) RULE FACT
+            set acl_c_rule_fact__2_check_mail__discard__sender_from_header_belongs_to_our_domains = 1
+        
+.endif

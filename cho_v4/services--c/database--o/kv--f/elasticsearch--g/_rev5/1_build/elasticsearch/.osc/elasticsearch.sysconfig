@@ -1,0 +1,213 @@
+## Path: Network/Database/ElasticSearch Server
+## Description: ElasticSearch server settings
+##
+## This file contains an overview of various configuration settings,
+## targeted at operations staff. Application developers should
+## consult the guide at <http://elasticsearch.org/guide>.
+##
+## For information on supported formats and syntax for the config file, see
+## <http://elasticsearch.org/guide/en/elasticsearch/reference/current/setup-configuration.html>
+##
+
+## Type: string
+## Default: "/usr/share/java/elasticsearch"
+## ServiceReload: elasticsearch
+#
+# Directory where the ElasticSearch binary distribution resides
+#
+# Path to where ElasticSearch is installed.
+#
+ES_HOME=/usr/share/java/elasticsearch
+
+## Type: string
+## Default: "/usr/share/java/elasticsearch/plugins"
+## ServiceReload: elasticsearch
+#
+# Directory where the ElasticSearch plugins resides
+#
+# Path to where plugins are installed.
+#
+ES_PLUGIN_DIR=/usr/share/java/elasticsearch/plugins
+
+## Type: string
+## Default: "elasticsearch"
+## ServiceReload: elasticsearch
+#
+# Cluster name
+#
+# Cluster name identifies your cluster for auto-discovery. If you're running
+# multiple clusters on the same network, make sure you're using unique names.
+#
+ES_CLUSTER_NAME=elasticsearch
+
+## Type: string
+## Default: ""
+## ServiceReload: elasticsearch
+#
+# Node name
+#
+# Node names are generated dynamically on startup, so you're relieved
+# from configuring them manually. You can tie this node to a specific name.
+#
+ES_NODE_NAME=
+
+## Type: string
+## Default: ""
+## ServiceReload: elasticsearch
+#
+# http transport listen only on localhost
+#
+# Elasticsearch, by default, binds itself to the 0.0.0.0 address, and listens
+# on port [9200-9300] for HTTP traffic and on port [9300-9400] for node-to-node
+# communication. (the range means that if the port is busy, it will automatically
+# try the next port).
+#
+ES_HTTP_HOST=
+
+## Type: string
+## Default: ""
+## ServiceReload: elasticsearch
+#
+# Heap Size (defaults to 256m min, 1g max)
+#
+# Make sure that the ES_HEAP_SIZE environment variables is set and
+# that the machine has enough memory to allocate for ElasticSearch,
+# leaving enough memory for the operating system itself.
+#
+# If you use the server(s) for Elasticsearch only, the rule of thumb is
+# to allocate half the total RAM size to Elasticsearch. The other half
+# would be used for system caches, which is important as well.
+#
+# You should also make sure that the ElasticSearch process is allowed to lock
+# the memory, eg. by using `ulimit -l unlimited`.
+#
+ES_HEAP_SIZE=256m
+
+## Type: string
+## Default: ""
+## ServiceReload: elasticsearch
+#
+# Heap new generation
+#
+ES_HEAP_NEWSIZE=
+
+## Type: string
+## Default: ""
+## ServiceReload: elasticsearch
+#
+# max direct memory
+#
+ES_DIRECT_SIZE=
+
+## Type: string
+## Default: ""
+## ServiceReload: elasticsearch
+#
+# Additional Java OPTS
+#
+ES_JAVA_OPTS=
+
+## Type: string
+## Default: "65535"
+## ServiceReload: elasticsearch
+#
+# Maximum number of open files
+#
+# ElasticSearch needs to keep lots of files open simultaneously.
+# You should also raise the maximum number of open files for elasticsearch user.
+#
+# Raise the limits in /etc/security/limits.conf:
+#
+# elasticsearch soft nofile 65535
+# elasticsearch hard nofile 65535
+# elasticsearch soft memlock 2097152
+# elasticsearch hard memlock 2097152
+#
+# systemd uses the LimitNOFILE option
+#
+MAX_OPEN_FILES=65535
+
+## Type: string
+## Default: "unlimited"
+## ServiceReload: elasticsearch
+#
+# Maximum amount of locked memory
+#
+# Elasticsearch performs poorly when JVM starts swapping: you should ensure that
+# it _never_ swaps.
+#
+# Set this property to unlimited to lock the memory!
+#
+# You should make sure that the ElasticSearch process is allowed to lock
+# the memory, eg. by using `ulimit -l unlimited`.
+#
+MAX_LOCKED_MEMORY=unlimited
+
+## Type: string
+## Default: "/var/log/elasticsearch"
+## ServiceReload: elasticsearch
+#
+# ElasticSearch log directory
+#
+# Path to log files.
+#
+LOG_DIR=/var/log/elasticsearch
+
+## Type: string
+## Default: "/var/lib/elasticsearch"
+## ServiceReload: elasticsearch
+#
+# ElasticSearch data directory
+#
+# Path to directory where to store index data allocated for this node.
+#
+DATA_DIR=/var/lib/elasticsearch
+
+## Type: string
+## Default: "/tmp/elasticsearch"
+## ServiceReload: elasticsearch
+#
+# ElasticSearch work directory
+#
+# Path to temporary files.
+#
+WORK_DIR=/tmp/elasticsearch
+
+## Type: string
+## Default: "/etc/elasticsearch"
+## ServiceReload: elasticsearch
+#
+# ElasticSearch conf directory
+#
+# Path to directory containing configuration (elasticsearch.yml and logging.yml).
+#
+CONF_DIR=/etc/elasticsearch
+
+## Type: string
+## Default: "/etc/elasticsearch/elasticsearch.yml"
+## ServiceReload: elasticsearch
+#
+# ElasticSearch configuration file (elasticsearch.yml)
+#
+CONF_FILE=/etc/elasticsearch/elasticsearch.yml
+
+## Type: string
+## Default: "elasticsearch"
+## ServiceReload: elasticsearch
+#
+# User to run as, change this to a specific elasticsearch user if possible
+# Also make sure, this user can write into the log directories in case you change them
+# This setting only works for the init script, but has to be configured separately for systemd startup
+#
+ES_USER=elasticsearch
+
+## Type: string
+## Default: "true"
+## ServiceReload: elasticsearch
+#
+# Configure restart on package upgrade 
+#
+# Set it to true to restart automaticly on package upgrade.
+# Every other setting will lead to not restarting.
+#
+RESTART_ON_UPGRADE=true

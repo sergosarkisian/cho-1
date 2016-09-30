@@ -1,0 +1,5 @@
+<directory name="netatalk" rev="1" srcmd5="ff583d05e396422dd549f7869a98ad5d" vrev="1">
+  <linkinfo lsrcmd5="ff583d05e396422dd549f7869a98ad5d" package="netatalk" project="network" srcmd5="3222392054a7e282ac1e026edb19934d" xsrcmd5="886bc4b242abc956c3908ea0e6625c46" />
+  <serviceinfo code="succeeded" xsrcmd5="120a4a29c78f7837fdf610cf9444040a" />
+  <entry md5="168b6c74f4612f9985b09530cc51b077" mtime="1400067069" name="_link" size="442" />
+</directory>

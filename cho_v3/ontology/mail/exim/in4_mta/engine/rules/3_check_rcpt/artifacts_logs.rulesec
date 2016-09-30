@@ -1,0 +1,5 @@
+"event_tag_sec3":${quote:${sender_host_address}_${sender_host_port}_${sender_address}_${acl_c_recipient_local_part}@${acl_c_recipient_domain}}, \
+"domain":${quote:${from_utf8:$acl_c_recipient_domain}}, \
+"local_part":${quote:${from_utf8:$acl_c_recipient_local_part}}, \
+"to":${quote:${from_utf8:$acl_c_recipient}}, \
+"rcpt_count":${quote:${from_utf8:$rcpt_count}}, \

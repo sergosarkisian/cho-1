@@ -1,0 +1,65 @@
+#### VARS ####
+Listen 8039
+User WEBSITE
+Group nobody
+PidFile /media/storage/sites/WEBSITE/conf/services/apache.pid
+#### VARS ####
+
+
+#### DEFAULTS ####
+ServerSignature off
+UseCanonicalName off
+ServerTokens ProductOnly
+LogLevel warn
+HostnameLookups Off
+UseCanonicalName Off
+
+#INCLUDES
+LoadModule mime_module                    /usr/lib64/apache2-prefork/mod_mime.so
+TypesConfig /etc/apache2/mime.types
+Include /etc/apache2/mod_mime-defaults.conf
+Include /etc/apache2/server-tuning.conf
+#
+
+#SVN MODULES
+LoadModule dav_module                     /usr/lib64/apache2-prefork/mod_dav.so
+LoadModule dav_svn_module                 /usr/lib64/apache2/mod_dav_svn.so
+#
+
+#AUTH MODULES
+LoadModule authn_core_module              /usr/lib64/apache2-prefork/mod_authn_core.so
+LoadModule authz_core_module              /usr/lib64/apache2-prefork/mod_authz_core.so
+LoadModule authn_file_module              /usr/lib64/apache2-prefork/mod_authn_file.so
+LoadModule authz_user_module              /usr/lib64/apache2-prefork/mod_authz_user.so
+LoadModule auth_digest_module             /usr/lib64/apache2-prefork/mod_auth_digest.so
+LoadModule authz_svn_module				  /usr/lib64/apache2/mod_authz_svn.so
+#
+
+#LOG
+LoadModule logio_module                   /usr/lib64/apache2-prefork/mod_logio.so
+LoadModule log_config_module              /usr/lib64/apache2-prefork/mod_log_config.so
+LogFormat "[%{%d/%b/%Y:%H:%M:%S}t %{%z}t] %{Host}i %{X-Forwarded-For}i %{X-Client}i %h:%{local}p %u %m %U %H %>s %D %b bytes %I %O \"%{Referer}i\" \"%{User-agent}i\"" main
+CustomLog "|/bin/logger -t 'apache' -p info" main
+ErrorLog "|/bin/logger  -t 'apache' -p err"
+#
+
+#OTHER MODULES
+LoadModule setenvif_module                /usr/lib64/apache2-prefork/mod_setenvif.so
+#
+#### DEFAULTS ####
+
+#### VHOST ####
+<VirtualHost *>
+    ServerAdmin noc@edss.ee
+    ServerName 
+    
+#### LOCATION - 1 ####
+	<Location /1>
+	
+	</Location>
+	
+		
+BrowserMatch "MSIE" AuthDigestEnableQueryStringHack=On 
+</VirtualHost>
+
+#### VHOST ####

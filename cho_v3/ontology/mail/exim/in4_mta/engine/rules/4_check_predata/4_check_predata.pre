@@ -1,0 +1,26 @@
+###########################
+###  acl_4_check_predata                ###
+###########################
+
+acl_4_check_predata:
+
+    ###
+###SCORES###
+warn
+set acl_c_rule_section = 4_check_predata
+###SCORES###
+    ###
+
+set acl_c_event_view   = sections
+set acl_c_rule_action   = enter
+    
+logwrite = :cee: @cee:{\
+ .include /etc/exim/engine_path/engine/rules/_base/log_header_all.rulesec
+ .include /etc/exim/engine_path/engine/rules/1_check_connect/artifacts_logs.rulesec
+ .include /etc/exim/engine_path/engine/rules/2_check_mail/artifacts_logs.rulesec
+ .include /etc/exim/engine_path/engine/rules/3_check_rcpt/artifacts_logs.rulesec 
+ .include /etc/exim/engine_path/engine/rules/4_check_predata/artifacts_logs.rulesec  
+ .include /etc/exim/engine_path/engine/rules/_base/log_final.rulesec 
+ } 
+
+

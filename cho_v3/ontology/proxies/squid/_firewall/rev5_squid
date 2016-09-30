@@ -1,0 +1,6 @@
+## Name: rev5_squid
+## Description: Open ports for rev5_squid
+
+# space separated list of allowed TCP ports
+TCP="55555"
+ 

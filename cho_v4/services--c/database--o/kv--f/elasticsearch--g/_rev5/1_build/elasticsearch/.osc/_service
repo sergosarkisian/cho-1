@@ -1,0 +1,8 @@
+<services>
+  <service name="download_url">
+    <param name="protocol">https</param>  
+    <param name="host">download.elasticsearch.org</param>
+    <param name="path">/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/2.1.1/elasticsearch-2.1.1.tar.gz</param>    
+    <param name="filename">__Name@elasticsearch__Ver@2.1.1__Rel@0__RelDate@20160115__Tag@download__.obs.tar.gz</param>    
+  </service> 
+</services>

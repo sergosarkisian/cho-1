@@ -1,0 +1,17 @@
+ 
+	location ~* \.php {
+        try_files @dynamic @dynamic;
+    }  
+    
+	location / {
+        try_files $uri @dynamic @rewrites;    
+
+    }   
+    
+    location @dynamic {
+        try_files $fastcgi_script_name $fastcgi_script_name/index.php;        
+        include /etc/nginx/fastcgi.conf;
+        fastcgi_pass unix:conf/services/fpm.sock;
+    }    
+    
+    

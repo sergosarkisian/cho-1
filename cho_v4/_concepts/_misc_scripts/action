@@ -1,0 +1,31 @@
+#!/usr/bin/expect -f
+set gate 		[lrange $argv 0 0]
+set host	 	[lrange $argv 1 1]
+set command		[lrange $argv 2 2]
+
+set user "action"
+set password ""
+set timeout -1
+spawn $env(SHELL)
+
+	
+spawn ssh gate@$gate
+expect {
+-re "Are you sure you want to continue connecting (yes/no)?" { send "yes\r" }
+-re "word:" {send -- "sshgate\r"}
+}
+expect "Server name" 
+send -- "$host\r"
+expect "Login" 
+send -- "$user\r"
+expect "word:"
+send -- "$password\r"
+
+send -- "\r"	
+expect "~" 	
+send -- "sh /etc/faster/cmdb/tasks/rev4/$task\r"
+send -- "exit\r"
+sleep 1
+send -- "\r"
+expect "~" 
+close 		

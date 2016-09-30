@@ -1,0 +1,13 @@
+if $hostname == $$myhostname and $programname startswith 'in4_mta'
+then {
+	action(type="mmjsonparse")
+        set $.use_mod = "mmjsonparse";
+	
+        if $parsesuccess == "OK" then {	
+            set $!msg_class = "in4_mta";
+            call file_media_logs_in4_mta
+            call roger & stop            
+        }
+}
+
+

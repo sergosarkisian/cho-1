@@ -1,0 +1,62 @@
+### CONTENT FILTER
+
+ warn   
+    spam = nobody:true/defer_ok
+    condition = ${if < {$message_size}{3000K}}
+    
+    set acl_c_score_content_raw = $spam_score_int
+
+    add_header     = X-Spam-Bar: $spam_bar
+    add_header     = X-Spam-Content-Report: $spam_report
+    add_header     = X-Spam-Score-Content-SA: $acl_c_score_content_raw
+
+### MTA TOTALS
+
+warn
+    condition = ${if <= {$acl_c_score_mta}{0}}
+    set acl_c_score_content_multiplier = 1
+
+warn    
+    condition = ${if and { \
+        {bool{ ${if > {$acl_c_score_mta}{0}} }} \
+        {bool{ ${if <= {$acl_c_score_mta}{$acl_c_init_spam_lev1}} }} \
+    }}	    
+    set acl_c_score_content_multiplier = 2
+
+warn    
+    condition = ${if and { \
+        {bool{ ${if > {$acl_c_score_mta}{$acl_c_init_spam_lev1}} }} \
+        {bool{ ${if <= {$acl_c_score_mta}{$acl_c_init_spam_lev2}} }} \
+    }}	    
+    set acl_c_score_content_multiplier = 4
+
+warn    
+    condition = ${if and { \
+        {bool{ ${if > {$acl_c_score_mta}{$acl_c_init_spam_lev2}} }} \
+        {bool{ ${if <= {$acl_c_score_mta}{$acl_c_init_deny_hard}} }} \
+    }}	        
+    set acl_c_score_content_multiplier = 10
+
+
+warn
+    condition = ${if and { \
+        {bool{ ${if > {$acl_c_score_content_raw}{50}} }} \
+        {bool{ ${if <= {$acl_c_score_content_raw}{70}} }} \
+    }}	    
+    set acl_c_score_content_multiplier = ${eval:$acl_c_score_content_multiplier * 2}    
+
+warn
+    condition = ${if and { \
+        {bool{ ${if > {$acl_c_score_content_raw}{70}} }} \
+        {bool{ ${if <= {$acl_c_score_content_raw}{200}} }} \
+    }}	    
+    set acl_c_score_content_multiplier = ${eval:$acl_c_score_content_multiplier * 3}    
+
+###
+
+
+## SET TOTAL = MTA + CONTENT
+warn
+    set acl_c_score_content = ${eval:$acl_c_score_content_raw * $acl_c_score_content_multiplier}    
+    set acl_c_score_total = ${eval:$acl_c_score_mta + $acl_c_score_content}
+

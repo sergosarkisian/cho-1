@@ -1,0 +1,231 @@
+<buildinfo project="home:conecenter:rev5a1:ontology:logitoring--c:messagebus--o:syslog--f" repository="openSUSE_Leap_42.1" package="rsyslog" downloadurl="http://download.opensuse.org/repositories">
+  <arch>x86_64</arch>
+  <debuginfo>0</debuginfo>
+  <subpack>MACRO</subpack>
+  <subpack>MACRO-diag-tools</subpack>
+  <subpack>MACRO-module-dbi</subpack>
+  <subpack>MACRO-module-elasticsearch</subpack>
+  <subpack>MACRO-module-gcrypt</subpack>
+  <subpack>MACRO-module-gtls</subpack>
+  <subpack>MACRO-module-guardtime</subpack>
+  <subpack>MACRO-module-mmcount</subpack>
+  <subpack>MACRO-module-mmexternal</subpack>
+  <subpack>MACRO-module-mmfields</subpack>
+  <subpack>MACRO-module-mmnormalize</subpack>
+  <subpack>MACRO-module-mmsequence</subpack>
+  <subpack>MACRO-module-mysql</subpack>
+  <subpack>MACRO-module-pgsql</subpack>
+  <subpack>MACRO-module-relp</subpack>
+  <subpack>MACRO-module-snmp</subpack>
+  <subpack>MACRO-module-udpspoof</subpack>
+  <bdep name="aaa_base" preinstall="1" runscripts="1" notmeta="1" version="13.2+git20140911.61c1681" release="4.6" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="attr" preinstall="1" notmeta="1" version="2.4.47" release="5.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="bash" preinstall="1" notmeta="1" version="4.2" release="76.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="coreutils" preinstall="1" notmeta="1" version="8.22" release="4.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="diffutils" preinstall="1" notmeta="1" version="3.3" release="7.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="filesystem" preinstall="1" notmeta="1" version="13.1" release="5.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="fillup" preinstall="1" notmeta="1" version="1.42" release="272.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="glibc" preinstall="1" notmeta="1" version="2.19" release="17.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="grep" preinstall="1" notmeta="1" version="2.16" release="4.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libbz2-1" preinstall="1" notmeta="1" version="1.0.6" release="30.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libgcc_s1" preinstall="1" notmeta="1" version="5.2.1+r226025" release="4.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="m4" preinstall="1" notmeta="1" version="1.4.16" release="3.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libncurses5" preinstall="1" notmeta="1" version="5.9" release="53.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="pam" preinstall="1" notmeta="1" version="1.1.8" release="12.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="permissions" preinstall="1" notmeta="1" version="2014.08.26.1452" release="3.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libreadline6" preinstall="1" notmeta="1" version="6.2" release="76.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="rpm" preinstall="1" notmeta="1" version="4.11.2" release="6.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="sed" preinstall="1" notmeta="1" version="4.2.2" release="6.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="tar" preinstall="1" notmeta="1" version="1.27.1" release="4.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libz1" preinstall="1" notmeta="1" version="1.2.8" release="6.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libselinux1" preinstall="1" notmeta="1" version="2.3" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="liblzma5" preinstall="1" notmeta="1" version="5.0.5" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libcap2" preinstall="1" notmeta="1" version="2.22" release="14.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libacl1" preinstall="1" notmeta="1" version="2.2.52" release="6.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libattr1" preinstall="1" notmeta="1" version="2.4.47" release="5.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libpopt0" preinstall="1" notmeta="1" version="1.16" release="28.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libelf1" preinstall="1" notmeta="1" version="0.158" release="9.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="liblua5_1" preinstall="1" notmeta="1" version="5.1.5" release="11.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libpcre1" preinstall="1" notmeta="1" version="8.33" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="util-linux" vminstall="1" version="2.25" release="7.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libmount1" vminstall="1" version="2.25" release="7.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="perl-base" vminstall="1" version="5.18.2" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libdb-4_8" vminstall="1" version="4.8.30" release="30.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libsepol1" vminstall="1" version="2.3" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libblkid1" vminstall="1" version="2.25" release="7.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libuuid1" vminstall="1" version="2.25" release="7.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="net-tools" vminstall="1" version="1.60" release="766.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libsmartcols1" vminstall="1" version="2.25" release="7.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="kernel-obs-build" vminstall="1" notmeta="1" version="4.1.12" release="1.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="autoconf" version="2.69" release="11.4" arch="noarch" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="automake" version="1.13.4" release="6.4" arch="noarch" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libtool" version="2.4.2" release="16.6" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="bison" version="2.7" release="8.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="flex" version="2.5.37" release="8.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="pcre-devel" version="8.33" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="zlib-devel" version="1.2.8" release="6.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libgnutls-devel" version="3.2.15" release="6.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libgcrypt-devel" version="1.6.1" release="18.7" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libgt-devel" version="0.3.11" release="8.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libdbi-devel" version="0.9.0.g33" release="3.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="net-snmp-devel" version="5.7.3" release="2.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="postgresql-devel" version="9.4" release="1.1" arch="noarch" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libnet-devel" version="1.2~rc3" release="3.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="python-docutils" version="0.11" release="3.2" arch="noarch" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="rpm-build" version="4.11.2" release="6.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="info" version="4.13a" release="39.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libltdl7" version="2.4.2" release="16.6" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libopenssl-devel" version="1.0.1i" release="4.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="pkg-config" version="0.28" release="8.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libstdc++-devel" version="4.8" release="8.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libpcre16-0" version="8.33" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libpcrecpp0" version="8.33" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libpcreposix0" version="8.33" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="glibc-devel" version="2.19" release="17.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="liblogging-devel" version="1.0.5" release="4.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libcurl-devel" version="7.37.0" release="5.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="p11-kit-devel" version="0.20.3" release="7.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libnettle-devel" version="2.7.1" release="7.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libtasn1-devel" version="3.7" release="10.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libgnutls28" version="3.2.15" release="6.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libgcrypt20" version="1.6.1" release="18.7" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libgpg-error0" version="1.13" release="3.6" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libgpg-error-devel" version="1.13" release="3.6" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libgtbase0" version="0.3.11" release="8.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libgthttp0" version="0.3.11" release="8.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libgtpng0" version="0.3.11" release="8.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libdbi3" version="0.9.0.g33" release="3.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libmysqlclient-devel" version="10.0.21" release="1.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="rpm-devel" version="4.11.2" release="6.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="tcpd-devel" version="7.6" release="885.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libsensors4-devel" version="3.3.5" release="4.6" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="perl-SNMP" version="5.7.3" release="2.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libsnmp30" version="5.7.3" release="2.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="postgresql94-devel" version="9.4.5" release="1.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="librelp-devel" version="1.2.12" release="6.1" arch="x86_64" project="home:conecenter:rev5a1:ontology:logitoring--c:messagebus--o:syslog--f" repository="openSUSE_Leap_42.1" />
+  <bdep name="libnet9" version="1.2~rc3" release="3.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libee-devel" version="0.4.1" release="7.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="liblognorm-devel" version="2.0.0" release="11.1" arch="x86_64" project="home:conecenter:rev5a1:ontology:logitoring--c:messagebus--o:syslog--f" repository="openSUSE_Leap_42.1" />
+  <bdep name="libestr-devel" version="0.1.9" release="4.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libuuid-devel" version="2.25" release="7.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libfastjson-devel" version="0.99.3" release="9.1" arch="x86_64" project="home:conecenter:rev5a1:ontology:logitoring--c:messagebus--o:syslog--f" repository="openSUSE_Leap_42.1" />
+  <bdep name="python-xml" version="2.7.9" release="21.3" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="python-base" version="2.7.9" release="21.3" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="update-alternatives" version="1.16.10" release="9.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="gcc" version="4.8" release="8.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="xz" version="5.0.5" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="file" version="5.19" release="5.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="findutils" version="4.5.12" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="bzip2" version="1.0.6" release="30.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="gawk" version="4.1.3" release="4.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="make" version="4.0" release="4.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="binutils" version="2.25.0" release="5.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="gzip" version="1.6" release="9.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="cpio" version="2.11" release="30.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="glibc-locale" version="2.19" release="17.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="which" version="2.20" release="5.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="patch" version="2.7.5" release="5.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="systemd-rpm-macros" version="2.1" release="1.3" arch="noarch" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libzio1" version="1.00" release="11.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libgdbm4" version="1.10" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libopenssl1_0_0" version="1.0.1i" release="4.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="openssl" version="1.0.1i" release="4.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libstdc++48-devel" version="4.8.5" release="16.7" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="linux-glibc-devel" version="4.1" release="1.1" arch="noarch" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="liblogging0" version="1.0.5" release="4.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libcurl4" version="7.37.0" release="5.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libp11-kit0" version="0.20.3" release="7.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="gmp-devel" version="5.1.3" release="4.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libhogweed2" version="2.7.1" release="7.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libnettle4" version="2.7.1" release="7.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libtasn1-6" version="3.7" release="10.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libgmp10" version="5.1.3" release="4.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libmysqlclient18" version="10.0.21" release="1.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libmysqlclient_r18" version="10.0.21" release="1.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="popt-devel" version="1.16" release="28.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libwrap0" version="7.6" release="885.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libsensors4" version="3.3.5" release="4.6" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="net-snmp" version="5.7.3" release="2.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="snmp-mibs" version="5.7.3" release="2.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libpq5" version="9.4.5" release="1.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libecpg6" version="9.4.5" release="1.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="librelp0" version="1.2.12" release="6.1" arch="x86_64" project="home:conecenter:rev5a1:ontology:logitoring--c:messagebus--o:syslog--f" repository="openSUSE_Leap_42.1" />
+  <bdep name="libee0" version="0.4.1" release="7.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="liblognorm5" version="2.0.0" release="11.1" arch="x86_64" project="home:conecenter:rev5a1:ontology:logitoring--c:messagebus--o:syslog--f" repository="openSUSE_Leap_42.1" />
+  <bdep name="libestr0" version="0.1.9" release="4.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libfastjson4" version="0.99.3" release="9.1" arch="x86_64" project="home:conecenter:rev5a1:ontology:logitoring--c:messagebus--o:syslog--f" repository="openSUSE_Leap_42.1" />
+  <bdep name="libpython2_7-1_0" version="2.7.9" release="21.3" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libcap-ng0" version="0.7.3" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libaudit1" version="2.3.6" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libutempter0" version="1.1.6" release="6.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="insserv-compat" version="0.1" release="13.4" arch="noarch" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="gcc48" version="4.8.5" release="16.7" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="cpp" version="4.8" release="8.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libmagic1" version="5.19" release="5.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libsemanage1" version="2.3" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="terminfo-base" version="5.9" release="53.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libldap-2_4-2" version="2.4.41" release="9.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libidn11" version="1.28" release="4.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libssh2-1" version="1.4.3" release="10.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libgmpxx4" version="5.1.3" release="4.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libtasn1" version="3.7" release="10.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="logrotate" version="3.8.7" release="7.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="perl-Term-ReadKey" version="2.31" release="3.6" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libcrack2" version="2.9.0" release="5.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libmpfr4" version="3.1.2" release="10.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libisl10" version="0.12.2" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libmpc3" version="1.0.2" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libcloog-isl4" version="0.18.1" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="cpp48" version="4.8.5" release="16.7" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libasan0" version="4.8.5" release="16.7" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="file-magic" version="5.19" release="5.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libustr-1_0-1" version="1.0.4" release="34.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libsasl2-3" version="2.1.26" release="8.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="cracklib" version="2.9.0" release="5.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libatomic1" version="5.2.1+r226025" release="4.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libgomp1" version="5.2.1+r226025" release="4.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libitm1" version="5.2.1+r226025" release="4.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libtsan0" version="5.2.1+r226025" release="4.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="gettext-tools-mini" version="0.19.2" release="3.6" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="gettext-runtime-mini" version="0.19.2" release="3.6" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="systemd-mini" version="210" release="84.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libseccomp2" version="2.1.1" release="3.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libkmod2" version="17" release="3.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="shadow" version="4.1.5.1" release="14.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="acl" version="2.2.52" release="6.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="systemd-mini-devel" version="210" release="84.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libstdc++6" version="5.2.1+r226025" release="4.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="krb5-mini" version="1.12.1" release="19.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libcom_err2" version="1.42.11" release="10.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libkeyutils1" version="1.5.9" release="4.3" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libffi4" version="5.2.1+r226025" release="4.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="python" version="2.7.9" release="21.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libsqlite3-0" version="3.8.10.2" release="5.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="pam-modules" notmeta="1" version="12.1" release="25.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="perl" notmeta="1" version="5.18.2" release="3.5" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="build-mkbaselibs" notmeta="1" version="20150903" release="1.1" arch="noarch" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="brp-check-suse" notmeta="1" version="13.2+git20150217.031533d" release="3.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="post-build-checks" notmeta="1" version="13.2+git20140318.f24deaf" release="3.2" arch="noarch" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="rpmlint-Factory" notmeta="1" version="1.0" release="89.1" arch="noarch" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="build-compare" notmeta="1" version="20150821T175907.9b8c0be" release="1.5" arch="noarch" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="brp-extract-appdata" notmeta="1" version="2012.02.13" release="23.1" arch="noarch" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="ncurses-utils" notmeta="1" version="5.9" release="53.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="aaa_base-malloccheck" notmeta="1" version="13.2+git20140911.61c1681" release="4.6" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="rpmlint-mini" notmeta="1" version="1.5" release="14.13" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="syslog-service" notmeta="1" version="2.0" release="779.1" arch="noarch" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libncurses6" notmeta="1" version="5.9" release="53.4" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="wicked-service" notmeta="1" version="0.6.27" release="1.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="sysconfig" notmeta="1" version="0.83.8" release="5.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="wicked" notmeta="1" version="0.6.27" release="1.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="sysconfig-netconfig" notmeta="1" version="0.83.8" release="5.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libdbus-1-3" notmeta="1" version="1.8.16" release="5.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libwicked-0-6" notmeta="1" version="0.6.27" release="1.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="util-linux-systemd" notmeta="1" version="2.25" release="7.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libnl3-200" notmeta="1" version="3.2.23" release="3.2" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="libnl-config" notmeta="1" version="3.2.23" release="3.2" arch="noarch" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="syslogd" notmeta="1" version="1.4.1" release="779.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <bdep name="klogd" notmeta="1" version="1.4.1" release="779.1" arch="x86_64" project="openSUSE:Leap:42.1" repository="standard" />
+  <path project="home:conecenter:rev5a1:ontology:logitoring--c:messagebus--o:syslog--f" repository="openSUSE_Leap_42.1" url="http://download.opensuse.org/repositories/home:/conecenter:/rev5a1:/ontology:/logitoring--c:/messagebus--o:/syslog--f/openSUSE_Leap_42.1/" />
+  <path project="openSUSE:Leap:42.1" repository="standard" />
+  <path project="openSUSE:Leap:42.1:Update" repository="standard" />
+</buildinfo>

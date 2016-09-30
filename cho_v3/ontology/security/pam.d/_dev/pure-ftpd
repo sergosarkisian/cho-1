@@ -1,0 +1,9 @@
+ 
+auth    required        pam_env.so
+auth    required        pam_sss.so    domains=ftp
+
+account     requisite   pam_nologin.so
+account     include     common-account
+password    include     common-password
+session     required    pam_loginuid.so
+session     include     common-session

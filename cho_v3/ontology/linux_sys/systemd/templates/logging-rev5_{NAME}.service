@@ -1,0 +1,17 @@
+[Unit]
+Description=logging-rev5_{NAME}
+Requires=var-run.mount network.target systemd-modules-load.service
+After=var-run.mount network.target systemd-modules-load.service
+StopWhenUnneeded=yes
+
+[Service]
+Type=oneshot
+StandardOutput=syslog
+RemainAfterExit=yes
+
+## START
+ExecStart=/usr/bin/systemctl show rev5_sssd.service
+
+
+[Install]
+WantedBy=multi-user.target

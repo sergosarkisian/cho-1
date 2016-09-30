@@ -1,0 +1,22 @@
+BONDING_MASTER='yes'
+BONDING_MODULE_OPTS='mode=<%= @parameters["mode"] -%> miimon=100'
+<% inc = 0 -%>
+<% @parameters["interfaces"].each do |interface| -%>
+<% inc += 1 -%>
+BONDING_SLAVE<%= inc -%>='<%= interface -%>'
+<% end -%>
+
+BOOTPROTO='static'
+BROADCAST=''
+ETHTOOL_OPTIONS=''
+IPADDR=''
+MTU='<%= @parameters["mtu"] -%>'
+NAME=''
+NETMASK=''
+NETWORK=''
+REMOTE_IPADDR=''
+STARTMODE='hotplug'
+USERCONTROL='no
+<%=  -%>
+
+<%=  -%>

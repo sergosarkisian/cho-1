@@ -1,0 +1,42 @@
+ server {
+    listen    NGINX_PORT default;
+    port_in_redirect off;
+    root htdocs;
+
+	auth_pam              "Git auth";
+	auth_pam_service_name "nginx_git";
+	auth_pam_set_pam_env  on;
+  
+	
+    location /nstat {
+            stub_status on;
+            }    
+
+	location = /favicon.ico {
+			log_not_found off;
+			access_log off;
+	}
+	
+    # static repo files for cloning over https
+    location ~ ^.*\.git/objects/([0-9a-f]+/[0-9a-f]+|pack/pack-[0-9a-f]+.(pack|idx))$ {
+        try_files $uri @dynamic;
+    }
+
+    # requests that need to go to git-http-backend
+    location ~ ^.*\.git/(HEAD|info/refs|objects/info/.*|git-(upload|receive)-pack)$ {
+        try_files $uri @dynamic;
+
+		include /etc/nginx/fastcgi.conf;
+        fastcgi_pass unix:/var/run/fcgiwrap.socket;
+        fastcgi_param SCRIPT_FILENAME   /usr/lib/git/git-http-backend;
+        fastcgi_param PATH_INFO         $uri;
+        fastcgi_param GIT_PROJECT_ROOT  git/repositories;
+        fastcgi_param GIT_HTTP_EXPORT_ALL "";
+        fastcgi_param REMOTE_USER $remote_user;
+        fastcgi_param GIT_NAMESPACE $git_namespace;        
+    }
+    
+    location @dynamic {
+		set $true 1;
+    }    
+}

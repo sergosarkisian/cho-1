@@ -1,0 +1,6 @@
+## Name: rev5_pure-ftpd ports
+## Description: Open ports for rev5_pure-ftpd
+
+# space separated list of allowed TCP ports
+TCP="20 21 45000:47999"
+ 

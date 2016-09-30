@@ -1,0 +1,22 @@
+##
+###### Definition of storage device
+##
+Device {
+  Name			     = client_dev.pool.sd.test
+  Media Type	             = client_dev.pool.sd.test
+  Archive Device       = /media/storage/datasafety/bareos/client_dev.pool
+  Mount Point	     = /media/storage/datasafety/bareos  
+  Device Type	     = File
+  Label Media	     = yes;                
+  Random Access      = yes;
+  Requires Mount      = yes;
+  Removable Media  = no;
+  Always Open	     = yes;
+  Automatic Mount   = yes;
+  Mount Command   = "mkdir -p %a"
+  Unmount Command = "echo 'Unmount'"
+  Maximum File Size = 10g
+   }
+##
+###### END
+##

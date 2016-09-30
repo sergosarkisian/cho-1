@@ -1,0 +1,89 @@
+POstgres + pgpool-II
+
+1)postgres
+cat /proc/sys/kernel/shmmax
+echo "80000000" > /proc/sys/kernel/shmmax
+
+su - postgres
+passwd
+createuser -s -e -E -P admin
+createdb -O admin test
+pg_hba.conf >> all to md5
+
+2)  pgpool functions to postgres
+psql -f /usr/share/postgresql/contrib/pgpool-walrecrunning.sql <dbname> 
+psql -f /usr/share/postgresql/contrib/pgpool-regclass.sql <dbname>
+psql -f /usr/share/postgresql/contrib/pgpool-recovery.sql <dbname>
+psql -f /usr/share/pgpool-II/system_db.sql  <dbname>
+
+
+ssh-keygen -t rsa
+ssh-copy-id root@<all_hosts_ip>
+
+3) Pgpool-II
+/etc/sysconfig/pgpool-II >> smart
+pgpooladmin
+
+pgpool.conf>>
+replication_mode = false
+load_balance_mode = true
+replication_stop_on_mismatch = false
+failover_if_affected_tuples_mismatch = false
+replicate_select = false
+master_slave_mode = true
+master_slave_sub_mode = 'stream'
+delay_threshold = 100000
+health_check_period = 0
+health_check_timeout = 20
+health_check_user = 'admin'
+fail_over_on_backend_error = false
+insert_lock = true
+enable_query_cache = false
+enable_pool_hba = false
+
+
+system_db_hostname = '127.0.0.1'
+system_db_port = 5432
+system_db_dbname = 'test'
+system_db_schema = 'test_catalog'
+system_db_user = 'admin'
+system_db_password = 'qwe123'
+
+backend_hostname0 = '127.0.0.1'
+backend_port0 = 5432
+backend_weight0 = 1
+backend_data_directory0 = '/srv/database/postgres'
+#backend_hostname1 = 'host2'
+#backend_port1 = 5432
+#backend_weight1 = 1
+#backend_data_directory1 = '/data1'
+
+recovery_user = 'admin'
+recovery_password = 'qwe123'
+
+
+archive_command = 'rsync %p postgres@node2:/exchange/wal/%f </dev/null'
+archive_command = 'test ! -f /opt/iRODS-2.0v/Postgres/backup_in_progress || rsync -a %p /opt/iRODS-2.0v/Postgres/pgsql_wal_archive/%f' 
+failover_command = '/etc/pgpool-II/failover_stream.sh %d %H /storage/database/postgres/standby.trigger'
+failback_command
+recovery_user 
+recovery_password
+recovery_1st_stage_command
+recovery_2nd_stage_command
+
+---
+
+failover_command = 'echo host:%h, new master id:%m, old master id:%M >
+/opt/pgpoolII/log/failover.log'
+failback_command = 'echo host:%h, new master id:%m, old master id:%M >
+/opt/pgpoolII/log/failback.log'
+...
+recovery_user = 'postgres'
+recovery_1st_stage_command = 'copy_base_backup'
+recovery_2nd_stage_command = 'pgpool_recovery_pitr'
+
+http://pgpool.projects.postgresql.org/pgpool-II/doc/recovery.conf.sample
+
+
+host    replication     postgres        IP        trust
+host    all             all            IP         trust

@@ -1,0 +1,9 @@
+/var/log/kibana/*.log {
+        su kibana kibana
+        daily
+        rotate 7
+        copytruncate
+        compress
+        missingok
+        notifempty
+}

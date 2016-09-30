@@ -1,0 +1,5 @@
+<directory name="bareos" rev="6" srcmd5="abf2ea80a6041f4b3d6c293ed4fba738" vrev="6">
+  <serviceinfo code="running" />
+  <entry md5="96929bcccd7e0f5390418ccd1d0ad43f" mtime="1459428097" name="_service" size="453" />
+  <entry md5="02afbcf1934b7af90b20e8e30e720844" mtime="1450102833" name="bareos.spec" size="35370" />
+</directory>

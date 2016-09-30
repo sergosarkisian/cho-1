@@ -1,0 +1,46 @@
+## VARS ##
+name    		= "{VMNAME}"      ## FQDN
+spicepasswd    = {MAC4}     ## MAC - 4 octets
+spiceport	        = {MAC_1.5}          ## MAC - 3 last digits + 50000
+##
+
+## RESOURCES ##
+memory   	= 1000
+maxmem 	= 1000
+vcpus      	= 2
+maxvcpus = 2
+pool       	= "Pool1"
+cpu_weight = 512
+##
+
+device_model_override = "/usr/bin/qemu-system-x86_64"
+builder = 'hvm'
+boot='c'
+acpi_s3=0
+acpi_s4=0
+spice=1
+spice_clipboard_sharing=1
+spicevdagent=1
+keymap='en-us'
+#pvh=1, #usbdevice="tablet", #superpages, #vnc=1, #vnclisten="0.0.0.0"
+##
+
+## XEN ##
+#extra = "CPUFREQ=no panic=15 barrier=off xen_blkfront.max=64 console=hvc0 debug kgdboc=hvc0"
+on_crash = "restart"
+##                                                                                                                      
+
+
+disk=[
+
+'vdev=xvda, backendtype=tap, target=/media/storage1/images/!master/rsuse.raw",
+'vdev=xvdb, backendtype=tap, target=/media/storage1/images/!master/swap.raw",
+'vdev=xvdc, backendtype=tap, target=/media/storage1/images/!master/logs.raw",
+
+'vdev=xvde, backendtype=tap, target=/media/storage1/images/!master/storage.raw",
+'vdev=xvdv, backendtype=tap, target=/media/storage1/images/!master/storage_meta.raw",
+]                                                                                                                                                                                   
+                                                                                                                                                                                  
+vif =[    
+"mac=AA:{NETMASK}:{IP2MAC},type=vif,bridge=type::ext---ext_if::bond_vlannet---policy::common---switch::vlannet---cookie::{VLAN}---mtu::{MTU}---gate::{GATE_IP}",   
+]

@@ -1,0 +1,26 @@
+--- ./rsyslog.service.in	2014-09-26 12:56:29.000000000 +0300
++++ rsyslog.service.in_new	2014-09-30 14:45:32.237223977 +0300
+@@ -3,12 +3,19 @@
+ Requires=syslog.socket
+ Documentation=man:rsyslogd(8)
+ Documentation=http://www.rsyslog.com/doc/
++Requires=var-run.mount
++After=var-run.mount
++Conflicts=syslog-ng.service syslogd.service
+ 
+ [Service]
+-Type=notify
+-ExecStart=@sbindir@/rsyslogd -n
+-StandardOutput=null
+-Restart=on-failure
++ Type=notify
++ ExecStart=@sbindir@/rsyslogd -n $RSYSLOGD_PARAMS
++ StandardOutput=null
++ Environment=RSYSLOGD_PARAMS=
++ ExecStartPre=@sbindir@/rsyslog-service-prepare
++ EnvironmentFile=-/etc/sysconfig/syslog
++ ExecReload=/bin/kill -HUP $MAINPID
++ Restart=on-failure
+ 
+ [Install]
+ WantedBy=multi-user.target

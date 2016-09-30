@@ -1,0 +1,64 @@
+--- ./src/src/log.c	2016-07-31 18:52:06.000000000 +0300
++++ ./src/src/log.c_p	2016-08-02 04:24:34.893981940 +0300
+@@ -19,7 +19,7 @@
+ 
+ enum { lt_main, lt_reject, lt_panic, lt_debug };
+ 
+-static uschar *log_names[] = { US"main", US"reject", US"panic", US"debug" };
++static uschar *log_names[] = { US"cee", US"main", US"reject", US"panic", US"debug" };
+ 
+ 
+ 
+@@ -840,6 +840,7 @@
+     }
+ 
+   sprintf(CS ptr, "%s%s%s%s\n  ",
++    ((flags & LOG_CEE) != 0)?    " CEE"   : "",          
+     ((flags & LOG_MAIN) != 0)?    " MAIN"   : "",
+     ((flags & LOG_PANIC) != 0)?   " PANIC"  : "",
+     ((flags & LOG_PANIC_DIE) == LOG_PANIC_DIE)? " DIE" : "",
+@@ -860,7 +861,7 @@
+ 
+ /* If no log file is specified, we are in a mess. */
+ 
+-if ((flags & (LOG_MAIN|LOG_PANIC|LOG_REJECT)) == 0)
++if ((flags & (LOG_CEE|LOG_MAIN|LOG_PANIC|LOG_REJECT)) == 0)
+   log_write(0, LOG_MAIN|LOG_PANIC_DIE, "log_write called with no log "
+     "flags set");
+ 
+@@ -889,11 +890,14 @@
+   while (*ptr) ptr++;
+   }
+ 
+-if (really_exim && message_id[0] != 0)
+-  {
+-  sprintf(CS ptr, "%s ", message_id);
+-  while(*ptr) ptr++;
+-  }
++ if (really_exim && message_id[0] != 0)
++   {
++    if ((flags & LOG_CEE) == 0)
++     {
++        sprintf(CS ptr, "%s ", message_id);
++        while(*ptr) ptr++;
++     }
++   }
+ 
+ if ((flags & LOG_CONFIG) != 0) ptr = log_config_info(ptr, flags);
+ 
+@@ -954,13 +958,14 @@
+   return;
+   }
+ 
++
+ /* Handle the main log. We know that either syslog or file logging (or both) is
+ set up. A real file gets left open during reception or delivery once it has
+ been opened, but we don't want to keep on writing to it for too long after it
+ has been renamed. Therefore, do a stat() and see if the inode has changed, and
+ if so, re-open. */
+ 
+-if ((flags & LOG_MAIN) != 0 &&
++if ((flags & (LOG_CEE|LOG_MAIN)) != 0 &&
+     (selector == 0 || (selector & log_selector[0]) != 0))
+   {
+   if ((logging_mode & LOG_MODE_SYSLOG) != 0 &&

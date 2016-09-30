@@ -1,0 +1,7 @@
++next router if primary goes down
+ip route add default scope global nexthop via 123.45.67.89 dev eth0 weight 1 nexthop via 123.44.55.66 dev eth1 weight 1; 
+
++nf_conntrack hashsize
+echo "40000"  > /sys/module/nf_conntrack/parameters/hashsize
+
++open router bug - between all internal networks (2002 to 1000)
