@@ -11,7 +11,7 @@
 ########    #######    ########    #######    ########    ########
 
 
-_in4__systemctl () {
+_in4__zypper () {
     full_stack=$@
     SKIP=()
 
@@ -30,12 +30,14 @@ _in4__systemctl () {
 
         case $command in
         *start)
-            $EXEC systemctl ${SKIP[*]} $command $@; sleep 1;   systemctl ${SKIP[*]} status $@;
+            $EXEC zypper ${SKIP[*]} $command --details $@
         ;;
         *)
-            $EXEC systemctl $full_stack
+            $EXEC zypper $full_stack
         ;;
     esac
 }
-alias systemctl=_in4__systemctl
-alias ssystemctl='EXEC="sudo";_in4__systemctl'
+alias zypper=_in4__zypper
+alias szypper='EXEC="sudo";_in4__zypper'
+
+

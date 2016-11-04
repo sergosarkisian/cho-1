@@ -95,6 +95,7 @@ systemctl mask ntpd
 
 ### SYSDATA PERMS OVERRIDE
 chmod 700 /var/lib/empty
+setfacl -R -m u:root:rwx /var/cache/man/
 ###
 
 

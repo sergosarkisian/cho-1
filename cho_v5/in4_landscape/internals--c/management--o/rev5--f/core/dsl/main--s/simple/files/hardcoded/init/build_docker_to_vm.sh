@@ -45,9 +45,11 @@ mkdir -p  ./loop/boot/grub2/
 cp ./cho/cho_v5/in4_landscape/internals--c/linux_sys--o/boot--f/grub2/dsl/main--s/simple/files/hardcoded/boot_grub2_grub.cfg--xen-all ./loop/boot/grub2/grub.cfg
 
 ## ADD MISC SW
-cp ./cho/cho_v3/ontology/linux_sys/zypper/zypp.conf loop/etc/zypp/zypp.conf
-
-systemd
+#zypper
+cp ./cho/cho_v4/internals:c/linux_sys:o/pkg_management--f/zypper/zypp.conf loop/etc/zypp/zypp.conf
+cp ./cho/cho_v4/internals:c/linux_sys:o/pkg_management--f/zypper/zypper.conf loop/etc/zypp/zypper.conf
+#
+systemd = profile.d + conf
 sssd
 sysctl
 atop
@@ -58,6 +60,8 @@ sudo
 btrfs
 bash
  ###
+ 
+ profile.d + conf + systemd service + swf2 + 
  
  ###  CP REV5 ###
 mkdir -p loop/etc/rev5/static
