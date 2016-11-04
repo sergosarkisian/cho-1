@@ -1,9 +1,9 @@
-<directory name="openvswitch" rev="9" srcmd5="231ee47534e13df1ed949239b8f103f6" vrev="9">
+<directory name="openvswitch" rev="17" srcmd5="3df01c2b5d7c164ecfb8980eb34f629a" vrev="17">
   <serviceinfo code="running" />
   <entry md5="9fdab9867f1e86ec00f5c491278c3102" mtime="1334415938" name="Module.supported" size="38" />
   <entry md5="573314ba68c31108cdd7ab5fa5c6a63f" mtime="1370528896" name="Module.supported.updates" size="23" />
   <entry md5="f7ea51c73a24ec5394946d9a748fad96" mtime="1330612328" name="README.packager" size="609" />
-  <entry md5="5911fcae6ecc243583e4264c8e852d24" mtime="1456645221" name="_service" size="542" />
+  <entry md5="90388735637c50bc1ef508d3e28058aa" mtime="1478152757" name="_service" size="543" />
   <entry md5="24763ecf414a9f8d56300fc685790b8c" mtime="1396449755" name="log-check-module-loop.patch" size="1470" />
   <entry md5="1bb91e8bff8587d8846a02aea5a2776f" mtime="1458049586" name="make_travis.patch" size="270" />
   <entry md5="0c3e5aa3949ca78259b21e1bbedde62d" mtime="1458049587" name="no_windows_compile.patch" size="376" />

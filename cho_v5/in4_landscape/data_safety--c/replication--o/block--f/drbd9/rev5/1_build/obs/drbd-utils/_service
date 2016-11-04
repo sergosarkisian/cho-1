@@ -1,10 +1,10 @@
 <services>
   <service name="tar_scm">
     <param name="url">git://git.linbit.com/drbd-utils.git</param>
-    <param name="revision">c6e62702d5e4fb2cf6b3fa27e67cb0d4b399a30b</param>
+    <param name="revision">ec72a4ef618a2049639bb4f2f49709b0bbf8b111</param>
     
     <param name="scm">git</param>
-    <param name="versionformat">__Name@drbd-utils__Ver@8.9.6__Rel@roll__RelDate@%cd__Tag@git+%h__.obs</param>
+    <param name="versionformat">__Name@drbd-utils__Ver@8.9.9__Rel@roll__RelDate@%cd__Tag@git+%h__.obs</param>
      <param name="package-meta">yes</param>
   </service>
   <service name="recompress">

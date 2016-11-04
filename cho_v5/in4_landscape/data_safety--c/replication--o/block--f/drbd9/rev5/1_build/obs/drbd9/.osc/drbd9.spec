@@ -45,7 +45,7 @@ Url:            http://drbd.linbit.com/
 BuildRequires:  kernel-source
 BuildRequires:  kernel-syms
 BuildRequires:  module-init-tools
-Requires:       drbd-utils >= 8.9.6
+Requires:       drbd-utils >= 8.9.8
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Source1:      drbd_git_revision

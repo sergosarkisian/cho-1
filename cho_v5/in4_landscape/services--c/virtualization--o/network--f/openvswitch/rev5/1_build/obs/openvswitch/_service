@@ -4,7 +4,7 @@
     <param name="revision">branch-2.6</param>
     
     <param name="scm">git</param>
-    <param name="versionformat">__Name@openvswitch__Ver@2.6.0__Rel@roll__RelDate@%cd__Tag@git+%h__.obs</param>
+    <param name="versionformat">__Name@openvswitch__Ver@2.6.1__Rel@roll__RelDate@%cd__Tag@git+%h__.obs</param>
     <param name="exclude">.git</param>    
     <param name="exclude">windows/</param>        
   </service>

@@ -34,10 +34,25 @@ useradd -g log -u 998 -M -d /media/sysdata/logs/ log
 ###
 
 ### PERMISSIONS ###
-setfacl -R -m u:sysdata:rwx 	/media/sysdata
-setfacl -R -m d:u:sysdata:rwx   /media/sysdata	
-setfacl -R -m g:sysdata:rx 	        /media/sysdata
-setfacl -R -m d:g:sysdata:rx 	/media/sysdata
+	# Set root permissions	
+	setfacl -R -m u:root:rwx /media/sysdata
+	setfacl -R -m d:u:root:rwx /media/sysdata
+	
+	setfacl -R -m g:log:rx /media/sysdata/logs
+	setfacl -R -m d:g:log:rx /media/sysdata/logs
+	
+        setfacl -R -m u:log:rwx /media/sysdata/logs
+	setfacl -R -m d:u:log:rwx /media/sysdata/logs
+		
+	#Set system app permissions
+	setfacl -R -m g:sysdata:rx /media/sysdata
+	setfacl -R -m d:g:sysdata:rx /media/sysdata	
+	
+	#setfacl - others
+	setfacl -R -m u::rwx /media/sysdata
+	setfacl -R -m g::rwx /media/sysdata
+	setfacl -R -m d:u::rwx /media/sysdata
+	setfacl -R -m d:g::rwx /media/sysdata	
 ###
 
 ### MISC ###
@@ -73,7 +88,7 @@ pam-config --add --mkhomedir
 
 ### SERVICES FIRST ENABLE/START ###
 /sbin/yast security level server
-/sbin/rcapparmor start
+#/sbin/rcapparmor start
 systemctl disable ntpd
 systemctl mask ntpd
 ###

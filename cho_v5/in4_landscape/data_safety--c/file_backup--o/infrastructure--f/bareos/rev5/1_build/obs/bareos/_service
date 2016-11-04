@@ -1,10 +1,10 @@
 <services>
   <service name="tar_scm">
     <param name="url">https://github.com/bareos/bareos.git</param>
-    <param name="revision">bareos-15.2</param>
+    <param name="revision">bareos-16.2</param>
     
     <param name="scm">git</param>
-    <param name="versionformat">git_+Ver+15.2.3+Date+%cd+Comm+%h+</param>
+    <param name="versionformat">git_+Ver+16.2.0+Date+%cd+Comm+%h+</param>
     <param name="exclude">.git</param>    
   </service>
   <service name="recompress">

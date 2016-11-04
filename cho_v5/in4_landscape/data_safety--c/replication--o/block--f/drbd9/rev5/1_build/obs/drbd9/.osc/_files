@@ -1,7 +1,7 @@
-<directory name="drbd9" rev="18" srcmd5="77509a713a6d69eba1001be34636f7b0" vrev="18">
-  <serviceinfo code="running" />
-  <entry md5="0d18165c8486057111a9e4013174692a" mtime="1469690702" name="_service" size="511" />
+<directory name="drbd9" rev="25" srcmd5="e5602afd7799a74a49bfb42c1915aaf7" vrev="25">
+  <serviceinfo code="succeeded" xsrcmd5="27ba2e2631dabcbf2ad36b862dc4e718" />
+  <entry md5="57ba8e8b71b087347c7dc974739c81c2" mtime="1477314580" name="_service" size="511" />
   <entry md5="0c9e5beb4412d1d243a5efc2a367dcb9" mtime="1450935775" name="backport-gfp_reclaim.patch" size="3320" />
-  <entry md5="88eda02ac4d50a9caa951b8e0bcc5270" mtime="1454946306" name="drbd9.spec" size="3337" />
-  <entry md5="25d06990c3052a5a043d6a52c8ec5ec7" mtime="1469690678" name="drbd_git_revision" size="52" />
+  <entry md5="0fc43cab5cbf1fc5a9d38ff2e47e3702" mtime="1473184853" name="drbd9.spec" size="3337" />
+  <entry md5="137f2ebfad4352ef6aacd4b5b29935b7" mtime="1477314580" name="drbd_git_revision" size="52" />
 </directory>

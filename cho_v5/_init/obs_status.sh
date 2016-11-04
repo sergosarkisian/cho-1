@@ -6,7 +6,7 @@ currentUnixtime=`date "+%s"`
 oscTmpFile="/tmp/osc_status.tmp"
 openSuseVersion="openSUSE_Leap_42.1"
 
-find ../form/technologies/*--c/*--o/*--f/*/in4/1_build/obs/* -type d -not -path "*.osc*" -not -path "*_git_*" -print0 | while IFS= read -r -d $'\0' line; do
+find ../in4_landscape/*--c/*--o/*--f/*/rev5/1_build/obs/* -type d -not -path "*.osc*" -not -path "*_git_*" -print0 | while IFS= read -r -d $'\0' line; do
     cd $execPath
     cd $line
     buildPackage=`echo $line|sed -e "s/.*obs\///"`    

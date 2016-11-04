@@ -14,9 +14,9 @@ taxSerialShort="${store[c]}--c--${store[o]}--o--${store[f]}--f--${store[g]}"
 taxPath="${store[c]}--c/${store[o]}--o/${store[f]}--f/${store[g]}"
 
 ## GIT
-        cd $execPath/../products
+        cd $execPath/../in4_landscape
         git clone ./_ontology_template/.git ./$taxPath
-        cd $execPath/../products/$taxPath
+        cd $execPath/../in4_landscape/$taxPath
 
         git add -u :/
         grep -rl --exclude-dir=.git class--c--order--o--family--f--genus--g--main--s ./ | xargs sed -i "s/class--c--order--o--family--f--genus--g--main--s/${store[c]}--c--${store[o]}--o--${store[f]}--f--${store[g]}--g--${store[s]}--s/g"
@@ -26,7 +26,7 @@ taxPath="${store[c]}--c/${store[o]}--o/${store[f]}--f/${store[g]}"
         find . -not -path "./.git/*" -type f -name *class--c--order--o--family--f--genus--g--main--s* -exec bash -c 'for file in $@; do mv $file ${file/class--c--order--o--family--f--genus--g--main--s/'$taxSerial'}; done' bash {} +
 
 ## OBS
-        cd $execPath/../products
+        cd $execPath/../in4_landscape
         obsArray=("${store[c]}--c" "${store[c]}--c:${store[o]}--o" "${store[c]}--c:${store[o]}--o:${store[f]}--f")
         for obs in ${obsArray[*]}; do   
             cp $execPath/obs_project.xml /tmp/obs_project.xml
@@ -38,12 +38,12 @@ taxPath="${store[c]}--c/${store[o]}--o/${store[f]}--f/${store[g]}"
         cp $execPath/obs_package.xml /tmp/obs_package.xml
         sed -i "s/{PROJECT}/$obs/g" /tmp/obs_package.xml
         sed -i "s/{NAME}/${store[g]}/g" /tmp/obs_package.xml
-        cd $execPath/../products/$taxPath/rev5/1_build/obs/
+        cd $execPath/../in4_landscape/$taxPath/rev5/1_build/obs/
         osc co -u home:conecenter:rev5a1:ontology:$obs
         mv home:conecenter:rev5a1:ontology:$obs/.osc ./ && rm -rf home:conecenter:rev5a1:ontology:$obs
         #
         osc meta pkg home:conecenter:rev5a1:ontology:$obs ${store[g]} -F /tmp/obs_package.xml
         osc up -u
         
-        cd $execPath/../products/$taxPath
+        cd $execPath/../in4_landscape/$taxPath
         git add * && git commit  -m "777"

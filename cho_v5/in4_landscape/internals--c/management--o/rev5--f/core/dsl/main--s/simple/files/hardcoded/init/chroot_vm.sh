@@ -27,8 +27,8 @@ zypper --non-interactive in --force sssd sssd-tools
 zypper --non-interactive in --force yast2-security
 zypper --non-interactive in --force mc vim lsof less strace 
 #MISC
-zypper --non-interactive in --force rsync subversion git sysstat tcpdump telnet diff wget
-#curl deltarpm expect sysfsutils exim atop
+zypper --non-interactive in --force rsync subversion git sysstat tcpdump telnet wget
+#curl deltarpm expect sysfsutils exim atop diff
 zypper --non-interactive --gpg-auto-import-keys dup
  ###
  
