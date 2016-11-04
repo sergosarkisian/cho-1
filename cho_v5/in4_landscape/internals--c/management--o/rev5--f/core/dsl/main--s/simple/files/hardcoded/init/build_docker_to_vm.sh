@@ -48,6 +48,8 @@ cp ./cho/cho_v5/in4_landscape/internals--c/linux_sys--o/boot--f/grub2/dsl/main--
 #zypper
 cp ./cho/cho_v4/internals:c/linux_sys:o/pkg_management--f/zypper/zypp.conf loop/etc/zypp/zypp.conf
 cp ./cho/cho_v4/internals:c/linux_sys:o/pkg_management--f/zypper/zypper.conf loop/etc/zypp/zypper.conf
+#++ profile.d
+#
 #
 systemd = profile.d + conf
 sssd
