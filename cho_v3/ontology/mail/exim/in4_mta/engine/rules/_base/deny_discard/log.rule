@@ -1,6 +1,6 @@
 warn
     condition = ${if eq {$acl_c_rule_proccessed}{yes}}
-    set acl_c_msg_class             = section
+    set acl_c_event_class             = section
 
     set acl_c_event_view   = events
     set acl_c_rule_action   = deny_discard

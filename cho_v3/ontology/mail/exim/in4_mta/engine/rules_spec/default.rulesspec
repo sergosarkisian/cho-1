@@ -173,7 +173,7 @@ begin acl
     ## // DD \\
         .ifndef DEMO_MODE
             warn set acl_c_rule_dd_descr = after_non_auth_relaying+spamtrap
-            .include /etc/exim/engine_path/engine/rules/_base/deny_discard/score_hard_limit.rule
+            .include /etc/exim/engine_path/engine/rules/_base/deny_discard/score_hard_limit_deny.rule
         .endif        
     ## \\ DD //
     #
@@ -227,11 +227,11 @@ begin acl
     ## // DD \\
         .ifndef DEMO_MODE
             warn set acl_c_rule_dd_descr = end_of_4_check_predata
-            .include /etc/exim/engine_path/engine/rules/_base/deny_discard/score_hard_limit.rule
+            .include /etc/exim/engine_path/engine/rules/_base/deny_discard/score_hard_limit_deny.rule
         .endif              
     ## \\ DD //       
     #    
-        .include /etc/exim/engine_path/engine/rules/4_check_predata/defer/greylist.rule
+    #    .include /etc/exim/engine_path/engine/rules/4_check_predata/defer/greylist.rule
     #    
     ## 
  .include /etc/exim/engine_path/engine/rules/_base/accept/accept.rule
@@ -247,7 +247,7 @@ begin acl
     ## // DD \\
         .ifndef DEMO_MODE
             warn set acl_c_rule_dd_descr = end_of_5_check_mime
-            .include /etc/exim/engine_path/engine/rules/_base/deny_discard/score_hard_limit.rule
+            .include /etc/exim/engine_path/engine/rules/_base/deny_discard/score_hard_limit_deny.rule
         .endif              
     ## \\ DD //           
  .include /etc/exim/engine_path/engine/rules/_base/accept/accept.rule
@@ -269,7 +269,7 @@ begin acl
     ## // DD \\
         .ifndef DEMO_MODE
             warn set acl_c_rule_dd_descr = end_of_6_check_data
-            .include /etc/exim/engine_path/engine/rules/_base/deny_discard/score_hard_limit.rule
+            .include /etc/exim/engine_path/engine/rules/_base/deny_discard/score_hard_limit_deny.rule
         .endif              
     ## \\ DD //      
     #

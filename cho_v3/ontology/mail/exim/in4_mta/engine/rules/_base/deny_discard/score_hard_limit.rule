@@ -36,7 +36,16 @@ warn
                 
         # 2.3. SET RULE SUCCESS FLAG
             set acl_c_rule_proccessed = yes		
-		
+
+## 3. RULE POST   - post-discard
+
+        # 3.1 ANALYSE - score calc/logitoring/vars/etc
+            .include /etc/exim/engine_path/engine/rules/_base/deny_discard/_post.rulesec
+            
+        # 3.2 FACT
+            set acl_c_rule_fact__deny_discard__score_hard_limit = 1
+            
+            
  deny 
  
         # 2.1. APPLY AREA
@@ -52,8 +61,8 @@ warn
             set acl_c_rule_proccessed = yes		
             
             
-## 3. RULE POST            
-    #warn
+## 3. RULE POST   - post-deny
+
         # 3.1 ANALYSE - score calc/logitoring/vars/etc
             .include /etc/exim/engine_path/engine/rules/_base/deny_discard/_post.rulesec
             

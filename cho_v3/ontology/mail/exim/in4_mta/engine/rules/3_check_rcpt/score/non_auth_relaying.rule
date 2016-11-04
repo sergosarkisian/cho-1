@@ -30,6 +30,7 @@ warn
 ## 2. RULE BODY
      warn
         # 2.1. APPLY AREA 
+                !authenticated  = *        
 		domains = !+local_domains : !+hosted_domains : !+registered_domains : !+relaytomx_domains
 		
         # 2.2. MAIN DSL LOGIC - conditions

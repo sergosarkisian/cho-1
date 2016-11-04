@@ -13,7 +13,7 @@
 ## RULE DESCRIPTION
 warn
     set acl_c_rule_fullname     = 2_check_mail__score__helo_not_eq_ehlo
-    set acl_c_rule_description = @RULE_DESCRIPTION@
+    set acl_c_rule_description = HELO not eq EHLO
     set acl_c_rule_main_lookup_var = $sender_helo_name
 
 .ifndef DISABLE__RULES__$acl_c_rule_fullname

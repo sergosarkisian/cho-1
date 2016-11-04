@@ -136,7 +136,7 @@ GET_HANDLER_TRANSPORT = \
                     SELECT d.name \
                     FROM domains d \
                     WHERE d.name = '${quote_DB_TYPE:$domain}' \
-                    and d.type='relaytohost' \
+                    and (d.type='relaytohost' or d.type = 'backend' ) \
 }}
 ###
 ########################################################

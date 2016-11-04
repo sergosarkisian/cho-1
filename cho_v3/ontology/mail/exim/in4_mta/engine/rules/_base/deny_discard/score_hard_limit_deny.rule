@@ -39,7 +39,6 @@ warn
             
             
 ## 3. RULE POST            
-    #warn
         # 3.1 ANALYSE - score calc/logitoring/vars/etc
             .include /etc/exim/engine_path/engine/rules/_base/deny_discard/_post.rulesec
             

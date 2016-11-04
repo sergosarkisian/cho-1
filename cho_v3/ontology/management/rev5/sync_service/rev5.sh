@@ -12,14 +12,14 @@ if [[ $SVN_UP_CONTEXT != "0" || $SVN_UP_TECHPOOL != "0" ]]; then
 	setfacl -R -m d:u:root:rwx /media/sysdata/rev5
 	
 	#Set system app permissions
-	setfacl -R -m g:sysapp:rx /media/sysdata/rev5
+	setfacl -R -m g:sysapp:rx /media/sysdata/rev5/
 	setfacl -R -m d:g:sysapp:rx /media/sysdata/rev5	
 	
 	#setfacl - others
 	setfacl -R -m u::rwx /media/sysdata/rev5
 	setfacl -R -m g::rwx /media/sysdata/rev5
 	setfacl -R -m d:u::rwx /media/sysdata/rev5
-	setfacl -R -m d:g::rwx /media/sysdata/rev5	
+	setfacl -R -m d:g::rwx /media/sysdata/rev5
 	
 	chmod 644 /etc/systemd/system/rev5*
 fi
@@ -189,6 +189,3 @@ if [[ ! -f /media/sysdata/rev5/firstinit.safe && ! -d /etc/faster/cmdb ]]; then
 	chmod 644 /etc/systemd/system/rev5*
 	touch /media/sysdata/rev5/firstinit.safe
 fi
-
-
-

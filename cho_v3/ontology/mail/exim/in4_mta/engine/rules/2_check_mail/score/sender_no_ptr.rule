@@ -13,7 +13,7 @@
 ## RULE DESCRIPTION
 warn
     set acl_c_rule_fullname     = 2_check_mail__score__sender_no_ptr
-    set acl_c_rule_description = @RULE_DESCRIPTION@
+    set acl_c_rule_description = Server has no PTR record
     set acl_c_rule_main_lookup_var = $sender_host_name
                                                                             ## BUG!!!
 
@@ -32,7 +32,7 @@ warn
     warn
         # 2.1. APPLY AREA
             !authenticated  = *
-            #hosts                   = ! +local_networks
+            hosts                   = ! +local_networks
             
         # 2.2. MAIN DSL LOGIC - conditions
             condition = ${if eq{$acl_c_rule_main_lookup_var}{}}
