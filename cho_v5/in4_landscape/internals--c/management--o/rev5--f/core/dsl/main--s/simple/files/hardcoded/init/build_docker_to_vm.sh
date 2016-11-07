@@ -1,37 +1,10 @@
-#!/bin/bash
-mkdir -p /media/storage1/images/\!master/openSUSE-42.1/_dev/loop
-wget -O  /media/storage1/images/\!master/openSUSE-42.1/openSUSE-42.1-docker-guest-docker.x86_64.tar.xz http://download.opensuse.org/repositories/Virtualization:/containers:/images:/openSUSE-42.1/images/openSUSE-42.1-docker-guest-docker.x86_64.tar.xz
-cd /media/storage1/images/\!master/openSUSE-42.1/_dev
-git clone  https://github.com/eistomin/cho.git
 
-### DISK INIT ###
-rm ./*.raw
-fallocate -l10g ./in4a1-suse-l.raw
-mkfs.btrfs -L "system" ./in4a1-suse-l.raw 
 
-fallocate -l 2g ./sysdata.raw
-mkfs.ext4 -L "sysdata" ./sysdata.raw
 
-fallocate -l 2g ./swap.raw
-mkswap -L "swap" ./swap.raw 
- ###
+
+
+
  
- ### GENERATE LOOP MOUNT & UNTAR ###
-losetup /dev/loop60 ./in4a1-suse-l.raw
-mount /dev/loop60  ./loop/
-tar xf ../*.tar.xz -C ./loop/
- ###
- 
- ### 
- mkdir -p  ./loop/media/sysdata
- losetup /dev/loop61 ./sysdata.raw
-mount /dev/loop61 ./loop/media/sysdata
- ###
-
- ###  CP OWN FILES ###
-cp /etc/resolv.conf ./loop/etc/
-cp /etc/sysconfig/proxy ./loop/etc/sysconfig/
- ### 
  
  ###  CP REV5 - BOOT, GRUB2###
 cp ./cho/cho_v5/in4_landscape/internals--c/linux_sys--o/boot--f/grub2/dsl/main--s/simple/files/hardcoded/etc_default_grub--vm_xen ./loop/etc/default/grub
@@ -52,15 +25,14 @@ cp ./cho/cho_v4/internals:c/linux_sys:o/pkg_management--f/zypper/zypper.conf loo
 #
 #
 systemd = profile.d + conf
-sssd
-sysctl
-atop
-rsyslog
-exim
-sshd
-sudo
-btrfs
-bash
+sssd =  conf + systemd service
+sysctl = conf
+atop =  profile.d + conf + systemd service
+rsyslog = conf + systemd service
+exim = conf
+sshd = conf + systemd service + swf2
+sudo =  conf
+bash = conf
  ###
  
  profile.d + conf + systemd service + swf2 + 
@@ -88,18 +60,7 @@ echo "tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0" >> ./loop/etc/fstab
 
 ###
 
- ###  CHROOT TO LOOP ###
-mount -t proc proc loop/proc/ &&  mount -t sysfs sys loop/sys/ && mount -o bind /dev loop/dev/
+
+
 cp ./cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/chroot_vm.sh  loop/tmp/
 cp ./cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/3.init_common.sh loop/tmp/
-chroot loop /bin/bash -c "sh /tmp/chroot_vm.sh"
-
-###
-
-umount loop/dev && umount loop/proc && umount loop/sys
-umount ./loop/media/sysdata && losetup -d /dev/loop61
-umount loop && losetup -d /dev/loop60
-###
-
-time cp --sparse=always ./in4a1-suse-l.raw ../
-time cp --sparse=always ./sysdata.raw ../
