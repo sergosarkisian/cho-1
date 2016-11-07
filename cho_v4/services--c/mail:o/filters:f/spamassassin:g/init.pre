@@ -16,6 +16,14 @@ loadplugin Mail::SpamAssassin::Plugin::URIEval
 loadplugin Mail::SpamAssassin::Plugin::WLBLEval
 loadplugin Mail::SpamAssassin::Plugin::VBounce
 loadplugin Mail::SpamAssassin::Plugin::ImageInfo
+loadplugin Mail::SpamAssassin::Plugin::Hashcash
+loadplugin Mail::SpamAssassin::Plugin::Pyzor
+loadplugin Mail::SpamAssassin::Plugin::Razor2
+loadplugin Mail::SpamAssassin::Plugin::SpamCop
+loadplugin Mail::SpamAssassin::Plugin::TextCat
+loadplugin Mail::SpamAssassin::Plugin::FreeMail
+loadplugin Mail::SpamAssassin::Plugin::AskDNS
+loadplugin Mail::SpamAssassin::Plugin::PDFInfo
 
 
 ##POSTFIX ONLY
@@ -24,8 +32,5 @@ loadplugin Mail::SpamAssassin::Plugin::DKIM
 loadplugin Mail::SpamAssassin::Plugin::URIDNSBL
 loadplugin Mail::SpamAssassin::Plugin::MIMEHeader
 
-#include z-blacklist
-#include z-whitelist
-##
 
 

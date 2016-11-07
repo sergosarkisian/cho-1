@@ -4,7 +4,7 @@
 
 +Отсутствует мониторинг состояния приложения "cone3 mct_spamflt"
 
-+SMTP-сессии не отображаются в monitor.edss.ee (SMTP low-level session headers)
++SMTP-сессии не отображаются в ES (SMTP low-level session headers)
 
 +Визуальный просмотр алиасов (Web PG admin)
 
@@ -12,8 +12,6 @@
 
 +PAM auth
  
-+ Обновление кода на TSC (added: spamassassin-интеграция, SPF, DKIM)
-
 + auto DKIM-signing if cert is available
 
 + SPF policy - is my server (current mail server) permittable relay? (this check is not in exim source)
@@ -22,3 +20,8 @@
 DNSBL +  Dangerous (ext) archived content in attachment(s)
 
 + add subject to logs, use {escape:} syntax
+
+
+
+
+  

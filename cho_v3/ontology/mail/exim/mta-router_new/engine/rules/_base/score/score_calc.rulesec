@@ -1,6 +1,0 @@
-    #SCORE EVAL
-    set acl_c_score_prev = $acl_c_score_total
-    set acl_c_score_mta = ${eval:$acl_c_score_mta + $acl_c_score_mta_inc}
-    set acl_c_score_total = $acl_c_score_mta
-    set acl_c_spamlog = $acl_c_spamlog $acl_c_rule_fullname=+$acl_c_score_mta_inc;
-    

@@ -1,24 +1,13 @@
 ##GLOBAL
 report_safe    0
-required_score 5.00
-
-
-##HEADERS
-#add_header all Report _REPORT_
-add_header all Status _YESNO_, score=_SCORE_ required=_REQD_ metrics=_TESTSSCORES(,)_ bayes=_BAYES_ tokens=_TOKENSUMMARY_ autolearn=_AUTOLEARN_ autolearnscore=_AUTOLEARNSCORE_ time=_TIMING_
-add_header all Spammy _SPAMMYTOKENS(5,compact)_
-add_header all Level _STARS(*)_
-add_header spam Flag _YESNOCAPS_
-#rewrite_header Subject [SPAM]
+required_score 10.00
 
 
 ##REPORT
 clear-report-template
-report Spam detection system has_YESNO(, NOT)_ 
-report identified this incoming email as_YESNO( possible,)_ spam
 report -----
 report Spammy _SPAMMYTOKENS(5,compact)_
-report Status _YESNO_, score=_SCORE_ required=_REQD_ metrics=_TESTSSCORES(,)_ 
+score=_SCORE_ metrics=_TESTSSCORES(,)_ 
 report bayes=_BAYES_ tokens=_TOKENSUMMARY_ autolearn=_AUTOLEARN_ autolearnscore=_AUTOLEARNSCORE_ 
 report time=_TIMING_
 report -----
@@ -144,6 +133,22 @@ score URG_BIZ					0.1
 score US_DOLLARS_3				0.1
 score WEIRD_PORT				0.1
 
+
+score HTML_IMAGE_RATIO_02 1.2
+score T_REMOTE_IMAGE 1.2
+score HTML_IMAGE_ONLY_32 1.5
+score HTML_IMAGE_ONLY_28 1.5
+score RCVD_IN_BRBL_LASTEXT 3
+score SPF_FAIL 2.0
+score SPF_HARDFAIL 5.0
+score SPF_SOFTFAIL 1.0
+score T_DKIM_INVALID 0.1
+score URIBL_DBL_SPAM 5.0
+score URIBL_JP_SURBL 5.0
+score URIBL_RHS_DOB 2.5
+score URIBL_SC_SURBL 5.0
+score URIBL_WS_SURBL 5.0
+score URIBL_BLACK 5.0
 
 score   BAYES_00 0 0 -4.901 -4.900
 score   BAYES_05 0 0 -0.925 -2.599

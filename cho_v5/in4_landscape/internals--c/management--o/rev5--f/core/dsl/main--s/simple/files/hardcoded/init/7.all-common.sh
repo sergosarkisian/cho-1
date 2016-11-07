@@ -25,10 +25,10 @@ chmod 744 /etc/profile.d/*
 
 ### SYSCTL ###
 #CONF
-cp /media/sysdata/cho/cho_v3/ontology/linux_sys/sysctl/main.conf /etc/sysctl.d/
-cp /media/sysdata/cho/cho_v3/ontology/linux_sys/sysctl/memory.conf /etc/sysctl.d/
-cp /media/sysdata/cho/cho_v3/ontology/linux_sys/sysctl/network.conf /etc/sysctl.d/
-cp /media/sysdata/cho/cho_v3/ontology/linux_sys/sysctl/server.conf /etc/sysctl.d/
+rm -f /etc/sysctl.d/main.conf  && cp /media/sysdata/cho/cho_v4/internals:c/linux_sys:o/optimization:f/sysctl:g/main.conf /etc/sysctl.d/
+rm -f /etc/sysctl.d/memory.conf && cp /media/sysdata/cho/cho_v4/internals:c/linux_sys:o/optimization:f/sysctl:g/memory.conf /etc/sysctl.d/
+rm -f /etc/sysctl.d/network.conf  && cp /media/sysdata/cho/cho_v4/internals:c/linux_sys:o/optimization:f/sysctl:g/network.conf /etc/sysctl.d/
+rm -f /etc/sysctl.d/server.conf && cp /media/sysdata/cho/cho_v4/internals:c/linux_sys:o/optimization:f/sysctl:g/server.conf /etc/sysctl.d/
 ###
 
 ### ZYPPER ###
@@ -49,7 +49,7 @@ rm -f /etc/profile.d/in4__systemd.bash 	 && ln -s /media/sysdata/cho/cho_v5/in4_
 
 ### EXIM ###
 #CONF
-rm -f /etc/exim/exim.conf && ln -s /media/sysdata/cho/cho_v3/ontology/mail/exim/simple/smarthost.conf /etc/exim/exim.conf
+rm -f /etc/exim/exim.conf && ln -s /media/sysdata/cho/cho_v4/services--c/mail:o/mta:f/exim:g/in4_mta/engine/_simple/smarthost.conf /etc/exim/exim.conf
 #PROFILE.D
 #+
 ###

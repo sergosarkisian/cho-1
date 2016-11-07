@@ -1,6 +1,0 @@
-## Name: rev5_exim ports
-## Description: Open ports for rev5_exim
-
-# space separated list of allowed TCP ports
-TCP="25"
- 

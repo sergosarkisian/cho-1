@@ -1,4 +1,0 @@
-warn
-    condition = ${if exists {/etc/exim/client_path/rules/$acl_c_rule_section/$acl_c_rule_type/$acl_c_rule_name.bl} {${lookup{$acl_c_rule_main_lookup_var} wildlsearch {/etc/exim/client_path/rules/$acl_c_rule_section/$acl_c_rule_type/$acl_c_rule_name.bl}{yes}{no}}}{no}}
-    set  acl_c_rule_bwl_is_in_bwl = bl
-    set  acl_c_rule_bwl_allow_msg = no

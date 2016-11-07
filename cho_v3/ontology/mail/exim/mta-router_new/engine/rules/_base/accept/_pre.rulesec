@@ -1,4 +1,0 @@
-set acl_c_rule_proccessed = no
-set acl_c_rule_step = 1.pre
-.include /etc/exim/engine_path/engine/rules/_base/init_vars.rulesec
-

@@ -1,8 +1,0 @@
-set acl_c_rule_proccessed = no
-set acl_c_score_mta_inc = 0
-set acl_c_rule_step = 1.pre
-.include /etc/exim/engine_path/engine/rules/_base/init_vars.rulesec
-.include /etc/exim/engine_path/engine/rules/_base/score/score_def.rulesec
-
-.include /etc/exim/engine_path/engine/rules/_base/wbl/wildlsearch_wl.rule
-.include /etc/exim/engine_path/engine/rules/_base/wbl/wildlsearch_bl.rule
