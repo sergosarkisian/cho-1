@@ -1,5 +1,5 @@
 [Unit]
-Description		= Rev5 sshd
+Description		= in4 sshd
 
 ## DEPS ## 
  #Conflicts=, # Wants=,  # Before=, # PartOf=, #OnFailure=,  #PropagatesReloadTo=, ReloadPropagatedFrom=
@@ -8,15 +8,6 @@ Description		= Rev5 sshd
 
 ##
 
-## REV5 DEPS - OS ##
- #Wants			= rev5.service rev5_rsyslog_i@client.service rev5.timer rev5_sssd.service rev5_atop.service rev5_bareos-os.service rev5_monitoring-os.service
- #rev5_SuSEfirewall2_init_i@simple rev5_SuSEfirewall2_i@simple
-##
-
-## LOGITORING DEPS ##
- #Requires 			= monitoring-rev5_sshd.timer logging-rev5_sshd.timer
- #Before   			= monitoring-rev5_sshd.timer logging-rev5_sshd.timer
-##
 
 ## MISC ## 
  #StopWhenUnneeded	= true
@@ -26,17 +17,17 @@ Description		= Rev5 sshd
 [Service]
  
 ## EXECS ##
- ExecStart		= /usr/sbin/sshd -D -f /media/sysdata/rev5/techpool/ontology/network/sshd/sshd_config $SSHD_OPTS
+ ExecStart		= /usr/sbin/sshd -D -f  /media/sysdata/cho/cho_v4/services--c/server:o/ssh:f/sshd:g/sshd_config $SSHD_OPTS
  ExecReload		= /bin/kill -HUP $MAINPID
 
  ExecStartPre		= /usr/sbin/sshd-gen-keys-start
- ExecStartPre		= /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"unknown", "action":"start", "subaction":"pre", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ ExecStartPre		= /bin/sh /media/sysdata/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"unknown", "action":"start", "subaction":"pre", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
  
  #ExecStartPost	= 
- ExecStartPost		= /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"started", "action":"start", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ ExecStartPost		= /bin/sh /media/sysdata/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"started", "action":"start", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
  
  #ExecStopPost	= 
- ExecStopPost		= /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"stopped", "action":"stop", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ ExecStopPost		= /bin/sh /media/sysdata/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"stopped", "action":"stop", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
  
  #loging -  "instance":"%I"
 ##

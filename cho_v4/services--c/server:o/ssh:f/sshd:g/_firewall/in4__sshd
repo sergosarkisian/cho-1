@@ -1,0 +1,6 @@
+## Name: in4__sshd ports
+## Description: Open ports for in4__sshd
+
+# space separated list of allowed TCP ports
+TCP="1000"
+ 
