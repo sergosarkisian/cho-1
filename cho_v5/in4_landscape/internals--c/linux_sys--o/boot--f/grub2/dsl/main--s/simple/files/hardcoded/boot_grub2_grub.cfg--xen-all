@@ -26,7 +26,7 @@ insmod part_gpt
 insmod btrfs
 font=unicode
 set timeout_style=menu
-set timeout=4
+set timeout=2
 
 if [ -n "$extra_cmdline" ]; then
   submenu "Bootable snapshot #$snapshot_num" {
