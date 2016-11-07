@@ -47,5 +47,5 @@ ruleset(name="file_media_logs_hosts" queue.filename="file_raw" queue.highwaterma
 	action(type="omfile" ASyncWriting="on" FlushInterval="10" DirCreateMode="0750" FileCreateMode="0640" DirOwner="log" DirGroup="log" FileOwner="log" FileGroup="log" Template="RAW-All" DynaFile="file_media_logs_hosts")
 }
 
-$IncludeConfig /media/sysdata/cho/cho_v4/*--c/*--o/*--f/*--g/_in4_syslog/*.rsyslog_ruleset
+$IncludeConfig /media/sysdata/in4/cho/cho_v4/*--c/*--o/*--f/*--g/_in4_syslog/*.rsyslog_ruleset
 

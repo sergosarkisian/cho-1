@@ -17,17 +17,17 @@ Description		= in4 sshd
 [Service]
  
 ## EXECS ##
- ExecStart		= /usr/sbin/sshd -D -f  /media/sysdata/cho/cho_v4/services--c/server:o/ssh:f/sshd:g/sshd_config $SSHD_OPTS
+ ExecStart		= /usr/sbin/sshd -D -f  /media/sysdata/in4/cho/cho_v4/services--c/server:o/ssh:f/sshd:g/sshd_config $SSHD_OPTS
  ExecReload		= /bin/kill -HUP $MAINPID
 
  ExecStartPre		= /usr/sbin/sshd-gen-keys-start
- ExecStartPre		= /bin/sh /media/sysdata/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"unknown", "action":"start", "subaction":"pre", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ ExecStartPre		= /bin/sh /media/sysdata/in4/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"unknown", "action":"start", "subaction":"pre", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
  
  #ExecStartPost	= 
- ExecStartPost		= /bin/sh /media/sysdata/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"started", "action":"start", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ ExecStartPost		= /bin/sh /media/sysdata/in4/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"started", "action":"start", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
  
  #ExecStopPost	= 
- ExecStopPost		= /bin/sh /media/sysdata/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"stopped", "action":"stop", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ ExecStopPost		= /bin/sh /media/sysdata/in4/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"stopped", "action":"stop", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
  
  #loging -  "instance":"%I"
 ##

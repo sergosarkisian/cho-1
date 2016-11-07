@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. /media/sysdata/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/naming/naming.sh os
+. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/naming/naming.sh os
 application=$1
 instance=$2
 
@@ -46,20 +46,20 @@ fi
 
 if [[ $application == "rev5_vm-start" ]]; then
 	HV=$SrvName
-	. /media/sysdata/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/naming/naming.sh os $instance
+	. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/naming/naming.sh os $instance
 	/usr/sbin/xl -v create /media/sysdata/in4/_context/conf/xen/$HV/$Org.pool/$Net/$SrvType/$DeplType/$SrvName.hvm.xl
 fi
 
 if [[ $application == "rev5_vm-start_dry" ]]; then
 	HV=$SrvName
-	. /media/sysdata/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/naming/naming.sh os $instance
+	. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/naming/naming.sh os $instance
 	/usr/sbin/xl -Nv  create /media/sysdata/in4/_context/conf/xen/$HV/$Org.pool/$Net/$SrvType/$DeplType/$SrvName.hvm.xl
 	sleep 2
 fi
 
 if [[ $application == "rev5_vm-stop" ]]; then
 	HV=$SrvName
-	. /media/sysdata/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/naming/naming.sh os $instance
+	. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/naming/naming.sh os $instance
 	/usr/sbin/xl -v shutdown $instance
 	/usr/sbin/xl -v shutdown -Fw $instance
 

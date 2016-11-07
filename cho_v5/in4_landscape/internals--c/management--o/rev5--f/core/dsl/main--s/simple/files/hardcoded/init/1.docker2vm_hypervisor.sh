@@ -37,8 +37,9 @@ chmod 744  ./loop/etc/sysconfig/
  
  
 ### GIT ###
- git -C ./loop/media/sysdata/ clone -b stable  https://github.com/eistomin/cho.git
- git -C ./loop/media/sysdata/cho config core.filemode false
+mkdir -p  ./loop/media/sysdata/in4
+ git -C ./loop/media/sysdata/in4 clone -b stable  https://github.com/eistomin/cho.git
+ git -C ./loop/media/sysdata/in4/cho config core.filemode false
 ###
 
  ###  CHROOT TO LOOP ###

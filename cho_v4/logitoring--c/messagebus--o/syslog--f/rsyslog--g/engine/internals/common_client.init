@@ -5,7 +5,7 @@ $IncludeConfig /etc/rsyslog.d/engine/internals/common_global.pre
 $IncludeConfig /etc/rsyslog.d/engine/internals/common_client.pre
 
 #RUN CLIENT
-$IncludeConfig /media/sysdata/cho/cho_v4/*--c/*--o/*--f/*--g/_in4_syslog/*.client_parse
+$IncludeConfig /media/sysdata/in4/cho/cho_v4/*--c/*--o/*--f/*--g/_in4_syslog/*.client_parse
 
 $IncludeConfig /etc/rsyslog.d/engine/internals/client_parse/*.conf
 $IncludeConfig /etc/rsyslog.d/engine/internals/client_parse/*.post

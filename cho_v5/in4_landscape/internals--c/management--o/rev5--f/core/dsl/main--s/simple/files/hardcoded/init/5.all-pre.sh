@@ -64,7 +64,7 @@ usermod -G sysdata mail
 
 
 ### SYNC SERVICE ###
-rm -f /etc/systemd/system/in4__sync.service 	&& cp  /media/sysdata/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/sync_service/in4__sync.service /etc/systemd/system/
-rm -f /etc/systemd/system/in4__sync.timer 	&& cp  /media/sysdata/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/sync_service/in4__sync.timer /etc/systemd/system/
+rm -f /etc/systemd/system/in4__sync.service 	&& cp  /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/sync_service/in4__sync.service /etc/systemd/system/
+rm -f /etc/systemd/system/in4__sync.timer 	&& cp  /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/sync_service/in4__sync.timer /etc/systemd/system/
 systemctl enable  in4__sync.timer && systemctl restart in4__sync.timer
 ###

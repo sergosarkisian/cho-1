@@ -9,7 +9,7 @@ zypper ar -cf http://download.opensuse.org/update/openSUSE-stable update_oss::st
 zypper ar -cf http://download.opensuse.org/repositories/network/openSUSE_Leap_42.1/network.repo
 zypper ar -cf http://download.opensuse.org/repositories/shells/openSUSE_Leap_42.1/shells.repo
 
-##CONE CENTER
+##CONE CENTER - priority 10
 zypper ar -p10 -cf http://download.opensuse.org/repositories/home:/conecenter:/rev5a1:/ontology:/services--c:/virtualization--o:/vm--f/openSUSE_Leap_42.1/home:conecenter:rev5a1:ontology:services--c:virtualization--o:vm--f.repo
 zypper ar -p10 -cf http://download.opensuse.org/repositories/home:/conecenter:/rev5a1:/ontology:/logitoring--c:/messagebus--o:/syslog--f/openSUSE_Leap_42.1/home:conecenter:rev5a1:ontology:logitoring--c:messagebus--o:syslog--f.repo
 zypper ar -p10 -cf http://download.opensuse.org/repositories/home:/conecenter:/rev5a1:/ontology:/internals--c:/management--o:/infrastructure--f/openSUSE_Leap_42.1/home:conecenter:rev5a1:ontology:internals--c:management--o:infrastructure--f.repo
@@ -25,11 +25,11 @@ zypper --non-interactive in --force  aaa_base-extras man man-pages
 zypper --non-interactive in --force  ca-certificates-mozilla
 zypper --non-interactive in --force btrfsprogs e2fsprogs sysfsutils quota
 zypper --non-interactive in --force yast2-security
-zypper --non-interactive in --force mc vim lsof less strace pwgen 
+zypper --non-interactive in --force mc vim lsof less strace pwgen sysstat tcpdump
 zypper --non-interactive in --force bzip2 gzip p7zip unzip zip tar 
 #MISC
-zypper --non-interactive in --force rsync subversion git sysstat tcpdump telnet wget mailx
+zypper --non-interactive in --force rsync subversion git telnet wget mailx
 zypper --non-interactive in --force curl expect  deltarpm
-#atop drbd-kmp-default 
+
 #+ pam + policy*
-zypper --non-interactive --gpg-auto-import-keys dup
+zypper --non-interactive --gpg-auto-import-keys dup --replacefiles
