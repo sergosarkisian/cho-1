@@ -44,7 +44,7 @@ mkdir -p  ./loop/media/sysdata/in4
 
  ###  CHROOT TO LOOP ###
 mount -t proc proc loop/proc/ &&  mount -t sysfs sys loop/sys/ && mount -o bind /dev loop/dev/
-chroot loop /bin/bash -c "sh /media/sysdata/....."
+chroot loop /bin/bash -c "sh /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/scenario_docker2vm.sh"
 ###
 
 ### RM TEMP & UMOUNT

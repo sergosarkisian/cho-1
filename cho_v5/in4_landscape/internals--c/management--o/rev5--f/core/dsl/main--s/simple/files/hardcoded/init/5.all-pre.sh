@@ -8,7 +8,7 @@ chmod 755 /media/ /media/storage /media/sysdata
 
 mkdir -p /media/sysdata/app /media/sysdata/logs/syslog /media/sysdata/logs/syslog_bus/_client
 mkdir -p /media/sysdata/logs/var_log && rm -rf /var/log && ln -s /media/sysdata/logs/var_log /var/log
-mkdir -p /media/logs/atop /media/logs/files	
+mkdir -p /media/sysdata/logs/app/atop /media/sysdata/logs/files	
 	
 rm -f /var; mkdir -p /media/sysdata/linux_sys/var && cp -pR /var/* /media/sysdata/linux_sys/var ; rm -rf /var && ln -s /media/sysdata/linux_sys/var /var
 rm -f /root;  mkdir -p /media/sysdata/linux_sys/root && cp -pR /root/* /media/sysdata/linux_sys/root ; rm -rf /root && ln -s /media/sysdata/linux_sys/root /root
