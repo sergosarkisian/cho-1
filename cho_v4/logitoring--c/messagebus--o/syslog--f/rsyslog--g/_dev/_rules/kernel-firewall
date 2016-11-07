@@ -1,0 +1,27 @@
+annotate=FW:+desc="firewall packets"
+prefix=[%seconds:char-to:\x5d%] %fw_rule:word% IN=%if_in:word% OUT=%if_out:char-sep:\x20% MAC=%mac:word% SRC=%src:word% DST=%dst:word% LEN=%len:word% TOS=%tos:word% PREC=%prec:word% TTL=%ttl:word% ID=%id:word% 
+PROTO=TCP SPT=22 DPT=9272 WINDOW=16384 RES=0x00 ACK SYN URGP=0 OPT (020405B4) 
+
+rule=:DF PROTO=%proto:word% SPT=%spt:word% DPT=%dpt:word% WINDOW=%window:word% RES=%res:word% %pct_type:word% URGP=%urgp:word% OPT (%unknown:char-to:\x29%) %-:rest%
+rule=:PROTO=%proto:word% SPT=%spt:word% DPT=%dpt:word% WINDOW=%window:word% RES=%res:word% %pct_type:word% URGP=%urgp:word% OPT (%unknown:char-to:\x29%) %-:rest%
+
+rule=:DF PROTO=%proto:word% SPT=%spt:word% DPT=%dpt:word% WINDOW=%window:word% RES=%res:word% %pct_type2:word% %pct_type1:word% %pct_type:word% URGP=%urgp:word% OPT (%unknown:char-to:\x29%) %-:rest%
+rule=:PROTO=%proto:word% SPT=%spt:word% DPT=%dpt:word% WINDOW=%window:word% RES=%res:word% %pct_type2:word% %pct_type1:word% %pct_type:word% URGP=%urgp:word% OPT (%unknown:char-to:\x29%) %-:rest%
+
+rule=:DF PROTO=%proto:word% SPT=%spt:word% DPT=%dpt:word% WINDOW=%window:word% RES=%res:word% %pct_type1:word% %pct_type:word% URGP=%urgp:word% OPT (%unknown:char-to:\x29%) %-:rest%
+rule=:PROTO=%proto:word% SPT=%spt:word% DPT=%dpt:word% WINDOW=%window:word% RES=%res:word% %pct_type1:word% %pct_type:word% URGP=%urgp:word% OPT (%unknown:char-to:\x29%) %-:rest%
+
+rule=:DF PROTO=%proto:word% SPT=%spt:word% DPT=%dpt:word% WINDOW=%window:word% RES=%res:word% %pct_type:word% URGP=%urgp:word% %-:rest%
+rule=:PROTO=%proto:word% SPT=%spt:word% DPT=%dpt:word% WINDOW=%window:word% RES=%res:word% %pct_type:word% URGP=%urgp:word% %-:rest%
+
+rule=:DF PROTO=%proto:word% SPT=%spt:word% DPT=%dpt:word% LEN=%len2:word% %-:rest%
+rule=:PROTO=%proto:word% SPT=%spt:word% DPT=%dpt:word% LEN=%len2:word% %-:rest%
+
+rule=:DF PROTO=%proto:word% TYPE=%type:word% CODE=%code:word% ID=%id2:word% SEQ=%seq:word% %-:rest%
+rule=:PROTO=%proto:word% TYPE=%type:word% CODE=%code:word% ID=%id2:word% SEQ=%seq:word% %-:rest%
+
+rule=:DF OPT (%unknown:char-to:\x29%) PROTO=%proto:word% %-:rest%
+rule=:OPT (%unknown:char-to:\x29%) PROTO=%proto:word% %-:rest%
+
+#
+prefix=

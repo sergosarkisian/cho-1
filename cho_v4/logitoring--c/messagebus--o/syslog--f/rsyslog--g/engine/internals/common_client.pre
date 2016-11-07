@@ -1,0 +1,87 @@
+$WorkDirectory /media/sysdata/logs/syslog_bus/_client
+
+##CLIENTS MODULES
+module(load="imklog")
+module(load="imudp")
+input(type="imudp" Address="127.0.0.1" Port="514")
+module(load="imuxsock" SysSock.UsePIDFromSystem="on")
+
+
+##ROGER RULESET
+ruleset(name="roger") {
+
+	if $!msg_class == 'msg' then {
+		call client_relp_msg
+	} else {
+		call client_relp_cee
+	}
+
+	if $.store_local == 'true' and $.store_local_as_msg == "yes" then {
+		call file_media_logs_hosts & stop
+	}
+	stop
+}
+
+
+
+##ENGINE RULESETS
+ruleset(name="engine") {
+if ($hostname == $$myhostname) then {
+		if $parsesuccess == "OK" then {
+
+			if ( strlen( $!msg_class) >= 1 and strlen( $!msg_view) >= 1 and $!msg_class != "msg") then {
+				#CEE - ES-ready
+				set $!msg_parse = "1.cee-es";
+			} else {
+				#	#CEE - cee-untagged			
+				set $!msg_parse = "1.cee-untagged";
+			}			
+			
+			call roger & stop 
+		} else {
+		
+			if ( strlen($!unparsed-data) >=1) then {
+				# Normalized but unparsed
+				set $!msg_parse = "failed-norm_unparsed";
+				call roger & stop
+			} 			
+			
+			if ( strlen( $!msg) >= 1) then {
+				
+				if ( $!msg_class == "msg") then {
+					#FILE - msg-tagged
+					set $!msg_parse = "2.msg-tagged";
+				} else {
+					#FILE - msg-untagged
+					set $!msg_parse = "failed-msg_untagged";
+				}	
+				call roger & stop
+			}
+		
+			if $msg contains '@cee' then {
+				#FILE - plain
+				set $!msg_parse = "failed-cee_unparsed";
+			} else {
+				#FILE - plain
+				set $!msg_parse = "3.plain";
+			}
+			call roger & stop
+		}
+	}
+}
+
+
+#  queue.dequeuebatchsize="4096" queue.maxfilesize="5g"  queue.timeoutenqueue="0"
+
+
+##RELP
+#$IncludeConfig $.engine_path/engine/internals/common_client.relp
+
+
+
+
+## TLS - tls="on" tls.compression="on" tls.authMode="name" tls.permittedPeer="gate.edss.pool"
+
+
+
+

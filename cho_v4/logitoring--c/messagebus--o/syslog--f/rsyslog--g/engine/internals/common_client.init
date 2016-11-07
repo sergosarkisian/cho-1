@@ -1,0 +1,11 @@
+##MAIN
+$IncludeConfig $.engine_path/engine/internals/common_global.pre
+
+#PRE_INIT CLIENT
+$IncludeConfig $.engine_path/engine/internals/common_client.pre
+
+#RUN CLIENT
+$IncludeConfig /media/sysdata/cho/cho_v4/*--c/*--o/*--f/*--g/_in4_syslog/*.client_parse
+
+$IncludeConfig $.engine_path/engine/internals/client_parse/*.conf
+$IncludeConfig $.engine_path/engine/internals/client_parse/*.post

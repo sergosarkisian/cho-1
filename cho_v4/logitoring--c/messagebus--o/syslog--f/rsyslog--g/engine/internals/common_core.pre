@@ -1,0 +1,54 @@
+$WorkDirectory /media/sysdata/logs/syslog_bus/_core
+
+#RELP
+module(load="omrelp")
+##RELP
+$IncludeConfig $.engine_path/engine/internals/common_client.relp
+
+module(load="imrelp")
+input(type="imrelp" KeepAlive="on" Port="20516" )
+#ES
+module(load="omelasticsearch")
+
+
+
+action(type="mmjsonparse")
+
+if ( strlen($!@timestamp) == 13 ) then {
+	call file_media_logs_hosts
+	call store_es	
+	stop
+} else {	
+	if ($hostname != $$myhostname ) then {
+		set $!failed_ts_gate = "TRUE";	
+		set $!msg_parse = "9.failed_ts";
+		call file_media_logs_hosts & stop	
+	} else {
+		if $!msg_class == 'msg' then {
+			call client_relp_msg  & stop
+		} else {
+			if ( strlen( $!msg_class) >= 1 and strlen( $!msg_view) >= 1) then {
+				call client_relp_cee & stop
+			} else {
+				if ($programname == "rsyslogd-pstats") then {
+					set $!use_mod = "mmjsonparse";
+					set $!msg_class = "infra";
+					set $!msg_class = "rsyslogd_pstats";
+					call client_relp_cee & stop
+				}
+			}		
+		
+		}
+	}	
+}
+
+
+
+##ES RULESET
+
+ruleset(name="store_es" queue.filename="store_es" queue.highwatermark="10000" queue.lowwatermark="500" queue.size="12000000" queue.discardmark="10000000" queue.dequeuebatchsize="1000" queue.type="linkedlist" queue.saveonshutdown="on" queue.checkpointinterval="30" queue.timeoutshutdown="2000" queue.workerthreads="5") 
+{
+	 action(type="omelasticsearch" action.resumeRetryCount="-1" action.resumeInterval="15" action.reportSuspension="on"  action.reportSuspensionContinuation="on" server="localhost" template="JSON-ES" searchIndex="es_index-srvdate" searchType="events" dynSearchIndex="on" bulkmode="on" asyncrepl="on" errorfile="/media/sysdata/logs/syslog/rsyslog-es.error")
+} 
+
+#dynParent="on"
