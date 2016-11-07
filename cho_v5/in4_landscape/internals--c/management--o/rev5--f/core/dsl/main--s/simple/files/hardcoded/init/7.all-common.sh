@@ -22,14 +22,33 @@ rm -f /etc/profile.d/in4__systemd.bash 	 && ln -s /media/sysdata/cho/cho_v5/in4_
 ###
 
 
+### SFW2 ###
+rm -f /etc/systemd/system/in4__SuSEfirewall2_i@.service 	&& cp  /media/sysdata/cho/cho_v4/internals:c/linux_sys:o/network:f/sfw2:g/_systemd/in4__SuSEfirewall2_i@.service /etc/systemd/system/
+rm -f /etc/systemd/system/in4__SuSEfirewall2_init_i@.service 	&& cp  /media/sysdata/cho/cho_v4/internals:c/linux_sys:o/network:f/sfw2:g/_systemd/in4__SuSEfirewall2_init_i@.service /etc/systemd/system/
+systemctl stop SuSEfirewall2 && systemctl disable SuSEfirewall2 && systemctl mask SuSEfirewall2
+systemctl stop SuSEfirewall2_init && systemctl disable SuSEfirewall2_init && systemctl mask SuSEfirewall2_init
+systemctl enable in4__SuSEfirewall2_i@simple
+###
+
+
 ### SSHD ###
 #SYSTEMD
+rm -f /etc/systemd/system/in4__sshd.service 	&& cp  /media/sysdata/cho/cho_v4/services--c/server:o/ssh:f/sshd:g/_systemd/in4__sshd.service /etc/systemd/system/
 systemctl stop sshd && systemctl disable sshd && systemctl mask sshd
-rm -f /etc/systemd/system/in4__sshd.service 	&& ln -s /media/sysdata/cho/cho_v4/services--c/server:o/ssh:f/sshd:g/_systemd/in4__sshd.service /etc/systemd/system/
 systemctl enable in4__sshd
 #SWF2
-???
-rm -f /etc/sysconfig/SuSEfirewall2.d/services/rev5_sshd && ln -s /media/sysdata/cho/cho_v3/ontology/network/sshd/_firewall/rev5_sshd /etc/sysconfig/SuSEfirewall2.d/services/
+rm -f /etc/sysconfig/SuSEfirewall2.d/services/in4__sshd && ln -s  /media/sysdata/cho/cho_v4/services--c/server:o/ssh:f/sshd:g/_firewall/in4__sshd /etc/sysconfig/SuSEfirewall2.d/services/
+###
+
+
+### RSYSLOG ###
+#CONF
+
+#PROFILE.D
+
+#SYSTEMD
+
+#SWF2
 ###
 
 
@@ -43,10 +62,25 @@ rm -f /etc/sysconfig/SuSEfirewall2.d/services/rev5_sshd && ln -s /media/sysdata/
 #SWF2
 ###
 
+### NAME ###
+#CONF
+
+#PROFILE.D
+
+#SYSTEMD
+
+#SWF2
+###
+
 #
+
 sssd =  conf + systemd service
 	mkdir -p /etc/ssl/my/ && cp /etc/faster/cmdb/data/certificates/edss/ca/a.services.pool.pem /etc/ssl/my/core_ca.pem
 
+	
+	
+	
+	
 sysctl = conf
 cp /media/sysdata/cho/cho_v3/ontology/linux_sys/sysctl/main.conf /etc/sysctl.d/
 cp /media/sysdata/cho/cho_v3/ontology/linux_sys/sysctl/memory.conf /etc/sysctl.d/
@@ -55,7 +89,6 @@ cp /media/sysdata/cho/cho_v3/ontology/linux_sys/sysctl/server.conf /etc/sysctl.d
 
 atop =  profile.d + conf + systemd service
 
-rsyslog = conf + systemd service
 
 exim = conf
 rm -f /etc/exim/exim.conf && ln -s /media/sysdata/cho/cho_v3/ontology/mail/exim/simple/smarthost.conf /etc/exim/exim.conf

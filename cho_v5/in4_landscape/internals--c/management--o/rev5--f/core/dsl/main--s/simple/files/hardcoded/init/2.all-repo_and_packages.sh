@@ -1,3 +1,4 @@
+#!/bin/bash
 
 ### ZYPPER ###
 rm /etc/zypp/repos.d/*
