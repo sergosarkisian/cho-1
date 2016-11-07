@@ -3,7 +3,7 @@ $WorkDirectory /media/sysdata/logs/syslog_bus/_core
 #RELP
 module(load="omrelp")
 ##RELP
-$IncludeConfig $.engine_path/engine/internals/common_client.relp
+$IncludeConfig /etc/rsyslog.d/engine/internals/common_client.relp
 
 module(load="imrelp")
 input(type="imrelp" KeepAlive="on" Port="20516" )

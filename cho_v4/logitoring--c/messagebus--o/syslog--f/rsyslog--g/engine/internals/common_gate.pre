@@ -6,7 +6,7 @@ module(load="imrelp")
 input(type="imrelp" KeepAlive="on" Port="20516" )
 
 ##RELP
-$IncludeConfig $.engine_path/engine/internals/common_client.relp
+$IncludeConfig /etc/rsyslog.d/engine/internals/common_client.relp
 
 action(type="mmjsonparse")
 

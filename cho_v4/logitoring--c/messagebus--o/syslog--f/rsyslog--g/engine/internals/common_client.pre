@@ -75,7 +75,7 @@ if ($hostname == $$myhostname) then {
 
 
 ##RELP
-#$IncludeConfig $.engine_path/engine/internals/common_client.relp
+#$IncludeConfig /etc/rsyslog.d/engine/internals/common_client.relp
 
 
 
