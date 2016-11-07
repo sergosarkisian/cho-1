@@ -36,7 +36,7 @@ Description		= in4 sshd
  #WorkingDirectory	= 
  User			= root
  Group			= root
- SupplementaryGroups = sysapp
+ SupplementaryGroups = sysdata
  #UMask			= 
 ##
 
