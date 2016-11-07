@@ -1,5 +1,5 @@
 [Unit]
-Description		= Rev5 SuSEfirewall2 - %i - phase 1
+Description		= in4 SuSEfirewall2 - %i - phase 1
 
 ## DEPS ## 
  #Conflicts=, # Wants=,  # Before=, # PartOf=, #OnFailure=,  #PropagatesReloadTo=, ReloadPropagatedFrom=
@@ -25,18 +25,18 @@ Description		= Rev5 SuSEfirewall2 - %i - phase 1
 ##
 
 ## EXECS ##
- ExecStart		= /bin/sh /media/sysdata/rev5/techpool/ontology/management/rev5/rev5_runner.sh rev5_SuSEfirewall2_init_i %i
+ ExecStart		= /bin/sh /media/sysdata/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/helpers/runner.sh in4__SuSEfirewall2_init_i %i
  ExecStop			= /usr/sbin/SuSEfirewall2 systemd_stop
  ExecReload		= /bin/kill -HUP $MAINPID
 
  #ExecStartPre		= 
- ExecStartPre		= /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"unknown", "action":"start", "subaction":"pre", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ ExecStartPre		= /bin/sh /media/sysdata/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"unknown", "action":"start", "subaction":"pre", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
  
  #ExecStartPost	= 
- ExecStartPost		= /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"started", "action":"start", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ ExecStartPost		= /bin/sh /media/sysdata/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"started", "action":"start", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
  
  #ExecStopPost	= 
- ExecStopPost		= /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"stopped", "action":"stop", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ ExecStopPost		= /bin/sh /media/sysdata/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"stopped", "action":"stop", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
  
  #loging -  "instance":"%i"
 ##
@@ -45,7 +45,7 @@ Description		= Rev5 SuSEfirewall2 - %i - phase 1
  #WorkingDirectory	= 
  User			= root
  Group			= root
- SupplementaryGroups = sysapp
+ SupplementaryGroups = sysdata
  #UMask			= 
 ##
 
@@ -56,7 +56,7 @@ Description		= Rev5 SuSEfirewall2 - %i - phase 1
 ##
 
 ## SYSLOG ##
- SyslogIdentifier	= rev5_SuSEfirewall2_i@%i_
+ SyslogIdentifier	= in4__SuSEfirewall2_i@%i_
  SyslogFacility		= local7
  SyslogLevel		= info
  #SyslogLevelPrefix	= false #Can be disabled for ...
@@ -89,6 +89,6 @@ Description		= Rev5 SuSEfirewall2 - %i - phase 1
  
 [Install]
 WantedBy			= multi-user.target
-Also				= rev5_SuSEfirewall2_i@%i.service
+Also				= in4__SuSEfirewall2_i@%i.service
 
 #RequiredBy=, #Alias = 
