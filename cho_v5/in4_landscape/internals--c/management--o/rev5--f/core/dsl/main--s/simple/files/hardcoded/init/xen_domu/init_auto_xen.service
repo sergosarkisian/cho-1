@@ -1,18 +1,8 @@
 [Unit]
-Description		= rev5_init_auto_xen
+Description		= init_auto_xen
 
 ## DEPS ## 
  Before			= network.target
-##
-
-## LOGITORING DEPS ##
- #Requires 			= monitoring-rev5_rev5.timer logging-rev5_rev5.timer
- #Before   			= monitoring-rev5_rev5.timer logging-rev5_rev5.timer
-##
-
-## MISC ## 
- #StopWhenUnneeded	= true
- #ConditionPathExists	=
 ##
 
 [Service]
@@ -22,7 +12,7 @@ Description		= rev5_init_auto_xen
 ##
 
 ## EXECS ##
- ExecStart		= /bin/sh /etc/rev5/static/1.naming_auto_xen.sh
+ ExecStart		= /bin/sh /media/sysdata/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/xen_domu/naming_auto_xen.sh
  
  #loging -  "instance":"%I"
  ##
@@ -43,7 +33,7 @@ Description		= rev5_init_auto_xen
 ##
 
 ## SYSLOG ##
- SyslogIdentifier	= rev5_
+ SyslogIdentifier	= init_auto_xen_
  SyslogFacility		= local7
  SyslogLevel		= info
  #SyslogLevelPrefix	= false #Can be disabled for ...
