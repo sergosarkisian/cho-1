@@ -48,7 +48,7 @@ Documentation	= http://www.rsyslog.com/doc/
  #WorkingDirectory	= 
  User			= root
  Group			= root
- SupplementaryGroups = sysapp
+ SupplementaryGroups = sysdata
  #UMask			= 
 ##
 
