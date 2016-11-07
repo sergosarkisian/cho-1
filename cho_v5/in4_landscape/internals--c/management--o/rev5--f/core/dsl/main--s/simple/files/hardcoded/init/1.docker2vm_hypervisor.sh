@@ -1,4 +1,5 @@
 #!/bin/bash
+
 mkdir -p /media/storage1/images/\!master/openSUSE-42.1/_dev/loop
 wget -O  /media/storage1/images/\!master/openSUSE-42.1/openSUSE-42.1-docker-guest-docker.x86_64.tar.xz http://download.opensuse.org/repositories/Virtualization:/containers:/images:/openSUSE-42.1/images/openSUSE-42.1-docker-guest-docker.x86_64.tar.xz
 cd /media/storage1/images/\!master/openSUSE-42.1/_dev
@@ -30,6 +31,8 @@ mount /dev/loop61 ./loop/media/sysdata
  ###  CP OWN FILES ###
 cp /etc/resolv.conf ./loop/etc/
 cp /etc/sysconfig/proxy ./loop/etc/sysconfig/
+chmod 744  ./loop/etc/sysconfig/
+
  ### 
  
  

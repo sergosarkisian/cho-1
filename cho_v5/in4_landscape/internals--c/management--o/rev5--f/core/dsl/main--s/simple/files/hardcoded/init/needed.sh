@@ -21,10 +21,3 @@ systemctl enable rev5_rsyslog_i@client && systemctl restart rev5_rsyslog_i@clien
 
 
 
-## sfw2
-rm -f /etc/systemd/system/rev5_SuSEfirewall2_init_i@.service 	&& ln -s /media/sysdata/rev5/techpool/ontology/security/SuSEfirewall2/_systemd/rev5_SuSEfirewall2_init_i@.service /etc/systemd/system/ 
-rm -f /etc/systemd/system/rev5_SuSEfirewall2_i@.service 	&& ln -s /media/sysdata/rev5/techpool/ontology/security/SuSEfirewall2/_systemd/rev5_SuSEfirewall2_i@.service /etc/systemd/system/ 	
-systemctl disable SuSEfirewall2 && systemctl stop SuSEfirewall2
-systemctl disable SuSEfirewall2_init && systemctl stop SuSEfirewall2_init
-systemctl enable rev5_SuSEfirewall2_i@simple && systemctl restart rev5_SuSEfirewall2_i@simple
-##

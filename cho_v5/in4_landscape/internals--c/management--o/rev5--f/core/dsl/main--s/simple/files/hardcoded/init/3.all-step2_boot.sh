@@ -1,3 +1,5 @@
+#!/bin/bash
+
  ### DRACUT  ###
 cp /media/sysdata/cho/cho_v5/in4_landscape/internals--c/linux_sys--o/boot--f/dracut/dsl/main--s/simple/files/hardcoded/dracut.conf-vm /etc/dracut.conf
  ### 
