@@ -56,7 +56,7 @@ Documentation	= http://www.rsyslog.com/doc/
  Restart			= always
  RestartSec		= 30
  PrivateTmp		= true
- #TimeoutSec		= 300 # larger for DB/huge RAM ps
+ TimeoutSec		= 15 
 ##
 
 ## SYSLOG ##

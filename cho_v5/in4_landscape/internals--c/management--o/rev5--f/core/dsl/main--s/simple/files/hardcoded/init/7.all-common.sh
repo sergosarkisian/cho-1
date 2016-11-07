@@ -106,23 +106,22 @@ systemctl enable  in4__syslog_i@client_debug && systemctl restart in4__syslog_i@
 ###
 
 
-
+############# ???? ############3
 
 ### SSSD ###
 #ZYPPER
 zypper --non-interactive in --force sssd sssd-tools 
 #CONF
 pam-config --add --sss
-sssd =  conf + systemd service
-	mkdir -p /etc/ssl/my/ && cp /etc/faster/cmdb/data/certificates/edss/ca/a.services.pool.pem /etc/ssl/my/core_ca.pem
-#PROFILE.D
-
-#SYSTEMD
-cp /media/sysdata/rev5/techpool/ontology/security/sssd/engine/sssd_basic.conf /etc/sssd/sssd.conf	
-sed -i "s/%ORG%/$Org/" /etc/sssd/sssd.conf	
-sed -i "s/%NET%/$Net/" /etc/sssd/sssd.conf	
-rm -f /etc/systemd/system/rev5_sssd.service  				&& ln -s /media/sysdata/rev5/techpool/ontology/security/sssd/engine/_systemd/rev5_sssd.service 		/etc/systemd/system/  
-systemctl disable sssd && systemctl stop sssd && systemctl enable rev5_sssd && systemctl restart rev5_sssd
+#mkdir -p /etc/ssl/my/ && cp /etc/faster/cmdb/data/certificates/edss/ca/a.services.pool.pem /etc/ssl/my/core_ca.pem
+# cp /media/sysdata/rev5/techpool/ontology/security/sssd/engine/sssd_basic.conf /etc/sssd/sssd.conf	
+# sed -i "s/%ORG%/$Org/" /etc/sssd/sssd.conf	
+# sed -i "s/%NET%/$Net/" /etc/sssd/sssd.conf	
+# #PROFILE.D
+# 
+# #SYSTEMD
+# rm -f /etc/systemd/system/rev5_sssd.service  				&& ln -s /media/sysdata/rev5/techpool/ontology/security/sssd/engine/_systemd/rev5_sssd.service 		/etc/systemd/system/  
+# systemctl disable sssd && systemctl stop sssd && systemctl enable rev5_sssd && systemctl restart rev5_sssd
 ###
 
 
@@ -135,5 +134,8 @@ systemctl disable sssd && systemctl stop sssd && systemctl enable rev5_sssd && s
 
 ###
 
+
+### WTF ###
 rm -f /etc/systemd/system/in4__wtf.service 	&& cp  /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/in4__wtf.service /etc/systemd/system/
 systemctl enable  in4__wtf && systemctl restart in4__wtf
+###

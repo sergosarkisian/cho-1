@@ -45,11 +45,11 @@ Description		= In4 CMDB tasks configuration
  #Restart			= always
  #PrivateTmp		= true
  #TimeoutSec		= 300 # larger for DB/huge RAM ps
- #EnvironmentFile	= -/
+ EnvironmentFile	   = /etc/sysconfig/proxy
 ##
 
 ## SYSLOG ##
- SyslogIdentifier	= rev5_
+ SyslogIdentifier	= in4__sync
  SyslogFacility		= local7
  SyslogLevel		= info
  #SyslogLevelPrefix	= false #Can be disabled for ...
