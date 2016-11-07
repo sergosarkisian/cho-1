@@ -48,7 +48,7 @@ Description		= in4 SuSEfirewall2 - %i - phase 2
  #WorkingDirectory	= 
  User			= root
  Group			= root
- SupplementaryGroups = sysapp
+ SupplementaryGroups = sysdata
  #UMask			= 
 ##
 
