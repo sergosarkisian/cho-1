@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ### PATHS ###
-mkdir -p /media/sysdata /media/storage 
+mkdir -p /media/sysdata /media/storage /media/sysdata/in4/
 chmod 755 /media/ /media/storage /media/sysdata
 
 #### BUG -MOUNT DISK BEFORE OR MK ON OTHER DISK

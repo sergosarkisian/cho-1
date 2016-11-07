@@ -22,7 +22,7 @@ zypper --non-interactive in --force kernel-default grub2 aaa_base kmod binutils
 zypper --non-interactive in --force spice-vdagent xen-tools-domU xen-libs
 zypper --non-interactive in --force hostname iproute2 wicked-service dbus-1 SuSEfirewall2 strace
 zypper --non-interactive in --force bash-completion systemd-bash-completion aaa_base-extras sudo man man-pages
-zypper --non-interactive in --force openssh
+zypper --non-interactive in --force openssh ca-certificates-mozilla
 zypper --non-interactive in --force rsyslog rsyslog-module-relp rsyslog-module-mmnormalize 
 zypper --non-interactive in --force btrfsprogs e2fsprogs sysfsutils quota
 zypper --non-interactive in --force sssd sssd-tools 
