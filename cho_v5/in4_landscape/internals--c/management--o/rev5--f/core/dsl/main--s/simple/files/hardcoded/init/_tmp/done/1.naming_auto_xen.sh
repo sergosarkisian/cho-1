@@ -10,6 +10,8 @@ if [[ ! -f /etc/rev5/firstinit.hostip && ! -d /etc/faster/cmdb ]]; then
 		cp /etc/hosts /etc/hosts.back
 		cp /etc/rev5/static/hosts /etc/hosts
 		echo "127.0.0.3 $NAME $SrvName" >> /etc/hosts
+                rm /etc/machine-id
+                systemd-machine-id-setup
 		hostnamectl --transient set-hostname $SrvName
 		hostnamectl --static set-hostname  $NAME
 		echo "$NAME" > /etc/HOSTNAME 

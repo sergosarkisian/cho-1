@@ -22,38 +22,14 @@ zypper --non-interactive in --force hostname iproute2 wicked-service dbus-1 SuSE
 zypper --non-interactive in --force bash-completion systemd-bash-completion aaa_base-extras sudo man man-pages
 zypper --non-interactive in --force openssh
 zypper --non-interactive in --force rsyslog rsyslog-module-relp rsyslog-module-mmnormalize 
-zypper --non-interactive in --force btrfsprogs e2fsprogs sysfsutils
+zypper --non-interactive in --force btrfsprogs e2fsprogs sysfsutils quota
 zypper --non-interactive in --force sssd sssd-tools 
 zypper --non-interactive in --force yast2-security
-zypper --non-interactive in --force mc vim lsof less strace 
+zypper --non-interactive in --force mc vim lsof less strace pwgen 
+zypper --non-interactive in --force bzip2 gzip p7zip unzip zip tar 
 #MISC
-zypper --non-interactive in --force rsync subversion git sysstat tcpdump telnet wget
-#curl deltarpm expect sysfsutils exim atop diff
+zypper --non-interactive in --force rsync subversion git sysstat tcpdump telnet wget mailx
+zypper --non-interactive in --force exim curl expect  deltarpm
+#atop drbd-kmp-default 
+#+ pam + policy*
 zypper --non-interactive --gpg-auto-import-keys dup
- ###
- 
- ### BOOT, GRUB2 init ###
-grub2-install /dev/loop60
-#DOUBLE
-depmod `ls -la /boot/vmlinuz|awk '{print $11}'|sed 's/vmlinuz-//'`
-mkinitrd
-depmod `ls -la /boot/vmlinuz|awk '{print $11}'|sed 's/vmlinuz-//'`
-mkinitrd
-###
-
-sh /tmp/3.init_common.sh
-
-### REV5 - SYSTEMD ###
-systemctl enable sshd
-systemctl enable rev5_init_auto_xen
-###
-#######
-
-### RM ALL LOGS & TRACES ###
-rm /etc/resolv.conf
-rm -f /var/log/*/*
-rm -f /var/log/*.log
-rm /root/.bash_history
-rm -rf /tmp/*
-history -c
-exit 
