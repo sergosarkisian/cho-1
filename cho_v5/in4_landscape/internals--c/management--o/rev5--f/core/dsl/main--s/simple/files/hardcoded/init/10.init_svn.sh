@@ -13,7 +13,7 @@ if [[ ! -d /media/sysdata/in4/_context ]]; then
 	sed -i "s/# http-proxy-port.*/http-proxy-port = 55555/" /root/.subversion/servers
 	##
 		
-	svn co --username $Org --password $SVNPass https://svn.edss.ee/client/companies/$Org/sdata /media/sysdata/rev5/_context/
+	svn co --username $Org --password $SVNPass https://svn.edss.ee/client/companies/$Org/sdata /media/sysdata/in4/_context/
 	
 	#rm -f /etc/systemd/system/rev5.service && cp /media/sysdata/rev5/techpool/ontology/management/rev5/sync_service/rev5.service /etc/systemd/system/
 	#rm -f /etc/systemd/system/rev5.timer && cp /media/sysdata/rev5/techpool/ontology/management/rev5/sync_service/rev5.timer /etc/systemd/system/	
