@@ -106,15 +106,15 @@ case "$command" in
         logger -t xen-vif "Status: Done,  ACT: link set ${store[dev]} up, RULE: vif-ovs"
         ip link set ${store[dev]} mtu ${store[mtu]}
         logger -t xen-vif "Status: Done,  ACT: ip link set ${store[dev]} mtu ${store[mtu]}, RULE: vif-ovs"     
-        xenstore-write /local/domain/${store[domid]}/rev5/net/${store[if_num]}/ip ${store[ip]}
-        xenstore-write /local/domain/${store[domid]}/rev5/net/${store[if_num]}/netmask ${store[netmask]}
-        xenstore-write /local/domain/${store[domid]}/rev5/net/${store[if_num]}/mtu ${store[mtu]}
-        xenstore-write /local/domain/${store[domid]}/rev5/net/${store[if_num]}/cookie ${store[cookie]}
-        xenstore-write /local/domain/${store[domid]}/rev5/net/${store[if_num]}/switch ${store[switch]}
-        xenstore-write /local/domain/${store[domid]}/rev5/net/${store[if_num]}/policy ${store[policy]}
-        xenstore-write /local/domain/${store[domid]}/rev5/net/${store[if_num]}/gate ${store[gate]}
-        xenstore-write /local/domain/${store[domid]}/rev5/net/${store[if_num]}/mac ${store[mac]}
-        xenstore-write /local/domain/${store[domid]}/rev5/net/${store[if_num]}/mac_low ${store[mac_low]}
+        xenstore-write /local/domain/${store[domid]}/in4/net/${store[if_num]}/ip ${store[ip]}
+        xenstore-write /local/domain/${store[domid]}/in4/net/${store[if_num]}/netmask ${store[netmask]}
+        xenstore-write /local/domain/${store[domid]}/in4/net/${store[if_num]}/mtu ${store[mtu]}
+        xenstore-write /local/domain/${store[domid]}/in4/net/${store[if_num]}/cookie ${store[cookie]}
+        xenstore-write /local/domain/${store[domid]}/in4/net/${store[if_num]}/switch ${store[switch]}
+        xenstore-write /local/domain/${store[domid]}/in4/net/${store[if_num]}/policy ${store[policy]}
+        xenstore-write /local/domain/${store[domid]}/in4/net/${store[if_num]}/gate ${store[gate]}
+        xenstore-write /local/domain/${store[domid]}/in4/net/${store[if_num]}/mac ${store[mac]}
+        xenstore-write /local/domain/${store[domid]}/in4/net/${store[if_num]}/mac_low ${store[mac_low]}
 
         
         sleep 1

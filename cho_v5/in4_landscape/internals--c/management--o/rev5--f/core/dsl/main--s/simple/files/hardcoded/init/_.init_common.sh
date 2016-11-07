@@ -51,10 +51,12 @@ useradd -g log -u 998 -M -d /media/sysdata/logs/ log
 	setfacl -R -m d:g:sysdata:rx /media/sysdata	
 	
 	#setfacl - others
-	setfacl -R -m u::rwx /media/sysdata
-	setfacl -R -m g::rwx /media/sysdata
-	setfacl -R -m d:u::rwx /media/sysdata
-	setfacl -R -m d:g::rwx /media/sysdata	
+	setfacl -R -m u::rx /media/sysdata
+	setfacl -R -m g::rx /media/sysdata
+	setfacl -R -m d:u::rx /media/sysdata
+	setfacl -R -m d:g::rx /media/sysdata	
+	setfacl -R -m o::rx /media/sysdata
+	setfacl -R -m d:o::rx /media/sysdata	
 ###
 
 ### MISC ###

@@ -35,6 +35,7 @@ cp /etc/sysconfig/proxy ./loop/etc/sysconfig/
  
 ### GIT ###
  git -C ./loop/media/sysdata/ clone -b stable  https://github.com/eistomin/cho.git
+ git -C ./loop/media/sysdata/cho config core.filemode false
 ###
 
  ###  CHROOT TO LOOP ###
