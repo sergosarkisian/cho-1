@@ -10,7 +10,7 @@ After=var-run.mount nss-lookup.target network.target remote-fs.target
 WantedBy=multi-user.target
 
 [Timer]
-OnBootSec=5min
+OnBootSec=2min
 OnUnitActiveSec=2min
 Unit=in4__sync.service 
  

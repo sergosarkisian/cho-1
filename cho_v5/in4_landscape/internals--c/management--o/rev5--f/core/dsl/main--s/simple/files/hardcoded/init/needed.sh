@@ -10,12 +10,7 @@ systemctl disable sssd && systemctl stop sssd && systemctl enable rev5_sssd && s
 
 		
 		## rsyslog
-mkdir -p /media/logs/syslog_bus/_client
-rm -f /etc/systemd/system/rev5_rsyslog_i@.service 			&& ln -s /media/sysdata/rev5/techpool/ontology/logitoring/rsyslog/_systemd/rev5_rsyslog_i@.service 	/etc/systemd/system/ 
-systemctl disable rsyslog && systemctl stop rsyslog
-rm /usr/lib/systemd/system/rsyslog.service
-rm -f /usr/lib/systemd/system/rsyslog.service && ln -s /dev/null /usr/lib/systemd/system/rsyslog.service 
-systemctl enable rev5_rsyslog_i@client && systemctl restart rev5_rsyslog_i@client
+
 ##
 
 

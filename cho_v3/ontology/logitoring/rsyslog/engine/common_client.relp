@@ -1,8 +1,0 @@
-##RELP RULESET
-ruleset(name="client_relp_cee" queue.filename="client_relp_cee" 		queue.highwatermark="10000" queue.lowwatermark="500" queue.size="12000000" queue.discardmark="10000000" queue.dequeuebatchsize="2000" queue.type="linkedlist" queue.saveonshutdown="on" queue.checkpointinterval="30" queue.timeoutshutdown="2000" queue.workerthreads="2") {
-	action(type="omrelp" action.resumeRetryCount="-1" action.resumeInterval="15" action.reportSuspension="on"  action.reportSuspensionContinuation="on" Template="cee" Target="x" Port="20514")  
-}
-
-ruleset(name="client_relp_msg" queue.filename="client_relp_msg" 		queue.highwatermark="10000" queue.lowwatermark="500" queue.size="12000000" queue.discardmark="10000000" queue.dequeuebatchsize="2000" queue.type="linkedlist" queue.saveonshutdown="on" queue.checkpointinterval="30" queue.timeoutshutdown="2000" queue.workerthreads="2") {
-	action(type="omrelp" action.resumeRetryCount="-1" action.resumeInterval="15" action.reportSuspension="on"  action.reportSuspensionContinuation="on" Template="msg" Target="x" Port="20514")  
-}

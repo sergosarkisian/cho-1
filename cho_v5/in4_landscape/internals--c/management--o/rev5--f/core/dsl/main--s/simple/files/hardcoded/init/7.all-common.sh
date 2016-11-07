@@ -1,10 +1,14 @@
 ### BASH ###
+#ZYPPER
+zypper --non-interactive in --force bash-completion
 #CONF
 #rm -f  /etc/bash.bashrc.local && ln -s  /media/sysdata/cho/cho_v4/internals:c/linux_sys:o/bash/conf/bash.bashrc.local /etc/bash.bashrc.local
 echo "for f in /etc/profile.d/in4__*; do test -s $f;   source $f; done" >>  /etc/bash.bashrc
 ###
 
 ### SUDO ###
+#ZYPPER
+zypper --non-interactive in --force sudo
 #CONF
 rm -f /etc/sudoers && ln -s /media/sysdata/cho/cho_v4/internals:c/linux_sys:o/security:f/sudo--g/etc_sudoers /etc/sudoers
 echo -e "localadmin     ALL=(ALL) ALL" > /etc/sudoers.d/localadmin
@@ -40,6 +44,8 @@ rm -f /etc/profile.d/in4__zypper.bash && ln -s /media/sysdata/cho/cho_v4/interna
 ###
 
 ### SYSTEMD ###
+#ZYPPER
+zypper --non-interactive in --force systemd-bash-completion 
 #CONF
 rm -f /etc/systemd/system.conf && ln -s /media/sysdata/cho/cho_v5/in4_landscape/internals--c/management--o/infrastructure--f/systemd/dsl/main--s/simple/files/hardcoded/systemd_defaults.conf /etc/systemd/system.conf
 rm -f /etc/systemd/user.conf 	 && ln -s /media/sysdata/cho/cho_v5/in4_landscape/internals--c/management--o/infrastructure--f/systemd/dsl/main--s/simple/files/hardcoded/systemd_defaults.conf /etc/systemd/user.conf
@@ -48,6 +54,8 @@ rm -f /etc/profile.d/in4__systemd.bash 	 && ln -s /media/sysdata/cho/cho_v5/in4_
 ###
 
 ### EXIM ###
+#ZYPPER
+zypper --non-interactive in --force exim
 #CONF
 rm -f /etc/exim/exim.conf && ln -s /media/sysdata/cho/cho_v4/services--c/mail:o/mta:f/exim:g/in4_mta/engine/_simple/smarthost.conf /etc/exim/exim.conf
 #PROFILE.D
@@ -58,6 +66,9 @@ rm -f /etc/exim/exim.conf && ln -s /media/sysdata/cho/cho_v4/services--c/mail:o/
 
 
 ### SFW2 ###
+#ZYPPER
+zypper --non-interactive in --force SuSEfirewall2
+#SYSTEMD
 rm -f /etc/systemd/system/in4__SuSEfirewall2_i@.service 	&& cp  /media/sysdata/cho/cho_v4/internals:c/linux_sys:o/network:f/sfw2:g/_systemd/in4__SuSEfirewall2_i@.service /etc/systemd/system/
 rm -f /etc/systemd/system/in4__SuSEfirewall2_init_i@.service 	&& cp  /media/sysdata/cho/cho_v4/internals:c/linux_sys:o/network:f/sfw2:g/_systemd/in4__SuSEfirewall2_init_i@.service /etc/systemd/system/
 systemctl stop SuSEfirewall2 && systemctl disable SuSEfirewall2 && systemctl mask SuSEfirewall2
@@ -66,6 +77,8 @@ systemctl enable in4__SuSEfirewall2_i@simple
 ###
 
 ### SSHD ###
+#ZYPPER
+zypper --non-interactive in --force openssh
 #SYSTEMD
 rm -f /etc/systemd/system/in4__sshd.service 	&& cp  /media/sysdata/cho/cho_v4/services--c/server:o/ssh:f/sshd:g/_systemd/in4__sshd.service /etc/systemd/system/
 systemctl stop sshd && systemctl disable sshd && systemctl mask sshd
@@ -75,20 +88,33 @@ rm -f /etc/sysconfig/SuSEfirewall2.d/services/in4__sshd && ln -s  /media/sysdata
 ###
 
 ### RSYSLOG ###
+#ZYPPER
+zypper --non-interactive in --force rsyslog rsyslog-module-relp rsyslog-module-mmnormalize 
 #CONF
-
+rm -rf /etc/rsyslog.d/ && ln -s /media/sysdata/cho/cho_v4/logitoring--c/messagebus--o/syslog--f/rsyslog--g /etc/rsyslog.d
 #SYSTEMD
-
+rm -f /etc/systemd/system/in4__syslog_i@.service 	&& cp  /media/sysdata/cho/cho_v4/logitoring--c/messagebus--o/syslog--f/rsyslog--g/_systemd/in4__syslog_i@.service /etc/systemd/system/
+systemctl stop rsyslog && systemctl disable rsyslog && systemctl mask rsyslog
+systemctl enable  in4__syslog_i@client_debug && systemctl restart in4__syslog_i@client_debug
 ###
 
+
+
+
 ### SSSD ###
+#ZYPPER
+zypper --non-interactive in --force sssd sssd-tools 
 #CONF
 sssd =  conf + systemd service
 	mkdir -p /etc/ssl/my/ && cp /etc/faster/cmdb/data/certificates/edss/ca/a.services.pool.pem /etc/ssl/my/core_ca.pem
 #PROFILE.D
 
 #SYSTEMD
-
+cp /media/sysdata/rev5/techpool/ontology/security/sssd/engine/sssd_basic.conf /etc/sssd/sssd.conf	
+sed -i "s/%ORG%/$Org/" /etc/sssd/sssd.conf	
+sed -i "s/%NET%/$Net/" /etc/sssd/sssd.conf	
+rm -f /etc/systemd/system/rev5_sssd.service  				&& ln -s /media/sysdata/rev5/techpool/ontology/security/sssd/engine/_systemd/rev5_sssd.service 		/etc/systemd/system/  
+systemctl disable sssd && systemctl stop sssd && systemctl enable rev5_sssd && systemctl restart rev5_sssd
 ###
 
 
@@ -99,14 +125,4 @@ sssd =  conf + systemd service
 
 #SYSTEMD
 
-###
-
-### NAME ###
-#CONF
-
-#PROFILE.D
-
-#SYSTEMD
-
-#SWF2
 ###
