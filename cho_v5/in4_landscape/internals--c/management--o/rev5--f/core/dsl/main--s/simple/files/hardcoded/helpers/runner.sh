@@ -5,7 +5,7 @@ application=$1
 instance=$2
 
 
-if [[ $application == "rev5_SuSEfirewall2_init_i" ]]; then
+if [[ $application == "in4__SuSEfirewall2_init_i" ]]; then
 
 	if [[ $instance == "simple" ]]; then
 		/usr/sbin/SuSEfirewall2 boot_init file /media/sysdata/in4/_context/conf/SuSEfirewall2_simple/$Net/$SrvType/$SrvName.fw
@@ -21,7 +21,7 @@ if [[ $application == "rev5_SuSEfirewall2_init_i" ]]; then
 	
 fi
 
-if [[ $application == "rev5_SuSEfirewall2_i" ]]; then
+if [[ $application == "in4__SuSEfirewall2_i" ]]; then
 
 	if [[ $instance == "simple" ]]; then
 		/usr/sbin/SuSEfirewall2 boot_setup file /media/sysdata/in4/_context/conf/SuSEfirewall2_simple/$Net/$SrvType/$SrvName.fw
@@ -65,11 +65,11 @@ if [[ $application == "rev5_vm-stop" ]]; then
 
 fi
 
-if [[ $application == "rev5_bind9-ha" ]]; then
+if [[ $application == "in4__bind9-ha" ]]; then
 	/usr/sbin/named -c /media/sysdata/in4/_context/conf/bind9/conf/$MACIP_HA-$SrvContext-$SrvRole-$DeplType.conf -f -u named
 fi
 
-if [[ $application == "rev5_exim-ha" ]]; then
+if [[ $application == "in4__exim-ha" ]]; then
 	/usr/sbin/exim -bd -q2m -L exim -C /media/sysdata/in4/_context/conf/exim/$MACIP_HA-$SrvContext-$SrvRole-$DeplType/exim.conf
 fi
 
