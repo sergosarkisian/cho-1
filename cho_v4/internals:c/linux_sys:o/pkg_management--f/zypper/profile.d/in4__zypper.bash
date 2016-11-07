@@ -29,7 +29,7 @@ _in4__zypper () {
     done
 
         case $command in
-        *start)
+        se|in|up)
             $EXEC zypper ${SKIP[*]} $command --details $@
         ;;
         *)
