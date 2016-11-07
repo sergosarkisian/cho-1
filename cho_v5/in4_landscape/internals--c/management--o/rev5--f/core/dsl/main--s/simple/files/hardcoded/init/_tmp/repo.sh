@@ -81,7 +81,7 @@ zypper in -C --auto-agree-with-licenses --oldpackage --no-recommends 'wicked' 'm
 
 #Dom0
 
-
+mc 
 
 #DomU
 zypper in -C --auto-agree-with-licenses --oldpackage --no-recommends --force 'kernel-pv' 'xen-tools-domU' 'drbd-kmp-pv' 'grub2-x86_64-xen'

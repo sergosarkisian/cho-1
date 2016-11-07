@@ -6,32 +6,9 @@ systemctl enable rev5_init_auto_xen
 #######
 
 
-
- ### 
- 
- ###  CP REV5 - BOOT, GRUB2###
-
-
 ## ADD MISC SW
-#zypper
-cp /media/sysdata/cho/cho_v4/internals:c/linux_sys:o/pkg_management--f/zypper/zypp.conf loop/etc/zypp/zypp.conf
-cp /media/sysdata/cho/cho_v4/internals:c/linux_sys:o/pkg_management--f/zypper/zypper.conf loop/etc/zypp/zypper.conf
-#++ profile.d
-#
-#
-systemd = profile.d + conf
-sssd =  conf + systemd service
-sysctl = conf
-atop =  profile.d + conf + systemd service
-rsyslog = conf + systemd service
-exim = conf
-sshd = conf + systemd service + swf2
-sudo =  conf
-bash = conf
- ###
- 
- profile.d + conf + systemd service + swf2 + 
- 
+
+
  ###  CP REV5 ###
 mkdir -p loop/etc/rev5/static
 cp /media/sysdata/cho/cho_v3/ontology/linux_sys/suse-network/ifcfg-tmpl loop/etc/rev5/static/
@@ -48,9 +25,6 @@ rm -f  loop/etc/systemd/system/rev5_init_auto_xen.service && cp /media/sysdata/c
 #cp /media/sysdata/cho/cho_v3/ontology/linux_sys/systemd/mounts/dev-disk-by\\\\x2dlabel-swap.swap loop/etc/systemd/system/
 #cp /media/sysdata/cho/cho_v3/ontology/linux_sys/systemd/mounts/media-logs.mount loop/etc/systemd/system/
 #mounts - old
-echo "LABEL=system           /          btrfs       ro,noatime,acl,user_xattr 0 0" > ./loop/etc/fstab
-echo "LABEL=sysdata           /media/sysdata          ext4       noatime,acl,user_xattr 1 1" >> ./loop/etc/fstab
-echo "LABEL=swap           swap                 swap       defaults              0 0" >> ./loop/etc/fstab
-echo "tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0" >> ./loop/etc/fstab
+
 
 ###
