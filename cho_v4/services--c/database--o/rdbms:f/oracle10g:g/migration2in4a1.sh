@@ -21,13 +21,6 @@ mount /dev/disk/by-label/storage -o nodatacow,noatime,autodefrag,recovery /media
 # ?? skip_balance
 ###
 
-
-### APP INIT  ###
-mkdir -p /media/storage/app/in4--c/database--o
-btrfs subvolume create /media/storage/app/in4--c/database--o/oracle10g--f/
-###
-
-
 ### AS INIT  ###
 mkdir -p /media/storage/as
  btrfs subvolume create /media/storage/as/oracle
@@ -38,32 +31,47 @@ mkdir -p /media/storage/as
  btrfs subvolume create /media/storage/as/oracle/dumps
  btrfs subvolume create /media/storage/as/oracle/sid
  btrfs subvolume create /media/storage/as/oracle/tmp
-###
-
-
-### SID DATA  ###
-mkdir -p /media/storage/database/oracle/wk10
-btrfs subvolume create /media/storage/database/oracle/wk10/devel
-btrfs subvolume create /media/storage/database/oracle/wk10/manage
-btrfs subvolume create /media/storage/database/oracle/wk10/cone
+ btrfs subvolume create /media/storage/as/oracle/flash_recovery_area
+ 
+ ##FIX!!!
+setfacl -m g::rx  /media/storage/as/oracle
+setfacl -m o::rx  /media/storage/as/oracle
+setfacl -m g::rx  /media/storage/as
+setfacl -m o::rx  /media/storage/as
+##
 ###
 
 
 ### TS INIT  ###
 mkdir -p /media/storage/ts/services--c/database--o/rdbms--f
 btrfs subvolume create /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw
-###
 
+mkdir -p /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/
+setfacl -R -m u:oracle:rwx /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/
+setfacl -R -m d:u:oracle:rwx /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/
+setfacl -R -m g:oinstall:rwx /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/
+setfacl -R -m d:g:oinstall:rwx /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/
 
-### CREATE RO SNAPSHOT  ###
-btrfs subvolume delete /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g
-btrfs subvolume snapshot -r  /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g
+##FIX!!
+setfacl -m g::rx  /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s
+setfacl -m o::rx  /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s
+setfacl -m g::rx  /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw
+setfacl -m o::rx  /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw
+setfacl -m g::rx  /media/storage/ts/services--c/database--o/rdbms--f
+setfacl -m o::rx  /media/storage/ts/services--c/database--o/rdbms--f
+setfacl -m g::rx  /media/storage/ts/services--c/database--o
+setfacl -m o::rx  /media/storage/ts/services--c/database--o
+setfacl -m g::rx  /media/storage/ts/services--c/
+setfacl -m o::rx  /media/storage/ts/services--c/
+setfacl -m g::rx  /media/storage/ts
+setfacl -m o::rx  /media/storage/ts
+##
 ###
 
 
 ### ORACLE INIT  ###
 rm -f /etc/systemd/system/in4__oracle10g.service 	&& cp  /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms:f/oracle10g:g/_systemd/in4__oracle10g.service /etc/systemd/system/
-
+rm -f  /etc/profile.d/oracle.sh && ln -s /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms:f/oracle10g:g/init/profile.d_oracle.sh /etc/profile.d/oracle.sh
 ###
 
 
@@ -74,22 +82,54 @@ rm -f /etc/systemd/system/in4__oracle10g.service 	&& cp  /media/sysdata/in4/cho/
 ###
 
 ###  ??  ###
-sed -i "s/user:\\/opt\\/oracle:.*/user:\\/opt\\/oracle:\\/bin\\/bash/" /etc/passwd
+usermod -s /bin/bash oracle 
+usermod -d /media/storage/as/oracle oracle 
+
+chmod 755 /media/storage/as
+setfacl -R -m u:oracle:rwx /media/storage/as/oracle
+setfacl -R -m d:u:oracle:rwx /media/storage/as/oracle
+setfacl -R -m g:oinstall:rwx /media/storage/as/oracle
+setfacl -R -m d:g:oinstall:rwx /media/storage/as/oracle
+
 echo "umask 022" > /opt/oracle/.bash_profile
+
 ###
 
 
 ###  ###
+mkdir -p /media/storage_old/_tmp/ && cd /media/storage_old/_tmp/
 wget http://public.edss.ee/software/Linux/Oracle/oracle10.2.0.5EE_rev2.tar.gz
 tar -xzf ./oracle10.2.0.5EE_rev2.tar.gz&
+cp -R /media/storage_old/_tmp/software/oracle/product /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/
+chown -R oracle:oinstall /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s
+mkdir /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/in4/
+cp /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms:f/oracle10g:g/init/* /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/in4/
 ###
+
+### LOGGING SYMLINKS  ###
+mkdir /media/storage/as/oracle/dumps/adump
+mkdir /media/storage/as/oracle/dumps/bdump
+mkdir /media/storage/as/oracle/dumps/cdump
+mkdir /media/storage/as/oracle/dumps/udump
+mkdir /media/storage/as/oracle/dumps/
+mkdir /media/storage/as/oracle/dumps/
+
+mkdir /media/storage/as/oracle/logs/rdbms /media/storage/as/oracle/logs/network
+
+ln -s /media/storage/as/oracle/logs/startup.log /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/startup.log
+ln -s /media/storage/as/oracle/logs/shutdown.log /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/shutdown.log
+
+rm -rf /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/log && ln -s /media/storage/as/oracle/logs/rdbms /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/log
+rm -f /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/audit && ln -s /media/storage/as/oracle/logs/rdbms /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/audit
+
+rm -rf /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/network/log && ln -s  /media/storage/as/oracle/logs/network /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/network/log
+rm -rf /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/network/trace && ln -s  /media/storage/as/oracle/logs/network /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/network/trace
+
+### 
 
 
 ###  ###
-setfacl -R -m d:u:oracle:rwx /media/backup/database
-setfacl -R -m d:g:oinstall:rwx /media/backup/database
-setfacl -R -m u:oracle:rwx /media/backup/database
-setfacl -R -m g:oinstall:rwx /media/backup/database
+
 setfacl -R -m d:u:oracle:rwx /media/storage/database
 setfacl -R -m d:g:oinstall:rwx /media/storage/database
 setfacl -R -m u:oracle:rwx /media/storage/database
@@ -112,7 +152,16 @@ setfacl -R -m g:oinstall:rwx /media/storage/software
 ###  ###
 ###
 
+
+### CREATE RO SNAPSHOT  ###
+btrfs subvolume delete /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g
+btrfs subvolume snapshot -r  /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g
+###
+
 ####
+
+
+
 
 ### SNAPSHOTS ###
 btrfs subvolume snapshot /media/storage/database /media/storage/snapshots/database/`date +%d.%m.%y_%H:%M:%S`
@@ -124,3 +173,18 @@ mkdir -p /media/storage/snapshots/as/oracle/
 /media/storage/as/oracle/snapshots/data/daily/`date +%d.%m.%y_%H:%M:%S`
 /media/storage/as/oracle/snapshots/data/weekly/`date +%d.%m.%y_%H:%M:%S`
 ###
+
+### _tmp ###
+mkdir /media/storage/as/oracle/_mv_svn
+ln -s /media/storage/as/oracle/_mv_svn/oratab /etc/oratab
+ln -s /media/storage/as/oracle/_mv_svn/initwk10.ora /media/storage/as/oracle/sid/
+ rm -rf /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/dbs &&  ln -s /media/storage/as/oracle/sid /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/dbs
+
+###
+
+
+ALC_PATH_ARR=`echo $ALC_PATH`
+    for PATH in $ALC_PATH
+        setfacl -m g::rx $PATH
+        setfacl -m o::rx $PATH
+    done

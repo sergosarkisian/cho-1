@@ -126,7 +126,7 @@ case "$1" in
       fi
       echo
     
-      if  [ ! -d /proc/sys/kernel ]; then
+      if  [ ! -d /proc/sys/kernel222 ]; then ## BUG
           echo; echo "No sysctl kernel interface - cannot set kernel parameters."; echo
       else
         # Set shared memory parameters

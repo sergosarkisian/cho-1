@@ -3,15 +3,15 @@
 ## # #  # # ##
 
 ### 1.Path ###
-audit_file_dest='/media/<%= @disk_label %>/database/oracle/{SID}/manage/debug/adump'
-background_dump_dest='/media/<%= @disk_label %>/database/oracle/{SID}/manage/debug/bdump'
-utl_file_dir='/media/<%= @disk_label %>/database/oracle/{SID}/manage/debug/bdump'
-core_dump_dest='/media/<%= @disk_label %>/database/oracle/{SID}/manage/debug/cdump'
-user_dump_dest='/media/<%= @disk_label %>/database/oracle/{SID}/manage/debug/udump'
+audit_file_dest='/media/storage/as/oracle/dumps/adump'
+background_dump_dest='/media/storage/as/oracle/dumps/bdump'
+utl_file_dir='/media/storage/as/oracle/dumps/bdump'
+core_dump_dest='/media/storage/as/oracle/dumps/cdump'
+user_dump_dest='/media/storage/as/oracle/dumps/udump'
 
-control_files=("/media/<%= @disk_label %>/database/oracle/{SID}/data/main/control01.ctl", "/media/<%= @disk_label %>/database/oracle/{SID}/data/main/control02.ctl")
-log_archive_dest_1='location=/media/<%= @disk_label %>/database/oracle/{SID}/data/arch mandatory reopen=20'
-db_recovery_file_dest='/media/<%= @disk_label %>/database/oracle/{SID}/data/flash_recovery_area'
+control_files=("/media/storage/as/oracle/data/control01.ctl", "/media/storage/as/oracle/data/control02.ctl")
+log_archive_dest_1='location=/media/storage/as/oracle/archive mandatory reopen=20'
+db_recovery_file_dest='/media/storage/as/oracle/flash_recovery_area'
 db_recovery_file_dest_size=4G
 plsql_native_library_dir='/opt/oracle/software/compile'
 
