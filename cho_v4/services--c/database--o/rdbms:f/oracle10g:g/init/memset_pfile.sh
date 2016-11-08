@@ -21,7 +21,7 @@ echo "BUFFERS_32K is: $BUFFERS_32K"
 sed -i "s/SHMMAX=.*/SHMMAX=$SHMMAX/" /etc/sysconfig/oracle
 sed -i "s/SHMALL=.*/SHMALL=$SHMALL/" /etc/sysconfig/oracle
 
-cp /media/storage/as/oracle/_mv_svn/techpool/pfile.ora /media/storage/as/oracle/_mv_svn/initwk10.ora
+cp /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms:f/oracle10g:g/init/pfile.ora /media/storage/as/oracle/_mv_svn/initwk10.ora
 sed -i "s/sga_target=.*/sga_target=$SGA/" /media/storage/as/oracle/_mv_svn/initwk10.ora
 sed -i "s/sga_max_size=.*/sga_max_size=$SGA/" /media/storage/as/oracle/_mv_svn/initwk10.ora
 sed -i "s/pga_aggregate_target=.*/pga_aggregate_target=$PGA/" /media/storage/as/oracle/_mv_svn/initwk10.ora

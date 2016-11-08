@@ -62,15 +62,48 @@ btrfs subvolume snapshot -r  /media/storage/ts/services--c/database--o/rdbms--f/
 
 
 ### ORACLE INIT  ###
+rm -f /etc/systemd/system/in4__oracle10g.service 	&& cp  /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms:f/oracle10g:g/_systemd/in4__oracle10g.service /etc/systemd/system/
+
+###
+
+
+###  ###
+ zypper --non-interactive in unixODBC unixODBC-devel bison flex gcc make gcc-c++ pcre-devel zlib-devel patch m4 glibc binutils glibc-devel libaio1 libaio-devel libelf0 libelf1 libelf-devel numactl libtool libstdc++6 libstdc++-devel libgcc_s1 expat libopenssl-devel binutils-devel glibc-devel-32bit libaio-devel-32bit unixODBC-32bit libgthread-2_0-0-32bit gcc-32bit gcc-c++-32bit gcc48-32bit libgcc_s1-32bit glibc-32bit binutils-devel-32bit
+ zypper --non-interactive in http://ftp.novell.com/partners/oracle/orarun-2.0-1.4.0.x86_64.rpm
+
+###
+
+###  ??  ###
+sed -i "s/user:\\/opt\\/oracle:.*/user:\\/opt\\/oracle:\\/bin\\/bash/" /etc/passwd
+echo "umask 022" > /opt/oracle/.bash_profile
+###
+
+
+###  ###
+wget http://public.edss.ee/software/Linux/Oracle/oracle10.2.0.5EE_rev2.tar.gz
+tar -xzf ./oracle10.2.0.5EE_rev2.tar.gz&
+###
+
+
+###  ###
+setfacl -R -m d:u:oracle:rwx /media/backup/database
+setfacl -R -m d:g:oinstall:rwx /media/backup/database
+setfacl -R -m u:oracle:rwx /media/backup/database
+setfacl -R -m g:oinstall:rwx /media/backup/database
+setfacl -R -m d:u:oracle:rwx /media/storage/database
+setfacl -R -m d:g:oinstall:rwx /media/storage/database
+setfacl -R -m u:oracle:rwx /media/storage/database
+setfacl -R -m g:oinstall:rwx /media/storage/database
+setfacl -R -m d:u:oracle:rwx /media/storage/software
+setfacl -R -m d:g:oinstall:rwx /media/storage/software
+setfacl -R -m u:oracle:rwx /media/storage/software
+setfacl -R -m g:oinstall:rwx /media/storage/software
 ###
 
 
 ###  ###
 ###
 
-###  ###
-###
-
 
 ###  ###
 ###
@@ -78,8 +111,6 @@ btrfs subvolume snapshot -r  /media/storage/ts/services--c/database--o/rdbms--f/
 
 ###  ###
 ###
-
-
 
 ####
 

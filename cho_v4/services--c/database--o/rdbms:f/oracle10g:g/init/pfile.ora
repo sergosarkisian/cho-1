@@ -1,0 +1,119 @@
+## # #  # # ##
+#Oracle pfile#
+## # #  # # ##
+
+### 1.Path ###
+audit_file_dest='/media/<%= @disk_label %>/database/oracle/{SID}/manage/debug/adump'
+background_dump_dest='/media/<%= @disk_label %>/database/oracle/{SID}/manage/debug/bdump'
+utl_file_dir='/media/<%= @disk_label %>/database/oracle/{SID}/manage/debug/bdump'
+core_dump_dest='/media/<%= @disk_label %>/database/oracle/{SID}/manage/debug/cdump'
+user_dump_dest='/media/<%= @disk_label %>/database/oracle/{SID}/manage/debug/udump'
+
+control_files=("/media/<%= @disk_label %>/database/oracle/{SID}/data/main/control01.ctl", "/media/<%= @disk_label %>/database/oracle/{SID}/data/main/control02.ctl")
+log_archive_dest_1='location=/media/<%= @disk_label %>/database/oracle/{SID}/data/arch mandatory reopen=20'
+db_recovery_file_dest='/media/<%= @disk_label %>/database/oracle/{SID}/data/flash_recovery_area'
+db_recovery_file_dest_size=4G
+plsql_native_library_dir='/opt/oracle/software/compile'
+
+# # # # # # # #
+
+### 2.Naming ###
+db_domain='{DOMAIN}'
+db_name='{SID}'
+db_unique_name={SID}
+instance_name={SID}
+service_names='{SID}.{DOMAIN}'
+log_archive_format='%t_%s_%r.dbf'
+# # # # # # # #
+
+### 3.Global ###
+audit_trail='os'
+audit_syslog_level=local1.info
+audit_sys_operations='TRUE'
+compatible=10.2.0.1.0
+remote_login_passwordfile='EXCLUSIVE'
+fast_start_mttr_target=300
+#star_transformation_enabled='FALSE'
+
+db_block_size=8192
+db_16k_cache_size=16384
+db_32k_cache_size={BUFFERS_32K}
+undo_tablespace='UNDOTBS1'
+undo_management='AUTO'
+undo_retention=259200
+
+job_queue_processes=10
+nls_length_semantics='CHAR'
+nls_territory='ESTONIA'
+
+aq_tm_processes=1
+db_flashback_retention_target=4320
+
+#CUSTOM - MAX_DUMP_FILE_SIZE
+# # # # # # # #
+
+### Disk I\O ###
+filesystemio_options=setall
+disk_asynch_io=true
+# # # # # # # #
+
+log_checkpoint_timeout=300
+log_checkpoint_interval=51200
+archive_lag_target=600
+log_checkpoints_to_alert=true
+log_buffer=14194688
+
+### 4.Memory ###
+processes=300
+sessions=250
+open_cursors=300
+session_cached_cursors=50
+db_files=200
+
+db_recycle_cache_size=512M
+
+pga_aggregate_target={PGA}
+sga_max_size={SGA}
+sga_target={SGA}
+
+#!ASMM - db_cache_size
+#!ASMM - shared_pool_size
+#!ASMM - large_pool_size
+#!ASMM - java_pool_size
+#!ASMM - streams_pool_size
+
+#CUSTOM - shared_pool_reserved_size
+#CUSTOM - db_file_multiblock_read_count
+#CUSTOM - lock_sga
+#CUSTOM - pre_page_sga
+
+# # # # # # # #
+
+### 5.Network ###
+dispatchers='(PROTOCOL=TCP) (SERVICE={SID}XDB)'
+# # # # # # # #
+
+### 6.Timeouts ###
+distributed_lock_timeout=5
+# # # # # # # #
+
+### 7.Optimisers & indexing ###
+_optimizer_native_full_outer_join='force'
+_optimizer_cost_based_transformation='on'
+optimizer_index_cost_adj=50
+# # # # # # # #
+
+### 8. Safety & consistency ###
+#DB_BLOCK_CHECKING
+#DB_BLOCK_CHECKSUM
+# # # # # # # #
+
+### Logging & stat ###
+#CUSTOM - STATISTICS_LEVEL
+#CUSTOM - TIMED_OS_STATISTICS
+#CUSTOM - TIMED_STATISTICS
+# # # # # # # #
+
+
+#CUSTOM - db_file_name_convert
+#CUSTOM - log_file_name_convert
