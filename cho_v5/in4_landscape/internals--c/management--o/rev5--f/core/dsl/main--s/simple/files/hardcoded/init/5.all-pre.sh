@@ -37,26 +37,33 @@ useradd -g log -u 998 -M -d /media/sysdata/logs/ log
     setfacl -R -m d:u:sysdata:rwx /media/sysdata/app
     setfacl -R -m g:sysdata:rx /media/sysdata/app
     setfacl -R -m d:g:sysdata:rx /media/sysdata/app
+     setfacl -R -m u::rx /media/sysdata/app	   
+     setfacl -R -m g::rx /media/sysdata/app	   
+     setfacl -R -m d:u::rx /media/sysdata/app	   
+     setfacl -R -m d:g::rx /media/sysdata/app	        
     
     setfacl -R -m u:sysdata:rwx /media/sysdata/in4
     setfacl -R -m d:u:sysdata:rwx /media/sysdata/in4
     setfacl -R -m g:sysdata:rx /media/sysdata/in4
     setfacl -R -m d:g:sysdata:rx /media/sysdata/in4
+    setfacl -R -m o::rx /media/sysdata/in4
+    setfacl -R -m d:o::rx /media/sysdata/in4	    
+     setfacl -R -m u::rx /media/sysdata/in4	   
+     setfacl -R -m g::rx /media/sysdata/in4	   
+     setfacl -R -m d:u::rx /media/sysdata/in4	   
+     setfacl -R -m d:g::rx /media/sysdata/in4	       
 
     setfacl -R -m u:log:rwx /media/sysdata/logs
     setfacl -R -m d:u:log:rwx /media/sysdata/logs
     setfacl -R -m g:log:rx /media/sysdata/logs
     setfacl -R -m d:g:log:rx /media/sysdata/logs
+     setfacl -R -m u::rx /media/sysdata/logs	   
+     setfacl -R -m g::rx /media/sysdata/logs	   
+     setfacl -R -m d:u::rx /media/sysdata/logs	   
+     setfacl -R -m d:g::rx /media/sysdata/logs	    
 
     
-    #setfacl - others
-#     setfacl -R -m u::rx /media/sysdata
-#     setfacl -R -m g::rx /media/sysdata
-#     setfacl -R -m d:u::rx /media/sysdata
-#     setfacl -R -m d:g::rx /media/sysdata	
-#     
-#     setfacl -R -m o::rx /media/sysdata
-#     setfacl -R -m d:o::rx /media/sysdata	
+
 ###
 
 ### SYSDATA PERMS OVERRIDE ###
