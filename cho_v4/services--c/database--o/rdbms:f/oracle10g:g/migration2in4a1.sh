@@ -104,6 +104,7 @@ cp -R /media/storage_old/_tmp/software/oracle/product /media/storage/ts/services
 chown -R oracle:oinstall /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s
 mkdir /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/in4/
 cp /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms:f/oracle10g:g/init/* /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/in4/
+ touch /etc/oratab && chown oracle:oinstall /etc/oratab && chmod 750 /etc/oratab
 ###
 
 ### LOGGING SYMLINKS  ###
@@ -175,9 +176,6 @@ mkdir -p /media/storage/snapshots/as/oracle/
 ###
 
 ### _tmp ###
-mkdir /media/storage/as/oracle/_mv_svn
-ln -s /media/storage/as/oracle/_mv_svn/oratab /etc/oratab
-ln -s /media/storage/as/oracle/_mv_svn/initwk10.ora /media/storage/as/oracle/sid/
  rm -rf /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/dbs &&  ln -s /media/storage/as/oracle/sid /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/dbs
 
 ###
