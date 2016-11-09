@@ -1,8 +1,18 @@
 #!/bin/bash
 
+### 42.1 ###
 mkdir -p /media/storage1/images/\!master/openSUSE-42.1/_dev/loop
 wget -O  /media/storage1/images/\!master/openSUSE-42.1/openSUSE-42.1-docker-guest-docker.x86_64.tar.xz http://download.opensuse.org/repositories/Virtualization:/containers:/images:/openSUSE-42.1/images/openSUSE-42.1-docker-guest-docker.x86_64.tar.xz
 cd /media/storage1/images/\!master/openSUSE-42.1/_dev
+###
+
+### 42.2 ###
+mkdir -p /media/storage1/images/\!master/openSUSE-42.2/_dev/loop
+wget -O  /media/storage1/images/\!master/openSUSE-42.2/openSUSE-42.2-docker-guest-docker.x86_64.tar.xz http://download.opensuse.org/repositories/Virtualization:/containers:/images:/openSUSE-42.2/images/openSUSE-42.2-docker-guest-docker.x86_64.tar.xz
+cd /media/storage1/images/\!master/openSUSE-42.2/_dev
+###
+
+
 
 ### DISK INIT ###
 rm ./*.raw
@@ -44,7 +54,7 @@ mkdir -p  ./loop/media/sysdata/in4
 
  ###  CHROOT TO LOOP ###
 mount -t proc proc loop/proc/ &&  mount -t sysfs sys loop/sys/ && mount -o bind /dev loop/dev/
-chroot loop /bin/bash -c "sh /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/scenario_docker2vm.sh"
+chroot loop /bin/bash -c "sh /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/scenario_docker2vm_42.2.sh"
 ###
 
 ### RM TEMP & UMOUNT

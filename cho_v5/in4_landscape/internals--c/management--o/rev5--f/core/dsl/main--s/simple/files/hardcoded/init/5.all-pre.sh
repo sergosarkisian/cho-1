@@ -12,7 +12,7 @@ mkdir -p /media/sysdata/logs/app/atop /media/sysdata/logs/files
 	
 rm -f /var; mkdir -p /media/sysdata/linux_sys/var && cp -pR /var/* /media/sysdata/linux_sys/var ; rm -rf /var && ln -s /media/sysdata/linux_sys/var /var
 rm -f /root;  mkdir -p /media/sysdata/linux_sys/root && cp -pR /root/* /media/sysdata/linux_sys/root ; rm -rf /root && ln -s /media/sysdata/linux_sys/root /root
- rm /home; mkdir -p /media/sysdata/linux_sys/home && rm -rf /home && ln -s /media/sysdata/linux_sys/home /home
+ rm -f /home; mkdir -p /media/sysdata/linux_sys/home && rm -rf /home && ln -s /media/sysdata/linux_sys/home /home
  rm -r /var/tmp; ln -s /tmp /var/tmp
  rm -r /var/run; ln -s /run /var/run
 ###
@@ -33,35 +33,38 @@ useradd -g log -u 998 -M -d /media/sysdata/logs/ log
 
 
 ### PERMISSIONS ###
+    chmod 755 /media/sysdata/linux_sys/ /media/sysdata/linux_sys/var
     setfacl -R -m u:sysdata:rwx /media/sysdata/app
     setfacl -R -m d:u:sysdata:rwx /media/sysdata/app
     setfacl -R -m g:sysdata:rx /media/sysdata/app
     setfacl -R -m d:g:sysdata:rx /media/sysdata/app
-     setfacl -R -m u::rx /media/sysdata/app	   
-     setfacl -R -m g::rx /media/sysdata/app	   
-     setfacl -R -m d:u::rx /media/sysdata/app	   
-     setfacl -R -m d:g::rx /media/sysdata/app	        
-    
+    setfacl -R -m u::rwx /media/sysdata/app	   
+    setfacl -R -m d:u::rwx /media/sysdata/app	        
+    setfacl -R -m g::rx /media/sysdata/app	   
+    setfacl -R -m d:g::rx /media/sysdata/app	        
+
+     
     setfacl -R -m u:sysdata:rwx /media/sysdata/in4
     setfacl -R -m d:u:sysdata:rwx /media/sysdata/in4
     setfacl -R -m g:sysdata:rx /media/sysdata/in4
     setfacl -R -m d:g:sysdata:rx /media/sysdata/in4
+    setfacl -R -m u::rwx /media/sysdata/in4	   
+    setfacl -R -m d:u::rwx /media/sysdata/in4	        
+    setfacl -R -m g::rx /media/sysdata/in4	   
+    setfacl -R -m d:g::rx /media/sysdata/in4	             
+    
     setfacl -R -m o::rx /media/sysdata/in4
-    setfacl -R -m d:o::rx /media/sysdata/in4	    
-     setfacl -R -m u::rx /media/sysdata/in4	   
-     setfacl -R -m g::rx /media/sysdata/in4	   
-     setfacl -R -m d:u::rx /media/sysdata/in4	   
-     setfacl -R -m d:g::rx /media/sysdata/in4	       
+    setfacl -R -m d:o::rx /media/sysdata/in4	        
+    
 
     setfacl -R -m u:log:rwx /media/sysdata/logs
     setfacl -R -m d:u:log:rwx /media/sysdata/logs
     setfacl -R -m g:log:rx /media/sysdata/logs
     setfacl -R -m d:g:log:rx /media/sysdata/logs
-     setfacl -R -m u::rx /media/sysdata/logs	   
-     setfacl -R -m g::rx /media/sysdata/logs	   
-     setfacl -R -m d:u::rx /media/sysdata/logs	   
-     setfacl -R -m d:g::rx /media/sysdata/logs	    
-
+    setfacl -R -m u::rwx /media/sysdata/logs	   
+    setfacl -R -m d:u::rwx /media/sysdata/logs	        
+    setfacl -R -m g::rx /media/sysdata/logs	   
+    setfacl -R -m d:g::rx /media/sysdata/logs	     
     
 
 ###

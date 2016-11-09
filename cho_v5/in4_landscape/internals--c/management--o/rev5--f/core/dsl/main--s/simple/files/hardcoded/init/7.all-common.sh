@@ -134,8 +134,8 @@ pam-config --add --sss
 
 ###
 
-
-### WTF ###
+####
+### WTF ### - BUG
 rm -f /etc/systemd/system/in4__wtf.service 	&& cp  /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/in4__wtf.service /etc/systemd/system/
 systemctl enable  in4__wtf && systemctl restart in4__wtf
 ###
