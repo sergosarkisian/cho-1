@@ -1,4 +1,69 @@
+ALTER DATABASE RENAME FILE 
+'/media/storage/database/oracle/wk10/data/main/system01.dbf' TO
+'/media/storage/as/oracle/data/system01.dbf';
+
+ALTER DATABASE RENAME FILE 
+'/media/storage/database/oracle/wk10/data/main/sysaux01.dbf' TO
+'/media/storage/as/oracle/data/sysaux01.dbf';
+
+ALTER DATABASE RENAME FILE 
+'/media/storage/database/oracle/wk10/data/main/temp01.dbf' TO
+'/media/storage/as/oracle/data/temp01.dbf';
+
+ALTER DATABASE RENAME FILE 
+'/media/storage/database/oracle/wk10/data/main/undotbs01.dbf' TO
+'/media/storage/as/oracle/data/undotbs01.dbf';
+
+ALTER DATABASE RENAME FILE 
+'/media/storage/database/oracle/wk10/data/main/users01.dbf' TO
+'/media/storage/as/oracle/data/users01.dbf';
+
+ALTER DATABASE RENAME FILE 
+'/media/storage/database/oracle/wk10/data/main/redo01.log' TO
+'/media/storage/as/oracle/data/redo01.log';
+
+ALTER DATABASE RENAME FILE 
+'/media/storage/database/oracle/wk10/data/main/redo02.log' TO
+'/media/storage/as/oracle/data/redo02.log';
+
+ALTER DATABASE RENAME FILE 
+'/media/storage/database/oracle/wk10/data/main/redo03.log' TO
+'/media/storage/as/oracle/data/redo03.log';
+
+#
+ALTER DATABASE RENAME FILE 
+'/media/storage/database/oracle/wk10/data/main/' TO
+'/media/storage/as/oracle/data/';
+#
+
+
++
+ALTER DATABASE RENAME FILE 
+'/media/storage/database/oracle/wk10/data/main/ealc.dbf' TO
+'/media/storage/as/oracle/data/ealc.dbf';
+
+ALTER DATABASE RENAME FILE 
+'/media/storage/database/oracle/wk10/data/main/ecore.dbf' TO
+'/media/storage/as/oracle/data/ecore.dbf';
+
+ALTER DATABASE RENAME FILE 
+'/media/storage/database/oracle/wk10/data/main/edoc.dbf' TO
+'/media/storage/as/oracle/data/edoc.dbf';
+
+ALTER DATABASE RENAME FILE 
+'/media/storage/database/oracle/wk10/data/main/ejob.dbf' TO
+'/media/storage/as/oracle/data/ejob.dbf';
+
+ALTER DATABASE RENAME FILE 
+'/media/storage/database/oracle/wk10/data/main/etocean.dbf' TO
+'/media/storage/as/oracle/data/etocean.dbf';
+
+
+
+
+
 #locks path
+
 mkdir -p /media/storage/database/oracle/wk10/cone/locks
 chown -R oracle:oinstall /media/storage/database/oracle/wk10/cone/
 

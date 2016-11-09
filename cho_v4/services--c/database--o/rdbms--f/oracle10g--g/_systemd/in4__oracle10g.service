@@ -1,7 +1,5 @@
 [Unit]
 Description		=in4__oracle10g
-Documentation	= man:{MAN}
-Documentation	= http://{WEBSITE}
 
 ## DEPS ## 
  #Conflicts=, # Wants=,  # Before=, # PartOf=, #OnFailure=,  #PropagatesReloadTo=, ReloadPropagatedFrom=
@@ -23,11 +21,11 @@ Documentation	= http://{WEBSITE}
 ##
 
 ## EXECS ##
-ExecStartPre        = /bin/sh /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/in4/memset_pfile.sh
-ExecStart		= /bin/sh /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/in4/run.sh start
+ExecStartPre        = /bin/sh /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/memset_pfile.sh
+ExecStart		= /bin/sh /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/run.sh start
  #ExecStartPre    = sqplus по циклу
 #  ExecStop             = /bin/sh /tmp/run.sh stop
- ExecStop		= /bin/sh /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s/product/10g/in4/run.sh stop
+ ExecStop		= /bin/sh /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/run.sh stop
  ExecReload		= /bin/kill -HUP $MAINPID
 
  #loging -  "instance":"%I"
@@ -38,7 +36,7 @@ ExecStart		= /bin/sh /media/storage/ts/services--c/database--o/rdbms--f/oracle10
  User			= oracle
  Group			= oinstall
 
- #SupplementaryGroups = sysapp
+ SupplementaryGroups = sysdata
  #UMask			= 
 ##
 
