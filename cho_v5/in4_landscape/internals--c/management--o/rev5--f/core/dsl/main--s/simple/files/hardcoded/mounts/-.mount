@@ -1,0 +1,11 @@
+[Unit]
+Description=system disk mount
+Before=local-fs.target
+Requires=systemd-fsck@dev-disk-by\x2dlabel-system.service
+After=systemd-fsck@dev-disk-by\x2dlabel-system.service
+
+[Mount]
+What=/dev/disk/by-label/system
+Where=/
+Type=btrfs
+Options=rw,noatime,acl,nodatacow,autodefrag,recovery
