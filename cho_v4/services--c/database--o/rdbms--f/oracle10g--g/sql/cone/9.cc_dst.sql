@@ -2,11 +2,11 @@ connect "E$&&scheme_uc"/"&&eschemePassword"
 set echo on
 spool /media/storage/as/oracle/logs/cone/9.cc_dst
 
-drop table cc_content;
+drop table E$&&scheme_uc..cc_content;
 
 CREATE DATABASE LINK cc_source_dblink USING 'cc_source.pool';
 
-CREATE TABLE E$&&scheme_uc.CC_CONTENT of xmltype
+CREATE TABLE E$&&scheme_uc..CC_CONTENT of xmltype
     (CONSTRAINT CC_PK PRIMARY KEY(XMLDATA.CCID)
     ,CONSTRAINT CC_UK unique (XMLDATA.THEREF, XMLDATA.FORMAT, XMLDATA.MD5)
     )
@@ -22,7 +22,7 @@ CREATE TABLE E$&&scheme_uc.CC_CONTENT of xmltype
 	);   
 
 
-    create index E$&&scheme_uc.CCREL_REF_idx on E$&&scheme_uc.CC_RELATION(THEREF, FORMAT);
+    create index E$&&scheme_uc..CCREL_REF_idx on E$&&scheme_uc..CC_RELATION(THEREF, FORMAT);
     
     
 
@@ -39,7 +39,7 @@ begin
   ) loop
     FXML := xmltype(m.data, 'e$cc');
     FXML.TOOBJECT(AOBJ);
-    insert into CC_CONTENT(xmldata)
+    insert into E$&&scheme_uc..CC_CONTENT(xmldata)
     select e$xml.t$cc(AOBJ.VER, AOBJ.CCID, AOBJ.THEREF, AOBJ.FORMAT, AOBJ.MIMETYPE, AOBJ.MD5, AOBJ.DEPS, AOBJ.KEEPIFVALID, AOBJ.LASTGET, AOBJ.META, AOBJ.DATA, AOBJ.relations)
     from dual;
   end loop;
@@ -48,14 +48,14 @@ end;
 /
 
 
-    ALTER TABLE E$&&scheme_uc.CC_DEPEND ADD (
+    ALTER TABLE E$&&scheme_uc..CC_DEPEND ADD (
       CONSTRAINT CCDEPEND_CC_FK
     FOREIGN KEY (CCID)
-    REFERENCES E$&&scheme_uc.CC_CONTENT ("XMLDATA"."CCID")
+    REFERENCES E$&&scheme_uc..CC_CONTENT ("XMLDATA"."CCID")
 	ON DELETE CASCADE,
       CONSTRAINT CCDEPEND_FROMCC_FK
     FOREIGN KEY (FROMCCID)
-    REFERENCES E$&&scheme_uc.CC_CONTENT ("XMLDATA"."CCID"));
+    REFERENCES E$&&scheme_uc..CC_CONTENT ("XMLDATA"."CCID"));
 
 
 spool off

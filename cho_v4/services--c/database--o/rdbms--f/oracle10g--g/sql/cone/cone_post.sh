@@ -24,8 +24,9 @@ DEFINE ecorePassword = $ecorePassword
 DEFINE exmlPassword = $exmlPassword
 DEFINE eschemePassword = $eschemePassword
 
-@/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/8.grants.sql
-@/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/9.stats.sql
+@/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/9.cc_dst.sql
+@/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/10.grants.sql
+@/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/14.post.sql
 exit;
 EOF
 

@@ -1,6 +1,6 @@
-#
-### as SYS
-#
+connect "SYS"/"&&sysPassword" as SYSDBA
+set echo on
+spool /media/storage/as/oracle/logs/cone/10.grants
 
   -- 45 Object Privileges for E$CORE 
     GRANT EXECUTE ON CTXSYS.CTX_DDL TO E$CORE WITH GRANT OPTION;

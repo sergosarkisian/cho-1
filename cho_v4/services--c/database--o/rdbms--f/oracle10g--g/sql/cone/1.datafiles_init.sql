@@ -33,18 +33,6 @@ DEFAULT TABLESPACE USERS
 TEMPORARY TABLESPACE TEMP
 PROFILE DEFAULT
 ACCOUNT UNLOCK;
--- 3 Roles for E$&&scheme_uc 
-GRANT CONNECT TO E$&&scheme_uc;
-GRANT EXP_FULL_DATABASE TO E$&&scheme_uc;
-GRANT IMP_FULL_DATABASE TO E$&&scheme_uc;
-ALTER USER E$&&scheme_uc DEFAULT ROLE ALL;
--- 3 System Privileges for E$&&scheme_uc 
-GRANT GRANT ANY PRIVILEGE TO E$&&scheme_uc;
-GRANT SELECT ANY TABLE TO E$&&scheme_uc;
-GRANT CREATE SESSION TO E$&&scheme_uc;
--- 1 Object Privilege for E$&&scheme_uc 
-GRANT READ, WRITE ON DIRECTORY SYS.export TO E$&&scheme_uc;
-
 
 
 CREATE USER E$CORE
@@ -154,5 +142,19 @@ GRANTEE      => 'EDI_WEB',
 ADMIN_OPTION => FALSE);
 END;
 /
+
+
+-- 3 Roles for E$&&scheme_uc 
+GRANT CONNECT TO E$&&scheme_uc;
+GRANT EXP_FULL_DATABASE TO E$&&scheme_uc;
+GRANT IMP_FULL_DATABASE TO E$&&scheme_uc;
+ALTER USER E$&&scheme_uc DEFAULT ROLE ALL;
+-- 3 System Privileges for E$&&scheme_uc 
+GRANT GRANT ANY PRIVILEGE TO E$&&scheme_uc;
+GRANT SELECT ANY TABLE TO E$&&scheme_uc;
+GRANT CREATE SESSION TO E$&&scheme_uc;
+-- 1 Object Privilege for E$&&scheme_uc 
+GRANT READ, WRITE ON DIRECTORY SYS.export TO E$&&scheme_uc;
+
 
 spool off
