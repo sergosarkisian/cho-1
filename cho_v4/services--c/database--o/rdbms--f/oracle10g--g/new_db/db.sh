@@ -3,6 +3,7 @@
 mkdir -p /media/storage/as/oracle/logs/create_db
 . /media/storage/as/oracle/conf/_context/env.sh
 cd $ORACLE_HOME
+sysPassword=$1
 
 bin/sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
