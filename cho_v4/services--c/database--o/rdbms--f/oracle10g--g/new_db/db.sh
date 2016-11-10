@@ -5,6 +5,11 @@ mkdir -p /media/storage/as/oracle/logs/create_db
 cd $ORACLE_HOME
 sysPassword=$1
 
+if [[ -z $sysPassword ]]; then
+    echo "set an admin password"
+    exit 1
+fi
+
 bin/sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
 DEFINE sid = $SID
