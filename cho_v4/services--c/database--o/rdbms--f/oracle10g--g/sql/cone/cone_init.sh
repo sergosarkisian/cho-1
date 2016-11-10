@@ -14,7 +14,7 @@ ecorePassword="3edc4rfv"
 exmlPassword="3edc4rfv"
 eschemePassword="3edc4rfv"
 
-bin/sqlplus -s -l "/ as sysdba" <<EOF
+sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
 DEFINE scheme_lc = $SCHEME_LC
 DEFINE scheme_uc = $SCHEME_UC
