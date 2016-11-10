@@ -105,6 +105,7 @@ usermod -s /bin/bash oracle
 usermod -d /media/storage/as/oracle/home oracle 
 
 chmod 755 /media/storage/as
+chown -R oracle:oinstall /media/storage/as/oracle
 setfacl -R -m u:oracle:rwx /media/storage/as/oracle
 setfacl -R -m d:u:oracle:rwx /media/storage/as/oracle
 setfacl -R -m g:oinstall:rwx /media/storage/as/oracle
