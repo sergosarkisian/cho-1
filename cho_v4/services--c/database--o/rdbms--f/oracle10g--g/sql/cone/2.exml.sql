@@ -1,5 +1,4 @@
- E$XML
-connect "E$XML"/"&&exmlPassword" as SYSDBA
+connect "E$XML"/"&&exmlPassword"
 set echo on
 spool /media/storage/as/oracle/logs/cone/2.exml
 

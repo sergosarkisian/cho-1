@@ -1,5 +1,5 @@
 E$XML
-connect "E$CORE"/"&&ecorePassword" as SYSDBA
+connect "E$CORE"/"&&ecorePassword"
 set echo on
 spool /media/storage/as/oracle/logs/cone/4.ecore_syn
 
