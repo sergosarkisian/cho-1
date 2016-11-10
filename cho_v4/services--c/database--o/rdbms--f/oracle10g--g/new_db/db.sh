@@ -1,4 +1,5 @@
 #!/bin/bash
+/bin/sh /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/memset_pfile.sh
 mkdir -p /media/storage/as/oracle/logs/create_db
 . /media/storage/as/oracle/conf/_context/env.sh
 cd $ORACLE_HOME

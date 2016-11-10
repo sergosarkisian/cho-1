@@ -3,10 +3,11 @@
 # ORACLE_HOME - Used here and in /etc/init.d/oracle (ora_environment())
 # ORACLE_SID - Your Oracle System Identifier 
 #
+. /media/storage/as/oracle/conf/_context/env.sh
   ORACLE_BASE=/media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g/ee--s
   ORACLE_HOME=$ORACLE_BASE/product/10g
   ORACLE_HOME_LISTNER=$ORACLE_HOME
-  ORACLE_SID=wk10
+  ORACLE_SID=$SID
   export ORACLE_BASE ORACLE_HOME ORACLE_SID ORACLE_HOME_LISTNER
 
 #
