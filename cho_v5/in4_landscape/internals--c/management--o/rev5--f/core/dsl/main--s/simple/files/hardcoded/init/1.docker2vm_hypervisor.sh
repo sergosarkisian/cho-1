@@ -1,10 +1,10 @@
 #!/bin/bash
 
-### 42.1 ###
-mkdir -p /media/storage1/images/\!master/openSUSE-42.1/_dev/loop
-wget -O  /media/storage1/images/\!master/openSUSE-42.1/openSUSE-42.1-docker-guest-docker.x86_64.tar.xz http://download.opensuse.org/repositories/Virtualization:/containers:/images:/openSUSE-42.1/images/openSUSE-42.1-docker-guest-docker.x86_64.tar.xz
-cd /media/storage1/images/\!master/openSUSE-42.1/_dev
-###
+# ### 42.1 ###
+# mkdir -p /media/storage1/images/\!master/openSUSE-42.1/_dev/loop
+# wget -O  /media/storage1/images/\!master/openSUSE-42.1/openSUSE-42.1-docker-guest-docker.x86_64.tar.xz http://download.opensuse.org/repositories/Virtualization:/containers:/images:/openSUSE-42.1/images/openSUSE-42.1-docker-guest-docker.x86_64.tar.xz
+# cd /media/storage1/images/\!master/openSUSE-42.1/_dev
+# ###
 
 ### 42.2 ###
 mkdir -p /media/storage1/images/\!master/openSUSE-42.2/_dev/loop
@@ -42,14 +42,14 @@ mount /dev/loop61 ./loop/media/sysdata
 cp /etc/resolv.conf ./loop/etc/
 cp /etc/sysconfig/proxy ./loop/etc/sysconfig/
 chmod 744  ./loop/etc/sysconfig/
-
  ### 
  
  
 ### GIT ###
 mkdir -p  ./loop/media/sysdata/in4
- git -C ./loop/media/sysdata/in4 clone -b stable  https://github.com/conecenter/cho.git
- git -C ./loop/media/sysdata/in4/cho config core.filemode false
+git -C ./loop/media/sysdata/in4 clone -b stable  https://github.com/conecenter/cho.git
+#git -C ./loop/media/sysdata/in4 clone -b master  https://github.com/eistomin/cho.git
+git -C ./loop/media/sysdata/in4/cho config core.filemode false
 ###
 
  ###  CHROOT TO LOOP ###

@@ -12,6 +12,3 @@ zypper ar -cf http://download.opensuse.org/update/openSUSE-stable update_oss::st
 zypper ar -cf http://download.opensuse.org/repositories/network/openSUSE_Leap_42.2/network.repo
 zypper ar -cf http://download.opensuse.org/repositories/shells/openSUSE_Leap_42.2/shells.repo
 
-##CONE CENTER - priority 10
-zypper ar -p10 -cf http://download.opensuse.org/repositories/home:/conecenter:/rev5a1:/ontology:/logitoring--c:/messagebus--o:/syslog--f/openSUSE_Leap_42.2/home:conecenter:rev5a1:ontology:logitoring--c:messagebus--o:syslog--f.repo
-###

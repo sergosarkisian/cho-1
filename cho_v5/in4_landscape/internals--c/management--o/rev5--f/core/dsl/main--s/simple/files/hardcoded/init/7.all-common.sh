@@ -1,6 +1,6 @@
 ### BASH ###
 #ZYPPER
-zypper --non-interactive in --force bash-completion
+zypper --gpg-auto-import-keys --non-interactive in --force bash-completion
 #CONF
 #rm -f  /etc/bash.bashrc.local && ln -s  /media/sysdata/in4/cho/cho_v4/internals:c/linux_sys:o/bash/conf/bash.bashrc.local /etc/bash.bashrc.local
 echo "for f in /etc/profile.d/in4__*; do test -s \$f;   source \$f; done" >>  /etc/bash.bashrc
@@ -8,7 +8,7 @@ echo "for f in /etc/profile.d/in4__*; do test -s \$f;   source \$f; done" >>  /e
 
 ### SUDO ###
 #ZYPPER
-zypper --non-interactive in --force sudo
+zypper --gpg-auto-import-keys --non-interactive in --force sudo
 #CONF
 rm -f /etc/sudoers && ln -s /media/sysdata/in4/cho/cho_v4/internals:c/linux_sys:o/security:f/sudo--g/etc_sudoers /etc/sudoers
 echo -e "localadmin     ALL=(ALL) ALL" > /etc/sudoers.d/localadmin
@@ -43,9 +43,16 @@ rm -f /etc/zypp/zypper.conf && ln -s /media/sysdata/in4/cho/cho_v4/internals:c/l
 rm -f /etc/profile.d/in4__zypper.bash && ln -s /media/sysdata/in4/cho/cho_v4/internals:c/linux_sys:o/pkg_management--f/zypper/profile.d/in4__zypper.bash /etc/profile.d/in4__zypper.bash
 ###
 
+### SNAPPER ###
+#ZYPPER
+zypper --gpg-auto-import-keys --non-interactive in --force snapper snapper-zypp-plugin yast2-snapper grub2-snapper-plugin
+#CONF
+#??
+###
+
 ### SYSTEMD ###
 #ZYPPER
-zypper --non-interactive in --force systemd-bash-completion 
+zypper --gpg-auto-import-keys --non-interactive in --force systemd-bash-completion 
 #CONF
 rm -f /etc/systemd/system.conf && ln -s /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/infrastructure--f/systemd/dsl/main--s/simple/files/hardcoded/systemd_defaults.conf /etc/systemd/system.conf
 rm -f /etc/systemd/user.conf 	 && ln -s /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/infrastructure--f/systemd/dsl/main--s/simple/files/hardcoded/systemd_defaults.conf /etc/systemd/user.conf
@@ -55,9 +62,13 @@ rm -f /etc/profile.d/in4__systemd.bash 	 && ln -s /media/sysdata/in4/cho/cho_v5/
 
 ### EXIM ###
 #ZYPPER
-zypper --non-interactive in --force exim
+zypper ar -p10 -cf http://download.opensuse.org/repositories/home:/conecenter:/rev5a1:/ontology:/services--c:/mail--o:/mta--f/openSUSE_Leap_42.2/home:conecenter:rev5a1:ontology:services--c:mail--o:mta--f.repo
+zypper --gpg-auto-import-keys --non-interactive in --force exim
 #CONF
 rm -f /etc/exim/exim.conf && ln -s /media/sysdata/in4/cho/cho_v4/services--c/mail:o/mta:f/exim:g/in4_mta/engine/_simple/smarthost.conf /etc/exim/exim.conf
+usermod -G sysdata mail
+#SYSTEMD
+systemctl mask exim
 #PROFILE.D
 #+
 ###
@@ -67,9 +78,8 @@ rm -f /etc/exim/exim.conf && ln -s /media/sysdata/in4/cho/cho_v4/services--c/mai
 
 ### SFW2 ###
 #ZYPPER
-zypper --non-interactive in --force SuSEfirewall2
+zypper --gpg-auto-import-keys --non-interactive in --force SuSEfirewall2
 #INIT
-sed -i "s/FW_SERVICES_EXT_TCP=.*/FW_SERVICES_EXT_TCP=\"1000\"/" /etc/sysconfig/SuSEfirewall2
 sed -i "s/FW_LOG_ACCEPT_CRIT=.*/FW_LOG_ACCEPT_CRIT=\"no\"/" /etc/sysconfig/SuSEfirewall2
 sed -i "s/FW_IGNORE_FW_BROADCAST_EXT=.*/FW_IGNORE_FW_BROADCAST_EXT=\"yes\"/" /etc/sysconfig/SuSEfirewall2
 sed -i "s/FW_IGNORE_FW_BROADCAST_INT=.*/FW_IGNORE_FW_BROADCAST_INT=\"yes\"/" /etc/sysconfig/SuSEfirewall2
@@ -85,7 +95,7 @@ systemctl stop SuSEfirewall2_init && systemctl disable SuSEfirewall2_init && sys
 
 ### SSHD ###
 #ZYPPER
-zypper --non-interactive in --force openssh
+zypper --gpg-auto-import-keys --non-interactive in --force openssh
 #SYSTEMD
 rm -f /etc/systemd/system/in4__sshd.service 	&& cp  /media/sysdata/in4/cho/cho_v4/services--c/server:o/ssh:f/sshd:g/_systemd/in4__sshd.service /etc/systemd/system/
 systemctl stop sshd && systemctl disable sshd && systemctl mask sshd
@@ -96,7 +106,8 @@ rm -f /etc/sysconfig/SuSEfirewall2.d/services/in4__sshd && ln -s  /media/sysdata
 
 ### RSYSLOG ###
 #ZYPPER
-zypper --non-interactive in --force rsyslog rsyslog-module-relp rsyslog-module-mmnormalize 
+zypper ar -p10 -cf http://download.opensuse.org/repositories/home:/conecenter:/rev5a1:/ontology:/logitoring--c:/messagebus--o:/syslog--f/openSUSE_Leap_42.2/home:conecenter:rev5a1:ontology:logitoring--c:messagebus--o:syslog--f.repo
+zypper --gpg-auto-import-keys --non-interactive in --force rsyslog rsyslog-module-relp rsyslog-module-mmnormalize rsyslog-module-gtls
 #CONF
 rm -rf /etc/rsyslog.d/ && ln -s /media/sysdata/in4/cho/cho_v4/logitoring--c/messagebus--o/syslog--f/rsyslog--g /etc/rsyslog.d
 #SYSTEMD
@@ -110,7 +121,8 @@ systemctl enable  in4__syslog_i@client_debug && systemctl restart in4__syslog_i@
 
 ### SSSD ###
 #ZYPPER
-zypper --non-interactive in --force sssd sssd-tools 
+## add build for https://build.opensuse.org/package/show/openSUSE:Factory/sssd
+zypper --gpg-auto-import-keys --non-interactive in --force sssd sssd-tools 
 #CONF
 pam-config --add --sss
 #mkdir -p /etc/ssl/my/ && cp /etc/faster/cmdb/data/certificates/edss/ca/a.services.pool.pem /etc/ssl/my/core_ca.pem
@@ -126,6 +138,8 @@ pam-config --add --sss
 
 
 ### ATOP ###
+#ZYPPER
+
 #CONF
 
 #PROFILE.D
@@ -133,6 +147,22 @@ pam-config --add --sss
 #SYSTEMD
 
 ###
+
+
+### DRBD9 ###
+#ZYPPER
+zypper ar -p 10 -cf http://download.opensuse.org/repositories/home:/conecenter:/rev5a1:/ontology:/data_safety--c:/replication--o:/block--f/openSUSE_Leap_42.1/home:conecenter:rev5a1:ontology:data_safety--c:replication--o:block--f.repo
+zypper --gpg-auto-import-keys --non-interactive in --force drbd9-kmp-default drbd9 drbd-utils
+#CONF
+rm -f /etc/drbd.conf && ln -s /media/sysdata/in4/cho/cho_v5/in4_landscape/data_safety--c/replication--o/block--f/drbd9/dsl/main--s/simple/files/hardcoded/drbd.conf /etc/
+#PROFILE.D
+#++
+#SYSTEMD
+#++
+###
+
+
+##########################
 
 ####
 ### WTF ### - BUG
