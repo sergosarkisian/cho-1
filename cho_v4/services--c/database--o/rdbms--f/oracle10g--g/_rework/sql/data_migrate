@@ -75,3 +75,4 @@ shutdown immediate
 startup
 
 #####
+##ALTER DATABASE TEMPFILE '/media/storage/database/oracle/eshare/data/test124.dbf' DROP  INCLUDING DATAFILES;
