@@ -14,6 +14,8 @@ warn
     set acl_c_rule_section 		= 2_check_mail
     set acl_c_event_view   = sections
     set acl_c_rule_action   = enter
+    set acl_c_score_dnsbl_count = 0
+    set acl_c_score_dnsbl_count_ref = 1
 
 logwrite = :cee: @cee:{\
  .include /etc/exim/engine_path/engine/rules/_base/log_header_all.rulesec

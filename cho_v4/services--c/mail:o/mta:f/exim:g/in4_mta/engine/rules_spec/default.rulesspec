@@ -122,9 +122,8 @@ begin acl
         set acl_c_rule_dnsbl = hostkarma_junkemailfilter_com_127_0_0_2
         .include /etc/exim/engine_path/engine/rules/2_check_mail/score/meta/dnsbl.rule
     #          
-
-       
-    warn set acl_c_rule_score = ${eval:150 * $acl_c_score_dnsbl_count}
+    warn set acl_c_score_dnsbl_count_ref = 2
+    warn set acl_c_rule_score = ${eval:70 * $acl_c_score_dnsbl_count}
         .include /etc/exim/engine_path/engine/rules/2_check_mail/score/calculated/dnsbl_intersections.rule
     #
     warn set acl_c_rule_score = 400

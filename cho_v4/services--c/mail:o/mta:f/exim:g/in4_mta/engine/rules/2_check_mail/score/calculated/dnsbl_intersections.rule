@@ -34,7 +34,7 @@ warn
             hosts                   = ! +local_networks
             
         # 2.2. MAIN DSL LOGIC - conditions
-            condition = ${if >{$acl_c_score_dnsbl_count}{1}{yes}{no}}
+            condition = ${if >{$acl_c_score_dnsbl_count}{$acl_c_score_dnsbl_count_ref}{yes}{no}}
 
         # 2.3. SET RULE SUCCESS FLAG
             set acl_c_rule_proccessed = yes

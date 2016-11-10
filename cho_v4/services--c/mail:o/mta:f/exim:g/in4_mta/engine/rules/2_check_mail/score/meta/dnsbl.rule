@@ -38,6 +38,7 @@ warn
             dnslists = $acl_c_rule_dnsbl_host/<|${lookup dnsdb {>|a=<|\
                                    ${lookup dnsdb {>|mxh=\
                                    $sender_address_domain} }} }
+            set acl_c_score_dnsbl_count = ${eval:$acl_c_score_dnsbl_count + 1}                                   
 
         # 2.3. SET RULE SUCCESS FLAG
             set acl_c_rule_proccessed = yes

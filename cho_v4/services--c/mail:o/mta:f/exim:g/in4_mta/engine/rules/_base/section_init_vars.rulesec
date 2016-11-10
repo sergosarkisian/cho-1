@@ -67,4 +67,4 @@ set acl_c_rule 			     = 0
 set acl_c_advlog 		             = i
 set acl_c_advlog_inc_def         = warn
 set acl_c_acl_action_def         = add
-set acl_c_score_dnsbl_count = 0
+
