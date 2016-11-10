@@ -16,6 +16,8 @@ cp /media/storage_old/database/oracle/wk10/data/main/sysaux01.dbf /media/storage
 cp /media/storage_old/database/oracle/wk10/data/main/system01.dbf /media/storage/as/oracle/data/master/
 cp /media/storage_old/database/oracle/wk10/data/main/users01.dbf /media/storage/as/oracle/data/master/
 
+systemctl restart in4__oracle10g.service 
+
 ALTER DATABASE RENAME FILE '/media/storage/database/oracle/wk10/data/main/redo01.log' TO '/media/storage/as/oracle/data/master/redo01.log';
 ALTER DATABASE RENAME FILE '/media/storage/database/oracle/wk10/data/main/redo02.log' TO '/media/storage/as/oracle/data/master/redo02.log'; 
 ALTER DATABASE RENAME FILE '/media/storage/database/oracle/wk10/data/main/redo03.log' TO '/media/storage/as/oracle/data/master/redo03.log';

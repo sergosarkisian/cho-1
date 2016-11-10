@@ -3,11 +3,11 @@
 ## # #  # # ##
 
 ### 1.Path ###
-audit_file_dest=/media/storage/as/oracle/logs/adump'
-background_dump_dest=/media/storage/as/oracle/logs/bdump'
-utl_file_dir=/media/storage/as/oracle/logs/bdump'
-core_dump_dest=/media/storage/as/oracle/logs/cdump'
-user_dump_dest=/media/storage/as/oracle/logs/udump'
+audit_file_dest='/media/storage/as/oracle/logs/adump'
+background_dump_dest='/media/storage/as/oracle/logs/bdump'
+utl_file_dir='/media/storage/as/oracle/logs/bdump'
+core_dump_dest='/media/storage/as/oracle/logs/cdump'
+user_dump_dest='/media/storage/as/oracle/logs/udump'
 
 control_files=("/media/storage/as/oracle/data/master/control01.ctl", "/media/storage/as/oracle/data/master/control02.ctl")
 log_archive_dest_1='location=/media/storage/as/oracle/data/archive mandatory reopen=20'
