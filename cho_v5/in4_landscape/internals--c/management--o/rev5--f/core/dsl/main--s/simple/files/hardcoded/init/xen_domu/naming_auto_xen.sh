@@ -2,11 +2,6 @@
 
 if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then  
         
-#         ### SYSDATA MOUNT -> TO SYSTEMD ###
-#         sed -i "s/LABEL=sysdata/#LABEL=sysdata/" /etc/fstab
-#         rm -f /etc/systemd/system/media-sysdata.mount && cp  /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/mounts/media-sysdata.mount /etc/systemd/system/
-#         systemctl enable media-sysdata.mount
-#         ###
         
         ### /dev/xvd* blacklisting   ###
         cp /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/linux_sys--o/boot--f/dracut/dsl/main--s/simple/files/hardcoded/51-block-xenvm_blacklist.conf /etc/modprobe.d/
@@ -58,4 +53,5 @@ if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then
 	fi
 	systemctl disable naming_auto_xen
         rm -f  /etc/systemd/system/init_auto_xen.service
+        rm -f /etc/systemd/system/multi-user.target.wants/init_auto_xen.service
 fi

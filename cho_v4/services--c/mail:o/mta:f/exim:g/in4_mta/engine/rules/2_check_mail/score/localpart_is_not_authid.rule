@@ -13,8 +13,8 @@
 ## RULE DESCRIPTION
 warn
     set acl_c_rule_fullname     = 2_check_mail__score__localpart_is_not_authid
-    set acl_c_rule_description = Local part of sender addr != auth address
-    set acl_c_rule_main_lookup_var = $authenticated_id
+    set acl_c_rule_main_lookup_var = $authenticated_id    
+    set acl_c_rule_description = Local part of sender addr != auth address for $acl_c_rule_main_lookup_var
 
 .ifndef DISABLE__RULES__$acl_c_rule_fullname
 

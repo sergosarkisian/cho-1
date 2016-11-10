@@ -24,3 +24,14 @@ soundhw="hda"
 
 
 snapper test
+
+
+#emerg access
+-GPG_TTY=/dev/tty1
++GPG_TTY=/dev/pts/1
+-TERM=linux
++TERM=xterm
++TERM=vt220
+
+-XDG_VTNR=1
+-XDG_SESSION_ID=3

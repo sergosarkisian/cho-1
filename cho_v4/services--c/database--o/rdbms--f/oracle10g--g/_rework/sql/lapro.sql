@@ -1,4 +1,10 @@
 ###
+### NEW
+## ALTER SYSTEM SET UNDO_RETENTION = 10;
+## DROP TABLESPACE SSPRO INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
+## DROP USER SSPRO CASCADE;
+## 
+###
 set oracle_home=C:\oracle\product\10.2.0\db_1
 
 C:\oracle\product\10.2.0\db_1\BIN\exp SSPRO/224328@SST owner=SSPRO statistics=none file=SSPRO.dmp log=SSPRO.log
@@ -28,7 +34,7 @@ FLASHBACK ON;
 
 
 
-CREATE TABLESPACE SSPRO DATAFILE '/media/storage/database/oracle/lapro/data/main/sspro.dbf' SIZE 20000M AUTOEXTEND ON NEXT 100M MAXSIZE UNLIMITED
+CREATE TABLESPACE SSPRO DATAFILE '/media/storage/database/oracle/lapro/data/main/sspro.dbf' SIZE 1000M AUTOEXTEND ON NEXT 100M MAXSIZE UNLIMITED
 LOGGING
 ONLINE
 PERMANENT

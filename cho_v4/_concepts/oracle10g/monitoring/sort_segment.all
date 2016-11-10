@@ -1,9 +1,0 @@
- select * from V$SORT_SEGMENT;
-
-TABLESPACE_NAME                 SEGMENT_FILE SEGMENT_BLOCK EXTENT_SIZE CURRENT_USERS TOTAL_EXTENTS TOTAL_BLOCKS USED_EXTENTS USED_BLOCKS FREE_EXTENTS FREE_BLOCKS ADDED_EXTENTS EXTENT_HITS FREED_EXTENTS FREE_REQUESTS   MAX_SIZE MAX_BLOCKS
-------------------------------- ------------ ------------- ----------- ------------- ------------- ------------ ------------ ----------- ------------ ----------- ------------- ----------- ------------- ------------- ---------- ----------
-MAX_USED_SIZE MAX_USED_BLOCKS MAX_SORT_SIZE MAX_SORT_BLOCKS RELATIVE_FNO
-------------- --------------- ------------- --------------- ------------
-TEMP                                       0             0         128            63          7368       943104           86       11008         7282      932096             0    10947718             0             0       7368     943104
-         1751          224128          1142          146176            0
- 

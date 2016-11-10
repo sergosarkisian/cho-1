@@ -13,8 +13,8 @@
 ## RULE DESCRIPTION
 warn
     set acl_c_rule_fullname     = 2_check_mail__score__sender_no_helo
-    set acl_c_rule_description = HELO required before MAIL
-    set acl_c_rule_main_lookup_var = $sender_helo_name
+    set acl_c_rule_main_lookup_var = $sender_helo_name    
+    set acl_c_rule_description = HELO required before MAIL by $acl_c_rule_main_lookup_var  for $acl_c_rule_main_lookup_var
 
 .ifndef DISABLE__RULES__$acl_c_rule_fullname
 

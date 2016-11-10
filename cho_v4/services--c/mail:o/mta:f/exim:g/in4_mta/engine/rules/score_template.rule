@@ -13,8 +13,8 @@
 ## RULE DESCRIPTION
 warn
     set acl_c_rule_fullname     = @RULE_SECTION@__@RULE_TYPE@__@RULE_NAME@
-    set acl_c_rule_description = @RULE_DESCRIPTION@
     set acl_c_rule_main_lookup_var = @$some_var@
+    set acl_c_rule_description = @RULE_DESCRIPTION@ for $acl_c_rule_main_lookup_var
 
 .ifndef DISABLE__RULES__$acl_c_rule_fullname
 

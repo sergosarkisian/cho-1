@@ -13,8 +13,8 @@
 ## RULE DESCRIPTION
 warn
     set acl_c_rule_fullname     = 3_check_rcpt__score__check_external_recepient_by_callout
-    set acl_c_rule_description = Non local recepient not verified
     set acl_c_rule_main_lookup_var = none
+    set acl_c_rule_description = Non local recepient not verified for $acl_c_rule_main_lookup_var
 
 .ifndef DISABLE__RULES__$acl_c_rule_fullname
 

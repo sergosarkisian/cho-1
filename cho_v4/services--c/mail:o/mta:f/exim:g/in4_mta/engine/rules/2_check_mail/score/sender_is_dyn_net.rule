@@ -13,8 +13,8 @@
 ## RULE DESCRIPTION
 warn
     set acl_c_rule_fullname     = 2_check_mail__score__sender_is_dyn_net
-    set acl_c_rule_description = Is sender in dynamic DNS pools (providers, GPRS, default PTRs,...)
     set acl_c_rule_main_lookup_var = $sender_host_name
+    set acl_c_rule_description = Is sender in dynamic DNS pools (providers, GPRS, default PTRs,...)  for $acl_c_rule_main_lookup_var
 
 .ifndef DISABLE__RULES__$acl_c_rule_fullname
 

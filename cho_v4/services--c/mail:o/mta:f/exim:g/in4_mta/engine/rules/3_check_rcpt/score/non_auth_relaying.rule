@@ -13,8 +13,8 @@
 ## RULE DESCRIPTION
 warn
     set acl_c_rule_fullname     = 3_check_rcpt__score__non_auth_relaying
-    set acl_c_rule_description = Relaying for not auth users
     set acl_c_rule_main_lookup_var = none
+    set acl_c_rule_description = Relaying for not auth users for $acl_c_rule_main_lookup_var
 
 .ifndef DISABLE__RULES__$acl_c_rule_fullname
 

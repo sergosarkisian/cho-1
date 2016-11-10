@@ -13,8 +13,8 @@
 ## RULE DESCRIPTION
 warn
     set acl_c_rule_fullname     = 2_check_mail__score__spf_inc_all
-    set acl_c_rule_description = SPF policy is too open ("+all")
     set acl_c_rule_main_lookup_var = $acl_c_spf_record
+    set acl_c_rule_description = SPF policy is too open ("+all")  for $acl_c_rule_main_lookup_var
 
 .ifndef DISABLE__RULES__$acl_c_rule_fullname
 

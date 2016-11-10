@@ -24,6 +24,8 @@ mkdir -p /media/storage/as
 mkdir -p /media/storage/as/oracle/data
  btrfs subvolume create /media/storage/as/oracle/data/master
  btrfs subvolume create /media/storage/as/oracle/data/archive
+ btrfs subvolume create /media/storage/as/oracle/data/export
+ btrfs subvolume create /media/storage/as/oracle/data/import
  #
  
  #cone
@@ -112,7 +114,7 @@ setfacl -R -m d:g:oinstall:rwx /media/storage/as/oracle
 
 ### ORACLE DB  ###
 cd  /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s
-wget http://public.edss.ee/software/Linux/Oracle/oracle....gz && tar -xzf ./oracl....tar.gz
+wget http://public.edss.ee/software/Linux/Oracle/in4_oracle10g--g_ee.tar.gz && tar -xzf ./in4_oracle10g--g_ee.tar.gz
  chown -R oracle:oinstall /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s
 ###
 

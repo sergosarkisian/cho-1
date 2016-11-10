@@ -111,9 +111,11 @@ zypper --gpg-auto-import-keys --non-interactive in --force rsyslog rsyslog-modul
 #CONF
 rm -rf /etc/rsyslog.d/ && ln -s /media/sysdata/in4/cho/cho_v4/logitoring--c/messagebus--o/syslog--f/rsyslog--g /etc/rsyslog.d
 #SYSTEMD
-rm -f /etc/systemd/system/in4__syslog_i@.service 	&& cp  /media/sysdata/in4/cho/cho_v4/logitoring--c/messagebus--o/syslog--f/rsyslog--g/_systemd/in4__syslog_i@.service /etc/systemd/system/
-systemctl stop rsyslog && systemctl disable rsyslog && systemctl mask rsyslog
-systemctl enable  in4__syslog_i@client_debug && systemctl restart in4__syslog_i@client_debug
+rm -f /etc/systemd/system/in4__rsyslog.service 	&& cp  /media/sysdata/in4/cho/cho_v4/logitoring--c/messagebus--o/syslog--f/rsyslog--g/_systemd/in4__rsyslog.service /etc/systemd/system/
+systemctl stop rsyslog && systemctl disable rsyslog
+echo "disabled" > /usr/lib/systemd/system/rsyslog.service
+chmod 000 /usr/lib/systemd/system/rsyslog.service
+systemctl enable  in4__rsyslog && systemctl restart in4__rsyslog
 ###
 
 
@@ -126,6 +128,8 @@ zypper --gpg-auto-import-keys --non-interactive in --force sssd sssd-tools
 #CONF
 pam-config --add --sss
 rm -f  /etc/sssd/sssd.conf && ln -s /media/sysdata/in4/cho/cho_v4/internals:c/linux_sys:o/security:f/sssd--g/sssd_basic.conf /etc/sssd/sssd.conf
+chmod 700 /etc/sssd/sssd.conf
+systemctl enable sssd
 #mkdir -p /etc/ssl/my/ && cp /etc/faster/cmdb/data/certificates/edss/ca/a.services.pool.pem /etc/ssl/my/core_ca.pem
 # cp /media/sysdata/rev5/techpool/ontology/security/sssd/engine/sssd_basic.conf /etc/sssd/sssd.conf	
 # sed -i "s/%ORG%/$Org/" /etc/sssd/sssd.conf	

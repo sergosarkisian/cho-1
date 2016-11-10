@@ -119,6 +119,6 @@ export ORA_NLS10="/opt/oracle/product/10g/nls/data"
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin:/usr/games:/opt/oracle/product/10g/bin"
 
 
-rsync --rsync-path="sudo /usr/bin/rsync" --progress -azusS --compress-level=4  /storage/database/export/ edss@IP:/storage/database/export/
+rsync --rsync-path="sudo /usr/bin/rsync" --progress -azusS --compress-level=4  /storage/database/export/ edss@88.196.162.107:/storage/database/export/
 
  begin dbms_stats.gather_schema_stats ( user ); end;

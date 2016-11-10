@@ -13,8 +13,8 @@
 ## RULE DESCRIPTION
 warn
     set acl_c_rule_fullname     = 2_check_mail__score__$acl_c_rule_dnsbl
-    set acl_c_rule_description = DNSBL check
     set acl_c_rule_main_lookup_var = $sender_host_name
+    set acl_c_rule_description = DNSBL check for $acl_c_rule_main_lookup_var
 
 .ifndef DISABLE__RULES__$acl_c_rule_fullname
 

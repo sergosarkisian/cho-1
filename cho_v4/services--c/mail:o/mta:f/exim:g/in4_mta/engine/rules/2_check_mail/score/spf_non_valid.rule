@@ -13,8 +13,8 @@
 ## RULE DESCRIPTION
 warn
     set acl_c_rule_fullname     = 2_check_mail__score__spf_non_valid
-    set acl_c_rule_description = This sender server is not valid due to SPF policy 
     set acl_c_rule_main_lookup_var = $acl_c_spf_record
+    set acl_c_rule_description = This sender server is not valid due to SPF policy  for $acl_c_rule_main_lookup_var
 
 .ifndef DISABLE__RULES__$acl_c_rule_fullname
 

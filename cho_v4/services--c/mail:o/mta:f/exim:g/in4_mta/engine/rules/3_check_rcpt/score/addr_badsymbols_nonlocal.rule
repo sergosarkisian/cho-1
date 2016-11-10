@@ -13,8 +13,8 @@
 ## RULE DESCRIPTION
 warn
     set acl_c_rule_fullname     = 3_check_rcpt__score__addr_badsymbols_nonlocal
-    set acl_c_rule_description = Restricted charas in address (nonlocal)
     set acl_c_rule_main_lookup_var = no
+    set acl_c_rule_description = Restricted charas in address (nonlocal) for $acl_c_rule_main_lookup_var
 
 .ifndef DISABLE__RULES__$acl_c_rule_fullname
 

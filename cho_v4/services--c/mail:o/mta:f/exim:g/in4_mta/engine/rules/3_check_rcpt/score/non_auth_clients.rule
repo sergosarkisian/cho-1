@@ -13,8 +13,8 @@
 ## RULE DESCRIPTION
 warn
     set acl_c_rule_fullname     = 3_check_rcpt__score__non_auth_clients
-    set acl_c_rule_description = Not auth clients without relay
     set acl_c_rule_main_lookup_var = no
+    set acl_c_rule_description = Not auth clients without relay for $acl_c_rule_main_lookup_var
 
 .ifndef DISABLE__RULES__$acl_c_rule_fullname
 

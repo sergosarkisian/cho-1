@@ -13,8 +13,8 @@
 ## RULE DESCRIPTION
 warn
     set acl_c_rule_fullname     = 3_check_rcpt__score__from_eq_to
-    set acl_c_rule_description = <From> == <To>
     set acl_c_rule_main_lookup_var = $sender_address
+    set acl_c_rule_description = <From> == <To> for $acl_c_rule_main_lookup_var
 
 .ifndef DISABLE__RULES__$acl_c_rule_fullname
 

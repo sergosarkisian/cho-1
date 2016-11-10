@@ -13,8 +13,8 @@
 ## RULE DESCRIPTION
 warn
     set acl_c_rule_fullname     = 3_check_rcpt__score__check_sender_by_callout
-    set acl_c_rule_description = Unable to check sender by callout
     set acl_c_rule_main_lookup_var = $acl_c_score_check_sender_counts
+    set acl_c_rule_description = Unable to check sender by callout for $acl_c_rule_main_lookup_var
 
 .ifndef DISABLE__RULES__$acl_c_rule_fullname
 

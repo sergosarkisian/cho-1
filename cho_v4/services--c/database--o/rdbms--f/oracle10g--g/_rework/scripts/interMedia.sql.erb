@@ -1,8 +1,0 @@
-connect "SYS"/"&&sysPassword" as SYSDBA
-set echo on
-spool /media/<%= @disk_label %>/database/oracle/<%= @sid %>/manage/conf/scripts/logs/interMedia.log
-@/opt/oracle/product/10g/ord/im/admin/iminst.sql;
-spool off
-<%=  -%>
-
-<%=  -%>

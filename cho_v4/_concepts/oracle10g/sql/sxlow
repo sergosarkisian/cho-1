@@ -1,8 +1,0 @@
-BEGIN
-	for i in 1..1000 LOOP
-		x$slow;
-	END LOOP;
-END; 
-/
-
-execute x$slow;

@@ -13,9 +13,10 @@
 ## RULE DESCRIPTION
 warn
     set acl_c_rule_fullname     = 2_check_mail__score__non_valid_ptr_with_dnsbl
-    set acl_c_rule_description = No PTR/DynDNS IP + DNSBL count > 0 
     set acl_c_rule_main_lookup_var = $sender_host_name 
-                                                                                        ## BUG!!!
+                                                                                        ## BUG!!
+    set acl_c_rule_description = No PTR/DynDNS IP + DNSBL count > 0 for $acl_c_rule_main_lookup_var
+
 
 .ifndef DISABLE__RULES__$acl_c_rule_fullname
 
