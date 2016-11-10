@@ -1,4 +1,3 @@
-CREATE SPFILE = '/media/storage/as/oracle/data/master/spfile.ora' FROM PFILE = '/media/storage/as/oracle/conf/_generated/initwk10&&sid.ora';
 connect "SYS"/"&&sysPassword" as SYSDBA
 set echo on
 spool/media/storage/as/oracle/logs/create_db/CreateDB.log
