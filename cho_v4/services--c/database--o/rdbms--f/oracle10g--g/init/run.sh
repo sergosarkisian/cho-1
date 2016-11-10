@@ -280,7 +280,7 @@ case "$1" in
     fi
     
     while true; do
-        sleep 10000000
+        sleep 1000000000
     done
     ;;
   stop)

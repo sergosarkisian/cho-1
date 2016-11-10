@@ -13,6 +13,12 @@ systemctl disable sssd && systemctl stop sssd && systemctl enable rev5_sssd && s
 
 ##
 
+## DRBD
+
+zypper ar -p 10 -cf http://download.opensuse.org/repositories/home:/conecenter:/rev5a1:/ontology:/data_safety--c:/replication--o:/block--f/openSUSE_Leap_42.1/home:conecenter:rev5a1:ontology:data_safety--c:replication--o:block--f.repo
+zypper in drbd9-kmp-default drbd9 drbd-utils
 
 
-
+spiceusbredirection=4
+# This adds intel hd audio emulated card used for spice audio
+soundhw="hda"

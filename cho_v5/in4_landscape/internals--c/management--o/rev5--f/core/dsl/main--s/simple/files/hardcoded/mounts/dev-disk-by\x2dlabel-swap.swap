@@ -1,5 +1,0 @@
-[Unit]
-Description=swap disk mount
-
-[Swap]
-What=/dev/disk/by-label/swap

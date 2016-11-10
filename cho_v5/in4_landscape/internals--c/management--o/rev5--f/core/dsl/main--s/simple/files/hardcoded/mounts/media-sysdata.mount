@@ -10,3 +10,6 @@ What=/dev/disk/by-label/sysdata
 Where=/media/sysdata
 Type=ext4
 Options=noatime,acl,user_xattr
+
+[Install]
+WantedBy = multi-user.target
