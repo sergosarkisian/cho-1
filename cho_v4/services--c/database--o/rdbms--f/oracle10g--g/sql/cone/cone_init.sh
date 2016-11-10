@@ -1,0 +1,35 @@
+#!/bin/bash
+SCHEME=$1
+mkdir -p /media/storage/as/oracle/logs/cone
+
+if [[ -z $SCHEME ]]; then
+    echo "set sheme name"
+    exit 1
+fi
+SCHEME_LC=${SCHEME,,}
+SCHEME_UC=${SCHEME^^}
+
+sysPassword="qwe123"
+ecorePassword="3edc4rfv"
+exmlPassword="3edc4rfv"
+eschemePassword="3edc4rfv"
+
+bin/sqlplus -s -l "/ as sysdba" <<EOF
+set verify off
+DEFINE scheme_lc = $SCHEME_LC
+DEFINE scheme_uc = $SCHEME_UC
+DEFINE sysPassword = $sysPassword
+DEFINE systemPassword = $sysPassword
+DEFINE ecorePassword = $ecorePassword
+DEFINE exmlPassword = $exmlPassword
+DEFINE eschemePassword = $eschemePassword
+
+@/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/1.datafiles_init.sql
+@/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/2.exml.sql
+@/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/3.views.sql
+@/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/4.ecore_syn.sql
+@/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/5.reset_packages.sql
+
+exit;
+EOF
+

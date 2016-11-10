@@ -1,6 +1,6 @@
 connect "SYS"/"&&sysPassword" as SYSDBA
 set echo on
-spool/media/storage/as/oracle/logs/create_db/CreateDB.log
+spool /media/storage/as/oracle/logs/create_db/CreateDB.log
 startup nomount pfile="/media/storage/as/oracle/conf/_generated/initwk10.ora";
 CREATE DATABASE "&&sid"
 MAXINSTANCES 8
