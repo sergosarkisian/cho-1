@@ -125,6 +125,7 @@ systemctl enable  in4__syslog_i@client_debug && systemctl restart in4__syslog_i@
 zypper --gpg-auto-import-keys --non-interactive in --force sssd sssd-tools 
 #CONF
 pam-config --add --sss
+rm -f  /etc/sssd/sssd.conf && ln -s /media/sysdata/in4/cho/cho_v4/internals:c/linux_sys:o/security:f/sssd--g/sssd_basic.conf /etc/sssd/sssd.conf
 #mkdir -p /etc/ssl/my/ && cp /etc/faster/cmdb/data/certificates/edss/ca/a.services.pool.pem /etc/ssl/my/core_ca.pem
 # cp /media/sysdata/rev5/techpool/ontology/security/sssd/engine/sssd_basic.conf /etc/sssd/sssd.conf	
 # sed -i "s/%ORG%/$Org/" /etc/sssd/sssd.conf	
