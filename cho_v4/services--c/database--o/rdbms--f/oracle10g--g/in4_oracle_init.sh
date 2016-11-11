@@ -119,6 +119,10 @@ wget http://public.edss.ee/software/Linux/Oracle/in4_oracle10g--g_ee.tar.gz && t
  chown -R oracle:oinstall /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ee--s
 ###
 
+### FIREWALL ###
+rm -f /etc/sysconfig/SuSEfirewall2.d/services/in4__oracle10g && ln -s  /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/_firewall/in4__oracle10g /etc/sysconfig/SuSEfirewall2.d/services/
+###
+
 
 ### CREATE RO SNAPSHOT  ###
 btrfs subvolume delete /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g
