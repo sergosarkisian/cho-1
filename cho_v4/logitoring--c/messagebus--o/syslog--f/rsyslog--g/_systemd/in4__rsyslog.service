@@ -31,7 +31,7 @@ Documentation   = http://www.rsyslog.com/doc/
 ##
 
 ## EXECS ##
- ExecStart              = /usr/sbin/rsyslogd -n -f /etc/rsyslog.d/engine/instance/simple.conf -i /var/run/rsyslogd_simple.pid
+ ExecStart              = /usr/sbin/rsyslogd -n -f /etc/rsyslog.d/engine/instance/localstore.conf -i /var/run/rsyslogd_localstore.pid
  ExecReload             = /bin/kill -HUP $MAINPID
 
  ExecStartPre   = /usr/sbin/rsyslog-service-prepare
