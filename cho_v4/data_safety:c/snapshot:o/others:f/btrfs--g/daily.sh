@@ -17,7 +17,7 @@ if [[ ! -e $SNAP_PATH/weekly ]]; then btrfs subvolume create -i 1/$((QGROUP+3)) 
 DAYLY_SNAP_MV=`ls $SNAP_PATH/_unsorted/|tail -n1`
 if [[ -n "$DAYLY_SNAP_MV" ]]; then
 
-    for path in $SNAP_PATH/daily/`date +%d.%m.%y`_*; do
+    for path in $SNAP_PATH/daily/`date +%d.%m.%y`_*/*; do
         [ -d "${path}" ] || continue # if not a directory, skip
         BTRFS_SNAP_PATH_REL=${path#"$BTRFS_MOUNT"}
         BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\$" $TMP_SUB_LIST|awk '{print $2}'`
@@ -28,7 +28,7 @@ if [[ -n "$DAYLY_SNAP_MV" ]]; then
     mv  $SNAP_PATH/_unsorted/$DAYLY_SNAP_MV  $SNAP_PATH/daily
     btrfs subvolume list $BTRFS_MOUNT > $TMP_SUB_LIST
 
-    for path in $SNAP_PATH/_unsorted/*; do
+    for path in $SNAP_PATH/_unsorted/*/*; do
         [ -d "${path}" ] || continue # if not a directory, skip
         BTRFS_SNAP_PATH_REL=${path#"$BTRFS_MOUNT"}
         BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\$" $TMP_SUB_LIST|awk '{print $2}'`
