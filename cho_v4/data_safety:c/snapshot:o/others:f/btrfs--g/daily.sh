@@ -3,7 +3,7 @@
 . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snap_init.sh
 . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snap.sh
 
-DAILY_QGROUP_ID="2/$((QGROUP+2))"
+DAILY_QGROUP_ID="2/$((QGROUP+0))"
 
 DAILY_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$DAILY_QGROUP_ID$" -n`
 if ! [[  -n "${DAILY_QGROUP-unset}" ]]; then btrfs qgroup create  $DAILY_QGROUP_ID $SNAP_PATH; btrfs qgroup assign $DAILY_QGROUP_ID  $UNSORTED_QGROUP_ID  $SNAP_PATH; fi
@@ -46,5 +46,7 @@ if [[ -n "$DAYLY_SNAP_MV" ]]; then
         btrfs qgroup destroy $BTRFS_SNAP_PATH_ID $BTRFS_MOUNT;
         rmdir ${curr_path%/*}
     done
+    
+        btrfs quota rescan -w    $BTRFS_MOUNT
 fi
 #
