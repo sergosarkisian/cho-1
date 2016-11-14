@@ -14,5 +14,4 @@ BTRFS_DEV=`btrfs filesystem show storage|grep "/dev/"|awk '{print $8}'`
 BTRFS_MOUNT=`mount|grep $BTRFS_DEV|awk '{print $3"/"}'`
 BTRFS_SNAP_PATH_REL=${SNAP_PATH#"$BTRFS_MOUNT"}
 QGROUP_ALL=`btrfs qgroup show $BTRFS_MOUNT -re > $TMP_QGROUP_LIST` 
-SUB_LIST_ALL=`btrfs subvolume list $BTRFS_MOUNT > $TMP_SUB_LIST`
 DATE=`date +%d.%m.%y_%H:%M:%S`

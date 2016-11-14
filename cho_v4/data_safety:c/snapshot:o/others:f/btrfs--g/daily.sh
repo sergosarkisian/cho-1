@@ -28,6 +28,7 @@ if [[ -n "$DAYLY_SNAP_MV" ]]; then
     done
     
     ##  MIGRATION WITH QUOTA
+    SUB_LIST_ALL=`btrfs subvolume list $BTRFS_MOUNT > $TMP_SUB_LIST`    
     curr_path=$SNAP_PATH/_unsorted/$DAYLY_SNAP_MV
     BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
     BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\$" $TMP_SUB_LIST|awk '{print $2}'`    
