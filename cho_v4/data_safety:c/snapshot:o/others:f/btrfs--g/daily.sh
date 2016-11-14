@@ -21,7 +21,7 @@ if [[ -n "$DAYLY_SNAP_MV" ]]; then
     for curr_path in $SNAP_PATH/daily/`date +%d.%m.%y`_*/*; do
         [ -d "${curr_path}" ] || continue # if not a directory, skip
         BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
-        BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\$" $TMP_SUB_LIST|awk '{print $2}'`
+        BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\/" $TMP_SUB_LIST|awk '{print $2}'`
         btrfs subvolume delete -c $curr_path
         btrfs qgroup destroy $BTRFS_SNAP_PATH_ID $BTRFS_MOUNT;
         rmdir ${curr_path%/*}
@@ -31,7 +31,7 @@ if [[ -n "$DAYLY_SNAP_MV" ]]; then
     SUB_LIST_ALL=`btrfs subvolume list $BTRFS_MOUNT > $TMP_SUB_LIST`    
     curr_path=$SNAP_PATH/_unsorted/$DAYLY_SNAP_MV
     BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
-    BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\$" $TMP_SUB_LIST|awk '{print $2}'`    
+    BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\/" $TMP_SUB_LIST|awk '{print $2}'`    
     btrfs qgroup destroy $BTRFS_SNAP_PATH_ID $BTRFS_MOUNT;    
     btrfs qgroup assign $BTRFS_SNAP_PATH_ID $DAILY_QGROUP_ID  $SNAP_PATH    
     mv  $curr_path  $SNAP_PATH/daily
@@ -41,7 +41,7 @@ if [[ -n "$DAYLY_SNAP_MV" ]]; then
     for curr_path in $SNAP_PATH/_unsorted/*/*; do
         [ -d "${curr_path}" ] || continue # if not a directory, skip
         BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
-        BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\$" $TMP_SUB_LIST|awk '{print $2}'`
+        BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\/" $TMP_SUB_LIST|awk '{print $2}'`
         btrfs subvolume delete -c $curr_path
         btrfs qgroup destroy $BTRFS_SNAP_PATH_ID $BTRFS_MOUNT;
         rmdir ${curr_path%/*}
