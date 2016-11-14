@@ -8,16 +8,18 @@ if [[ -z $QGROUP ]]; then
 fi
 if [[  -n "${QGROUP//[0-9]}"  ]]; then echo "Please specify QGROUP ID as integer"; exit 1; fi
 
+ROOT_QGROUP_ID="1/$((QGROUP+0))$"
+UNSORTED_QGROUP_ID="2/$((QGROUP+1))"
 #
-ROOT_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "1/$((QGROUP+0))$" -n`
-if ! [[  -n "${ROOT_QGROUP-unset}" ]]; then btrfs qgroup create  1/$((QGROUP+0)) $SNAP_PATH; fi
-if [[ ! -e $SNAP_PATH ]]; then btrfs subvolume create -i 1/$((QGROUP+0)) $SNAP_PATH; fi
+ROOT_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$ROOT_QGROUP_ID$" -n`
+if ! [[  -n "${ROOT_QGROUP-unset}" ]]; then btrfs qgroup create  $ROOT_QGROUP_ID $SNAP_PATH; fi
+if [[ ! -e $SNAP_PATH ]]; then btrfs subvolume create -i $ROOT_QGROUP_ID $SNAP_PATH; fi
 #
-UNSORTED_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "1/$((QGROUP+1))$" -n`
-if ! [[  -n "${ROOT_QGROUP-unset}" ]]; then btrfs qgroup create  1/$((QGROUP+1)) $SNAP_PATH; fi
-if [[ ! -e $SNAP_PATH/_unsorted ]]; then btrfs subvolume create -i 1/$((QGROUP+1)) $SNAP_PATH/_unsorted; fi
+UNSORTED_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$UNSORTED_QGROUP_ID$" -n`
+if ! [[  -n "${UNSORTED_QGROUP-unset}" ]]; then btrfs qgroup create  $UNSORTED_QGROUP_ID $SNAP_PATH; btrfs qgroup assign $UNSORTED_QGROUP_ID  $ROOT_QGROUP_ID  $SNAP_PATH; fi
+if [[ ! -e $SNAP_PATH/_unsorted ]]; then btrfs subvolume create -i $UNSORTED_QGROUP_ID $SNAP_PATH/_unsorted; fi
 #
 
 BTRFS_SNAP_PATH_ID=`btrfs subvolume list $BTRFS_MOUNT|grep  "$BTRFS_SNAP_PATH_REL\$" |awk '{print $2}'`
 mkdir -p $DIR_PATH $SNAP_PATH/_unsorted/$DATE
-btrfs subvolume snapshot -i 1/$((QGROUP+1))  $DIR_PATH $SNAP_PATH/_unsorted/$DATE/
+btrfs subvolume snapshot -i $UNSORTED_QGROUP_ID  $DIR_PATH $SNAP_PATH/_unsorted/$DATE/
