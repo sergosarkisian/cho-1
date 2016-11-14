@@ -14,7 +14,7 @@ if [[ ! -e $SNAP_PATH/weekly ]]; then btrfs subvolume create -i 1/$((QGROUP+3)) 
 #
 
 DAYLY_SNAP_MV=`ls $SNAP_PATH/_unsorted/|tail -n1`
-[ -z "${DAYLY_SNAP_MV}" ] && [ -n "$DAYLY_SNAP_MV" ] || echo "No snaps in _unsorted"; exit 1
+[ -n "$DAYLY_SNAP_MV" ] || echo "No snaps in _unsorted"; exit 1
 mv  $SNAP_PATH/_unsorted/$DAYLY_SNAP_MV  $SNAP_PATH/daily
 btrfs subvolume list $BTRFS_MOUNT > $TMP_SUB_LIST
 
