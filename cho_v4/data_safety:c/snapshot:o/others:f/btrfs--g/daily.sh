@@ -3,7 +3,6 @@
 . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snap_init.sh
 . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snap.sh
 
-TMP_SUB_LIST="/tmp/btrfs_${BTRFS_LABEL}_sub_all"
 DAILY_QGROUP_ID="2/$((QGROUP+2))"
 
 DAILY_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$DAILY_QGROUP_ID$" -n`
