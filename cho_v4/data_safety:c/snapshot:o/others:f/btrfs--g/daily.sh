@@ -19,31 +19,32 @@ if [[ ! -e $SNAP_PATH/daily ]]; then btrfs subvolume create -i $DAILY_QGROUP_ID 
 DAYLY_SNAP_MV=`ls $SNAP_PATH/_unsorted/|tail -n1`
 if [[ -n "$DAYLY_SNAP_MV" ]]; then
 
-    for path in $SNAP_PATH/daily/`date +%d.%m.%y`_*/*; do
-        [ -d "${path}" ] || continue # if not a directory, skip
-        BTRFS_SNAP_PATH_REL=${path#"$BTRFS_MOUNT"}
+    for curr_path in $SNAP_PATH/daily/`date +%d.%m.%y`_*/*; do
+        [ -d "${curr_path}" ] || continue # if not a directory, skip
+        BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
         BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\$" $TMP_SUB_LIST|awk '{print $2}'`
-        btrfs subvolume delete -c $path
+        btrfs subvolume delete -c $curr_path
         btrfs qgroup destroy $BTRFS_SNAP_PATH_ID $BTRFS_MOUNT;
-        rmdir ${path%/*}
+        rmdir ${curr_path%/*}
     done
     
     ##  MIGRATION WITH QUOTA
-    BTRFS_SNAP_PATH_REL=${DAYLY_SNAP_MV#"$BTRFS_MOUNT"}
+    curr_path=$SNAP_PATH/_unsorted/$DAYLY_SNAP_MV
+    BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
     BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\$" $TMP_SUB_LIST|awk '{print $2}'`    
     btrfs qgroup destroy $BTRFS_SNAP_PATH_ID $BTRFS_MOUNT;    
     btrfs qgroup assign $BTRFS_SNAP_PATH_ID $DAILY_QGROUP_ID  $SNAP_PATH    
-    mv  $SNAP_PATH/_unsorted/$DAYLY_SNAP_MV  $SNAP_PATH/daily
+    mv  $curr_path  $SNAP_PATH/daily
     btrfs subvolume list $BTRFS_MOUNT > $TMP_SUB_LIST
     ##
     
-    for path in $SNAP_PATH/_unsorted/*/*; do
-        [ -d "${path}" ] || continue # if not a directory, skip
-        BTRFS_SNAP_PATH_REL=${path#"$BTRFS_MOUNT"}
+    for curr_path in $SNAP_PATH/_unsorted/*/*; do
+        [ -d "${curr_path}" ] || continue # if not a directory, skip
+        BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
         BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\$" $TMP_SUB_LIST|awk '{print $2}'`
-        btrfs subvolume delete -c $path
+        btrfs subvolume delete -c $curr_path
         btrfs qgroup destroy $BTRFS_SNAP_PATH_ID $BTRFS_MOUNT;
-        rmdir ${path%/*}
+        rmdir ${curr_path%/*}
     done
 fi
 #
