@@ -17,7 +17,7 @@ DAYLY_SNAP_MV=`ls $SNAP_PATH/_unsorted|tail -n1`
 mv  $SNAP_PATH/_unsorted/$DAYLY_SNAP_MV  $SNAP_PATH/daily
 btrfs subvolume list $BTRFS_MOUNT > $TMP_SUB_LIST
 
-for path in $SNAP_PATH/_unsorted/; do
+for path in $SNAP_PATH/_unsorted/*; do
     [ -d "${path}" ] || continue # if not a directory, skip
     BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\$" $TMP_SUB_LIST|awk '{print $2}'`
     echo $BTRFS_SNAP_PATH_ID
