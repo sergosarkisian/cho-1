@@ -17,5 +17,5 @@ if [[ ! -e $SNAP_PATH/_unsorted ]]; then btrfs subvolume create -i 1/$((QGROUP+1
 #
 
 BTRFS_SNAP_PATH_ID=`btrfs subvolume list $BTRFS_MOUNT|grep  "$BTRFS_SNAP_PATH_REL\$" |awk '{print $2}'`
-btrfs subvolume snapshot -i 1/$((QGROUP+1))  $DIR_PATH $SNAP_PATH/_unsorted/$DATE
-BTRFS_SNAP_ID=`btrfs subvolume list $BTRFS_MOUNT|grep "$BTRFS_SNAP_PATH_REL/$DATE\$" |awk '{print $2}'`
+mkdir -p $DIR_PATH $SNAP_PATH/_unsorted/$DATE
+btrfs subvolume snapshot -i 1/$((QGROUP+1))  $DIR_PATH $SNAP_PATH/_unsorted/$DATE/
