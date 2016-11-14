@@ -1,9 +1,8 @@
 #!/bin/bash
 
-DIR_PATH=$1
 if [[ -z $DIR_PATH ]]; then
     echo "Please specify dir for snap"
-    exit 1
+    if [[ -z $1 ]]; then exit 1; else DIR_PATH=$1; fi
 fi
 
 TMP_QGROUP_LIST="/tmp/btrfs_${BTRFS_LABEL}_qgroup_all"
