@@ -8,7 +8,7 @@ if [[ -z $QGROUP ]]; then
 fi
 if [[  -n "${QGROUP//[0-9]}"  ]]; then echo "Please specify QGROUP ID as integer"; exit 1; fi
 
-ROOT_QGROUP_ID="1/$((QGROUP+0))$"
+ROOT_QGROUP_ID="1/$((QGROUP+0))"
 UNSORTED_QGROUP_ID="2/$((QGROUP+1))"
 #
 ROOT_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$ROOT_QGROUP_ID$" -n`
