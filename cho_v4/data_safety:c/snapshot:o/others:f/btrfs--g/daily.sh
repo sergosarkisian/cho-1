@@ -32,7 +32,7 @@ if [[ -n "$DAYLY_SNAP_MV" ]]; then
     curr_path=$SNAP_PATH/_unsorted/$DAYLY_SNAP_MV
     BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
     BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\/" $TMP_SUB_LIST|awk '{print $2}'`    
-    btrfs qgroup destroy $BTRFS_SNAP_PATH_ID $BTRFS_MOUNT;    
+    btrfs qgroup remove $BTRFS_SNAP_PATH_ID $UNSORTED_QGROUP_ID $BTRFS_MOUNT;    
     btrfs qgroup assign $BTRFS_SNAP_PATH_ID $DAILY_QGROUP_ID  $SNAP_PATH    
     mv  $curr_path  $SNAP_PATH/daily
     btrfs subvolume list $BTRFS_MOUNT > $TMP_SUB_LIST
