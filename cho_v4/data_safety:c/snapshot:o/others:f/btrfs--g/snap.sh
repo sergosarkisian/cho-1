@@ -3,7 +3,7 @@
 . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snap_init.sh
 
 QGROUP=$2
-[ ! -z "$QGROUP" ] && [ -n "$QGROUP" ] || echo "Please specify QGROUP ID" && exit 1
+[ -z "$QGROUP" ] && [ -n "$QGROUP" ] || echo "Please specify QGROUP ID"; exit 1
 
 #
 ROOT_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "1/$((QGROUP+0))$" -n`
