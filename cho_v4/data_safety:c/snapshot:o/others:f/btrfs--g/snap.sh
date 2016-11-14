@@ -4,7 +4,7 @@
 
 if [[ -z $QGROUP ]]; then
     echo "Please specify QGROUP ID"
-    if [[ -z $2 ]]; then exit 1; else DIR_PATH=$2; fi
+    if [[ -z $2 ]]; then exit 1; else QGROUP=$2; fi
 fi
 if [[  -n "${QGROUP//[0-9]}"  ]]; then echo "Please specify QGROUP ID as integer"; exit 1; fi
 
