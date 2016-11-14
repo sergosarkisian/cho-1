@@ -13,7 +13,7 @@ if ! [[  -n "${ROOT_QGROUP-unset}" ]]; then btrfs qgroup create  1/$((QGROUP+3))
 if [[ ! -e $SNAP_PATH/weekly ]]; then btrfs subvolume create -i 1/$((QGROUP+3)) $SNAP_PATH/weekly; fi
 #
 
-DAYLY_SNAP_MV=`ls $SNAP_PATH/_unsorted|tail -n1`
+DAYLY_SNAP_MV=`ls $SNAP_PATH/_unsorted/|tail -n1`
 mv  $SNAP_PATH/_unsorted/$DAYLY_SNAP_MV  $SNAP_PATH/daily
 btrfs subvolume list $BTRFS_MOUNT > $TMP_SUB_LIST
 
