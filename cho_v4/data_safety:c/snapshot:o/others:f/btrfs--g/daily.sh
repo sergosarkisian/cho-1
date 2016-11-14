@@ -23,7 +23,7 @@ if [[ -n "$DAYLY_SNAP_MV" ]]; then
         BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\$" $TMP_SUB_LIST|awk '{print $2}'`
         btrfs subvolume delete -c $path
         btrfs qgroup destroy $BTRFS_SNAP_PATH_ID $BTRFS_MOUNT;
-        rm -f $path
+        rm -f ${path%/*}
     done
     
     mv  $SNAP_PATH/_unsorted/$DAYLY_SNAP_MV  $SNAP_PATH/daily
