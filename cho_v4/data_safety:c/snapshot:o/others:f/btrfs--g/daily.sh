@@ -19,9 +19,9 @@ btrfs subvolume list $BTRFS_MOUNT > $TMP_SUB_LIST
 
 for path in $SNAP_PATH/_unsorted/*; do
     [ -d "${path}" ] || continue # if not a directory, skip
+    BTRFS_SNAP_PATH_REL=${path#"$BTRFS_MOUNT"}
     BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\$" $TMP_SUB_LIST|awk '{print $2}'`
-    echo $BTRFS_SNAP_PATH_ID
+    btrfs subvolume delete -c $path
+    btrfs qgroup destroy $BTRFS_SNAP_PATH_ID $BTRFS_MOUNT;
 done
 
-#btrfs subvolume delete -c 
-#btrfs qgroup destroy $BTRFS_SNAP_PATH_ID;
