@@ -6,7 +6,7 @@ if [[ -z $QGROUP ]]; then
     echo "Please specify QGROUP ID"
     if [[ -z $2 ]]; then exit 1; else DIR_PATH=$2; fi
 fi
-if [[  -z "$QGROUP"  ]]; then echo "Please specify QGROUP ID"; exit 1; fi
+if [[  -n "${QGROUP//[0-9]}"  ]]; then echo "Please specify QGROUP ID as integer"; exit 1; fi
 
 #
 ROOT_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "1/$((QGROUP+0))$" -n`
