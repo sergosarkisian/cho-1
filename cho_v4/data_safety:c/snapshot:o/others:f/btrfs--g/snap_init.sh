@@ -6,9 +6,6 @@ if [[ -z $DIR_PATH ]]; then
     exit 1
 fi
 
-QGROUP=$2
-[ -z "${QGROUP//[0-9]}" ] && [ -n "$QGROUP" ] || echo "Please specify QGROUP ID"; exit 1
-
 TMP_QGROUP_LIST="/tmp/btrfs_${BTRFS_LABEL}_qgroup_all"
 SNAP_PATH="${DIR_PATH}_snap"
 BTRFS_LABEL=`btrfs filesystem label $DIR_PATH`
