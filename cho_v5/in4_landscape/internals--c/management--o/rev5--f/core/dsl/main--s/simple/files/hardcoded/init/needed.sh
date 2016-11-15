@@ -35,3 +35,4 @@ snapper test
 
 -XDG_VTNR=1
 -XDG_SESSION_ID=3
+

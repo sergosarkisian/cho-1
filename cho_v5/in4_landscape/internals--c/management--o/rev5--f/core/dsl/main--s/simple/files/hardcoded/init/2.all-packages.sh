@@ -5,7 +5,7 @@ zypper --non-interactive in --force kernel-default grub2 aaa_base kmod binutils
 #Xen
 zypper --non-interactive in --force spice-vdagent xen-tools-domU xen-libs
 zypper --non-interactive in --force hostname iproute2 wicked-service dbus-1 strace
-zypper --non-interactive in --force  aaa_base-extras man man-pages kbd
+zypper --non-interactive in --force  aaa_base-extras man man-pages kbd timezone
 zypper --non-interactive in --force  ca-certificates-mozilla
 zypper --non-interactive in --force btrfsprogs e2fsprogs sysfsutils quota
 zypper --non-interactive in --force yast2-security

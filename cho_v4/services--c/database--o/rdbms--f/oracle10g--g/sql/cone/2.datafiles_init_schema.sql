@@ -4,7 +4,7 @@ spool /media/storage/as/oracle/logs/cone/2.datafiles_init_schema
 
 
 CREATE TABLESPACE E$&&scheme_uc DATAFILE 
-'/media/storage/as/oracle/data/master/e&&scheme_lc.dbf' SIZE 2000M AUTOEXTEND ON NEXT 100M MAXSIZE UNLIMITED
+'/media/storage/as/oracle/data/master/e&&scheme_lc..dbf' SIZE 2000M AUTOEXTEND ON NEXT 100M MAXSIZE UNLIMITED
 LOGGING
 ONLINE
 PERMANENT

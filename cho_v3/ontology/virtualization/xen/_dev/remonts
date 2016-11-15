@@ -1,8 +1,0 @@
-mount -o remount / /
-mount -o remount /etc /etc
-mount -o remount /run/user /run/user
-mount -o remount /root /root
-mount -o remount /home /home
-mount -o remount /usr /usr
-mount -o remount /boot /boot
-mount -o remount /sys/fs/cgroup /sys/fs/cgroup

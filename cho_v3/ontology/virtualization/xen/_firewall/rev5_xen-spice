@@ -1,6 +1,0 @@
-## Name: rev5_xen-spice ports
-## Description: Open ports for rev5_xen-spice
-
-# space separated list of allowed TCP ports
-TCP="50000:55000"
- 

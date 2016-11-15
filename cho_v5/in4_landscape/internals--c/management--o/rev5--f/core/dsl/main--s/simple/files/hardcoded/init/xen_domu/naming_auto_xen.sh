@@ -25,6 +25,7 @@ if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then
 		
 		hostnamectl --transient set-hostname $SrvName
 		hostnamectl --static set-hostname  $NAME
+		timedatectl set-timezone Europe/Tallinn
 		echo "$NAME" > /etc/HOSTNAME 
 	fi
 	

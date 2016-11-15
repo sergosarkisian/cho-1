@@ -1,7 +1,0 @@
-+ systemd verify tasks 
-
-+ 3rd passive async replica = stacked
-
-+ systemd - deps on conflicts unit runs first, than conflict deps are stops. Must be - conflict deps are stops, unit runs.
-
-+ move ruby json code from resources.erb
