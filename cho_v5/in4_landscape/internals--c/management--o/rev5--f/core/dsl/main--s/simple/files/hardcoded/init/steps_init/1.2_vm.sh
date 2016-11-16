@@ -6,13 +6,13 @@
 ### DISK INIT ###
 rm ./*.raw
 fallocate -l10g ./in4a1-suse-l.raw
-mkfs.btrfs -L "system" ./in4a1-suse-l.raw 
+mkfs.btrfs -f -L "system" ./in4a1-suse-l.raw 
 
 fallocate -l 2g ./sysdata.raw
-mkfs.ext4 -L "sysdata" ./sysdata.raw
+mkfs.btrfs -f -L "sysdata" ./sysdata.raw
 
 fallocate -l 2g ./swap.raw
-mkswap -L "swap" ./swap.raw 
+mkswap -f -L "swap" ./swap.raw 
  ###
  
  ### GENERATE LOOP MOUNT & UNTAR ###

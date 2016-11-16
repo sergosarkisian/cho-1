@@ -46,14 +46,15 @@ do
             "Yes") 
                 parted  /dev/$IN4_BASEDISK mklabel $IN4_BASEDISK_TYPE
                 parted  /dev/$IN4_BASEDISK mkpart primary btrfs 1m ${IN4_SYSTEM_SIZE}GiB
+                parted  /dev/$IN4_BASEDISK set 1 boot on
                 sleep 1
-                mkfs.btrfs -L "system" /dev/${IN4_BASEDISK}1
+                mkfs.btrfs -f -L "system" /dev/${IN4_BASEDISK}1
                 parted  /dev/$IN4_BASEDISK mkpart primary linux-swap ${IN4_SYSTEM_SIZE}GiB $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE))GiB
                 sleep 1
-                mkswap -L "swap" /dev/${IN4_BASEDISK}2
+                mkswap -f -L "swap" /dev/${IN4_BASEDISK}2
                 parted  /dev/$IN4_BASEDISK mkpart primary btrfs $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE))GiB $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE+$IN4_SYSDATA_SIZE))GiB
-                 sleep 1
-                mkfs.ext4 -L "sysdata" /dev/${IN4_BASEDISK}3
+                sleep 1
+                mkfs.btrfs -f -L "sysdata" /dev/${IN4_BASEDISK}3
                 
             break ;;
             "No") exit 1;;

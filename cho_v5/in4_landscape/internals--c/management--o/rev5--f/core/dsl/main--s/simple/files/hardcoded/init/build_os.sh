@@ -4,7 +4,7 @@ if [[ -z $TYPE ]]; then
     echo "Please specify build type"; exit 1;
 fi
 
-BUILD_ENV=`pwd`
+BUILD_ENV="`pwd`/_os_build"
 
 . /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/build_os-*_env.sh
 

@@ -1,4 +1,3 @@
-
 [Unit]
 Description=sysdata disk mount
 Before=local-fs.target -.mount
@@ -8,8 +7,8 @@ After=systemd-fsck@dev-disk-by\x2dlabel-sysdata.service
 [Mount]
 What=/dev/disk/by-label/sysdata
 Where=/media/sysdata
-Type=ext4
-Options=noatime,acl,user_xattr
+Type=btrfs
+Options=rw,noatime,acl,nodatacow,autodefrag,recovery
 
 [Install]
 WantedBy = multi-user.target
