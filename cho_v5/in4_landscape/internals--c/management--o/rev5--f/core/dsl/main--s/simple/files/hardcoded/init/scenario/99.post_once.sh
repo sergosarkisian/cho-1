@@ -1,4 +1,6 @@
-echo -e "\n\n######## ######## START -  scenario - ${0##*/} ######## ########\n\n"
+#!/bin/bash
+set -e
+echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
 
 	## SSH
 	rm  /etc/ssh/ssh_host_*
@@ -10,4 +12,5 @@ echo -e "\n\n######## ######## START -  scenario - ${0##*/} ######## ########\n\
 	rm /etc/machine-id
 	systemd-machine-id-setup
 	## 
-echo -e "\n\n######## ######## STOP -  scenario - ${0##*/} ######## ########\n\n"
+	
+echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"

@@ -1,6 +1,6 @@
 #!/bin/bash
-
-echo -e "\n\n######## ######## START -  scenario - ${0##*/} ######## ########\n\n"
+set -e
+echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
 
 ### ZYPPER ###
 rm /etc/zypp/repos.d/*
@@ -15,4 +15,4 @@ zypper ar -cf http://download.opensuse.org/repositories/Kernel:/openSUSE-42.2/st
 zypper ar -cf http://download.opensuse.org/repositories/network/openSUSE_Leap_42.2/network.repo
 zypper ar -cf http://download.opensuse.org/repositories/shells/openSUSE_Leap_42.2/shells.repo
 
-echo -e "\n\n######## ######## STOP -  scenario - ${0##*/} ######## ########\n\n"
+echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"

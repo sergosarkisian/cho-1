@@ -1,5 +1,6 @@
 #!/bin/bash
-echo -e "\n\n######## ######## START -  scenario - ${0##*/} ######## ########\n\n"
+set -e
+echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
 
 ### XEN DOMU AUTONAMING  ###
 #SYSTEMD
@@ -7,4 +8,4 @@ echo -e "\n\n######## ######## START -  scenario - ${0##*/} ######## ########\n\
 systemctl enable init_auto_xen
 ###
 
-echo -e "\n\n######## ######## STOP -  scenario - ${0##*/} ######## ########\n\n"
+echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"

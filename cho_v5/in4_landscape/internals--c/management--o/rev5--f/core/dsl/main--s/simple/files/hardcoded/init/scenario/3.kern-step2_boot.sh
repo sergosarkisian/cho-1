@@ -1,5 +1,6 @@
 #!/bin/bash
-echo -e "\n\n######## ######## START -  scenario - ${0##*/} ######## ########\n\n"
+set -e
+echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
 
  ### DRACUT  ###
 cp /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/linux_sys--o/boot--f/dracut/dsl/main--s/simple/files/hardcoded/dracut.conf-vm /etc/dracut.conf
@@ -26,4 +27,4 @@ depmod `ls -la /boot/vmlinuz|awk '{print $11}'|sed 's/vmlinuz-//'`
 mkinitrd
 ###
 
-echo -e "\n\n######## ######## STOP -  scenario - ${0##*/} ######## ########\n\n"
+echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"

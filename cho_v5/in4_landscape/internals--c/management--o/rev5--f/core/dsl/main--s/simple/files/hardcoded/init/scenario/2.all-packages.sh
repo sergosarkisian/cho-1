@@ -1,5 +1,6 @@
 #!/bin/bash
-echo -e "\n\n######## ######## START -  scenario - ${0##*/} ######## ########\n\n"
+set -e
+echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
 
 zypper  --gpg-auto-import-keys ref
 zypper --non-interactive in --force aaa_base kmod binutils
@@ -17,4 +18,4 @@ zypper --non-interactive in --force curl expect  deltarpm
 #+ pam + policy*
 zypper --non-interactive --gpg-auto-import-keys dup
 
-echo -e "\n\n######## ######## STOP -  scenario - ${0##*/} ######## ########\n\n"
+echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
