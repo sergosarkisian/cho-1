@@ -65,9 +65,7 @@ done
 
 ### GENERATE LOOP MOUNT & UNTAR ###
 mount /dev/${IN4_BASEDISK}2  $BUILD_ENV/loop/
-rm -rf $BUILD_ENV/loop/*
-tar xf *.tar.xz -C $BUILD_ENV/loop/
 mkdir -p  $BUILD_ENV/loop/media/sysdata
 mount /dev/${IN4_BASEDISK}4 $BUILD_ENV/loop/media/sysdata
-rm -rf $BUILD_ENV/loop/media/sysdata/*
 ###
+

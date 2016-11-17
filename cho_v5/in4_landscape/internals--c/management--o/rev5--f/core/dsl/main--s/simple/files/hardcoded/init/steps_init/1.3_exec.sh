@@ -1,5 +1,11 @@
 #!/bin/bash
 
+### UNTAR ###
+rm -rf $BUILD_ENV/loop/*
+tar xf *.tar.xz -C $BUILD_ENV/loop/
+rm -rf $BUILD_ENV/loop/media/sysdata/*
+###
+
  ###  CP OWN FILES ###
 cp /etc/resolv.conf $BUILD_ENV/loop/etc/
 cp /etc/sysconfig/proxy $BUILD_ENV/loop/etc/sysconfig/
