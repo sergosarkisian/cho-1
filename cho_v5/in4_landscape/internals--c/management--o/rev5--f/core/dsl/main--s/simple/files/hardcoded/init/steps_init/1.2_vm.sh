@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo -e "\n\n######## ######## START -  steps_init - ${0##*/} ######## ########\n\n"
+
 . /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/build_os-vm_env.sh
 
 
@@ -25,3 +27,4 @@ losetup /dev/$LO_SYSDATA $BUILD_ENV/sysdata.raw
 mount /dev/$LO_SYSDATA $BUILD_ENV/loop/media/sysdata
  ###
 
+echo -e "\n\n######## ######## STOP -  steps_init - ${0##*/} ######## ########\n\n"

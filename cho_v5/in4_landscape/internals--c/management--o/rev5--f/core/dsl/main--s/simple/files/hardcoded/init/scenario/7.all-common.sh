@@ -1,4 +1,5 @@
 #!/bin/bash
+echo -e "\n\n######## ######## START -  scenario - ${0##*/} ######## ########\n\n"
 
 ### BASH ###
 #ZYPPER
@@ -176,3 +177,5 @@ rm -f /etc/drbd.conf && ln -s /media/sysdata/in4/cho/cho_v5/in4_landscape/data_s
 rm -f /etc/systemd/system/in4__wtf.service 	&& cp  /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/in4__wtf.service /etc/systemd/system/
 systemctl enable  in4__wtf && systemctl restart in4__wtf
 ###
+
+echo -e "\n\n######## ######## STOP -  scenario - ${0##*/} ######## ########\n\n"

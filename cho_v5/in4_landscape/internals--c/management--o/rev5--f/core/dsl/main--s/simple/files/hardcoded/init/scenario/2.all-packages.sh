@@ -1,4 +1,5 @@
 #!/bin/bash
+echo -e "\n\n######## ######## START -  scenario - ${0##*/} ######## ########\n\n"
 
 zypper  --gpg-auto-import-keys ref
 zypper --non-interactive in --force aaa_base kmod binutils
@@ -15,3 +16,5 @@ zypper --non-interactive in --force curl expect  deltarpm
 
 #+ pam + policy*
 zypper --non-interactive --gpg-auto-import-keys dup
+
+echo -e "\n\n######## ######## STOP -  scenario - ${0##*/} ######## ########\n\n"

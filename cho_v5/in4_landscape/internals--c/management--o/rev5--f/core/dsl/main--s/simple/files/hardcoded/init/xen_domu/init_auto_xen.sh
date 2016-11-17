@@ -10,7 +10,13 @@ if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then
         depmod `ls -la /boot/vmlinuz|awk '{print $11}'|sed 's/vmlinuz-//'`
         mkinitrd
          ### 
-
+        
+        ###  DISABLE NET DHCP ### 
+        cp /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/wtf/wickedd-dhcp /usr/lib/systemd/system/wickedd-auto4.service
+        cp /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/wtf/wickedd-dhcp /usr/lib/systemd/system/wickedd-dhcp4.service
+        systemctl disable wickedd-dhcp6
+        systemctl mask wickedd-dhcp6
+        ### 
 	DOMID=`xenstore-read domid`
 	NAME=`xenstore-read /local/domain/$DOMID/name`
 	.  /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/naming/naming.sh os $NAME
@@ -52,7 +58,7 @@ if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then
 		
 		systemctl restart network
 	fi
-	systemctl disable naming_auto_xen
+	systemctl disable init_auto_xen
         rm -f  /etc/systemd/system/init_auto_xen.service
         rm -f /etc/systemd/system/multi-user.target.wants/init_auto_xen.service
 fi

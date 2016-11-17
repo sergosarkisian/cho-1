@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo -e "\n\n######## ######## START -  scenario - ${0##*/} ######## ########\n\n"
+
 ### ZYPPER ###
 rm /etc/zypp/repos.d/*
 
@@ -13,3 +15,4 @@ zypper ar -cf http://download.opensuse.org/repositories/Kernel:/openSUSE-42.2/st
 zypper ar -cf http://download.opensuse.org/repositories/network/openSUSE_Leap_42.2/network.repo
 zypper ar -cf http://download.opensuse.org/repositories/shells/openSUSE_Leap_42.2/shells.repo
 
+echo -e "\n\n######## ######## STOP -  scenario - ${0##*/} ######## ########\n\n"

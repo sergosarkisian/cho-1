@@ -1,5 +1,5 @@
 [Unit]
-Description		= init_auto_xen
+Description		= init_auto_hw
 
 ## DEPS ## 
  Before			= network.target
@@ -12,7 +12,7 @@ Description		= init_auto_xen
 ##
 
 ## EXECS ##
- ExecStart		= /bin/sh /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/xen_domu/init_auto_xen.sh
+ ExecStart		= /bin/sh /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/hw/init_auto_hw.sh
  
  #loging -  "instance":"%I"
  ##
@@ -33,7 +33,7 @@ Description		= init_auto_xen
 ##
 
 ## SYSLOG ##
- SyslogIdentifier	= init_auto_xen_
+ SyslogIdentifier	= init_auto_hw_
  SyslogFacility		= local7
  SyslogLevel		= info
  #SyslogLevelPrefix	= false #Can be disabled for ...

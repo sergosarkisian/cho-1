@@ -1,4 +1,5 @@
 #!/bin/bash
+echo -e "\n\n######## ######## START -  scenario - ${0##*/} ######## ########\n\n"
 
 ### BOOT OPTIONS ###
 sed -i "s/LOADER_TYPE=.*/LOADER_TYPE=\"none\"/" /etc/sysconfig/bootloader
@@ -30,3 +31,5 @@ pam-config --add --mkhomedir
 systemctl disable ntpd
 systemctl mask ntpd
 ###
+
+echo -e "\n\n######## ######## STOP -  scenario - ${0##*/} ######## ########\n\n"

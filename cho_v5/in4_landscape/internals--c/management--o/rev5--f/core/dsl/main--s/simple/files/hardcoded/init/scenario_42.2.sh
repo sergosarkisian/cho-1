@@ -10,4 +10,5 @@ if [[ $TYPE == "vm" ]] || [[ $TYPE == "hw" ]]; then . /media/sysdata/in4/cho/cho
 . /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/scenario/7.all-common.sh
 . /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/scenario/8.mounts.sh
 if [[ $TYPE == "vm" ]]; then . /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/scenario/9.vm_post.sh; fi
+if [[ $TYPE == "hw" ]]; then . /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/scenario/9.hw_post.sh; fi
 . /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/scenario/10.clean.sh
