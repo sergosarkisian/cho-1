@@ -1,0 +1,15 @@
+[Unit]
+Description=Test CONE3 Instance - %I
+After=network.target
+
+[Service]
+WorkingDirectory= /web/c3/test/%i
+ExecStart=/bin/bash -c 'sh start.run'
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=c3_test-%i                                                                                                                                                                                                                                                      
+SyslogFacility=local6                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                               
+[Install]                                                                                                                                                                                                                                                                      
+WantedBy=multi-user.target   
