@@ -1,5 +1,6 @@
 #!/bin/bash
-echo -e "\n\n######## ######## START -  scenario - ${0##*/} ######## ########\n\n"
+set -e
+echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
 
 ### PATHS ###
 mkdir -p /media/sysdata /media/storage /media/sysdata/in4/
@@ -83,4 +84,4 @@ rm -f /etc/systemd/system/in4__sync.timer 	&& cp  /media/sysdata/in4/cho/cho_v5/
 systemctl enable  in4__sync.timer && systemctl restart in4__sync.timer
 ###
 
-echo -e "\n\n######## ######## STOP -  scenario - ${0##*/} ######## ########\n\n"
+echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
