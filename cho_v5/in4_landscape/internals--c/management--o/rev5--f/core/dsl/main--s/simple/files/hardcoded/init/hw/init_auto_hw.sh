@@ -18,6 +18,8 @@ if [[ -f /etc/systemd/system/init_auto_hw.service ]]; then
             cp /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/hw/dhcp /etc/sysconfig/network/ifcfg-$INTERFACE
         done
         
+        systemctl restart network
+        
 	systemctl disable init_auto_hw
         rm -f  /etc/systemd/system/init_auto_hw.service
         rm -f /etc/systemd/system/multi-user.target.wants/init_auto_hw.service
