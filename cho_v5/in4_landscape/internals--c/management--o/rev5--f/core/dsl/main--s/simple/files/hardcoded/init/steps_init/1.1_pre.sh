@@ -2,7 +2,7 @@
 
 # ### 42.1 ###
 # mkdir -p /media/storage1/images/\!master/openSUSE-42.1/_dev/loop
-# wget -O  /media/storage1/images/\!master/openSUSE-42.1/openSUSE-42.1-docker-guest-docker.x86_64.tar.xz http://download.opensuse.org/repositories/Virtualization:/containers:/images:/openSUSE-42.1/images/openSUSE-42.1-docker-guest-docker.x86_64.tar.xz
+# wget -O  /media/storage1/images/\!master/openSUSE-42.1/openSUSE-42.1-docker-guest-docker.$ARCH.tar.xz http://download.opensuse.org/repositories/Virtualization:/containers:/images:/openSUSE-42.1/images/openSUSE-42.1-docker-guest-docker.$ARCH.tar.xz
 # cd /media/storage1/images/\!master/openSUSE-42.1/_dev
 # ###
 
@@ -11,7 +11,7 @@
 ### 42.2 ###
 rm -rf $BUILD_ENV/*
 mkdir -p $BUILD_ENV/loop && cd $BUILD_ENV
-wget -O $BUILD_ENV/openSUSE-42.2-docker-guest-docker.x86_64.tar.xz http://download.opensuse.org/repositories/Virtualization:/containers:/images:/openSUSE-42.2/images/openSUSE-42.2-docker-guest-docker.x86_64.tar.xz
+wget -O $BUILD_ENV/openSUSE-42.2-docker-guest-docker.$ARCH.tar.xz http://download.opensuse.org/repositories/Virtualization:/containers:/images:/openSUSE-42.2/images/openSUSE-42.2-docker-guest-docker.$ARCH.tar.xz
 
 ###
 

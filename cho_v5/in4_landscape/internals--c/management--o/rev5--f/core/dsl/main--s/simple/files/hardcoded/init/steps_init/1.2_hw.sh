@@ -45,16 +45,18 @@ do
             case $IN4_SYSDATA_DISK in
             "Yes") 
                 parted  /dev/$IN4_BASEDISK mklabel $IN4_BASEDISK_TYPE
-                parted  /dev/$IN4_BASEDISK mkpart primary btrfs 1m ${IN4_SYSTEM_SIZE}GiB
-                parted  /dev/$IN4_BASEDISK set 1 boot on
+                parted  /dev/$IN4_BASEDISK mkpart primary 1MiB 4MiB
+                parted  /dev/$IN4_BASEDISK set 1 bios_grub on
+                parted  /dev/$IN4_BASEDISK mkpart primary btrfs 5MiB ${IN4_SYSTEM_SIZE}GiB                
+                parted  /dev/$IN4_BASEDISK set 2 boot on                                               
                 sleep 1
-                mkfs.btrfs -f -L "system" /dev/${IN4_BASEDISK}1
+                mkfs.btrfs -f -L "system" /dev/${IN4_BASEDISK}2
                 parted  /dev/$IN4_BASEDISK mkpart primary linux-swap ${IN4_SYSTEM_SIZE}GiB $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE))GiB
                 sleep 1
-                mkswap -f -L "swap" /dev/${IN4_BASEDISK}2
+                mkswap -f -L "swap" /dev/${IN4_BASEDISK}3
                 parted  /dev/$IN4_BASEDISK mkpart primary btrfs $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE))GiB $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE+$IN4_SYSDATA_SIZE))GiB
                 sleep 1
-                mkfs.btrfs -f -L "sysdata" /dev/${IN4_BASEDISK}3
+                mkfs.btrfs -f -L "sysdata" /dev/${IN4_BASEDISK}4
                 
             break ;;
             "No") exit 1;;
@@ -68,10 +70,10 @@ done
 
 
 ### GENERATE LOOP MOUNT & UNTAR ###
-mount /dev/${IN4_BASEDISK}1  ./loop/
-rm -rf ./loop/*
-tar xf *.tar.xz -C ./loop/
-mkdir -p  ./loop/media/sysdata
-mount /dev/${IN4_BASEDISK}3 ./loop/media/sysdata
-rm -rf ./loop/media/sysdata/*
+mount /dev/${IN4_BASEDISK}2  $BUILD_ENV/loop/
+rm -rf $BUILD_ENV/loop/*
+tar xf *.tar.xz -C $BUILD_ENV/loop/
+mkdir -p  $BUILD_ENV/loop/media/sysdata
+mount /dev/${IN4_BASEDISK}4 $BUILD_ENV/loop/media/sysdata
+rm -rf $BUILD_ENV/loop/media/sysdata/*
 ###

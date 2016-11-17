@@ -17,11 +17,11 @@ mkswap -f -L "swap" ./swap.raw
  
  ### GENERATE LOOP MOUNT & UNTAR ###
 losetup /dev/$LO_SYSTEM ./in4a1-suse-l.raw
-mount /dev/$LO_SYSTEM  ./loop/
+mount /dev/$LO_SYSTEM  $BUILD_ENV/loop/
 
  ### 
- mkdir -p  ./loop/media/sysdata
+ mkdir -p  $BUILD_ENV/loop/media/sysdata
 losetup /dev/$LO_SYSDATA ./sysdata.raw
-mount /dev/$LO_SYSDATA ./loop/media/sysdata
+mount /dev/$LO_SYSDATA $BUILD_ENV/loop/media/sysdata
  ###
 
