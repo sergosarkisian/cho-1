@@ -11,7 +11,7 @@ echo -e "\n\n######## ######## START -  steps_init - ${0##*/} ######## ########\
 . /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/steps_init/2.post.sh
 
 ### OPENSUSE INIT
-zypper --non-interactive in --force wget btrfsprogs parted git
+zypper --non-interactive in --force wget btrfsprogs parted git xz tar
 #
 
 ### 42.2 ###
