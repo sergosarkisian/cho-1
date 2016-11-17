@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 . /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/build_os-*_env.sh
 
 

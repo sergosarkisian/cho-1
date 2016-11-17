@@ -1,6 +1,6 @@
 #!/bin/bash
-
-echo -e "\n\n######## ######## START -  steps_init - ${0##*/} ######## ########\n\n"
+set -e
+echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
 
 echo "Please enter in4 linux base disk"
 select IN4_BASEDISK in sda sdb sdc sdd sde 
@@ -71,4 +71,4 @@ mkdir -p  $BUILD_ENV/loop/media/sysdata
 mount /dev/${IN4_BASEDISK}4 $BUILD_ENV/loop/media/sysdata
 ###
 
-echo -e "\n\n######## ######## STOP -  steps_init - ${0##*/} ######## ########\n\n"
+echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
