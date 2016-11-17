@@ -3,12 +3,12 @@
 
 
 if [[ -z $TYPE ]]; then
-    echo "Please specify dir for snap"
+    echo "Please specify type"
     if [[ -z $1 ]]; then exit 1; else TYPE=$1; fi
 fi
 
 if [[ -z $ARCH ]]; then
-    echo "Please specify dir for snap"
+    echo "Please specify arch"
     if [[ -z $1 ]]; then exit 1; else ARCH=$2; fi
 fi
 
