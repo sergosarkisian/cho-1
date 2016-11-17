@@ -4,24 +4,24 @@
 
 
 ### DISK INIT ###
-rm ./*.raw
-fallocate -l10g ./in4a1-suse-l.raw
-mkfs.btrfs -f -L "system" ./in4a1-suse-l.raw 
+rm $BUILD_ENV/*.raw
+fallocate -l10g $BUILD_ENV/in4a1-suse-l.raw
+mkfs.btrfs -f -L "system" $BUILD_ENV/in4a1-suse-l.raw 
 
-fallocate -l 2g ./sysdata.raw
-mkfs.btrfs -f -L "sysdata" ./sysdata.raw
+fallocate -l 2g $BUILD_ENV/sysdata.raw
+mkfs.btrfs -f -L "sysdata" $BUILD_ENV/sysdata.raw
 
-fallocate -l 2g ./swap.raw
-mkswap -f -L "swap" ./swap.raw 
+fallocate -l 2g $BUILD_ENV/swap.raw
+mkswap -f -L "swap" $BUILD_ENV/swap.raw 
  ###
  
  ### GENERATE LOOP MOUNT & UNTAR ###
-losetup /dev/$LO_SYSTEM ./in4a1-suse-l.raw
+losetup /dev/$LO_SYSTEM $BUILD_ENV/in4a1-suse-l.raw
 mount /dev/$LO_SYSTEM  $BUILD_ENV/loop/
 
  ### 
  mkdir -p  $BUILD_ENV/loop/media/sysdata
-losetup /dev/$LO_SYSDATA ./sysdata.raw
+losetup /dev/$LO_SYSDATA $BUILD_ENV/sysdata.raw
 mount /dev/$LO_SYSDATA $BUILD_ENV/loop/media/sysdata
  ###
 
