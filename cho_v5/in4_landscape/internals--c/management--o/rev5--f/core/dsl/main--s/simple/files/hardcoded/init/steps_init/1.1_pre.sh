@@ -1,6 +1,7 @@
 #!/bin/bash
+set -e
 
-echo -e "\n\n######## ######## START -  steps_init - ${0##*/} ######## ########\n\n"
+echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
 
 # ### 42.1 ###
 # mkdir -p /media/storage1/images/\!master/openSUSE-42.1/_dev/loop
@@ -21,4 +22,4 @@ wget -O $BUILD_ENV/openSUSE-42.2-docker-guest-docker.$ARCH.tar.xz http://downloa
 
 ###
 
-echo -e "\n\n######## ######## STOP -  steps_init - ${0##*/} ######## ########\n\n"
+echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
