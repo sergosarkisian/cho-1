@@ -6,14 +6,7 @@
 ### DISK INIT ###
 rm $BUILD_ENV/*.raw
 fallocate -l10g $BUILD_ENV/in4a1-suse-l.raw
-
-        parted  $BUILD_ENV/in4a1-suse-l.raw mklabel gpt
-        parted  $BUILD_ENV/in4a1-suse-l.raw mkpart primary 1MiB 4MiB
-        parted  $BUILD_ENV/in4a1-suse-l.raw set 1 bios_grub on
-        parted  $BUILD_ENV/in4a1-suse-l.raw mkpart primary btrfs 5MiB 100%  
-        parted  $BUILD_ENV/in4a1-suse-l.raw set 2 boot on                                               
-
-
+mkfs.btrfs -f -L "system" $BUILD_ENV/in4a1-suse-l.raw 
 
 fallocate -l 2g $BUILD_ENV/sysdata.raw
 mkfs.btrfs -f -L "sysdata" $BUILD_ENV/sysdata.raw
@@ -24,8 +17,7 @@ mkswap -f -L "swap" $BUILD_ENV/swap.raw
  
  ### GENERATE LOOP MOUNT & UNTAR ###
 losetup /dev/$LO_SYSTEM $BUILD_ENV/in4a1-suse-l.raw
-mkfs.btrfs -f -L "system" /dev/${LO_SYSTEM}p2
-mount /dev/${LO_SYSTEM}p2  $BUILD_ENV/loop/
+mount /dev/$LO_SYSTEM  $BUILD_ENV/loop/
 
  ### 
  mkdir -p  $BUILD_ENV/loop/media/sysdata

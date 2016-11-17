@@ -52,8 +52,8 @@ menuentry 'ConeCenter - in4 - HW'  --class opensuse --class gnu-linux --class gn
         set gfxpayload=text
         insmod gzio
         insmod ext2
-        set root='hd0,msdos1'
-        search --no-floppy --label system --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1 --hint='hd0,msdos1'
+        #set root='hd0,gpt1'
+        #search --no-floppy --label system --set=root --hint-bios=hd0,gpt1 --hint-efi=hd0,gpt1 --hint-baremetal=ahci0,gpt1 --hint='hd0,gpt1'
         echo    'Loading Linux  ...'
         linux   /boot/vmlinuz  root=LABEL=system  showopts ipv6.disable=1 elevator=deadline vga=0x314 panic=15 rw
 		echo    'Loading initial ramdisk ...'
