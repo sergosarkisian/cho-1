@@ -3,7 +3,7 @@ echo -e "\n\n######## ######## START -  scenario - ${0##*/} ######## ########\n\
 
 zypper  --gpg-auto-import-keys ref
 zypper --non-interactive in --force aaa_base kmod binutils
-zypper --non-interactive in --force hostname iproute2 wicked-service dbus-1 strace
+zypper --non-interactive in --force net-tools iproute2 wicked-service dbus-1 strace
 zypper --non-interactive in --force  aaa_base-extras man man-pages kbd timezone
 zypper --non-interactive in --force  ca-certificates-mozilla
 zypper --non-interactive in --force btrfsprogs e2fsprogs sysfsutils quota
