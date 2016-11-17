@@ -12,10 +12,6 @@ do
     case $PARTED in
     "Yes") 
     
-        echo "Please enter in4 linux partition type (msdos, gpt): "
-        select IN4_BASEDISK_TYPE in msdos gpt
-        do  break; done
-
         echo "Please enter in4 linux main image size in GiB (label = system): "
         select IN4_SYSTEM_SIZE in 10 15 20 
         do  break; done
@@ -36,15 +32,13 @@ do
             "No") exit 1 ;;
             esac
         done
-        echo $IN4_BASEDISK_TYPE
-
 
         echo "!!!   DATA WILL BE DESTROYED ON partition $IN4_BASEDISK"
         select IN4_SYSDATA_DISK in Yes No
         do
             case $IN4_SYSDATA_DISK in
             "Yes") 
-                parted  /dev/$IN4_BASEDISK mklabel $IN4_BASEDISK_TYPE
+                parted  /dev/$IN4_BASEDISK mklabel gpt
                 parted  /dev/$IN4_BASEDISK mkpart primary 1MiB 4MiB
                 parted  /dev/$IN4_BASEDISK set 1 bios_grub on
                 parted  /dev/$IN4_BASEDISK mkpart primary btrfs 5MiB ${IN4_SYSTEM_SIZE}GiB                
