@@ -1,0 +1,42 @@
+## VARS ##        
+name                    = "demo-hvxen-test"    ## FQDN
+spicepasswd    = 49999     ## MAC - 4 octets
+spiceport               = 49999          ## MAC - 3 last digits + 50000
+##
+
+## RESOURCES ##
+memory          = 2048
+maxmem  = 4096
+vcpus           = 2
+maxvcpus = 4
+#pool           = "Pool1"
+cpu_weight = 512
+##
+
+## HVM ##
+device_model_override = "/usr/bin/qemu-system-x86_64"
+builder = 'hvm'
+boot='c'
+acpi_s3=0
+acpi_s4=0
+spice=1
+spice_clipboard_sharing=1
+spicevdagent=1
+keymap='en-us'
+#pvh=1, #usbdevice="tablet", #superpages, 
+##
+
+## XEN ##
+#extra = "CPUFREQ=no panic=15 barrier=off xen_blkfront.max=64 console=hvc0 debug kgdboc=hvc0"
+on_crash = "restart"
+##                                                                                                                                                             
+
+disk=[
+'vdev=sda, target=VMPATH/in4a1-suse-l.raw',
+'vdev=sdb, target=VMPATH/swap.raw',
+'vdev=sdc, target=VMPATH/sysdata.raw',
+]                                                                                                                                                                                          
+                                                                                                                                                                                  
+vif =[        
+"mac=AA:20:0A:FA:FA:FA type=vif,bridge=type::ext---ext_if::bond_vlannet---policy::common---switch::vlannet---cookie::1999---mtu::9000---gate::1.1.1.1",   
+]
