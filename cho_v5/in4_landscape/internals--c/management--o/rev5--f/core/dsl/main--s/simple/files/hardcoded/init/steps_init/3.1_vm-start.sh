@@ -7,7 +7,8 @@ cp --sparse=always $BUILD_ENV/sysdata.raw $BUILD_ENV/../
 cp --sparse=always $BUILD_ENV/swap.raw $BUILD_ENV/../
 
 cp /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/xen_domu/demo.xl  /tmp/demo.xl
-sed -i "s/VMPATH/$BUILD_ENV/g" /tmp/demo.xl
+BUILD_ENV_ESC=$(echo "$BUILD_ENV" | sed 's/\//\\\//g')
+sed -i "s/VMPATH/$BUILD_ENV_ESC/g" /tmp/demo.xl
 xl create /tmp/demo.xl
 DOMID=`xl domid demo-hvxen-test`
 
