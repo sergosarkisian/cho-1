@@ -93,8 +93,8 @@ sed -i "s/FW_PROTECT_FROM_INT=.*/FW_PROTECT_FROM_INT=\"yes\"/" /etc/sysconfig/Su
 #SYSTEMD
 rm -f /etc/systemd/system/in4__SuSEfirewall2_i@.service 	&& cp  /media/sysdata/in4/cho/cho_v4/internals:c/linux_sys:o/network:f/sfw2:g/_systemd/in4__SuSEfirewall2_i@.service /etc/systemd/system/
 rm -f /etc/systemd/system/in4__SuSEfirewall2_init_i@.service 	&& cp  /media/sysdata/in4/cho/cho_v4/internals:c/linux_sys:o/network:f/sfw2:g/_systemd/in4__SuSEfirewall2_init_i@.service /etc/systemd/system/
-systemctl stop SuSEfirewall2 && systemctl disable SuSEfirewall2 && systemctl mask SuSEfirewall2
-systemctl stop SuSEfirewall2_init && systemctl disable SuSEfirewall2_init && systemctl mask SuSEfirewall2_init
+! systemctl stop SuSEfirewall2 && systemctl disable SuSEfirewall2 && systemctl mask SuSEfirewall2
+! systemctl stop SuSEfirewall2_init && systemctl disable SuSEfirewall2_init && systemctl mask SuSEfirewall2_init
 ###
 
 ### SSHD ###
@@ -102,7 +102,7 @@ systemctl stop SuSEfirewall2_init && systemctl disable SuSEfirewall2_init && sys
 zypper --gpg-auto-import-keys --non-interactive in --force openssh
 #SYSTEMD
 rm -f /etc/systemd/system/in4__sshd.service 	&& cp  /media/sysdata/in4/cho/cho_v4/services--c/server:o/ssh:f/sshd:g/_systemd/in4__sshd.service /etc/systemd/system/
-systemctl stop sshd && systemctl disable sshd && systemctl mask sshd
+! systemctl stop sshd && systemctl disable sshd && systemctl mask sshd
 systemctl enable in4__sshd
 #SWF2
 rm -f /etc/sysconfig/SuSEfirewall2.d/services/in4__sshd && ln -s  /media/sysdata/in4/cho/cho_v4/services--c/server:o/ssh:f/sshd:g/_firewall/in4__sshd /etc/sysconfig/SuSEfirewall2.d/services/
@@ -116,10 +116,10 @@ zypper --gpg-auto-import-keys --non-interactive in --force rsyslog rsyslog-modul
 rm -rf /etc/rsyslog.d/ && ln -s /media/sysdata/in4/cho/cho_v4/logitoring--c/messagebus--o/syslog--f/rsyslog--g /etc/rsyslog.d
 #SYSTEMD
 rm -f /etc/systemd/system/in4__rsyslog.service 	&& cp  /media/sysdata/in4/cho/cho_v4/logitoring--c/messagebus--o/syslog--f/rsyslog--g/_systemd/in4__rsyslog.service /etc/systemd/system/
-systemctl stop rsyslog && systemctl disable rsyslog
+! systemctl stop rsyslog && systemctl disable rsyslog
 echo "disabled" > /usr/lib/systemd/system/rsyslog.service
 chmod 000 /usr/lib/systemd/system/rsyslog.service
-systemctl enable  in4__rsyslog && systemctl restart in4__rsyslog
+systemctl enable  in4__rsyslog && ! systemctl restart in4__rsyslog
 ###
 
 
@@ -142,7 +142,7 @@ systemctl enable sssd
 # 
 # #SYSTEMD
 # rm -f /etc/systemd/system/rev5_sssd.service  				&& ln -s /media/sysdata/rev5/techpool/ontology/security/sssd/engine/_systemd/rev5_sssd.service 		/etc/systemd/system/  
-# systemctl disable sssd && systemctl stop sssd && systemctl enable rev5_sssd && systemctl restart rev5_sssd
+# systemctl disable sssd && ! systemctl stop sssd && systemctl enable rev5_sssd && ! systemctl restart rev5_sssd
 ###
 
 
@@ -176,7 +176,7 @@ rm -f /etc/drbd.conf && ln -s /media/sysdata/in4/cho/cho_v5/in4_landscape/data_s
 ####
 ### WTF ### - BUG
 rm -f /etc/systemd/system/in4__wtf.service 	&& cp  /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/in4__wtf.service /etc/systemd/system/
-systemctl enable  in4__wtf && systemctl restart in4__wtf
+systemctl enable  in4__wtf && ! systemctl restart in4__wtf
 ###
 
 echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
