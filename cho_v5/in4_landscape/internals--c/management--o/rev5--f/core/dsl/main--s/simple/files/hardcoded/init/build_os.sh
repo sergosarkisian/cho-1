@@ -10,15 +10,14 @@ fi
 
 if [[ -z $ARCH ]]; then
     echo "Please specify arch"
-    if [[ -z $1 ]]; then echo "Please choose arch"; select ARCH in x86_64  i586 armv7l;  do  break ; done; else ARCH=$2; fi
+    if [[ -z $2 ]]; then echo "Please choose arch"; select ARCH in x86_64  i586 armv7l;  do  break ; done; else ARCH=$2; fi
 fi
-
 
 if [[ $TYPE == "vm" ]]; then
 
     if [[ -z $VM_IMAGE_DIR ]]; then
         echo "Please specify VM image dir"
-        if [[ -z $1 ]]; then echo "Please choose VM image dir"; select VM_IMAGE_DIR in /media/storage1/images/!master /media/storage/images/!master `pwd`;  do  break ; done; else VM_IMAGE_DIR=$3; fi
+        if [[ -z $3 ]]; then echo "Please choose VM image dir"; select VM_IMAGE_DIR in /media/storage1/images/!master /media/storage/images/!master `pwd`;  do  break ; done; else VM_IMAGE_DIR=$3; fi
     fi
 
     BUILD_ENV="$VM_IMAGE_DIR/$OS_TYPE/_os_build"
