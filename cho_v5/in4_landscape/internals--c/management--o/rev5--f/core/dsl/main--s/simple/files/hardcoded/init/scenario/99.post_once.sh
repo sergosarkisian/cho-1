@@ -3,7 +3,7 @@ set -e
 echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
 
 	## SSH
-	rm  /etc/ssh/ssh_host_*
+	! rm  /etc/ssh/ssh_host_*
         sshd-gen-keys-start
 	chmod 644 /etc/ssh/ssh_host_*.pub
 	##
