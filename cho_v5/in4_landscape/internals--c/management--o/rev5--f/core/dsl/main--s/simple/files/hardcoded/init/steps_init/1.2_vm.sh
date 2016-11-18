@@ -6,7 +6,7 @@ echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk
 
 
 ### DISK INIT ###
-rm $BUILD_ENV/*.raw
+rm -f $BUILD_ENV/*.raw
 fallocate -l10g $BUILD_ENV/in4a1-suse-l.raw
 mkfs.btrfs -f -L "system" $BUILD_ENV/in4a1-suse-l.raw 
 

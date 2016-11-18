@@ -11,8 +11,8 @@ if [[ -d $BUILD_ENV/loop/sys ]]; then umount $BUILD_ENV/loop/sys; fi
 if [[ -d $BUILD_ENV/loop/media/sysdata ]]; then umount $BUILD_ENV/loop/media/sysdata; fi
 if [[ -d $BUILD_ENV/loop/media ]]; then umount $BUILD_ENV/loop; fi
 
-losetup -d /dev/$LO_SYSDATA
-losetup -d /dev/$LO_SYSTEM
+! losetup -d /dev/$LO_SYSDATA
+! losetup -d /dev/$LO_SYSTEM
 
 
 echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
