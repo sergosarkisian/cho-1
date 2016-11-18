@@ -4,8 +4,8 @@ echo -e "\n\n\n
 ############  VM CONF ###########
 ## VARS ##        
 name                    = "demo-hvxen-test"    ## FQDN
-spicepasswd    = 49999     ## MAC - 4 octets
-spiceport               = 49999          ## MAC - 3 last digits + 50000
+spicepasswd    = $VM_SPICE_PASS     ## MAC - 4 octets
+spiceport               = $VM_SPICE_PORT          ## MAC - 3 last digits + 50000
 ##
 
 ## RESOURCES ##
@@ -18,7 +18,7 @@ cpu_weight = 512
 ##
 
 ## HVM ##
-device_model_override = "/usr/bin/qemu-system-x86_64"
+# device_model_override = "/usr/bin/qemu-system-x86_64"
 builder = 'hvm'
 boot='c'
 acpi_s3=0
@@ -45,6 +45,6 @@ disk=[
 ]                                                                                                                                                                                          
                                                                                                                                                                                   
 vif =[        
-"mac=AA:20:0A:FA:FA:FA type=vif,bridge=type::ext---ext_if::bond_vlannet---policy::common---switch::vlannet---cookie::$VM_VLAN---mtu::$VM_MTU---gate::$VM_GATE_IP",   
+"mac=AA:$VM_NETMASK:$VM_IP2MAC_MAC_UC type=vif,bridge=type::ext---ext_if::bond_vlannet---policy::common---switch::vlannet---cookie::$VM_VLAN---mtu::$VM_MTU---gate::$VM_GATE_IP",   
 ]
 ############  VM CONF ###########\n\n\n"
