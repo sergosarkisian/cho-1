@@ -12,11 +12,11 @@ mkdir -p /media/sysdata/app /media/sysdata/logs/syslog /media/sysdata/logs/syslo
 mkdir -p /media/sysdata/logs/var_log && rm -rf /var/log && ln -s /media/sysdata/logs/var_log /var/log
 mkdir -p /media/sysdata/logs/app/atop /media/sysdata/logs/files	
 	
-rm -f /var; mkdir -p /media/sysdata/linux_sys/var && cp -pR /var/* /media/sysdata/linux_sys/var ; rm -rf /var && ln -s /media/sysdata/linux_sys/var /var
-rm -f /root;  mkdir -p /media/sysdata/linux_sys/root && cp -pR /root/* /media/sysdata/linux_sys/root ; rm -rf /root && ln -s /media/sysdata/linux_sys/root /root
- rm -f /home; mkdir -p /media/sysdata/linux_sys/home && rm -rf /home && ln -s /media/sysdata/linux_sys/home /home
- rm -r /var/tmp; ln -s /tmp /var/tmp
- rm -r /var/run; ln -s /run /var/run
+! rm -f /var; mkdir -p /media/sysdata/linux_sys/var && cp -pR /var/* /media/sysdata/linux_sys/var ; rm -rf /var && ln -s /media/sysdata/linux_sys/var /var
+! rm -f /root;  mkdir -p /media/sysdata/linux_sys/root && cp -pR /root/* /media/sysdata/linux_sys/root ; rm -rf /root && ln -s /media/sysdata/linux_sys/root /root
+! rm -f /home; mkdir -p /media/sysdata/linux_sys/home && rm -rf /home && ln -s /media/sysdata/linux_sys/home /home
+! rm -r /var/tmp; ln -s /tmp /var/tmp
+! rm -r /var/run; ln -s /run /var/run
 ###
 
 ### PASSWORD CHANGE & USRR/GROUP CREATION ###
