@@ -29,8 +29,8 @@ pam-config --add --mkhomedir
 ### SERVICES FIRST ENABLE/START ###
 /sbin/yast security level server
 #/sbin/rcapparmor start
-systemctl disable ntpd
-systemctl mask ntpd
+! systemctl disable ntpd
+! systemctl mask ntpd
 ###
 
 echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
