@@ -1,0 +1,50 @@
+#!/bin/bash
+
+echo -e "\n\n\n
+############  VM CONF ###########
+## VARS ##        
+name                    = "demo-hvxen-test"    ## FQDN
+spicepasswd    = 49999     ## MAC - 4 octets
+spiceport               = 49999          ## MAC - 3 last digits + 50000
+##
+
+## RESOURCES ##
+memory          = $VM_RAM
+maxmem  = $VM_RAM_MAX
+vcpus           = $VM_CPU
+maxvcpus = 8
+pool           = "$VM_POOL"
+cpu_weight = 512
+##
+
+## HVM ##
+device_model_override = "/usr/bin/qemu-system-x86_64"
+builder = 'hvm'
+boot='c'
+acpi_s3=0
+acpi_s4=0
+spice=1
+spice_clipboard_sharing=1
+spicevdagent=1
+keymap='en-us'
+#pvh=1, #usbdevice="tablet", #superpages, 
+##
+
+## XEN ##
+#extra = "CPUFREQ=no panic=15 barrier=off xen_blkfront.max=64 console=hvc0 debug kgdboc=hvc0"
+on_crash = "restart"
+##                                                                                                                                                             
+
+disk=[
+'vdev=sda, target=/media/storage1/images/in4/in4a1-suse-l.raw',
+'vdev=sdb, target=/media/storage1/images/in4/swap.raw',
+'vdev=sdc, target=/media/storage1/images/in4/sysdata.raw',
+#VM_DISK_STORAGE_SIZE=$VM_DISK_STORAGE_SIZE
+'vdev=sdd, target=/media/storage1/images/in4/storage.raw',
+'vdev=sde, target=/media/storage1/images/in4/storage_meta.raw',
+]                                                                                                                                                                                          
+                                                                                                                                                                                  
+vif =[        
+"mac=AA:20:0A:FA:FA:FA type=vif,bridge=type::ext---ext_if::bond_vlannet---policy::common---switch::vlannet---cookie::$VM_VLAN---mtu::$VM_MTU---gate::$VM_GATE_IP",   
+]
+############  VM CONF ###########\n\n\n"
