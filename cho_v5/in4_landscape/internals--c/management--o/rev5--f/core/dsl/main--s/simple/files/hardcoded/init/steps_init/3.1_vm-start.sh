@@ -18,6 +18,7 @@ while (( SECONDS < secs )); do    # Loop until interval has elapsed.
     if [[ $STATE == 4 ]]; then break; fi
     sleep 1
 done
+xl destroy demo-hvxen-test
 
 if [[ $STATE != 4 ]]; then exit 1; fi
 
