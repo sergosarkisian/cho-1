@@ -18,7 +18,7 @@ cp /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/linux_sys--o/boot--f
   
 case $TYPE in
     "vm") grub2-install --boot-directory=/boot --recheck -v /dev/$LO_SYSTEM ; sed -i "s/set default=.*/set default=\"ConeCenter - in4 - Xen - Domu - HVM\"/"  /boot/grub2/grub.cfg ;;
-    "hw") grub2-install --boot-directory=/boot --recheck -v /dev/$IN4_SYSDATA_DISK; sed -i "s/set default=.*/set default=\"ConeCenter - in4 - HW\"/"  /boot/grub2/grub.cfg ;;
+    "hw") grub2-install --boot-directory=/boot --recheck -v /dev/$IN4_BASEDISK; sed -i "s/set default=.*/set default=\"ConeCenter - in4 - HW\"/"  /boot/grub2/grub.cfg ;;
 esac  
 #DOUBLE
 depmod `ls -la /boot/vmlinuz|awk '{print $11}'|sed 's/vmlinuz-//'`

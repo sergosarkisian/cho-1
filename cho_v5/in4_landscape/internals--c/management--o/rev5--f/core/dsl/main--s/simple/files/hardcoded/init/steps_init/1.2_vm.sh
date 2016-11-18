@@ -7,8 +7,8 @@ echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk
 
 ### DISK INIT ###
 rm -f $BUILD_ENV/*.raw
-fallocate -l10g $BUILD_ENV/in4a1-suse-l.raw
-mkfs.btrfs -f -L "system" $BUILD_ENV/in4a1-suse-l.raw 
+fallocate -l10g $BUILD_ENV/$OS_TYPE.raw
+mkfs.btrfs -f -L "system" $BUILD_ENV/$OS_TYPE.raw 
 
 fallocate -l 2g $BUILD_ENV/sysdata.raw
 mkfs.btrfs -f -L "sysdata" $BUILD_ENV/sysdata.raw
@@ -18,7 +18,7 @@ mkswap -f -L "swap" $BUILD_ENV/swap.raw
  ###
  
  ### GENERATE LOOP MOUNT & UNTAR ###
-losetup /dev/$LO_SYSTEM $BUILD_ENV/in4a1-suse-l.raw
+losetup /dev/$LO_SYSTEM $BUILD_ENV/$OS_TYPE.raw
 mount /dev/$LO_SYSTEM  $BUILD_ENV/loop/
 
  ### 
