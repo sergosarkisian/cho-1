@@ -1,0 +1,69 @@
+[Unit]
+Description		= init_auto_hw
+
+## DEPS ## 
+ Before			= network.target
+##
+
+[Service]
+ 
+## TYPE ##
+ Type			= oneshot
+##
+
+## EXECS ##
+ ExecStart		= /bin/sh /media/sysdata/in4/cho/in4_core/deploy/os/_sub/hw_chroot/3.env/init_auto_hw.sh
+ 
+ #loging -  "instance":"%I"
+ ##
+ 
+## PERMISSIONS ##
+ #WorkingDirectory	= 
+ User			= root
+ Group			= root
+ SupplementaryGroups = sysdata
+ #UMask			= 
+##
+
+## MISC ##
+ #Restart			= always
+ PrivateTmp		= true
+ #TimeoutSec		= 300 # larger for DB/huge RAM ps
+ #EnvironmentFile	= -/
+##
+
+## SYSLOG ##
+ SyslogIdentifier	= init_auto_hw_
+ SyslogFacility		= local7
+ SyslogLevel		= info
+ #SyslogLevelPrefix	= false #Can be disabled for ...
+##
+ 
+
+## SECURITY ##
+ #ProtectSystem	= full
+ #ProtectHome	= true
+ #AppArmorProfile	= 
+ #PAMName		= 
+ #SecureBits		= 
+ #Capabilities		= 
+ #ReadWriteDirectories=, ReadOnlyDirectories=, InaccessibleDirectories=
+##
+ 
+
+## LIMITS ##
+ Nice				= 0
+ OOMScoreAdjust	= -1000
+ IOSchedulingClass 	= best-effort
+ IOSchedulingPriority= 1
+ LimitNOFILE=65535
+ #LimitMEMLOCK=infinity #For DB's
+ #MemoryLimit		= 
+ #BlockIOReadBandwidth = 
+ #BlockIOWriteBandwidth = 
+## 
+
+ 
+[Install]
+WantedBy			= multi-user.target
+#RequiredBy=, #Alias = 

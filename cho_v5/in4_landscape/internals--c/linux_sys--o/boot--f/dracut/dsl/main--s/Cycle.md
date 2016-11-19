@@ -1,4 +1,4 @@
-#### REV5 CULTURE for internals--c--linux_sys--o--boot--f--dracut
+#### IN4 CULTURE for internals--c--linux_sys--o--boot--f--dracut
 
 ### 1. SERVICE STRATEGY (Business analyst)
 
