@@ -16,26 +16,28 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-#LogMsg="Dump vars for $ExecScriptname: "
-#echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
+. $In4_Exec_Path/_base/build/1.init/5.post.sh
 
-if [[ $DeployOsMode == "vm_xen" ]]; then
-    BuildEnv="$VMImageDir/$OS_Type/_os_build"
+### OPENSUSE INIT
+if [[ -z $OfflineDir ]]; then
+    ! sudo zypper --non-interactive in wget btrfsprogs parted git xz tar
 else
-    BuildEnv="`pwd`/_os_build"
+    echo "Needs offline zypper" ## BUG
 fi
+#
 
+rm -rf $BuildEnv/*
+mkdir -p $BuildEnv/loop && cd $BuildEnv
 
-if [[ -f $BuildEnv/$In4NamingOsSrvType.raw  ]]; then
-    echo "Build image exists, run "
-    #. $In4_Exec_Path/run.sh
+### 42.2 ###
+if [[ -z $OfflineDir ]]; then
+    wget -O $BuildEnv/openSUSE-42.2-docker-guest-docker.$DeployOsArch.tar.xz http://download.opensuse.org/repositories/Virtualization:/containers:/images:/openSUSE-42.2/images/openSUSE-42.2-docker-guest-docker.$DeployOsArch.tar.xz
 else
-    echo "Build image not exists, build "
-    . $In4_Exec_Path/build.sh
-    #. $In4_Exec_Path/run.sh
+    cp $OfflineDir/openSUSE-42.2-docker-guest-docker.$DeployOsArch.tar.xz $BuildEnv/
 fi
+#
 
-
+###
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`

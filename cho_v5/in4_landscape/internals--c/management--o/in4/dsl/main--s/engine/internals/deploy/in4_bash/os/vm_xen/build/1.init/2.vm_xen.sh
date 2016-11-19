@@ -1,3 +1,4 @@
+#!/bin/bash
 ########    #######    ########    #######    ########    ########
 ##     / / / /    License    \ \ \ \ 
 ##    Copyleft culture, Copyright (C) is prohibited here
@@ -16,26 +17,27 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-#LogMsg="Dump vars for $ExecScriptname: "
-#echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
+### DISK INIT ###
+rm -f $BuildEnv/*.raw
+fallocate -l$VmDiskSizeSystem $BuildEnv/$In4NamingOsSrvType.raw
+sudo mkfs.btrfs -f -L "system" $BuildEnv/$In4NamingOsSrvType.raw 
 
-if [[ $DeployOsMode == "vm_xen" ]]; then
-    BuildEnv="$VMImageDir/$OS_Type/_os_build"
-else
-    BuildEnv="`pwd`/_os_build"
-fi
+fallocate -l $VmDiskSizeSysdata $BuildEnv/sysdata.raw
+sudo mkfs.btrfs -f -L "sysdata" $BuildEnv/sysdata.raw
 
+fallocate -l $VmDiskSizeSwap $BuildEnv/swap.raw
+sudo mkswap -f -L "swap" $BuildEnv/swap.raw 
+ ###
+ 
+ ### GENERATE LOOP MOUNT & UNTAR ###
+sudo losetup /dev/$VmDiskLoopSystem $BuildEnv/$In4NamingOsSrvType.raw
+sudo mount /dev/$VmDiskLoopSystem  $BuildEnv/loop/
 
-if [[ -f $BuildEnv/$In4NamingOsSrvType.raw  ]]; then
-    echo "Build image exists, run "
-    #. $In4_Exec_Path/run.sh
-else
-    echo "Build image not exists, build "
-    . $In4_Exec_Path/build.sh
-    #. $In4_Exec_Path/run.sh
-fi
-
-
+ ### 
+ mkdir -p  $BuildEnv/loop/media/sysdata
+sudo losetup /dev/$VmDiskLoopSysdata $BuildEnv/sysdata.raw
+sudo mount /dev/$VmDiskLoopSysdata $BuildEnv/loop/media/sysdata
+ ###
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`

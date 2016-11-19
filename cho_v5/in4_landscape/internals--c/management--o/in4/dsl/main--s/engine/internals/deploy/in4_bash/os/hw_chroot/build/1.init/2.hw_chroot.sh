@@ -2,11 +2,6 @@
 set -e
 echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
 
-echo "Please enter in4 linux base disk"
-select IN4_BASEDISK in sda sdb sdc sdd sde 
-do  break; done
-export IN4_BASEDISK="$IN4_BASEDISK"
-
 echo "Do you need to make disk partitions?"
 select PARTED in Yes No
 do  
@@ -26,7 +21,7 @@ do
         select IN4_SYSDATA_SIZE in 5 10 15 20 30 40 50 80 100
         do  break; done
 
-        echo "If sysdata belongs to in4 linux base disk ($IN4_BASEDISK) "
+        echo "If sysdata belongs to in4 linux base disk ($HWBaseDisk) "
         select IN4_SYSDATA_DISK in Yes No
         do
             case $IN4_SYSDATA_DISK in
@@ -35,24 +30,24 @@ do
             esac
         done
 
-        echo "!!!   DATA WILL BE DESTROYED ON partition $IN4_BASEDISK"
+        echo "!!!   DATA WILL BE DESTROYED ON partition $HWBaseDisk"
         select IN4_SYSDATA_DISK in Yes No
         do
             case $IN4_SYSDATA_DISK in
             "Yes") 
-                parted  /dev/$IN4_BASEDISK mklabel gpt
-                parted  /dev/$IN4_BASEDISK mkpart primary 1MiB 4MiB
-                parted  /dev/$IN4_BASEDISK set 1 bios_grub on
-                parted  /dev/$IN4_BASEDISK mkpart primary btrfs 5MiB ${IN4_SYSTEM_SIZE}GiB                
-                parted  /dev/$IN4_BASEDISK set 2 boot on                                               
+                parted  /dev/$HWBaseDisk mklabel gpt
+                parted  /dev/$HWBaseDisk mkpart primary 1MiB 4MiB
+                parted  /dev/$HWBaseDisk set 1 bios_grub on
+                parted  /dev/$HWBaseDisk mkpart primary btrfs 5MiB ${IN4_SYSTEM_SIZE}GiB                
+                parted  /dev/$HWBaseDisk set 2 boot on                                               
                 sleep 1
-                mkfs.btrfs -f -L "system" /dev/${IN4_BASEDISK}2
-                parted  /dev/$IN4_BASEDISK mkpart primary linux-swap ${IN4_SYSTEM_SIZE}GiB $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE))GiB
+                mkfs.btrfs -f -L "system" /dev/$HWBaseDisk}2
+                parted  /dev/$HWBaseDisk mkpart primary linux-swap ${IN4_SYSTEM_SIZE}GiB $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE))GiB
                 sleep 1
-                mkswap -f -L "swap" /dev/${IN4_BASEDISK}3
-                parted  /dev/$IN4_BASEDISK mkpart primary btrfs $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE))GiB $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE+$IN4_SYSDATA_SIZE))GiB
+                mkswap -f -L "swap" /dev/$HWBaseDisk}3
+                parted  /dev/$HWBaseDisk mkpart primary btrfs $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE))GiB $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE+$IN4_SYSDATA_SIZE))GiB
                 sleep 1
-                mkfs.btrfs -f -L "sysdata" /dev/${IN4_BASEDISK}4
+                mkfs.btrfs -f -L "sysdata" /dev/$HWBaseDisk}4
                 
             break ;;
             "No") exit 1;;
@@ -66,9 +61,9 @@ done
 
 
 ### GENERATE LOOP MOUNT & UNTAR ###
-mount /dev/${IN4_BASEDISK}2  $BUILD_ENV/loop/
+mount /dev/$HWBaseDisk}2  $BUILD_ENV/loop/
 mkdir -p  $BUILD_ENV/loop/media/sysdata
-mount /dev/${IN4_BASEDISK}4 $BUILD_ENV/loop/media/sysdata
+mount /dev/$HWBaseDisk}4 $BUILD_ENV/loop/media/sysdata
 ###
 
 echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"

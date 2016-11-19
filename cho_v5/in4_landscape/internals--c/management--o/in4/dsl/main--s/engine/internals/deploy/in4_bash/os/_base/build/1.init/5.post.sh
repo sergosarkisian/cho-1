@@ -16,26 +16,18 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-#LogMsg="Dump vars for $ExecScriptname: "
-#echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
+if [[ -d $BuildEnv/loop/dev ]]; then sudo umount $BuildEnv/loop/dev; fi
+if [[ -d $BuildEnv/loop/proc ]]; then sudo umount $BuildEnv/loop/proc; fi
+if [[ -d $BuildEnv/loop/sys ]]; then sudo umount $BuildEnv/loop/sys; fi
 
-if [[ $DeployOsMode == "vm_xen" ]]; then
-    BuildEnv="$VMImageDir/$OS_Type/_os_build"
-else
-    BuildEnv="`pwd`/_os_build"
+if [[ -d $BuildEnv/loop/media/sysdata ]]; then sudo umount $BuildEnv/loop/media/sysdata; fi
+if [[ -d $BuildEnv/loop/media ]]; then sudo umount $BuildEnv/loop; fi
+
+if [[ $DeployOsMode == "vm_xen" ]] ; then 
+    ! sudo losetup -d /dev/$VmDiskLoopSysdata
+    ! sudo losetup -d /dev/$VmDiskSizeSystem
+    ! sudo xl destroy demo-hvxen-test
 fi
-
-
-if [[ -f $BuildEnv/$In4NamingOsSrvType.raw  ]]; then
-    echo "Build image exists, run "
-    #. $In4_Exec_Path/run.sh
-else
-    echo "Build image not exists, build "
-    . $In4_Exec_Path/build.sh
-    #. $In4_Exec_Path/run.sh
-fi
-
-
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`

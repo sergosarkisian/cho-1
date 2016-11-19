@@ -9,11 +9,34 @@
 ##    Language = bash DSL, profiles
 ##    Indent = space;    4 chars;
 ########    #######    ########    #######    ########    ########
+set -e
 
-alias in4__class--c--order--o--family--f--genus--g--main--s__sdo-...='sudo FULL_PATH ARGS ...'
-alias in4__short__genus--g__sdo-...=FULL_ALIAS
+_in4__zypper () {
+    full_stack=$@
+    SKIP=()
 
-alias in4__class--c--order--o--family--f--genus--g--main--s__do-...='FULL_PATH ARGS ...'
-alias in4__short__genus--g__do-...=FULL_ALIAS
 
+    for i in "$@"; do
+        if [[ $i =~ "--" ]]; then
+            SKIP+=("${i#*=}")
+            shift
+            PARAMS=$@
+        else
+            command=$i
+            shift
+            break
+        fi
+    done
+
+        case $command in
+        se|in|up)
+            $EXEC zypper ${SKIP[*]} $command --details $@
+        ;;
+        *)
+            $EXEC zypper $full_stack
+        ;;
+    esac
+}
+alias zypper=_in4__zypper
+alias sdo_zypper='EXEC="sudo";_in4__zypper'
 
