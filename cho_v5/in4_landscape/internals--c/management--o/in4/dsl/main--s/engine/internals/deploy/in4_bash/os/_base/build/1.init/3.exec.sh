@@ -18,14 +18,14 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
 ### UNTAR ###
-tar xf *.tar.xz -C $BuildEnv/loop/
-rm -rf $BuildEnv/loop/media/sysdata/*
+sudo tar xf *.tar.xz -C $BuildEnv/loop/
+sudo rm -rf $BuildEnv/loop/media/sysdata/*
 ###
 
  ###  CP OWN FILES ###
-cp /etc/resolv.conf $BuildEnv/loop/etc/
-cp /etc/sysconfig/proxy $BuildEnv/loop/etc/sysconfig/
-chmod 744  $BuildEnv/loop/etc/sysconfig/
+sudo cp /etc/resolv.conf $BuildEnv/loop/etc/
+sudo cp /etc/sysconfig/proxy $BuildEnv/loop/etc/sysconfig/
+sudo chmod 744  $BuildEnv/loop/etc/sysconfig/
  ### 
  
  GIT_PATH="$BuildEnv/loop"

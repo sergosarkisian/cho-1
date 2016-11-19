@@ -34,7 +34,7 @@ sudo losetup /dev/$VmDiskLoopSystem $BuildEnv/$In4NamingOsSrvType.raw
 sudo mount /dev/$VmDiskLoopSystem  $BuildEnv/loop/
 
  ### 
- mkdir -p  $BuildEnv/loop/media/sysdata
+sudo mkdir -p  $BuildEnv/loop/media/sysdata
 sudo losetup /dev/$VmDiskLoopSysdata $BuildEnv/sysdata.raw
 sudo mount /dev/$VmDiskLoopSysdata $BuildEnv/loop/media/sysdata
  ###

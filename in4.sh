@@ -46,7 +46,7 @@ case $Task in
                 
                 ### vm_xen ###
                     
-                if [[ $DeployOsType == "vm_xen" ]]; then
+                if [[ $DeployOsMode == "vm_xen" ]]; then
                 
                     if [[ -z $VMImageDir ]]; then
                         DialogMsg="Please specify VM image path name"
@@ -62,7 +62,7 @@ case $Task in
                 ###
                 
                 ### hw_chroot ###
-                if [[ $DeployOsType == "hw_chroot" ]]; then
+                if [[ $DeployOsMode == "hw_chroot" ]]; then
                 
                     if [[ -z $HWBaseDisk ]]; then
                         DialogMsg="Please specify VM image path name"

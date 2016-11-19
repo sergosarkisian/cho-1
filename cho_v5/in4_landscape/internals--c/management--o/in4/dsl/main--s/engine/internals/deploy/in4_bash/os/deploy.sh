@@ -25,16 +25,19 @@ else
     BuildEnv="`pwd`/_os_build"
 fi
 
+if [[ $DeployOsMode == "vm_xen" ]]; then
+    . $In4_Exec_Path/build_env.sh
+    . $In4_Exec_Path/_base/build/1.init/5.post.sh
 
-if [[ -f $BuildEnv/$In4NamingOsSrvType.raw  ]]; then
-    echo "Build image exists, run "
-    #. $In4_Exec_Path/run.sh
-else
-    echo "Build image not exists, build "
-    . $In4_Exec_Path/build.sh
-    #. $In4_Exec_Path/run.sh
+    if [[ -f $BuildEnv/$In4NamingOsSrvType.raw  ]]; then
+        echo "Build image exists, run "
+        #. $In4_Exec_Path/run.sh
+    else
+        echo "Build image not exists, build "
+        . $In4_Exec_Path/build.sh
+        #. $In4_Exec_Path/run.sh
+    fi
 fi
-
 
 
 ### IN4 BASH FOOTER ###

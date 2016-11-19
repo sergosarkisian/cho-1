@@ -16,16 +16,18 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-if [[ -d $BuildEnv/loop/dev ]]; then sudo umount $BuildEnv/loop/dev; fi
-if [[ -d $BuildEnv/loop/proc ]]; then sudo umount $BuildEnv/loop/proc; fi
-if [[ -d $BuildEnv/loop/sys ]]; then sudo umount $BuildEnv/loop/sys; fi
+if [[ -d $BuildEnv/loop/dev ]]; then ! sudo umount $BuildEnv/loop/dev; fi
+if [[ -d $BuildEnv/loop/proc ]]; then ! sudo umount $BuildEnv/loop/proc; fi
+if [[ -d $BuildEnv/loop/sys ]]; then ! sudo umount $BuildEnv/loop/sys; fi
 
 if [[ -d $BuildEnv/loop/media/sysdata ]]; then sudo umount $BuildEnv/loop/media/sysdata; fi
 if [[ -d $BuildEnv/loop/media ]]; then sudo umount $BuildEnv/loop; fi
 
 if [[ $DeployOsMode == "vm_xen" ]] ; then 
+    ! sudo umount /dev/$VmDiskLoopSysdata
+    ! sudo umount /dev/$VmDiskLoopSystem
     ! sudo losetup -d /dev/$VmDiskLoopSysdata
-    ! sudo losetup -d /dev/$VmDiskSizeSystem
+    ! sudo losetup -d /dev/$VmDiskLoopSystem
     ! sudo xl destroy demo-hvxen-test
 fi
 
