@@ -1,0 +1,85 @@
+[Unit]
+Description		= In4 CMDB tasks configuration
+
+## DEPS ## 
+ Requires			= var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
+ After			= var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
+##
+
+
+## MISC ## 
+ #StopWhenUnneeded	= true
+ #ConditionPathExists	=
+##
+
+[Service]
+ 
+## TYPE ##
+ Type			= oneshot
+##
+
+## EXECS ##
+ ExecStart		= /bin/sh /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/3.env/sync_service/in4_sync.sh
+
+ #ExecStartPre		= 
+ ExecStartPre		= /bin/sh /media/sysdata/in4/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"unknown", "action":"start", "subaction":"pre", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ 
+ #ExecStartPost	= 
+ ExecStartPost		= /bin/sh /media/sysdata/in4/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"started", "action":"start", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ 
+ #ExecStopPost	= 
+ ExecStopPost		= /bin/sh /media/sysdata/in4/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"stopped", "action":"stop", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
+ 
+ #loging -  "instance":"%I"
+ ##
+ 
+## PERMISSIONS ##
+ #WorkingDirectory	= 
+ User			= root
+ Group			= root
+ SupplementaryGroups = sysdata
+ #UMask			= 
+##
+
+## MISC ##
+ #Restart			= always
+ #PrivateTmp		= true
+ #TimeoutSec		= 300 # larger for DB/huge RAM ps
+ EnvironmentFile	   = /etc/sysconfig/proxy
+##
+
+## SYSLOG ##
+ SyslogIdentifier	= in4__sync
+ SyslogFacility		= local7
+ SyslogLevel		= info
+ #SyslogLevelPrefix	= false #Can be disabled for ...
+##
+ 
+
+## SECURITY ##
+ #ProtectSystem	= full
+ #ProtectHome	= true
+ #AppArmorProfile	= 
+ #PAMName		= 
+ #SecureBits		= 
+ #Capabilities		= 
+ #ReadWriteDirectories=, ReadOnlyDirectories=, InaccessibleDirectories=
+##
+ 
+
+## LIMITS ##
+ Nice				= 0
+ OOMScoreAdjust	= -1000
+ IOSchedulingClass 	= best-effort
+ IOSchedulingPriority= 1
+ LimitNOFILE=65535
+ #LimitMEMLOCK=infinity #For DB's
+ #MemoryLimit		= 
+ #BlockIOReadBandwidth = 
+ #BlockIOWriteBandwidth = 
+## 
+
+ 
+[Install]
+WantedBy			= multi-user.target
+#RequiredBy=, #Alias = 

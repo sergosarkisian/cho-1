@@ -1,4 +1,3 @@
-#!/bin/sh
 ########    #######    ########    #######    ########    ########
 ##     / / / /    License    \ \ \ \ 
 ##    Copyleft culture, Copyright (C) is prohibited here
@@ -7,10 +6,15 @@
 ##    Refer to the http://creativecommons.org/licenses/by-sa/4.0/
 ########    #######    ########    #######    ########    ########
 ##    / / / /    Code Climate    \ \ \ \ 
-##    Language = bash
+##    Language = DSL, systemd
 ##    Indent = space;    4 chars;
 ########    #######    ########    #######    ########    ########
-set -e
 
-##PACKAGE
-zypper --gpg-auto-import-keys --non-interactive in --oldpackage 
+[Unit]
+    Description = Diskmount for storage resource
+    Requires = systemd-fsck@dev-disk-by\x2dlabel-storage.service
+
+[Mount]
+    What = /dev/drbd/by-res/storage/0
+    Where = /media/storage
+    Options = rw,noatime,acl,usrquota,grpquota,user_xattr

@@ -10,6 +10,7 @@
 ##    Language = bash
 ##    Indent = space;    4 chars;
 ########    #######    ########    #######    ########    ########
+set -e
 
 ##REPO
 zypper --gpg-auto-import-keys --non-interactive ar -p10 -cf #CONECENTER REPO

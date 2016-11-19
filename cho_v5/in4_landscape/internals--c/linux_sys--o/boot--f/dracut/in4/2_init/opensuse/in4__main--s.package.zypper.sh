@@ -10,6 +10,7 @@
 ##    Language = bash
 ##    Indent = space;    4 chars;
 ########    #######    ########    #######    ########    ########
+set -e
 
 ##PACKAGE
 zypper --gpg-auto-import-keys --non-interactive in --oldpackage dracut
