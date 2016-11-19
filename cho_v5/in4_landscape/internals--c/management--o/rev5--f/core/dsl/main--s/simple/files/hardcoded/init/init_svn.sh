@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ ! -d /media/sysdata/in4/_context ]]; then  
-	. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/naming/naming.sh os
+	. /media/sysdata/in4/cho/in4_core/naming/naming.sh os
 
 	echo "Enter SVN password: "
 	read SVNPass

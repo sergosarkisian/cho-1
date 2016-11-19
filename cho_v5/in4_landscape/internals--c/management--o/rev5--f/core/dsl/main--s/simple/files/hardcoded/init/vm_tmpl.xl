@@ -1,10 +1,9 @@
 #!/bin/bash
-
-echo -e "\n\n\n
+echo -e "\n
 ############  VM CONF ###########
 ## VARS ##        
-name                    = "demo-hvxen-test"    ## FQDN
-spicepasswd    = $VM_SPICE_PASS     ## MAC - 4 octets
+name                    = \"$FullSrvName\"    ## FQDN
+spicepasswd    = $MACIP     ## MAC - 4 octets
 spiceport               = $VM_SPICE_PORT          ## MAC - 3 last digits + 50000
 ##
 
@@ -13,7 +12,7 @@ memory          = $VM_RAM
 maxmem  = $VM_RAM_MAX
 vcpus           = $VM_CPU
 maxvcpus = 8
-pool           = "$VM_POOL"
+pool           = \"$VM_POOL\"
 cpu_weight = 512
 ##
 
@@ -36,15 +35,15 @@ on_crash = "restart"
 ##                                                                                                                                                             
 
 disk=[
-'vdev=sda, target=/media/storage1/images/in4/in4a1-suse-l.raw',
-'vdev=sdb, target=/media/storage1/images/in4/swap.raw',
-'vdev=sdc, target=/media/storage1/images/in4/sysdata.raw',
+'vdev=sda, target=/media/storage1/images/in4/$VM_DISK_PATH/$SrvType.raw',
+'vdev=sdb, target=/media/storage1/images/in4/$VM_DISK_PATH/swap.raw',
+'vdev=sdc, target=/media/storage1/images/in4/$VM_DISK_PATH/sysdata.raw',
 #VM_DISK_STORAGE_SIZE=$VM_DISK_STORAGE_SIZE
-'vdev=sdd, target=/media/storage1/images/in4/storage.raw',
-'vdev=sde, target=/media/storage1/images/in4/storage_meta.raw',
+'vdev=sdd, target=/media/storage1/images/in4/$VM_DISK_PATH/storage.raw',
+'vdev=sde, target=/media/storage1/images/in4/$VM_DISK_PATH/storage_meta.raw',
 ]                                                                                                                                                                                          
                                                                                                                                                                                   
 vif =[        
-"mac=AA:$VM_NETMASK:$VM_IP2MAC_MAC_UC type=vif,bridge=type::ext---ext_if::bond_vlannet---policy::common---switch::vlannet---cookie::$VM_VLAN---mtu::$VM_MTU---gate::$VM_GATE_IP",   
+"mac=AA:$VM_IP2MAC_MAC_UC:$VM_NETMASK type=vif,bridge=type::ext---ext_if::bond_vlannet---policy::common---switch::vlannet---cookie::$VM_VLAN---mtu::$VM_MTU---gate::$VM_GATE_IP",   
 ]
 ############  VM CONF ###########\n\n\n"

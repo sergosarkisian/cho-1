@@ -1,9 +1,19 @@
 #!/bin/bash
 set -e
+. /media/sysdata/in4/cho/in4_core/naming/manual.sh
 i=1
-. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/naming/manual.sh
 
-VM_DISKPATH=
+if [[ -z $VM_HV_NAME ]]; then
+    DESC="Please specify hypervisor name"
+    ARG_NUM=`echo $@|awk '{print $i}'`; let "i++"    
+    if [[ -z $ARG_NUM ]]; then echo $DESC; read VM_HV_NAME; else VM_HV_NAME=$ARG_NUM; fi
+fi
+
+if [[ -z $VM_HV_ORG ]]; then
+    DESC="Please specify hypervisor organisation"
+    ARG_NUM=`echo $@|awk '{print $i}'`; let "i++"    
+    if [[ -z $ARG_NUM ]]; then echo $DESC; read VM_HV_ORG; else VM_HV_ORG=$ARG_NUM; fi
+fi
 
 if [[ -z $VM_CPU ]]; then
     DESC="Please specify number of CPUs"
@@ -45,6 +55,8 @@ if [[ -z $VM_DISK_STORAGE_SIZE ]]; then
     if [[ -z $ARG_NUM ]]; then echo $DESC; select VM_DISK_STORAGE_SIZE in 10 50 100 200 300;  do  break ; done; else VM_DISK_STORAGE_SIZE=$ARG_NUM; fi
 fi
 
+VM_DISK_PATH="$Org/$SrvRole/$DeplType/$SrvName"
+
 echo -e "\n #### Network  #### \n"
 
 
@@ -66,17 +78,18 @@ fi
 # systemd service
 
 ### SUPERLOGIC ###
-VM_IP2MAC_OCT1=$( printf "%02x" `echo $VM_IP|cut -d. -f 1`)
-VM_IP2MAC_OCT2=$( printf "%02x" `echo $VM_IP|cut -d. -f 2`)
-VM_IP2MAC_OCT3=$( printf "%02x" `echo $VM_IP|cut -d. -f 3`)
-VM_IP2MAC_OCT4=$( printf "%02x" `echo $VM_IP|cut -d. -f 4|cut -d/ -f 1`)
-VM_NETMASK=$( printf "%02x" `echo $VM_IP|cut -d. -f 4|cut -d/ -f 2`)
 VM_IP2MAC_SUM3_DEC=$((16#${VM_IP2MAC_OCT3:1:1}${VM_IP2MAC_OCT4}))
 VM_SPICE_PORT=$((VM_IP2MAC_SUM3_DEC+50000))
-VM_SPICE_PASS="${VM_IP2MAC_OCT1}${VM_IP2MAC_OCT2}${VM_IP2MAC_OCT3}${VM_IP2MAC_OCT4}"
-MACIP="${VM_IP2MAC_OCT1}${VM_IP2MAC_OCT2}${VM_IP2MAC_OCT3}${VM_IP2MAC_OCT4}${VM_NETMASK}"
 VM_IP2MAC_MAC_UC="${VM_IP2MAC_OCT1^^}:${VM_IP2MAC_OCT2^^}:${VM_IP2MAC_OCT3^^}:${VM_IP2MAC_OCT4^^}:${VM_NETMASK^^}"
 ###
 .  /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/vm_tmpl.xl
 
-.  /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/vm_tmpl.xl > /media/sysdata/in4/_context/conf/xen/$HV/$Org.pool/$Net/$SrvType/$DeplType/$SrvName.hvm.xl
+### CREATE XL CONF IN SVN ###
+SVN_CONF_PATH="/media/sysdata/in4/companies/$VM_HV_ORG/sdata/roles/hv_xen/$VM_HV_NAME/$Org/$SrvRole/$DeplType"
+mkdir -p  $SVN_CONF_PATH
+ .  /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/vm_tmpl.xl > $SVN_CONF_PATH/${SrvName}.xl
+ ###
+ 
+ ### PROMOTE VM ON HV ###
+ systemctl -H $VM_HV_NAME start in4_vm-deploy@$FullSrvName
+ ##

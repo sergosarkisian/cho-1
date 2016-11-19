@@ -12,14 +12,14 @@ if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then
          ### 
         
         ###  DISABLE NET DHCP ### 
-        cp /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/wtf/wickedd-dhcp /usr/lib/systemd/system/wickedd-auto4.service
-        cp /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/wtf/wickedd-dhcp /usr/lib/systemd/system/wickedd-dhcp4.service
+        cp /media/sysdata/in4/cho/in4_core/init/wtf/wickedd-dhcp /usr/lib/systemd/system/wickedd-auto4.service
+        cp /media/sysdata/in4/cho/in4_core/init/wtf/wickedd-dhcp /usr/lib/systemd/system/wickedd-dhcp4.service
         systemctl disable wickedd-dhcp6
         systemctl mask wickedd-dhcp6
         ### 
 	DOMID=`xenstore-read domid`
 	NAME=`xenstore-read /local/domain/$DOMID/name`
-	.  /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/naming/naming.sh os $NAME
+	.  /media/sysdata/in4/cho/in4_core/naming/naming.sh os $NAME
 	
 	if [[ $View == "os" ]]; then 
 		#hostname
@@ -27,7 +27,7 @@ if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then
 		cp /media/sysdata/in4/cho/cho_v3/ontology/linux_sys/suse-network/hosts /etc/hosts
 		echo "127.0.0.3 $NAME $SrvName" >> /etc/hosts
 
-                sh /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/scenario/99.post_once.sh
+                sh /media/sysdata/in4/cho/in4_core/init/scenario/99.post_once.sh
 		
 		hostnamectl --transient set-hostname $SrvName
 		hostnamectl --static set-hostname  $NAME

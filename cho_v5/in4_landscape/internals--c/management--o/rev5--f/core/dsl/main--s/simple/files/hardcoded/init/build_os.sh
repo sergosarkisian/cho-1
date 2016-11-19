@@ -2,7 +2,7 @@
 set -e
 #red=`tput setaf 1`
 
-. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/build_os-*_env.sh
+. /media/sysdata/in4/cho/in4_core/init/build_os-*_env.sh
 
 
 if [[ -z $TYPE ]]; then
@@ -26,12 +26,12 @@ if [[ $TYPE == "vm" ]]; then
 else
     BUILD_ENV="`pwd`/_os_build"
 fi
-. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/steps_init/1.1_pre.sh
-if [[ $TYPE == "hw" ]] ; then . /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/steps_init/1.2_hw.sh; fi
-if [[ $TYPE == "vm" ]] ; then . /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/steps_init/1.2_vm.sh; fi
-. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/steps_init/1.3_exec.sh
-if [[ $TYPE == "vm" ]] ; then . /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/steps_init/3.1_vm-start.sh; fi
-. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/steps_init/2.post.sh
+. /media/sysdata/in4/cho/in4_core/init/steps_init/1.1_pre.sh
+if [[ $TYPE == "hw" ]] ; then . /media/sysdata/in4/cho/in4_core/init/steps_init/1.2_hw.sh; fi
+if [[ $TYPE == "vm" ]] ; then . /media/sysdata/in4/cho/in4_core/init/steps_init/1.2_vm.sh; fi
+. /media/sysdata/in4/cho/in4_core/init/steps_init/1.3_exec.sh
+if [[ $TYPE == "vm" ]] ; then . /media/sysdata/in4/cho/in4_core/init/steps_init/3.1_vm-start.sh; fi
+. /media/sysdata/in4/cho/in4_core/init/steps_init/2.post.sh
 
 green=`tput setaf 2`
 echo -e "${green}\n\n\n ################# BUILDED OK #################"

@@ -8,7 +8,7 @@ echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk
 # cd /media/storage1/images/\!master/openSUSE-42.1/_dev
 # ###
 
-. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/steps_init/2.post.sh
+. /media/sysdata/in4/cho/in4_core/init/steps_init/2.post.sh
 
 ### OPENSUSE INIT
 ! zypper --non-interactive in wget btrfsprogs parted git xz tar

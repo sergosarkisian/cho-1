@@ -2,7 +2,7 @@
 set -e
 echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
 
-. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/build_os-vm_env.sh
+. /media/sysdata/in4/cho/in4_core/init/build_os-vm_env.sh
 
 
 ### DISK INIT ###
