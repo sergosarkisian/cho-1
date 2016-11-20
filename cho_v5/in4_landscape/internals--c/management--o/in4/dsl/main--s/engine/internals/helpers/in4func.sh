@@ -12,6 +12,47 @@
 ########    #######    ########    #######    ########    ########
 set -e
 
+in4func_resolve_in4() {
+declare -A k v store
+
+    if [[ $1 =~ --g--.*.--s ]]; then 
+
+        arr=(${1//--/ }) 
+        i=0
+        for pairs in ${arr[*]}; do
+            if [[ $pairs != ? ]]; then 
+                v[${i}]=${pairs}
+            else
+                k[${i}]=${pairs}
+                (( ++i))
+            fi
+        done
+        
+        i=0
+        for kv in ${k[*]}; do   
+            store[${kv}]=${v[$i]}
+                (( ++i))
+    done
+
+    else
+        echo  "Enter Class :"
+        read c; store["c"]=$c
+        echo  "Enter Order :"
+        read o; store["o"]=$o
+        echo  "Enter Family :"
+        read f; store["f"]=$f
+        echo  "Enter Genus :"
+        read g; store["g"]=$g
+        echo  "Enter Species ('main' if ommitted) :"
+        read s; store["s"]=$s
+        
+    fi
+    
+    in4TaxonomySerial="${store[c]}--c--${store[o]}--o--${store[f]}--f--${store[g]}--g--${store[s]}--s"
+    in4TaxonomySerialShort="${store[c]}--c--${store[o]}--o--${store[f]}--f--${store[g]}"
+    in4TaxonomyPath="${store[c]}--c/${store[o]}--o/${store[f]}--f/${store[g]}"    
+}
+
 in4func_Zypper () {
 
     ZypperArgsOnline="--non-interactive  --gpg-auto-import-keys in " 
@@ -36,6 +77,19 @@ in4func_Zypper () {
     done
 }
 
-in4func_recipe () {
-in4 recipe 2_init opensuse package add internals--c--linux_sys--o--boot--f--dracut--g--main--s
+in4func_run () {
+    "internals--c--linux_sys--o--boot--f--dracut--g--main--s" "2_init/opensuse" "in4__main--s.package.zypper.sh"
+    in4LandscapeFQN= in4func_resolve_in4 $1
+    RunPath=$2
+    RunName=$3
+    
+    . /media/sysdata/in4/cho/cho_v5/in4_landscape/$in4TaxonomyPath/in4/$RunPath/$RunName
+}
+
+in4func_cp () {
+    in4LandscapeFQN= in4func_resolve_in4 $1
+    Source=$2
+    Destination=$3
+    
+    cp -r /media/sysdata/in4/cho/cho_v5/in4_landscape/$in4TaxonomyPath/dsl/${store[s]}/$Source $Destination 
 }

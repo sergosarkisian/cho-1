@@ -13,4 +13,4 @@
 set -e
 
 ##PACKAGE
-zypper --gpg-auto-import-keys --non-interactive in --oldpackage dracut
+in4func_Zypper dracut

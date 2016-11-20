@@ -13,16 +13,13 @@ set -e
 
 needed:
 -- offline = 
-    init - zypper 1st install, then cp & symlink
-    exec -zypper --no-refresh --raw-cache-dir --pkg-cache-dir --cache-dir; zypper ar -cf  -???; git; docker image;
-in4 default logging
 profile.d for in4 , in4 = in4 sync
 
 /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/in4/dsl/main--s/engine/instance/..
-in4 deploy - GIT_PATH
-    1.os - SCENARIO,
-        hw_chroot - 
-        vm_xen -  LO_SYSTEM, LO_SYSDATA
+in4 deploy -
+    1.os - 
+        hw_chroot
+        vm_xen
         docker
     3.role
         c3app
@@ -50,11 +47,4 @@ in4 sys cp
 in4 sys cp_gen
 
 #### TO DO
-1) in4 recipe  2_init 
 
-2) in4 cp
-in4LandscapeFQN=$1
-ActionPath=$2
-Destination=$3
-
-= cp -r /media/sysdata/in4/cho/cho_v5/in4_landscape/ $Destination 
