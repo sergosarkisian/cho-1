@@ -25,6 +25,7 @@ else
     ZypperFlags=""
 fi
 
+exit 1
     zypper --non-interactive $ZypperFlags in --force aaa_base kmod binutils
     zypper --non-interactive $ZypperFlags in --force net-tools iproute2 wicked-service dbus-1 strace
     zypper --non-interactive $ZypperFlags in --force  aaa_base-extras man man-pages kbd timezone util-linux-systemd
