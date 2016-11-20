@@ -17,7 +17,11 @@ in4func_Zypper () {
     ZypperArgsOnline="--non-interactive  --gpg-auto-import-keys in " 
     ZypperArgsOffline="--non-interactive  --no-gpg-checks --no-refresh -C /var/cache/zypp_offline in --force"
 
-    readarray PackagesArray < $1
+    if [[ -n $(`echo $1|grep "/"`) ]]; then
+        readarray PackagesArray < $1    
+    else
+        PackagesArray=($1)
+    fi
     for PackagesLines in "${PackagesArray[@]}"
     do
         if [[ -z $OfflineDir ]]; then
@@ -30,3 +34,5 @@ in4func_Zypper () {
         fi  
     done
 }
+
+

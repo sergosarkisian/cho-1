@@ -14,16 +14,7 @@
 ### PREREQ ###
 rm -rf /etc/zypp/repos.d/*
 
- if [[ -z $OfflineDir ]]; then
-    ZypperArgs="--non-interactive  --no-gpg-checks --no-refresh in " 
-else
-    echo "Offline mode"
-    ZypperArgs="--non-interactive  --no-gpg-checks --no-refresh -C /var/cache/zypp_offline in --force"
-fi
-
-zypper $ZypperArgs util-linux-systemd    
-
-
+in4func_Zypper util-linux-systemd    
 
 ###
 ### IN4 BASH HEADER ###
