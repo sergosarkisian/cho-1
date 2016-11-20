@@ -34,9 +34,9 @@ sudo chmod 744  $BuildEnv/loop/etc/sysconfig/
 else
     sudo mkdir -p  $GIT_PATH/media/sysdata/in4/cho && sudo git init $GIT_PATH/media/sysdata/in4/cho && cd  $GIT_PATH/media/sysdata/in4/cho
     sudo git pull $OfflineDir/git
-    cp $OfflineDir/packages/* $GIT_PATH/tmp/
-    cp -r $OfflineDir/zypper/zypp/* /var/cache/zypp
-    cp -r $OfflineDir/zypper/repos.d/*  /etc/zypp/repos.d
+    sudo cp $OfflineDir/packages/* $GIT_PATH/tmp/
+    sudo cp -r $OfflineDir/zypper/zypp/* /var/cache/zypp
+    sudo cp -r $OfflineDir/zypper/repos.d/*  /etc/zypp/repos.d
 fi
  
 
