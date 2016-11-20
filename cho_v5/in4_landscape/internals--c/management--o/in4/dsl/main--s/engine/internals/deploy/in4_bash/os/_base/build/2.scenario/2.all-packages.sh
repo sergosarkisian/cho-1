@@ -17,6 +17,7 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
+exit 1
  if [[ $OfflineMode == 1 ]]; then
     echo "Offline mode, no remote repos"
     ZypperFlags=" --no-remote "
@@ -25,7 +26,7 @@ else
     ZypperFlags=""
 fi
 
-exit 1
+
     zypper --non-interactive $ZypperFlags in --force aaa_base kmod binutils
     zypper --non-interactive $ZypperFlags in --force net-tools iproute2 wicked-service dbus-1 strace
     zypper --non-interactive $ZypperFlags in --force  aaa_base-extras man man-pages kbd timezone util-linux-systemd
