@@ -14,10 +14,6 @@ set -e
 
 in4func_resolve_in4() {
 declare -A k v store
-
-    if [[ $1 == "self" ]]; then
-        
-    fi
     
     if [[ $1 =~ --g--.*.--s ]]; then 
 
