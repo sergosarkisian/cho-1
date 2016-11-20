@@ -61,7 +61,7 @@ if [[ $DeployOsMode == "hw_chroot" ]] ; then
      export OfflineMode="$OfflineMode"; \
      export DeployOsMode="$DeployOsMode"; \
      export HWBaseDisk="$HWBaseDisk"; \
-     . $In4_Exec_Path/_base/build/2.scenario/$OsBuildScenario"
+     sh -x  $In4_Exec_Path/_base/build/2.scenario/$OsBuildScenario"
 fi
 if [[ $DeployOsMode == "vm_xen" ]] ; then 
     sudo chroot $BuildEnv/loop /bin/bash -c \
@@ -70,7 +70,7 @@ if [[ $DeployOsMode == "vm_xen" ]] ; then
      export OfflineMode="$OfflineMode"; \    
       export DeployOsMode="$DeployOsMode"; \
       export VmDiskLoopSystem="$VmDiskLoopSystem"; \
-      . $In4_Exec_Path/_base/build/2.scenario/$OsBuildScenario"
+      sh -x $In4_Exec_Path/_base/build/2.scenario/$OsBuildScenario"
 fi
 ###
 ### IN4 BASH FOOTER ###

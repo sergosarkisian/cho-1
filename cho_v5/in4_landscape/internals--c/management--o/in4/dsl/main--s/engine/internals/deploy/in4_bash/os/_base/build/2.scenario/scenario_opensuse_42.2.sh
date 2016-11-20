@@ -12,12 +12,12 @@
 ########    #######    ########    #######    ########    ########
 
 ### PREREQ ###
- if [[ $OfflineMode == 1 ]]; then
+ if [[ -z $OfflineDir ]]; then
+    zypper  --gpg-auto-import-keys ref
+    zypper --non-interactive in --force util-linux-systemd    
+else
     echo "Offline mode"
     zypper --non-interactive --no-refresh in /tmp/*.rpm    
-else
-    zypper  --gpg-auto-import-keys ref
-    zypper --non-interactive in --force util-linux-systemd
 fi
 
 
