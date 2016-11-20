@@ -41,7 +41,7 @@ else
         sudo git remote add origin https://github.com/conecenter/cho.git
         sudo git remote add dev https://github.com/eistomin/cho.git        
         #sudo git branch --set-upstream-to=origin/stable ## BUG
-        sudo git reset --hard origin/stable
+        #sudo git reset --hard origin/stable ## BUG
         sudo git config core.filemode false
     fi
     
