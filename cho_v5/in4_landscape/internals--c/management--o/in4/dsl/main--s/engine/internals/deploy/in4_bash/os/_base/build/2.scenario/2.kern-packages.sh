@@ -17,12 +17,12 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
- if [[ -z $OfflineDir ]]; then
-    zypper  --gpg-auto-import-keys ref
-    ZypperFlags=""
-else
+ if [[ $OfflineMode == 1 ]]; then
     echo "Offline mode, no refresh"
     ZypperFlags=" --no-refresh "
+else
+    zypper  --gpg-auto-import-keys ref
+    ZypperFlags=""
 fi
 
     zypper  --gpg-auto-import-keys --non-interactive $ZypperFlags in --force kernel-default 

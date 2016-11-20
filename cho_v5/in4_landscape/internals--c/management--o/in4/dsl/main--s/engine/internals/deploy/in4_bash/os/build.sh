@@ -23,6 +23,7 @@ if [[ $DeployOsMode == "vm_xen" ]] ; then . $In4_Exec_Path/vm_xen/build/1.init/2
 . $In4_Exec_Path/_base/build/1.init/3.exec.sh
 if [[ $DeployOsMode == "vm_xen" ]] ; then . $In4_Exec_Path/vm_xen/build/1.init/4.vm_xen-start.sh; fi
 . $In4_Exec_Path/_base/build/1.init/5.post.sh
+. $In4_Exec_Path/_base/build/1.init/6.clean.sh
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
