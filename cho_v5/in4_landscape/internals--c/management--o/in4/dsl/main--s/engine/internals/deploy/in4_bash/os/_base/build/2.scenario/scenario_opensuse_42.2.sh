@@ -19,6 +19,7 @@ else
     echo "Offline mode"
     rm -rf /etc/zypp/repos.d/*    
     zypper --non-interactive --no-remote in /tmp/*.rpm    
+    zypper --non-interactive --no-remote in /loop/var/cache/zypp_offline/*/*.rpm        
 fi
 
 

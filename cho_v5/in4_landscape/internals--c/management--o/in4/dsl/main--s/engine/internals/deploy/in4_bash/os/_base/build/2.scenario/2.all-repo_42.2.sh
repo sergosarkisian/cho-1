@@ -18,7 +18,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
 ### ZYPPER ###
-rm /etc/zypp/repos.d/*
+rm -rf /etc/zypp/repos.d/*
 ! cp -r /etc/zypp/repos.d_offline/* /etc/zypp/repos.d/
 
 if ! find /etc/zypp/repos.d/ -type f -name '*.repo'| read; then
