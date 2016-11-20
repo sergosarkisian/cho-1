@@ -34,6 +34,7 @@ sudo chmod 744  $BuildEnv/loop/etc/sysconfig/
 else
     sudo mkdir -p  $GIT_PATH/media/sysdata/in4/cho && sudo git init $GIT_PATH/media/sysdata/in4/cho && cd  $GIT_PATH/media/sysdata/in4/cho
     sudo git pull $OfflineDir/git
+    cp $OfflineDir/packages/* $GIT_PATH/tmp/
 fi
  
 

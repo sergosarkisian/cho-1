@@ -27,7 +27,7 @@ fi
 
     zypper --non-interactive $ZypperFlags in --force aaa_base kmod binutils
     zypper --non-interactive $ZypperFlags in --force net-tools iproute2 wicked-service dbus-1 strace
-    zypper --non-interactive $ZypperFlags in --force  aaa_base-extras man man-pages kbd timezone
+    zypper --non-interactive $ZypperFlags in --force  aaa_base-extras man man-pages kbd timezone util-linux-systemd
     zypper --non-interactive $ZypperFlags in --force  ca-certificates-mozilla
     zypper --non-interactive $ZypperFlags in --force btrfsprogs e2fsprogs sysfsutils quota
     zypper --non-interactive $ZypperFlags in --force yast2-security

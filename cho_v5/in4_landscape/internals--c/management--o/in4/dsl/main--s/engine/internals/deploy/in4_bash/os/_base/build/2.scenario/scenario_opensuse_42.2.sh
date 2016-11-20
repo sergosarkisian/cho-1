@@ -10,6 +10,18 @@
 ##    Language = bash DSL, profiles
 ##    Indent = space;    4 chars;
 ########    #######    ########    #######    ########    ########
+
+### PREREQ ###
+ if [[ -z $OfflineDir ]]; then
+    zypper  --gpg-auto-import-keys ref
+    zypper --non-interactive $ZypperFlags in --force util-linux-systemd
+else
+    echo "Offline mode"
+    zypper in  --non-interactive --no-refresh /tmp/*.rpm
+fi
+
+
+###
 ### IN4 BASH HEADER ###
 set -e
 PrevDirPath=$CurDirPath; CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
