@@ -79,9 +79,9 @@ usermod -G sysdata mail
 
 
 ### SYNC SERVICE ###
-in4 recipe self 5_service systemd service add in4__sync
-in4 recipe self 5_service systemd timer add in4__sync
-in4 recipe self 5_service systemd timer enable in4__sync
+in4func_systemd "internals--c--management--o--bash_sugar--f--in4--g--main--s" "add" "service" "in4__sync"
+in4func_systemd "internals--c--management--o--bash_sugar--f--in4--g--main--s" "add" "timer" "in4__sync"
+in4func_systemd "internals--c--management--o--bash_sugar--f--in4--g--main--s" "enable" "timer" "in4__sync"
 
 ###
 

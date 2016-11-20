@@ -15,6 +15,10 @@ set -e
 in4func_resolve_in4() {
 declare -A k v store
 
+    if [[ $1 == "self" ]]; then
+        
+    fi
+    
     if [[ $1 =~ --g--.*.--s ]]; then 
 
         arr=(${1//--/ }) 
@@ -92,4 +96,19 @@ in4func_cp () {
     Destination=$3
     
     cp -r /media/sysdata/in4/cho/cho_v5/in4_landscape/$in4TaxonomyPath/dsl/$in4TaxonomySpecies/$Source $Destination 
+}
+
+in4func_systemd () {
+    in4LandscapeFQN= in4func_resolve_in4 $1
+    SystemdAction=$2
+    SystemdType=$3
+    SystemdName=$4
+    
+    case $SystemdAction in
+    "add" )
+        rm -f /etc/systemd/system/$SystemdName.$SystemdType
+        cp -f /media/sysdata/in4/cho/cho_v5/in4_landscape/$in4TaxonomyPath/in4/5_service/systemd/$SystemdName.$SystemdType /etc/systemd/system/
+    ;;
+    "enable") systemctl enable $SystemdName.$SystemdType ;;
+    esac
 }
