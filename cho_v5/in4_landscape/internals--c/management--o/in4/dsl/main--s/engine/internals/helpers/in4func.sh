@@ -15,6 +15,7 @@ set -e
 in4func_Zypper () {
 
     ZypperArgsOnline="--non-interactive  --gpg-auto-import-keys in " 
+    ZypperArgsAltOnline="--non-interactive  --gpg-auto-import-keys  -C /var/cache/zypp_offline in " 
     ZypperArgsOffline="--non-interactive  --no-gpg-checks --no-refresh -C /var/cache/zypp_offline in --force"
 
     if [[ -n $(echo "$1"|grep "/") ]]; then
@@ -30,7 +31,7 @@ in4func_Zypper () {
             echo "zypper $ZypperArgsOffline ${PackagesLines}" && zypper $ZypperArgsOffline ${PackagesLines}
         else
             echo "zypper $ZypperArgsOffline ${PackagesLines}" && ! zypper $ZypperArgsOffline ${PackagesLines}
-            echo "zypper $ZypperArgsOnline ${PackagesLines}"  && zypper $ZypperArgsOnline ${PackagesLines}
+            echo "zypper $ZypperArgsAltOnline ${PackagesLines}"  && zypper $ZypperArgsAltOnline ${PackagesLines}
         fi  
     done
 }
