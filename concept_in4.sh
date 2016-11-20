@@ -13,7 +13,7 @@ set -e
 
 needed:
 -- offline = 
-    init - --download-only; zypper ar -cf  -???
+    init - zypper 1st install, then cp & symlink
     exec -zypper --no-refresh --raw-cache-dir --pkg-cache-dir --cache-dir; zypper ar -cf  -???; git; docker image;
 in4 default logging
 profile.d for in4 , in4 = in4 sync

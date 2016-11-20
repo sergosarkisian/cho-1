@@ -27,22 +27,30 @@ sudo cp /etc/resolv.conf $BuildEnv/loop/etc/
 sudo cp /etc/sysconfig/proxy $BuildEnv/loop/etc/sysconfig/
 sudo chmod 744  $BuildEnv/loop/etc/sysconfig/
  ### 
- 
- GIT_PATH="$BuildEnv/loop"
-. /media/sysdata/in4/cho/in4_core/deploy/git_init.sh
 
+ GIT_PATH="$BuildEnv/loop"
+ if [[ -z $OfflineDir ]]; then
+    sudo . $In4_Exec_Path/git_init.sh
+else
+    sudo mkdir -p  $GIT_PATH/media/sysdata/in4/cho && sudo git init $GIT_PATH/media/sysdata/in4/cho && cd  $GIT_PATH/media/sysdata/in4/cho
+    sudo git pull $OfflineDir/git
+fi
+ 
 
  ###  CHROOT TO LOOP ###
 sudo mount -t proc proc $BuildEnv/loop/proc/ &&  sudo mount -t sysfs sys $BuildEnv/loop/sys/ && sudo mount -o bind /dev $BuildEnv/loop/dev/
 
 if [[ $DeployOsMode == "hw_chroot" ]] ; then 
-    chroot $BuildEnv/loop /bin/bash -c \
-    "export  In4_Exec_Path= $In4_Exec_Path; export DeployOsMode=$DeployOsMode; export HWBaseDisk=$HWBaseDisk; sh . $In4_Exec_Path/_base/build/2.scenario/$OsBuildScenario"
+    sudo chroot $BuildEnv/loop /bin/bash -c \
+    "export  In4_Exec_Path="$In4_Exec_Path"; export DeployOsMode="$DeployOsMode"; export HWBaseDisk="$HWBaseDisk"; . $In4_Exec_Path/_base/build/2.scenario/$OsBuildScenario"
 fi
 if [[ $DeployOsMode == "vm_xen" ]] ; then 
-    chroot $BuildEnv/loop /bin/bash -c \
-    "export  In4_Exec_Path= $In4_Exec_Path; export DeployOsMode=$DeployOsMode; export VmDiskLoopSystem=$VmDiskLoopSystem; sh . $In4_Exec_Path/_base/build/2.scenario/$OsBuildScenario"
+    sudo chroot $BuildEnv/loop /bin/bash -c \
+    "export  In4_Exec_Path="$In4_Exec_Path"; export DeployOsMode="$DeployOsMode"; export VmDiskLoopSystem="$VmDiskLoopSystem"; . $In4_Exec_Path/_base/build/2.scenario/$OsBuildScenario"
 fi
 ###
-
-echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
+### IN4 BASH FOOTER ###
+CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
+LogMsg="END -  steps_init - $ExecScriptname"
+echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
+###

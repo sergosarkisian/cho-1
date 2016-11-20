@@ -1,7 +1,7 @@
 #!/bin/bash
 VmDiskLoopSystem="loop60"
 VmDiskLoopSysdata="loop61"
-VmDiskSizeSystem="700m"
+VmDiskSizeSystem="1500m"
 VmDiskSizeSysdata="500m"
 VmDiskSizeSwap="100m"
 OsBuildScenario="scenario_opensuse_42.2.sh"

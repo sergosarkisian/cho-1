@@ -4,8 +4,15 @@ echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk
 
 ### SSSD ###
 #ZYPPER
-## add build for https://build.opensuse.org/package/show/openSUSE:Factory/sssd
-zypper --gpg-auto-import-keys --non-interactive in --force sssd sssd-tools 
+ if [[ -z $OfflineDir ]]; then
+    ## add build for https://build.opensuse.org/package/show/openSUSE:Factory/sssd 
+    zypper  --gpg-auto-import-keys ref
+    ZypperFlags=""
+else
+    echo "Offline mode, no refresh"
+    ZypperFlags=" --no-refresh "
+fi
+zypper  --gpg-auto-import-keys --non-interactive $ZypperFlags in --force sssd sssd-tools 
 #CONF
 pam-config --add --sss
 rm -f  /etc/sssd/sssd.conf && ln -s /media/sysdata/in4/cho/cho_v4/internals:c/linux_sys:o/security:f/sssd--g/sssd_basic.conf /etc/sssd/sssd.conf

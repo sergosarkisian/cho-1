@@ -5,8 +5,15 @@ echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk
 
 ### RSYSLOG ###
 #ZYPPER
-zypper ar -p10 -cf http://download.opensuse.org/repositories/home:/conecenter:/rev5a1:/ontology:/logitoring--c:/messagebus--o:/syslog--f/openSUSE_Leap_42.2/home:conecenter:rev5a1:ontology:logitoring--c:messagebus--o:syslog--f.repo
-zypper --gpg-auto-import-keys --non-interactive in --force rsyslog rsyslog-module-relp rsyslog-module-mmnormalize rsyslog-module-gtls
+ if [[ -z $OfflineDir ]]; then
+    zypper ar -p10 -cf http://download.opensuse.org/repositories/home:/conecenter:/rev5a1:/ontology:/logitoring--c:/messagebus--o:/syslog--f/openSUSE_Leap_42.2/home:conecenter:rev5a1:ontology:logitoring--c:messagebus--o:syslog--f.repo
+    zypper  --gpg-auto-import-keys ref
+    ZypperFlags=""
+else
+    echo "Offline mode, no refresh"
+    ZypperFlags=" --no-refresh "
+fi
+zypper  --gpg-auto-import-keys --non-interactive $ZypperFlags in --force rsyslog rsyslog-module-relp rsyslog-module-mmnormalize rsyslog-module-gtls
 #CONF
 rm -rf /etc/rsyslog.d/ && ln -s /media/sysdata/in4/cho/cho_v4/logitoring--c/messagebus--o/syslog--f/rsyslog--g /etc/rsyslog.d
 #SYSTEMD

@@ -5,7 +5,15 @@ echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk
 
 ### SFW2 ###
 #ZYPPER
-zypper --gpg-auto-import-keys --non-interactive in --force SuSEfirewall2
+#ZYPPER
+ if [[ -z $OfflineDir ]]; then
+    zypper  --gpg-auto-import-keys ref
+    ZypperFlags=""
+else
+    echo "Offline mode, no refresh"
+    ZypperFlags=" --no-refresh "
+fi
+zypper  --gpg-auto-import-keys --non-interactive $ZypperFlags in --force SuSEfirewall2
 #INIT
 sed -i "s/FW_LOG_ACCEPT_CRIT=.*/FW_LOG_ACCEPT_CRIT=\"no\"/" /etc/sysconfig/SuSEfirewall2
 sed -i "s/FW_IGNORE_FW_BROADCAST_EXT=.*/FW_IGNORE_FW_BROADCAST_EXT=\"yes\"/" /etc/sysconfig/SuSEfirewall2
