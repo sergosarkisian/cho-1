@@ -31,8 +31,6 @@ rm /etc/zypp/repos.d/*
     zypper ar -cf http://download.opensuse.org/repositories/shells/openSUSE_Leap_42.2/shells.repo
 else
     echo "Offline mode - repos & packages are added manually"
-    cp -r $OfflineDir/zypper/zypp/* /var/cache/zypp
-    cp -r $OfflineDir/repos.d/*  /etc/zypp/repos.d
 fi
 
 
