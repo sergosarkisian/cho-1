@@ -14,7 +14,7 @@
 set -e
 PrevDirPath=$CurDirPath; CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
 LogMsg="BEGIN -  steps_init - $ExecScriptname"
-echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
+echo -e "\n\n########  $LogMsg  ########\n\n";
 ###
 
 in4func_Zypper $In4_Exec_Path/_base/build/2.scenario/2.all-packages.suse
