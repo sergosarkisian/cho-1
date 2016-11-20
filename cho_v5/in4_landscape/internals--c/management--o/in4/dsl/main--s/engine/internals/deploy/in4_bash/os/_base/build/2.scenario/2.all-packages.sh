@@ -17,30 +17,12 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
- if [[ $OfflineMode == 1 ]]; then
-    echo "Offline mode, no remote repos"
-    ZypperFlags=" --no-remote "
-else
-    zypper  --gpg-auto-import-keys ref
-    ZypperFlags=""
-fi
-
-
-    zypper --non-interactive $ZypperFlags in --force aaa_base kmod binutils
-    zypper --non-interactive $ZypperFlags in --force net-tools iproute2 wicked-service dbus-1 strace
-    zypper --non-interactive $ZypperFlags in --force  aaa_base-extras man man-pages kbd timezone util-linux-systemd
-    zypper --non-interactive $ZypperFlags in --force  ca-certificates-mozilla
-    zypper --non-interactive $ZypperFlags in --force btrfsprogs e2fsprogs sysfsutils quota
-    zypper --non-interactive $ZypperFlags in --force yast2-security
-    zypper --non-interactive $ZypperFlags in --force mc vim lsof less strace pwgen sysstat tcpdump
-    zypper --non-interactive $ZypperFlags in --force bzip2 gzip p7zip unzip zip tar xz
-    #MISC
-    zypper --non-interactive $ZypperFlags in --force rsync subversion git telnet wget mailx
-    zypper --non-interactive $ZypperFlags in --force curl expect  deltarpm
-
-    #+ pam + policy*
+in4func_Zypper $In4_Exec_Path/_base/build/2.scenario/2.all-packages.suse
+ #+ pam + policy*
+ 
+if [[ -z $OfflineDir ]]; then
     zypper --non-interactive $ZypperFlags --gpg-auto-import-keys dup
-
+fi
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
 LogMsg="END -  steps_init - $ExecScriptname"

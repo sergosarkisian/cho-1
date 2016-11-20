@@ -12,15 +12,17 @@
 ########    #######    ########    #######    ########    ########
 
 ### PREREQ ###
+rm -rf /etc/zypp/repos.d/*
+
  if [[ -z $OfflineDir ]]; then
-    rm -rf /etc/zypp/repos.d/*
-    zypper --non-interactive in --force util-linux-systemd    
+    ZypperArgs="--non-interactive  --no-gpg-checks --no-refresh in " 
 else
     echo "Offline mode"
-    rm -rf /etc/zypp/repos.d/*    
-    zypper --non-interactive --no-remote in /tmp/*.rpm    
-    zypper --non-interactive --no-remote in /var/cache/zypp_offline/packages/*/*/*.rpm        
+    ZypperArgs="--non-interactive  --no-gpg-checks --no-refresh -C /var/cache/zypp_offline in --force"
 fi
+
+zypper $ZypperArgs util-linux-systemd    
+
 
 
 ###
