@@ -10,18 +10,18 @@
 ##    Language = bash DSL, profiles
 ##    Indent = space;    4 chars;
 ########    #######    ########    #######    ########    ########
-
-### PREREQ ###
-rm -rf /etc/zypp/repos.d/*
-
-in4func_Zypper util-linux-systemd    
-
 ###
 ### IN4 BASH HEADER ###
 set -e
 PrevDirPath=$CurDirPath; CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
 LogMsg="BEGIN -  steps_init - $ExecScriptname"
-echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
+echo -e "\n\n########  $LogMsg  ########\n\n";
+###
+
+### PREREQ ###
+. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/in4/dsl/main--s/engine/internals/helpers/in4func.sh
+rm -rf /etc/zypp/repos.d/*
+in4func_Zypper util-linux-systemd    
 ###
 
 . $In4_Exec_Path/_base/build/2.scenario/2.all-repo_42.2.sh
