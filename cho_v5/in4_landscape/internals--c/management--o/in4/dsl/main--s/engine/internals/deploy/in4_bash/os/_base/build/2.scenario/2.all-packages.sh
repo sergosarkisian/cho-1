@@ -17,7 +17,6 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-exit 1
  if [[ $OfflineMode == 1 ]]; then
     echo "Offline mode, no remote repos"
     ZypperFlags=" --no-remote "
