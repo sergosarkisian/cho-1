@@ -36,4 +36,6 @@ in4func_Zypper () {
     done
 }
 
-
+in4func_recipe () {
+in4 recipe 2_init opensuse package add internals--c--linux_sys--o--boot--f--dracut--g--main--s
+}

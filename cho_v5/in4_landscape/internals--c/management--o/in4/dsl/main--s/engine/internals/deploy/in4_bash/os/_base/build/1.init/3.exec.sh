@@ -27,17 +27,20 @@ sudo cp /etc/resolv.conf $BuildEnv/loop/etc/
 sudo cp /etc/sysconfig/proxy $BuildEnv/loop/etc/sysconfig/
 sudo chmod 744  $BuildEnv/loop/etc/sysconfig/
  ### 
-
-GIT_PATH="$BuildEnv/loop"
-
-
+ 
  if [[ -z $OfflineDir ]]; then
-    sudo . $In4_Exec_Path/git_init.sh
+    mkdir -p  $BuildEnv/loop/media/sysdata/in4
+    git -C $BuildEnv/loop/media/sysdata/in4 clone -b stable  https://github.com/conecenter/cho.git
+    ## DEVEL - git -C $BuildEnv/loop/media/sysdata/in4 clone -b master  https://github.com/eistomin/cho.git
+    git -C $BuildEnv/loop/media/sysdata/in4/cho config core.filemode false
 else
     
     if [[ -d $OfflineDir/git ]]; then
         sudo mkdir -p  $BuildEnv/loop/media/sysdata/in4/cho && sudo git init $BuildEnv/loop/media/sysdata/in4/cho && cd  $BuildEnv/loop/media/sysdata/in4/cho
         sudo git pull $OfflineDir/git
+        sudo git remote add origin  https://github.com/conecenter/cho.git
+        sudo git branch --set-upstream-to=origin/stable master
+        sudo git config core.filemode false
     fi
     
     if [[ -d $OfflineDir/zypper/zypp ]]; then
