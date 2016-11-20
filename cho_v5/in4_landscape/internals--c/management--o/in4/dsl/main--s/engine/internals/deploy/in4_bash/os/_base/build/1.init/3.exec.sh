@@ -43,11 +43,19 @@ sudo mount -t proc proc $BuildEnv/loop/proc/ &&  sudo mount -t sysfs sys $BuildE
 
 if [[ $DeployOsMode == "hw_chroot" ]] ; then 
     sudo chroot $BuildEnv/loop /bin/bash -c \
-    "export  In4_Exec_Path="$In4_Exec_Path"; export DeployOsMode="$DeployOsMode"; export HWBaseDisk="$HWBaseDisk"; . $In4_Exec_Path/_base/build/2.scenario/$OsBuildScenario"
+    "export  In4_Exec_Path="$In4_Exec_Path"; \
+     export OfflineDir=$OfflineDir; \
+     export DeployOsMode="$DeployOsMode"; \
+     export HWBaseDisk="$HWBaseDisk"; \
+     . $In4_Exec_Path/_base/build/2.scenario/$OsBuildScenario"
 fi
 if [[ $DeployOsMode == "vm_xen" ]] ; then 
     sudo chroot $BuildEnv/loop /bin/bash -c \
-    "export  In4_Exec_Path="$In4_Exec_Path"; export DeployOsMode="$DeployOsMode"; export VmDiskLoopSystem="$VmDiskLoopSystem"; . $In4_Exec_Path/_base/build/2.scenario/$OsBuildScenario"
+    "export  In4_Exec_Path="$In4_Exec_Path"; \
+      export OfflineDir=$OfflineDir; \
+      export DeployOsMode="$DeployOsMode"; \
+      export VmDiskLoopSystem="$VmDiskLoopSystem"; \
+      . $In4_Exec_Path/_base/build/2.scenario/$OsBuildScenario"
 fi
 ###
 ### IN4 BASH FOOTER ###
