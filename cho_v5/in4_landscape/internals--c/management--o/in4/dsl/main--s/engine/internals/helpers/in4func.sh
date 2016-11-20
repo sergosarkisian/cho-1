@@ -48,6 +48,7 @@ declare -A k v store
         
     fi
     
+    in4TaxonomySpecies="${store[s]}--s"
     in4TaxonomySerial="${store[c]}--c--${store[o]}--o--${store[f]}--f--${store[g]}--g--${store[s]}--s"
     in4TaxonomySerialShort="${store[c]}--c--${store[o]}--o--${store[f]}--f--${store[g]}"
     in4TaxonomyPath="${store[c]}--c/${store[o]}--o/${store[f]}--f/${store[g]}"    
@@ -90,5 +91,5 @@ in4func_cp () {
     Source=$2
     Destination=$3
     
-    cp -r /media/sysdata/in4/cho/cho_v5/in4_landscape/$in4TaxonomyPath/dsl/${store[s]}/$Source $Destination 
+    cp -r /media/sysdata/in4/cho/cho_v5/in4_landscape/$in4TaxonomyPath/dsl/$in4TaxonomySpecies/$Source $Destination 
 }
