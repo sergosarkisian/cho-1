@@ -17,7 +17,7 @@
     zypper --non-interactive $ZypperFlags in --force util-linux-systemd
 else
     echo "Offline mode"
-    zypper in  --non-interactive --no-refresh /tmp/*.rpm
+    zypper --non-interactive --no-refresh in /tmp/*.rpm
 fi
 
 
