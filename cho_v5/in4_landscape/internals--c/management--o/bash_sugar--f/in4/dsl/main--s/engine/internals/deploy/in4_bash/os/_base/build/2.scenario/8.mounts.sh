@@ -10,10 +10,9 @@ echo "LABEL=swap           swap                 swap       defaults             
 echo "tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0" >> /etc/fstab
 #echo "LABEL=sysdata           /media/sysdata          ext4       noatime,acl,user_xattr 1 1" >> /etc/fstab
 
-
-in4 recipe self 5_service systemd mount add media-storage
-in4 recipe self 5_service systemd mount add media-sysdata
-in4 recipe self 5_service systemd mount enable media-sysdata
+in4func_systemd "internals--c--management--o--bash_sugar--f--in4--g--main--s" "add" "mount" "media-storage"
+in4func_systemd "internals--c--management--o--bash_sugar--f--in4--g--main--s" "add" "mount" "media-sysdata"
+in4func_systemd "internals--c--management--o--bash_sugar--f--in4--g--main--s" "enable" "mount" "media-sysdata"
 ###
 
 echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"

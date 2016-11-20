@@ -13,4 +13,4 @@
 set -e
 
 ##PACKAGE
-zypper --gpg-auto-import-keys --non-interactive in --oldpackage grub2
+in4func_Zypper grub2

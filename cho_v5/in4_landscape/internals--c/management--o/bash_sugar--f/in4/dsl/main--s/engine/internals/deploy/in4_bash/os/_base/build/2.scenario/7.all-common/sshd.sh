@@ -4,14 +4,7 @@ echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk
 
 ### SSHD ###
 #ZYPPER
- if [[ -z $OfflineDir ]]; then
-    zypper  --gpg-auto-import-keys ref
-    ZypperFlags=""
-else
-    echo "Offline mode, no refresh"
-    ZypperFlags=" --no-refresh "
-fi
-zypper  --gpg-auto-import-keys --non-interactive $ZypperFlags in --force openssh
+in4func_Zypper openssh
 #SYSTEMD
 rm -f /etc/systemd/system/in4__sshd.service 	&& cp  /media/sysdata/in4/cho/cho_v4/services--c/server:o/ssh:f/sshd:g/_systemd/in4__sshd.service /etc/systemd/system/
 ! systemctl stop sshd && systemctl disable sshd && systemctl mask sshd

@@ -5,14 +5,8 @@ echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk
 
 ### DRBD9 ###
 #ZYPPER
- if [[ -z $OfflineDir ]]; then
-    zypper ar -p 10 -cf http://download.opensuse.org/repositories/home:/conecenter:/rev5a1:/ontology:/data_safety--c:/replication--o:/block--f/openSUSE_Leap_42.1/home:conecenter:rev5a1:ontology:data_safety--c:replication--o:block--f.repo 
-    zypper  --gpg-auto-import-keys ref
-    ZypperFlags=""    
-else
-    echo "Offline mode, no refresh"
-    ZypperFlags=" --no-refresh "
-fi
+#    zypper ar -p 10 -cf http://download.opensuse.org/repositories/home:/conecenter:/rev5a1:/ontology:/data_safety--c:/replication--o:/block--f/openSUSE_Leap_42.1/home:conecenter:rev5a1:ontology:data_safety--c:replication--o:block--f.repo 
+
 
 #zypper --gpg-auto-import-keys --non-interactive in --force drbd9-kmp-default drbd9 drbd-utils ## BUG
 #CONF
