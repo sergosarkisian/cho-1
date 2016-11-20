@@ -16,7 +16,7 @@ PrevDirPath=$CurDirPath; CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecSc
 LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
-OfflineDir="/home/storage/IT/_tmp/cho/"
+OfflineDir="/home/storage/IT/_tmp/cho_offline"
 
 if [[ -z $Task ]]; then
     DialogMsg="Please specify task"
