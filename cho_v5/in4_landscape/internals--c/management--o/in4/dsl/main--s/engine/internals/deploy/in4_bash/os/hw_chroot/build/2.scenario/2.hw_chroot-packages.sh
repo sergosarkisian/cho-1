@@ -17,15 +17,7 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
- if [[ $OfflineMode == 1 ]]; then
-    echo "Offline mode, no remote repos"
-    ZypperFlags=" --no-remote "
-else
-    zypper  --gpg-auto-import-keys ref
-    ZypperFlags=""    
-fi
-
-    zypper  --gpg-auto-import-keys --non-interactive $ZypperFlags in --force flashrom ipmiutil snapper snapper-zypp-plugin grub2-snapper-plugin yast2-snapper smartmontools hdparm dmidecode ntp dhcp dhcp-client kernel-firmware
+in4func_Zypper flashrom ipmiutil snapper snapper-zypp-plugin grub2-snapper-plugin yast2-snapper smartmontools hdparm dmidecode ntp dhcp dhcp-client kernel-firmware
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`

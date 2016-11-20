@@ -17,15 +17,7 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
- if [[ $OfflineMode == 1 ]]; then
-    echo "Offline mode, no remote repos"
-    ZypperFlags=" --no-remote "
-else
-    zypper  --gpg-auto-import-keys ref
-    ZypperFlags=""   
-fi
-
-zypper  --gpg-auto-import-keys --non-interactive $ZypperFlags in --force spice-vdagent xen-tools-domU xen-libs
+in4func_Zypper spice-vdagent xen-tools-domU xen-libs
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
