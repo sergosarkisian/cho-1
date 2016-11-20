@@ -42,7 +42,7 @@ else
     
     if [[ -d $OfflineDir/zypper/zypp ]]; then
         sudo mkdir $BuildEnv/loop/var/cache/zypp_offline     
-        sudo cp -r $OfflineDir/zypper/zypp/* $BuildEnv/loop/var/cache/zypp
+        sudo cp -r $OfflineDir/zypper/zypp/* $BuildEnv/loop/var/cache/zypp_offline
     fi
     
     if [[ -d $OfflineDir/zypper/repos.d ]]; then
