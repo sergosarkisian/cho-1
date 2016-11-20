@@ -78,7 +78,6 @@ in4func_Zypper () {
 }
 
 in4func_run () {
-    "internals--c--linux_sys--o--boot--f--dracut--g--main--s" "2_init/opensuse" "in4__main--s.package.zypper.sh"
     in4LandscapeFQN= in4func_resolve_in4 $1
     RunPath=$2
     RunName=$3
