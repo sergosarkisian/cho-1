@@ -19,10 +19,8 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 ### ZYPPER ###
 rm /etc/zypp/repos.d/*
- if [[ $OfflineMode == 1 ]]; then
-    echo "Offline mode - repos & packages are added manually"
-    cp -r /etc/zypp/repos.d_offline/* /etc/zypp/repos.d/
-else
+! cp -r /etc/zypp/repos.d_offline/* /etc/zypp/repos.d/
+
 ### 42.2###
     zypper ar -cfk http://download.opensuse.org/repositories/openSUSE:/Leap:/42.2/standard standard::leap42.2
     zypper ar -cfk http://download.opensuse.org/update/leap/42.2/oss update_oss::leap42.2

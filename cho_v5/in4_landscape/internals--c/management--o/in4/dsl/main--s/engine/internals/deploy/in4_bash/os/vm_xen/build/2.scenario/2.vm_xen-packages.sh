@@ -18,8 +18,8 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
  if [[ $OfflineMode == 1 ]]; then
-    echo "Offline mode, no refresh"
-    ZypperFlags=" --no-refresh "
+    echo "Offline mode, no remote repos"
+    ZypperFlags=" --no-remote "
 else
     zypper  --gpg-auto-import-keys ref
     ZypperFlags=""   
