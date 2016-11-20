@@ -17,7 +17,7 @@ in4func_Zypper () {
     ZypperArgsOnline="--non-interactive  --gpg-auto-import-keys in " 
     ZypperArgsOffline="--non-interactive  --no-gpg-checks --no-refresh -C /var/cache/zypp_offline in --force"
 
-    if [[ -n $(`echo $1|grep "/"`) ]]; then
+    if [[ -n $(`echo "$1"|grep "/"`) ]]; then
         readarray PackagesArray < $1    
     else
         PackagesArray=($1)
