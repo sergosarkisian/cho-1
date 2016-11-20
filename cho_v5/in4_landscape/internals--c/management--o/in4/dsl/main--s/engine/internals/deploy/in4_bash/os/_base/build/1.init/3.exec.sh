@@ -34,14 +34,22 @@ GIT_PATH="$BuildEnv/loop"
  if [[ -z $OfflineDir ]]; then
     sudo . $In4_Exec_Path/git_init.sh
 else
-    sudo mkdir -p  $BuildEnv/loop/media/sysdata/in4/cho && sudo git init $BuildEnv/loop/media/sysdata/in4/cho && cd  $BuildEnv/loop/media/sysdata/in4/cho
-    sudo git pull $OfflineDir/git
+    
+    if [[ -d $OfflineDir/git ]]; then
+        sudo mkdir -p  $BuildEnv/loop/media/sysdata/in4/cho && sudo git init $BuildEnv/loop/media/sysdata/in4/cho && cd  $BuildEnv/loop/media/sysdata/in4/cho
+        sudo git pull $OfflineDir/git
+    fi
+    
+    if [[ -d $OfflineDir/zypper/zypp ]]; then
+        sudo cp -r $OfflineDir/zypper/zypp/* /var/cache/zypp
+    fi
+    
+    if [[ -d $OfflineDir/zypper/repos.d ]]; then
+    sudo mkdir $BuildEnv/loop//etc/zypp/repos.d_offline 
+    sudo cp -r $OfflineDir/zypper/repos.d/*  /etc/zypp/repos.d_offline/
+    fi    
     sudo cp $OfflineDir/packages/* $BuildEnv/loop/tmp/
-    sudo cp -r $OfflineDir/zypper/zypp/* /var/cache/zypp
-    sudo mkdir $BuildEnv/loop//etc/zypp/repos.d_offline cp -r $OfflineDir/zypper/repos.d/*  /etc/zypp/repos.d_offline/
 fi
-
- 
 
  ###  CHROOT TO LOOP ###
 sudo mount -t proc proc $BuildEnv/loop/proc/ &&  sudo mount -t sysfs sys $BuildEnv/loop/sys/ && sudo mount -o bind /dev $BuildEnv/loop/dev/
@@ -49,6 +57,8 @@ sudo mount -t proc proc $BuildEnv/loop/proc/ &&  sudo mount -t sysfs sys $BuildE
 if [[ $DeployOsMode == "hw_chroot" ]] ; then 
     sudo chroot $BuildEnv/loop /bin/bash -c \
     "export  In4_Exec_Path="$In4_Exec_Path"; \
+     export OfflineDir="$OfflineDir"; \
+     export OfflineMode="$OfflineMode"; \
      export DeployOsMode="$DeployOsMode"; \
      export HWBaseDisk="$HWBaseDisk"; \
      . $In4_Exec_Path/_base/build/2.scenario/$OsBuildScenario"
@@ -56,6 +66,8 @@ fi
 if [[ $DeployOsMode == "vm_xen" ]] ; then 
     sudo chroot $BuildEnv/loop /bin/bash -c \
     "export  In4_Exec_Path="$In4_Exec_Path"; \
+     export OfflineDir="$OfflineDir"; \
+     export OfflineMode="$OfflineMode"; \    
       export DeployOsMode="$DeployOsMode"; \
       export VmDiskLoopSystem="$VmDiskLoopSystem"; \
       . $In4_Exec_Path/_base/build/2.scenario/$OsBuildScenario"

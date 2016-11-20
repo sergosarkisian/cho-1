@@ -2,6 +2,9 @@
 set -e
 echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
 
+zypper mr -K -a
+zypper clean -a
+
 ### RM ALL LOGS & TRACES ###
 ! rm -f /var/log/*/*
 ! rm -f /var/log/*.log

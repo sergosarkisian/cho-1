@@ -19,10 +19,10 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 . $In4_Exec_Path/_base/build/1.init/6.clean.sh
 
 ### OPENSUSE INIT
- if [[ $OfflineMode == 1 ]]; then
-    echo "Needs offline zypper" ## BUG
-else
+ if [[ -z $OfflineDir ]]; then
     ! sudo zypper --non-interactive in wget btrfsprogs parted git xz tar
+else
+    echo "Needs offline zypper" ## BUG
 fi
 #
 
@@ -35,7 +35,7 @@ OsImageDownload="wget -O $BuildEnv/$OsImageFilename http://download.opensuse.org
  if [[ -z $OfflineDir ]]; then
     `$OsImageDownload`
 else
-    if [[ -f $BuildEnv/$OsImageFilename  ]]; then
+    if [[ -f $OfflineDir/$OsImageFilename  ]]; then
         cp $OfflineDir/$OsImageFilename $BuildEnv/ 
     else
         `$OsImageDownload`            
