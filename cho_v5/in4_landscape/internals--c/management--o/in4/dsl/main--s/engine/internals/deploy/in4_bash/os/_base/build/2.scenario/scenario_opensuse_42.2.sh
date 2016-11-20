@@ -17,7 +17,7 @@
     zypper --non-interactive in --force util-linux-systemd    
 else
     echo "Offline mode"
-    zypper --non-interactive --no-refresh in /tmp/*.rpm    
+    zypper --non-interactive --no-remote in /tmp/*.rpm    
 fi
 
 
