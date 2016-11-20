@@ -48,3 +48,13 @@ self  ??
 in4 sys ln 
 in4 sys cp
 in4 sys cp_gen
+
+#### TO DO
+1) in4 recipe  2_init 
+
+2) in4 cp
+in4LandscapeFQN=$1
+ActionPath=$2
+Destination=$3
+
+= cp -r /media/sysdata/in4/cho/cho_v5/in4_landscape/ $Destination 
