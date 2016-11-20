@@ -13,11 +13,11 @@
 
 ### PREREQ ###
  if [[ -z $OfflineDir ]]; then
-    rm /etc/zypp/repos.d/*
+    rm -rf /etc/zypp/repos.d/*
     zypper --non-interactive in --force util-linux-systemd    
 else
     echo "Offline mode"
-    rm /etc/zypp/repos.d/*    
+#     rm -rf /etc/zypp/repos.d/*    
     zypper --non-interactive --no-remote in /tmp/*.rpm    
 fi
 
