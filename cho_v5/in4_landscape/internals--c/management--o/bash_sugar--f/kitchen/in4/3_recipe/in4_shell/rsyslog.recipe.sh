@@ -14,9 +14,11 @@ set -e
 
 in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "2_init/opensuse" "rsyslog.package.zypper.sh"
 
+systemctl disable syslog
+echo "disabled" > /usr/lib/systemd/system/rsyslog.service
+chmod 000 /usr/lib/systemd/system/rsyslog.service
+
 in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "add" "service" "in4__rsyslog"
 in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "enable" "service" "in4__rsyslog"
 
-systemctl disable rsyslog
-#echo "disabled" > /usr/lib/systemd/system/rsyslog.service
-#chmod 000 /usr/lib/systemd/system/rsyslog.service
+
