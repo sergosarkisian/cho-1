@@ -3,7 +3,7 @@ set -e
 echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
 
 zypper mr -K -a
-zypper clean -a
+## zypper clean -a ## NOT COMP WITH OFFLINE 
 
 ### RM ALL LOGS & TRACES ###
 ! rm -f /var/log/*/*

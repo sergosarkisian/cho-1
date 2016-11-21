@@ -10,6 +10,7 @@ in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "3
 in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "3_recipe/in4_shell" "sudo.recipe.sh"
 in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "3_recipe/in4_shell" "swf2.recipe.sh"
 in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "3_recipe/in4_shell" "zypper.recipe.sh"
+in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "3_recipe/in4_shell" "sysctl.recipe.sh"
 in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "3_recipe/in4_shell" "wtf.recipe.sh"
 
 echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
