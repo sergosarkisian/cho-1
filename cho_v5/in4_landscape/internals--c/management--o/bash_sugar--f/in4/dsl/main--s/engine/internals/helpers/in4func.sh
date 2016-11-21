@@ -87,7 +87,7 @@ in4func_ZypperRepo () {
     
     case $ZypperRepoAction in
     "add" )
-        elif [[ $OfflineMode == 1  ]]; then
+        if [[ $OfflineMode == 1  ]]; then
             echo "Offline mode, all repos are cached"
         else
             echo "zypper $ZypperRepoArgsOnline $ZypperRepoURI" && zypper $ZypperRepoArgsOnline $ZypperRepoURI
