@@ -14,8 +14,8 @@ set -e
 
 in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "2_init/opensuse" "swf2.package.zypper.sh"
 
-in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "add" "service" "in4__SuSEfirewall2_i"
-in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "add" "service" "in4__SuSEfirewall2_init_i"
+in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "add" "service" "in4__SuSEfirewall2_i@"
+in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "add" "service" "in4__SuSEfirewall2_init_i@"
 
  systemctl disable SuSEfirewall2 && systemctl mask SuSEfirewall2
  systemctl disable SuSEfirewall2_init && systemctl mask SuSEfirewall2_init
