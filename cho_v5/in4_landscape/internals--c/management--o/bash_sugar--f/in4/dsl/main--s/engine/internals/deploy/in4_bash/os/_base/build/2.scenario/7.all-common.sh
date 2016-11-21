@@ -2,6 +2,14 @@
 set -e
 echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
 
-. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/2.scenario/7.all-common/*.sh
+in4func_run "internals--c--management--o--kitchen--f--in4--g--main--s" "3_recipe/in4_shell" "bash.recipe.sh"
+in4func_run "internals--c--management--o--kitchen--f--in4--g--main--s" "3_recipe/in4_shell" "exim.recipe.sh"
+in4func_run "internals--c--management--o--kitchen--f--in4--g--main--s" "3_recipe/in4_shell" "nss.recipe.sh"
+in4func_run "internals--c--management--o--kitchen--f--in4--g--main--s" "3_recipe/in4_shell" "rsyslog.recipe.sh"
+in4func_run "internals--c--management--o--kitchen--f--in4--g--main--s" "3_recipe/in4_shell" "sshd.recipe.sh"
+in4func_run "internals--c--management--o--kitchen--f--in4--g--main--s" "3_recipe/in4_shell" "sudo.recipe.sh"
+in4func_run "internals--c--management--o--kitchen--f--in4--g--main--s" "3_recipe/in4_shell" "swf2.recipe.sh"
+in4func_run "internals--c--management--o--kitchen--f--in4--g--main--s" "3_recipe/in4_shell" "zypper.recipe.sh"
+in4func_run "internals--c--management--o--kitchen--f--in4--g--main--s" "3_recipe/in4_shell" "wtf.recipe.sh"
 
 echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"

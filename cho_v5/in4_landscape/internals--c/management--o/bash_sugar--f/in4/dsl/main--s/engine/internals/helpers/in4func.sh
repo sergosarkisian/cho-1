@@ -78,6 +78,23 @@ in4func_Zypper () {
     done
 }
 
+
+in4func_ZypperRepo () {
+
+    ZypperRepoAction=$1
+    ZypperRepoURI=$2
+    ZypperRepoArgsOnline="--non-interactive  --gpg-auto-import-keys ar -cfk " 
+    
+    case $ZypperRepoAction in
+    "add" )
+        elif [[ $OfflineMode == 1  ]]; then
+            echo "Offline mode, all repos are cached"
+        else
+            echo "zypper $ZypperRepoArgsOnline $ZypperRepoURI" && zypper $ZypperRepoArgsOnline $ZypperRepoURI
+        fi  
+    ;;
+}
+
 in4func_run () {
     in4LandscapeFQN= in4func_resolve_in4 $1
     RunPath=$2
@@ -88,10 +105,19 @@ in4func_run () {
 
 in4func_cp () {
     in4LandscapeFQN= in4func_resolve_in4 $1
-    Source=$2
-    Destination=$3
+    CpSource=$2
+    CpDestination=$3
     
-    cp -r /media/sysdata/in4/cho/cho_v5/in4_landscape/$in4TaxonomyPath/dsl/$in4TaxonomySpecies/$Source $Destination 
+    cp -r /media/sysdata/in4/cho/cho_v5/in4_landscape/$in4TaxonomyPath/dsl/$in4TaxonomySpecies/$CpSource $CpDestination 
+}
+
+in4func_ln () {
+    in4LandscapeFQN= in4func_resolve_in4 $1
+    LnSource=$2
+    LnDestination=$3
+    
+    rm -f $LnDestination
+    ln -s /media/sysdata/in4/cho/cho_v5/in4_landscape/$in4TaxonomyPath/dsl/$in4TaxonomySpecies/$LnSource $LnDestination
 }
 
 in4func_systemd () {
@@ -108,3 +134,18 @@ in4func_systemd () {
     "enable") systemctl enable $SystemdName.$SystemdType ;;
     esac
 }
+
+in4func_swf2 () {
+    in4LandscapeFQN= in4func_resolve_in4 $1
+    SWF2Action=$2
+    SWF2Name=$3
+    
+    case $SWF2Action in
+    "add" )
+        rm -f /etc/sysconfig/SuSEfirewall2.d/services/$SWF2Name.swf2
+        ln -s  /media/sysdata/in4/cho/cho_v5/in4_landscape/$in4TaxonomyPath/in4/4_security/swf2/$SWF2Name.swf2 /etc/sysconfig/SuSEfirewall2.d/services
+    ;;
+    esac
+}
+
+

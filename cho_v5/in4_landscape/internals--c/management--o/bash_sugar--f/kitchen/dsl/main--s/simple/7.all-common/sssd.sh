@@ -1,11 +1,5 @@
-#!/bin/bash
-set -e
-echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
-
 ### SSSD ###
-#ZYPPER
-    ## add build for https://build.opensuse.org/package/show/openSUSE:Factory/sssd 
-in4func_Zypper sssd sssd-tools 
+
 #CONF
 pam-config --add --sss
 rm -f  /etc/sssd/sssd.conf && ln -s /media/sysdata/in4/cho/cho_v4/internals:c/linux_sys:o/security:f/sssd--g/sssd_basic.conf /etc/sssd/sssd.conf
@@ -21,4 +15,3 @@ systemctl enable sssd
 # rm -f /etc/systemd/system/rev5_sssd.service  				&& ln -s /media/sysdata/rev5/techpool/ontology/security/sssd/engine/_systemd/rev5_sssd.service 		/etc/systemd/system/  
 # systemctl disable sssd && ! systemctl stop sssd && systemctl enable rev5_sssd && ! systemctl restart rev5_sssd
 ###
-echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
