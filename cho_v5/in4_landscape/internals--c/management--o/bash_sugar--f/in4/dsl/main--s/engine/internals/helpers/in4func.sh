@@ -93,6 +93,7 @@ in4func_ZypperRepo () {
             echo "zypper $ZypperRepoArgsOnline $ZypperRepoURI" && zypper $ZypperRepoArgsOnline $ZypperRepoURI
         fi  
     ;;
+    esac
 }
 
 in4func_run () {
