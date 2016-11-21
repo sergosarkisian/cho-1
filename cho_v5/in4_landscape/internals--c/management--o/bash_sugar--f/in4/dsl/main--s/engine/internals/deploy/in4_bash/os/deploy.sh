@@ -27,7 +27,7 @@ fi
 
 if [[ $DeployOsMode == "vm_xen" ]]; then
     . $In4_Exec_Path/build_env.sh
-    . $In4_Exec_Path/_base/build/1.init/6.clean.sh
+    . $In4_Exec_Path/_base/build/1.init/clean.sh
 
     if [[ -f $BuildEnv/$In4NamingOsSrvType.raw  ]]; then
         echo "Build image exists, run "

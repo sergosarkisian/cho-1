@@ -21,9 +21,8 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 if [[ $DeployOsMode == "hw_chroot" ]] ; then . $In4_Exec_Path/hw_chroot/build/1.init/2.hw_chroot.sh; fi
 if [[ $DeployOsMode == "vm_xen" ]] ; then . $In4_Exec_Path/vm_xen/build/1.init/2.vm_xen.sh; fi
 . $In4_Exec_Path/_base/build/1.init/3.exec.sh
-if [[ $DeployOsMode == "vm_xen" ]] ; then . $In4_Exec_Path/vm_xen/build/1.init/4.vm_xen-start.sh; fi
-. $In4_Exec_Path/_base/build/1.init/5.post.sh
-. $In4_Exec_Path/_base/build/1.init/6.clean.sh
+. $In4_Exec_Path/_base/build/1.init/4.post.sh
+if [[ $DeployOsMode == "vm_xen" ]] ; then . $In4_Exec_Path/vm_xen/build/1.init/5.vm_xen-start.sh; fi
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`

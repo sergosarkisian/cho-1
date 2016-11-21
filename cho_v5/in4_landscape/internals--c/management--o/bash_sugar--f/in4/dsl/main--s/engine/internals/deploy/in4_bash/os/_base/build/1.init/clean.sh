@@ -25,7 +25,6 @@ if [[ $DeployOsMode == "vm_xen" ]] ; then
     ! sudo umount /dev/$VmDiskLoopSystem
     ! sudo losetup -d /dev/$VmDiskLoopSysdata
     ! sudo losetup -d /dev/$VmDiskLoopSystem
-    ! sudo xl destroy demo-hvxen-test
 fi
 
 ### IN4 BASH FOOTER ###
