@@ -18,7 +18,7 @@ in4func_cp "internals--c--linux_sys--o--boot--f--grub2--g--main--s" "simple/boot
   ### BOOT, GRUB2 init ###
   
 case $DeployOsMode in
-    "vm_xen") export _GRUB2_DISK=$LO_SYSTEM; export _GRUB2_DEFAULT_BOOT="ConeCenter - in4 - Xen - Domu - HVM"; in4func_run "internals--c--linux_sys--o--boot--f--grub2--g--main--s" "3_recipe/in4_shell" "grub2_install.recipe.sh"
+    "vm_xen") export _GRUB2_DISK=$VmDiskLoopSystem; export _GRUB2_DEFAULT_BOOT="ConeCenter - in4 - Xen - Domu - HVM"; in4func_run "internals--c--linux_sys--o--boot--f--grub2--g--main--s" "3_recipe/in4_shell" "grub2_install.recipe.sh"
   ;; ## BUG
     "hw_chroot") export _GRUB2_DISK=$IN4_BASEDISK; export _GRUB2_DEFAULT_BOOT="ConeCenter - in4 - HW"; in4func_run "internals--c--linux_sys--o--boot--f--grub2--g--main--s" "3_recipe/in4_shell" "grub2_install.recipe.sh"
   ;; ## BUG
