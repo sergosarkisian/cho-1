@@ -18,5 +18,5 @@ in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s
 in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "enable" "service" "in4__rsyslog"
 
 systemctl disable rsyslog
-echo "disabled" > /usr/lib/systemd/system/rsyslog.service
-chmod 000 /usr/lib/systemd/system/rsyslog.service
+#echo "disabled" > /usr/lib/systemd/system/rsyslog.service
+#chmod 000 /usr/lib/systemd/system/rsyslog.service
