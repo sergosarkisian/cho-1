@@ -22,6 +22,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n";
 . $In4_Exec_Path/../../../helpers/in4func.sh
 ###
 
+. $In4_Exec_Path/_base/build/2.scenario/1.pre.sh
 . $In4_Exec_Path/_base/build/2.scenario/2.all-repo_42.2.sh
 . $In4_Exec_Path/_base/build/2.scenario/2.all-packages.sh
 if [[ $DeployOsMode == "vm_xen" ]] || [[ $DeployOsMode == "hw_chroot" ]]; then . $In4_Exec_Path/_base/build/2.scenario/2.kern-packages.sh; fi
