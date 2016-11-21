@@ -12,7 +12,7 @@
 ########    #######    ########    #######    ########    ########
 set -e
 
-in4func_run "internals--c--management--o--kitchen--f--in4--g--main--s" "2_init/opensuse" "bash.package.zypper.sh"
+in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "2_init/opensuse" "bash.package.zypper.sh"
 
 #rm -f  /etc/bash.bashrc.local && ln -s  /media/sysdata/in4/cho/cho_v4/internals:c/linux_sys:o/bash/conf/bash.bashrc.local /etc/bash.bashrc.local
 echo "for f in /etc/profile.d/in4__*; do test -s \$f;   source \$f; done" >>  /etc/bash.bashrc

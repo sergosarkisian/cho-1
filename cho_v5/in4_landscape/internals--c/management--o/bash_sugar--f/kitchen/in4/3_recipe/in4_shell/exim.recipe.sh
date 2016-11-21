@@ -12,7 +12,7 @@
 ########    #######    ########    #######    ########    ########
 set -e
 
-in4func_run "internals--c--management--o--kitchen--f--in4--g--main--s" "2_init/opensuse" "exim.package.zypper.sh"
+in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "2_init/opensuse" "exim.package.zypper.sh"
 
 usermod -G sysdata mail
 systemctl mask exim

@@ -12,5 +12,5 @@
 ########    #######    ########    #######    ########    ########
 set -e
 
-in4func_systemd "internals--c--management--o--kitchen--f--in4--g--main--s" "add" "service" "in4__wtf"
-in4func_systemd "internals--c--management--o--kitchen--f--in4--g--main--s" "enable" "service" "in4__wtf"
+in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "add" "service" "in4__wtf"
+in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "enable" "service" "in4__wtf"

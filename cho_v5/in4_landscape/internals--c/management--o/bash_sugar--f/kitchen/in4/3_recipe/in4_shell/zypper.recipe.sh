@@ -12,8 +12,8 @@
 ########    #######    ########    #######    ########    ########
 set -e
 
-in4func_ln "internals--c--management--o--kitchen--f--in4--g--main--s" "simple/zypper/zypp.conf" "/etc/zypp/zypp.conf"
-in4func_ln "internals--c--management--o--kitchen--f--in4--g--main--s" "simple/zypper/zypper.conf" "/etc/zypp/zypper.conf "
-in4func_ln "internals--c--management--o--kitchen--f--in4--g--main--s" "simple/zypper/in4__zypper.bash" "/etc/profile.d/in4__zypper.bash "
+in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/zypper/zypp.conf" "/etc/zypp/zypp.conf"
+in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/zypper/zypper.conf" "/etc/zypp/zypper.conf "
+in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/zypper/in4__zypper.bash" "/etc/profile.d/in4__zypper.bash "
 
-#in4func_bash-profile "internals--c--management--o--kitchen--f--in4--g--main--s" "simple/" ""
+#in4func_bash-profile "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/" ""

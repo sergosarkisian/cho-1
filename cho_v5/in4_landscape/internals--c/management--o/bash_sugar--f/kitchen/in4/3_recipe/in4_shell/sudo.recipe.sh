@@ -12,8 +12,8 @@
 ########    #######    ########    #######    ########    ########
 set -e
 
-in4func_run "internals--c--management--o--kitchen--f--in4--g--main--s" "2_init/opensuse" "sudo.package.zypper.sh"
+in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "2_init/opensuse" "sudo.package.zypper.sh"
 
-in4func_ln "internals--c--management--o--kitchen--f--in4--g--main--s" "simple/sudo/etc_sudoers" "/etc/sudoers"
+in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/sudo/etc_sudoers" "/etc/sudoers"
 
 echo -e "localadmin     ALL=(ALL) ALL" > /etc/sudoers.d/localadmin

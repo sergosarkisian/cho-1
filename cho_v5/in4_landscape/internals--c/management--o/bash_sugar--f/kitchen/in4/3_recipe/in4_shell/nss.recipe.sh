@@ -12,5 +12,5 @@
 ########    #######    ########    #######    ########    ########
 set -e
 
-in4func_ln "internals--c--management--o--kitchen--f--in4--g--main--s" "simple/nss/nsswitch.conf" "/etc/nsswitch.conf"
+in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/nss/nsswitch.conf" "/etc/nsswitch.conf"
 chmod 744 /etc/nsswitch.conf

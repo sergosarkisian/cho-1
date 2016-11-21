@@ -12,10 +12,10 @@
 ########    #######    ########    #######    ########    ########
 set -e
 
-in4func_run "internals--c--management--o--kitchen--f--in4--g--main--s" "2_init/opensuse" "sshd.package.zypper.sh"
+in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "2_init/opensuse" "sshd.package.zypper.sh"
 
-in4func_systemd "internals--c--management--o--kitchen--f--in4--g--main--s" "add" "service" "in4__sshd"
-in4func_systemd "internals--c--management--o--kitchen--f--in4--g--main--s" "enable" "service" "in4__sshd"
+in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "add" "service" "in4__sshd"
+in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "enable" "service" "in4__sshd"
 
-in4func_swf2 "internals--c--management--o--kitchen--f--in4--g--main--s" "add" "in4__sshd"
+in4func_swf2 "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "add" "in4__sshd"
 systemctl disable sshd && systemctl mask sshd
