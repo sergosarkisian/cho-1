@@ -16,7 +16,7 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-. $In4_Exec_Path/_base/build/1.init/6.clean.sh
+. $In4_Exec_Path/_base/build/1.init/clean.sh
 
 ### OPENSUSE INIT
  if [[ -z $OfflineDir ]]; then
@@ -26,7 +26,7 @@ else
 fi
 #
 
-rm -rf $BuildEnv/*
+sudo rm -rf $BuildEnv/*
 mkdir -p $BuildEnv/loop && cd $BuildEnv
 
 ### 42.2 ###

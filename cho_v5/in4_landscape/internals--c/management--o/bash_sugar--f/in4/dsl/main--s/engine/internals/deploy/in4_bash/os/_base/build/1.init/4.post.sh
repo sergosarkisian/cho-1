@@ -21,7 +21,7 @@ if [[ -z $OfflineDir ]]; then
 else
     echo "VM data will be copied to $OfflineDir"
     sudo cp -r $BuildEnv/loop/etc/zypp/repos.d $OfflineDir/zypper/
-    sudo cp -r $BuildEnv/loop/var/cache/zypp $OfflineDir/zypper/
+    sudo cp -r $BuildEnv/loop//media/sysdata/linux_sys/var/cache/zypp $OfflineDir/zypper/
 fi
 
 ### IN4 BASH FOOTER ###
