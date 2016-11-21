@@ -16,7 +16,7 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-cp --sparse=always $BuildEnv/$OS_Type.raw $BuildEnv/../
+cp --sparse=always $BuildEnv/$In4NamingOsSrvType.raw $BuildEnv/../
 cp --sparse=always $BuildEnv/sysdata.raw $BuildEnv/../
 cp --sparse=always $BuildEnv/swap.raw $BuildEnv/../
 
