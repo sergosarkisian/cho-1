@@ -53,7 +53,7 @@ else
     if [[ -d $OfflineDir/zypper/repos.d ]]; then
         sudo mkdir $BuildEnv/loop/etc/zypp/repos.d_offline 
         sudo cp -r $OfflineDir/zypper/repos.d/*  $BuildEnv/loop/etc/zypp/repos.d_offline/
-        sed -i 's/keeppackages=.*/keeppackages=1/g' *.txt $BuildEnv/loop/etc/zypp/repos.d_offline/*.repo
+        sudo sed -i 's/keeppackages=.*/keeppackages=1/g' $BuildEnv/loop/etc/zypp/repos.d_offline/*.repo
     fi    
     sudo cp $OfflineDir/packages/* $BuildEnv/loop/tmp/
 fi
