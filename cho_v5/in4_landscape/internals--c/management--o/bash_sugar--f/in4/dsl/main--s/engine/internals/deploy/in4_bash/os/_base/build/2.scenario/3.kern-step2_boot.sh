@@ -17,9 +17,11 @@ in4func_cp "internals--c--linux_sys--o--boot--f--grub2--g--main--s" "simple/boot
 
   ### BOOT, GRUB2 init ###
   
-case $TYPE in
-    "vm_xen") export _GRUB2_DISK=$LO_SYSTEM; export _GRUB2_DEFAULT_BOOT="ConeCenter - in4 - Xen - Domu - HVM"; in4 recipe 3_recipe in4_shell grub2_install.recipe.sh  ;; ## BUG
-    "hw_chroot") export _GRUB2_DISK=$IN4_BASEDISK; export _GRUB2_DEFAULT_BOOT="ConeCenter - in4 - HW"; in4 recipe 3_recipe in4_shell grub2_install.recipe.sh  ;; ## BUG
+case $DeployOsMode in
+    "vm_xen") export _GRUB2_DISK=$LO_SYSTEM; export _GRUB2_DEFAULT_BOOT="ConeCenter - in4 - Xen - Domu - HVM"; in4func_run "internals--c--linux_sys--o--boot--f--grub2--g--main--s" "3_recipe/in4_shell" "grub2_install.recipe.sh"
+  ;; ## BUG
+    "hw_chroot") export _GRUB2_DISK=$IN4_BASEDISK; export _GRUB2_DEFAULT_BOOT="ConeCenter - in4 - HW"; in4func_run "internals--c--linux_sys--o--boot--f--grub2--g--main--s" "3_recipe/in4_shell" "grub2_install.recipe.sh"
+  ;; ## BUG
     esac  
 #DOUBLE
 depmod `ls -la /boot/vmlinuz|awk '{print $11}'|sed 's/vmlinuz-//'`
