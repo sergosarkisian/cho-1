@@ -63,7 +63,7 @@ in4func_Zypper () {
     if [[ -n $(echo "$1"|grep "/") ]]; then
         readarray PackagesArray < $1    
     else
-        PackagesArray=($1)
+        PackagesArray=("$1")
     fi
     for PackagesLines in "${PackagesArray[@]}"
     do
