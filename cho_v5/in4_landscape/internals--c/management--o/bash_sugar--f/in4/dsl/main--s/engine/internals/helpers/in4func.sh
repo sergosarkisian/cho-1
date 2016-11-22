@@ -155,12 +155,9 @@ in4func_swf2 () {
 
 ### CLASSIC ###
 _umount() {
-    [[ $# -lt 2 ]] && { 
-        echo "Usage: ${FUNCNAME} <timeout_secs> <mnt_point>"; return 1
-    }
-    timeout=$(($(date +%s) + ${1}))
-    until sudo umount "${2}" 2>/dev/null || [[ $(date +%s) -gt $timeout ]]; do
-       :
+    Mount=$1
+    while mountpoint -q $Mount; do
+        sudo umount $Mount || sleep 1
     done
 }
 ###
