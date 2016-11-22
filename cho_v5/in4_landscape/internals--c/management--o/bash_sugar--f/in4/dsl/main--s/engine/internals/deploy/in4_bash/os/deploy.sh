@@ -20,7 +20,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 #echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 if [[ $DeployOsMode == "vm_xen" ]]; then
-    BuildEnv="$VMImageDir/$In4NamingOsSrvType/_os_build"
+    BuildEnv='$VMImageDir/$In4NamingOsSrvType/_os_build'
 else
     BuildEnv="`pwd`/_os_build"
 fi
