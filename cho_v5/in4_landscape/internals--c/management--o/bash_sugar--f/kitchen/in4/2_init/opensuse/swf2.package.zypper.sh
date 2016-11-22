@@ -12,4 +12,4 @@
 ########    #######    ########    #######    ########    ########
 set -e
 
-in4func_Zypper SuSEfirewall2
+in4func_Zypper "SuSEfirewall2"

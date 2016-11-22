@@ -12,4 +12,4 @@
 ########    #######    ########    #######    ########    ########
 set -e
 
-in4func_Zypper sudo
+in4func_Zypper "sudo"

@@ -12,4 +12,4 @@
 ########    #######    ########    #######    ########    ########
 set -e
 
-in4func_Zypper snapper snapper-zypp-plugin yast2-snapper grub2-snapper-plugin
+in4func_Zypper "snapper snapper-zypp-plugin yast2-snapper grub2-snapper-plugin"

@@ -12,4 +12,4 @@
 ########    #######    ########    #######    ########    ########
 set -e
 
-in4func_Zypper bash-completion
+in4func_Zypper "bash-completion"

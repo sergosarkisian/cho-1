@@ -12,8 +12,8 @@ if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then
          ### 
         
         ###  DISABLE NET DHCP ### 
-        cp /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/3.env/wtf/wickedd-dhcp /usr/lib/systemd/system/wickedd-auto4.service
-        cp /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/3.env/wtf/wickedd-dhcp /usr/lib/systemd/system/wickedd-dhcp4.service
+        cp /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/bash_sugar--f/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/_base/build/3.env/wtf/wickedd-dhcp /usr/lib/systemd/system/wickedd-auto4.service
+        cp /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/bash_sugar--f/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/_base/build/3.env/wtf/wickedd-dhcp /usr/lib/systemd/system/wickedd-dhcp4.service
         systemctl disable wickedd-dhcp6
         systemctl mask wickedd-dhcp6
         ### 
@@ -27,7 +27,7 @@ if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then
 		cp /media/sysdata/in4/cho/cho_v3/ontology/linux_sys/suse-network/hosts /etc/hosts ## BUG
 		echo "127.0.0.3 $NAME $SrvName" >> /etc/hosts
 
-                sh /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/2.scenario/99.post_once.sh
+                sh /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/bash_sugar--f/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/_base/build/2.scenario/99.post_once.sh
 		
 		hostnamectl --transient set-hostname $SrvName
 		hostnamectl --static set-hostname  $NAME
@@ -61,4 +61,5 @@ if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then
 	systemctl disable init_auto_xen
         rm -f  /etc/systemd/system/init_auto_xen.service
         rm -f /etc/systemd/system/multi-user.target.wants/init_auto_xen.service
+        reboot
 fi

@@ -13,4 +13,4 @@
 set -e
 
 in4func_ZypperRepo "add" "http://download.opensuse.org/repositories/home:/conecenter:/rev5a1:/ontology:/data_safety--c:/replication--o:/block--f/openSUSE_Leap_42.2/home:conecenter:rev5a1:ontology:data_safety--c:replication--o:block--f.repo"
-in4func_Zypper drbd9-kmp-default drbd9 drbd-utils
+in4func_Zypper "drbd9-kmp-default drbd9 drbd-utils"

@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-#. /media/sysdata/in4/cho/in4_core/naming/manual.sh
+.  $In4_Exec_Path/../../../naming/manual.sh
 
 if [[ -z $VM_HV_NAME ]]; then
     DESC="Please specify hypervisor name"
@@ -51,11 +51,11 @@ if [[ -z $VM_MTU ]]; then
      echo $DESC; select VM_MTU in 1500 9000 ;  do  break ; done;
 fi
 
-VM_VLAN=$Net
+VM_VLAN="$Net"
 
 if [[ -z $VM_GATE_IP ]]; then
     DESC="Please specify VM Gate IP address"
-    if [[ -z ${vm_params[$i]} ]]; then echo $DESC; read VM_GATE_IP; 
+     echo $DESC; read VM_GATE_IP
 fi
 
 
@@ -64,16 +64,17 @@ fi
 ### SUPERLOGIC ###
 VM_IP2MAC_SUM3_DEC=$((16#${VM_IP2MAC_OCT3:1:1}${VM_IP2MAC_OCT4}))
 VM_SPICE_PORT=$((VM_IP2MAC_SUM3_DEC+50000))
-VM_IP2MAC_MAC_UC="${VM_IP2MAC_OCT1^^}:${VM_IP2MAC_OCT2^^}:${VM_IP2MAC_OCT3^^}:${VM_IP2MAC_OCT4^^}:${VM_NETMASK^^}"
+VM_IP2MAC_MAC_UC="${VM_NETMASK^^}:${VM_IP2MAC_OCT1^^}:${VM_IP2MAC_OCT2^^}:${VM_IP2MAC_OCT3^^}:${VM_IP2MAC_OCT4^^}"
 ###
-.  /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/vm_tmpl.xl
-
+. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/bash_sugar--f/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/vm_xen/run/4.run/vm_tmpl.xl
+. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/bash_sugar--f/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/vm_xen/run/4.run/vm_tmpl.xl > /tmp/$SrvName.xl
+. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/bash_sugar--f/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/vm_xen/run/4.run/in4_xen-deploy_vm.sh
 ### CREATE XL CONF IN SVN ###
-SVN_CONF_PATH="/media/sysdata/in4/companies/$VM_HV_ORG/sdata/roles/hv_xen/$VM_HV_NAME/$Org/$SrvRole/$DeplType"
-mkdir -p  $SVN_CONF_PATH
- .  /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/vm_tmpl.xl > $SVN_CONF_PATH/${SrvName}.xl
+#SVN_CONF_PATH="/media/sysdata/in4/companies/$VM_HV_ORG/sdata/roles/hv_xen/$VM_HV_NAME/$Org/$SrvRole/$DeplType"
+#mkdir -p  $SVN_CONF_PATH
+ #.  /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/vm_tmpl.xl > $SVN_CONF_PATH/${SrvName}.xl
  ###
  
  ### PROMOTE VM ON HV ###
- systemctl -H $VM_HV_NAME start in4_vm-deploy@$FullSrvName
+ #systemctl -H $VM_HV_NAME start in4_vm-deploy@$FullSrvName
  ##

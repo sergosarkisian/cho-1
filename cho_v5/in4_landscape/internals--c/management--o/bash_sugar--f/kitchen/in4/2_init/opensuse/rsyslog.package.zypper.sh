@@ -13,4 +13,4 @@
 set -e
 
 in4func_ZypperRepo "add" "http://download.opensuse.org/repositories/home:/conecenter:/rev5a1:/ontology:/logitoring--c:/messagebus--o:/syslog--f/openSUSE_Leap_42.2/home:conecenter:rev5a1:ontology:logitoring--c:messagebus--o:syslog--f.repo"
-in4func_Zypper rsyslog rsyslog-module-relp rsyslog-module-mmnormalize rsyslog-module-gtls
+in4func_Zypper "rsyslog rsyslog-module-relp rsyslog-module-mmnormalize rsyslog-module-gtls"

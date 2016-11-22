@@ -12,7 +12,7 @@ Description		= init_auto_xen
 ##
 
 ## EXECS ##
- ExecStart		= /bin/sh /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/_sub/vm_xen/3.env/init_auto_xen.sh
+ ExecStart		= /bin/sh /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/bash_sugar--f/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/vm_xen/build/3.env/init_auto_xen.sh
  
  #loging -  "instance":"%I"
  ##

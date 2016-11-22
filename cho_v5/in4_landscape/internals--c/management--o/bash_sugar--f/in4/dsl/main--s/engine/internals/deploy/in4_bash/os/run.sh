@@ -17,10 +17,13 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-in4func_Zypper "kernel-default"
+if [[ $DeployOsMode == "vm_xen" ]] ; then . $In4_Exec_Path/vm_xen/run/4.run/deploy_vm.sh; fi
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
 LogMsg="END -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
+tput setaf 2
+echo -e "${green}\n\n\n ################# RUN OK #################"
+tput setaf 9
