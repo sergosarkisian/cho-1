@@ -120,7 +120,7 @@ case "$command" in
         sleep 1
         
         logger -t xen-vif "Status: Ready to, ACT: ovs-vsctl add-port , RULE: vif-ovs, DATA: $store_preserialised"                
-        ovs-vsctl --timeout=30 -- --if-exists del-port ${store[dev]} -- add-port ${store[switch]} "${store[dev]}" "${store[ovs_tag_method]}=${store[cookie]}" -- set interface ${store[dev]} ofport_request=${store[port]} options:type=${store[type]} options:port=${store[port]} options:mac=${store[mac]} options:ip=${store[ip]} options:fqdn=${store[fqdn]} options:mtu=${store[mtu]} options:policy=${store[policy]} options:policy=${store[gate]}
+        ovs-vsctl --timeout=30 -- --if-exists del-port ${store[dev]} -- add-port ${store[switch]} "${store[dev]}" "${store[ovs_tag_method]}=${store[cookie]}" -- set interface ${store[dev]} ofport_request=${store[port]} options:type=${store[type]} options:port=${store[port]} options:mac=${store[mac]} options:ip=${store[ip]} options:fqdn=${store[fqdn]} options:mtu=${store[mtu]} options:policy=${store[policy]} options:gate=${store[gate]}
         logger -t xen-vif "Status: Done, ACT: ovs-vsctl add-port , RULE: vif-ovs, DATA: $store_preserialised"                        
         
         sleep 1

@@ -7,9 +7,9 @@ if [[ -z $Org ]]; then
     echo $DESC; read Org;
 fi
 
-if [[ -z $SrvType ]]; then
+if [[ -z $In4NamingOsSrvType ]]; then
     DESC="Please specify server type: "
-    echo $DESC; select  SrvType in in4a1-suse-l ;  do  break ; done;
+    echo $DESC; select  In4NamingOsSrvType in in4a1-suse-l ;  do  break ; done;
 fi
 
 if [[ -z $SrvRole ]]; then
@@ -45,9 +45,9 @@ VM_IP2MAC_OCT2=$( printf "%02x" `echo $VM_IP|cut -d. -f 2`)
 VM_IP2MAC_OCT3=$( printf "%02x" `echo $VM_IP|cut -d. -f 3`)
 VM_IP2MAC_OCT4=$( printf "%02x" `echo $VM_IP|cut -d. -f 4|cut -d/ -f 1`)
 VM_NETMASK=$( printf "%02x" `echo $VM_IP|cut -d. -f 4|cut -d/ -f 2`)
-MACIP="${VM_IP2MAC_OCT1}${VM_IP2MAC_OCT2}${VM_IP2MAC_OCT3}${VM_IP2MAC_OCT4}${VM_NETMASK}"
+MACIP="${VM_NETMASK}${VM_IP2MAC_OCT1}${VM_IP2MAC_OCT2}${VM_IP2MAC_OCT3}${VM_IP2MAC_OCT4}"
 #MACIP_HA
 #
 
 SrvName="$MACIP-$SrvContext-$SrvRole-$DeplType"	
-FullSrvName="$SrvName.$SrvType.$Net.$View.$Org.pool"
+FullSrvName="$SrvName.$In4NamingOsSrvType.$Net.$View.$Org.pool"
