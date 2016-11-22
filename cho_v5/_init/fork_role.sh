@@ -1,12 +1,12 @@
 #!/bin/bash
+set -e
+echo -e "\n\n######## ######## BEGIN - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
+
 execPath=`pwd`
 declare -A k v store
 echo -e  "Fork role - basepath\n\n"
 
-
 input_serialised=$1
-
-
 
 #echo ${store[@]}
 taxSerial="${store[c]}--c--${store[o]}--o--${store[f]}--f--${store[g]}--g--${store[s]}--s"
@@ -31,19 +31,21 @@ taxPath="${store[c]}--c/${store[o]}--o/${store[f]}--f/${store[g]}"
         for obs in ${obsArray[*]}; do   
             cp $execPath/obs_project.xml /tmp/obs_project.xml
             sed -i "s/{PROJECT}/$obs/g" /tmp/obs_project.xml
-            osc meta prj home:conecenter:rev5a1:ontology:$obs  -F /tmp/obs_project.xml
+            osc meta prj home:conecenter:in4:ontology:$obs  -F /tmp/obs_project.xml
         done
 
 
         cp $execPath/obs_package.xml /tmp/obs_package.xml
         sed -i "s/{PROJECT}/$obs/g" /tmp/obs_package.xml
         sed -i "s/{NAME}/${store[g]}/g" /tmp/obs_package.xml
-        cd $execPath/../in4_landscape/$taxPath/rev5/1_build/obs/
-        osc co -u home:conecenter:rev5a1:ontology:$obs
-        mv home:conecenter:rev5a1:ontology:$obs/.osc ./ && rm -rf home:conecenter:rev5a1:ontology:$obs
+        cd $execPath/../in4_landscape/$taxPath/in4/1_build/obs/
+        osc co -u home:conecenter:in4:ontology:$obs
+        mv home:conecenter:in4:ontology:$obs/.osc ./ && rm -rf home:conecenter:in4:ontology:$obs
         #
-        osc meta pkg home:conecenter:rev5a1:ontology:$obs ${store[g]} -F /tmp/obs_package.xml
+        osc meta pkg home:conecenter:in4:ontology:$obs ${store[g]} -F /tmp/obs_package.xml
         osc up -u
         
         cd $execPath/../in4_landscape/$taxPath
         git add * && git commit  -m "777"
+
+echo -e "\n\n######## ######## END - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"        

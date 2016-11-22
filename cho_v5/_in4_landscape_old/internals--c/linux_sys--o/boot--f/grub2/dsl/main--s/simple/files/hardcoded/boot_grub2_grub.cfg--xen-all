@@ -1,0 +1,84 @@
+### BEGIN /etc/grub.d/00_header ###
+set btrfs_relative_path="y"
+export btrfs_relative_path
+
+probe -s UUID -u $root
+set default="ConeCenter - in4 - Xen - Domu - HVM"
+
+if [ -f ${config_directory}/grubenv ]; then
+  load_env -f ${config_directory}/grubenv
+elif [ -s $prefix/grubenv ]; then
+  load_env
+fi
+
+if [ "${env_block}" ] ; then
+  load_env -f "${env_block}"
+fi
+
+if [ x"${feature_menuentry_id}" = xy ]; then
+  menuentry_id_option="--id"
+else
+  menuentry_id_option=""
+fi
+
+export menuentry_id_option
+insmod part_gpt 
+insmod part_msdos 
+insmod btrfs
+font=unicode
+set timeout_style=menu
+set timeout=2
+
+if [ -n "$extra_cmdline" ]; then
+  submenu "Bootable snapshot #$snapshot_num" {
+    menuentry "If OK, run 'snapper rollback' and reboot." { true; }
+  }
+fi
+
+### END /etc/grub.d/00_header ###
+menuentry 'ConeCenter - in4 - Xen - Domu - HVM'  --class opensuse --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-hvm' {
+        set gfxpayload=text
+        insmod gzio
+        insmod ext2
+        echo    'Loading Linux  ...'
+        linux   /boot/vmlinuz  root=LABEL=system  showopts ipv6.disable=1 elevator=noop vga=0x314 CPUFREQ=no panic=15 barrier=off rw
+		echo    'Loading initial ramdisk ...'
+		initrd  /boot/initrd
+}
+
+
+### END /etc/grub.d/00_header ###
+menuentry 'ConeCenter - in4 - HW'  --class opensuse --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-hvm' {
+        set gfxpayload=text
+        insmod gzio
+        insmod ext2
+        #set root='hd0,gpt1'
+        #search --no-floppy --label system --set=root --hint-bios=hd0,gpt1 --hint-efi=hd0,gpt1 --hint-baremetal=ahci0,gpt1 --hint='hd0,gpt1'
+        echo    'Loading Linux  ...'
+        linux   /boot/vmlinuz  root=LABEL=system  showopts ipv6.disable=1 elevator=deadline vga=0x314 panic=15 rw
+		echo    'Loading initial ramdisk ...'
+		initrd  /boot/initrd
+}
+
+### BEGIN /etc/grub.d/20_linux_xen ###
+ menuentry 'ConeCenter - Xen - Dom0'  --class opensuse --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-xen' {
+        insmod part_gpt 
+        insmod btrfs
+        echo    'Loading Xen Hypervisor'
+        if [ "$grub_platform" = "pc" -o "$grub_platform" = "" ]; then
+            xen_rm_opts=
+        else
+            xen_rm_opts="no-real-mode edd=off"
+        fi
+        multiboot       /boot/xen.gz placeholder  vga=mode-0x314 dom0_max_vcpus=4 dom0_mem=4G,max:4G msi=on iommu=no-intremap console=ttyS0,115200 cpufreq=xen processor.max_cstate=1 intel_idle.max_cstate=0 allowsuperpage ${xen_rm_opts}
+        echo    'Loading Linux  ...'
+        module  /boot/vmlinuz placeholder root=LABEL=system splash=silent quiet showopts ipv6.disable=1 elevator=deadline pci_pt_e820_access=on vga=0x314 intremap=off ${extra_cmdline}  splash=silent quiet showopts rw
+        echo    'Loading initial ramdisk ...'
+        module  --nounzip   /boot/initrd
+}
+
+### BEGIN /etc/grub.d/80_suse_btrfs_snapshot ###
+if [ -f "/.snapshots/grub-snapshot.cfg" ]; then
+  source "/.snapshots/grub-snapshot.cfg"
+fi
+### END /etc/grub.d/80_suse_btrfs_snapshot ###

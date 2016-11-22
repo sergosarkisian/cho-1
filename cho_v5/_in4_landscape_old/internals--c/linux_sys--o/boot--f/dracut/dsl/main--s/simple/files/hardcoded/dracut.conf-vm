@@ -1,0 +1,17 @@
+#logfile=/media/logs/files/dracut.log
+#fileloglvl=6
+sysloglvl=6
+#dracutmodules+=""
+#omit_dracutmodules+=""
+#add_dracutmodules+=""                                                                                                                                         
+add_drivers+="ata_piix ata_generic virtio_net virtio_blk virtio virtio_ring virtio_pci virtio_balloon hv_vmbus hv_utils hv_netvsc hv_storvsc xenblk xennet xen-blkfront xen_vnif xen_baloon xen_vbd xen_platform_pci"
+#filesystems+=""
+#hostonly="yes"
+#mdadmconf="no"
+#lvmconf="no"
+#fscks=""
+#nofscks="yes"
+ro_mnt="no"
+# default: /var/tmp
+#tmpdir=/tmp
+

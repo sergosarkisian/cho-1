@@ -1,4 +1,7 @@
 #!/bin/bash
+set -e
+echo -e "\n\n######## ######## BEGIN - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
+
 execPath=`pwd`
 declare -A k v store
 echo -e  "New\upd role - basepath\n\n"
@@ -77,3 +80,5 @@ taxSerialShort="${store[c]}--c--${store[o]}--o--${store[f]}--f--${store[g]}"
         
         cd $execPath/../products/$taxSerialShort
         git add * && git commit  -m "777"
+        
+echo -e "\n\n######## ######## END - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"                

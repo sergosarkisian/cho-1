@@ -1,0 +1,10 @@
+aaa_base kmod binutils
+net-tools iproute2 wicked-service dbus-1 strace
+aaa_base-extras man man-pages kbd timezone util-linux-systemd
+ca-certificates-mozilla
+btrfsprogs e2fsprogs sysfsutils quota
+yast2-security
+mc vim lsof less strace pwgen sysstat tcpdump
+bzip2 gzip p7zip unzip zip tar xz
+rsync subversion git telnet wget mailx
+curl expect  deltarpm
