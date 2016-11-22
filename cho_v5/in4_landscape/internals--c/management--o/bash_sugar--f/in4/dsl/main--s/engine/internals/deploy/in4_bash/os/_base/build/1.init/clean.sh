@@ -25,7 +25,7 @@ if  mountpoint -q $BuildEnv/loop ; then _umount $BuildEnv/loop; fi
     
 if [[ $DeployOsMode == "vm_xen" ]] ; then 
     if [[ -n `losetup -j ${BuildEnv/sysdata.raw` ]]; then sudo losetup -d /dev/$VmDiskLoopSysdata; fi
-    if [[ -n ${`losetup -j $BuildEnv/$In4NamingOsSrvType.raw`} ]] ; then sudo losetup -d /dev/$VmDiskLoopSystem; fi
+    if [[ -n `losetup -j $BuildEnv/$In4NamingOsSrvType.raw` ]] ; then sudo losetup -d /dev/$VmDiskLoopSystem; fi
 fi
 
 
