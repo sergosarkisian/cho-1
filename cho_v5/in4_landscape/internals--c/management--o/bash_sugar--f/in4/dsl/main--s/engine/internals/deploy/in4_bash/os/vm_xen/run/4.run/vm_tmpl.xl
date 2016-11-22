@@ -44,6 +44,6 @@ disk=[
 ]                                                                                                                                                                                          
                                                                                                                                                                                   
 vif =[        
-"mac=AA:$VM_IP2MAC_MAC_UC:$VM_NETMASK type=vif,bridge=type::ext---ext_if::bond_vlannet---policy::common---switch::vlannet---cookie::$VM_VLAN---mtu::$VM_MTU---gate::$VM_GATE_IP",   
+\"mac=AA:$VM_IP2MAC_MAC_UC type=vif,bridge=type::ext---ext_if::bond_vlannet---policy::common---switch::vlannet---cookie::$VM_VLAN---mtu::$VM_MTU---gate::$VM_GATE_IP\",   
 ]
 ############  VM CONF ###########\n\n\n"
