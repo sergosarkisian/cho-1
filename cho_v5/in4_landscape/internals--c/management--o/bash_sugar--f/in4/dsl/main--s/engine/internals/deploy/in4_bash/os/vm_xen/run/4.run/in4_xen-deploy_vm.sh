@@ -10,7 +10,7 @@ SVN_CONF_PATH="/media/sysdata/in4/_context/roles/hv_xen/$VM_HV_NAME/$Org/$SrvRol
 if [[ -d $VM_DISK_FULL_PATH ]]; then
     echo "VM is already exists!!! "; exit 1
 else
-    mkdir $VM_DISK_FULL_PATH
+    mkdir -p $VM_DISK_FULL_PATH
     cp --sparse=always $BuildEnv/../$In4NamingOsSrvType.raw $VM_DISK_FULL_PATH/$In4NamingOsSrvType.raw
     cp --sparse=always $BuildEnv/../swap.raw $VM_DISK_FULL_PATH/swap.raw
     cp --sparse=always $BuildEnv/../sysdata.raw $VM_DISK_FULL_PATH/sysdata.raw
