@@ -51,7 +51,7 @@ if [[ -z $VM_MTU ]]; then
      echo $DESC; select VM_MTU in 1500 9000 ;  do  break ; done;
 fi
 
-VM_VLAN=$Net
+VM_VLAN="$Net"
 
 if [[ -z $VM_GATE_IP ]]; then
     DESC="Please specify VM Gate IP address"
