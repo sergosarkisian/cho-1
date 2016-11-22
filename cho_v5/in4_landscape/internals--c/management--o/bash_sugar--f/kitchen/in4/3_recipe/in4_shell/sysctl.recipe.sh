@@ -12,7 +12,7 @@
 ########    #######    ########    #######    ########    ########
 set -e
 
-in4func_cp "internals--c--management--o--kitchen--f--in4--g--main--s" "simple/sysctl/main.conf" "/etc/sysctl.d/"
-in4func_cp "internals--c--management--o--kitchen--f--in4--g--main--s" "simple/sysctl/memory.conf" "/etc/sysctl.d/"
-in4func_cp "internals--c--management--o--kitchen--f--in4--g--main--s" "simple/sysctl/network.conf" "/etc/sysctl.d/"
-in4func_cp "internals--c--management--o--kitchen--f--in4--g--main--s" "simple/sysctl/server.conf" "/etc/sysctl.d/"
+in4func_cp "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/sysctl/main.conf" "/etc/sysctl.d/"
+in4func_cp "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/sysctl/memory.conf" "/etc/sysctl.d/"
+in4func_cp "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/sysctl/network.conf" "/etc/sysctl.d/"
+in4func_cp "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/sysctl/server.conf" "/etc/sysctl.d/"

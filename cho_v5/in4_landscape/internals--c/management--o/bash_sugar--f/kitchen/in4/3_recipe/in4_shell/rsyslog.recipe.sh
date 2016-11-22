@@ -21,4 +21,5 @@ chmod 000 /usr/lib/systemd/system/rsyslog.service
 in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "add" "service" "in4__rsyslog"
 in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "enable" "service" "in4__rsyslog"
 
+in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/rsyslog" "/etc/rsyslog.d"
 

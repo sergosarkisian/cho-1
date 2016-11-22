@@ -12,9 +12,6 @@
 ########    #######    ########    #######    ########    ########
 set -e
 
-in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "2_init/opensuse" "in4__.package.zypper.sh"
+in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "2_init/opensuse" "drbd9.package.zypper.sh"
 
-in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "add" "service" "in4__"
-in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "enable" "service" "in4__"
-
-in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/" ""
+in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/drbd9/drbd.conf" "/etc/drbd.conf"

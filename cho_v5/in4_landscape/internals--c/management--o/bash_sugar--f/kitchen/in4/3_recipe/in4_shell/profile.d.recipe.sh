@@ -12,9 +12,8 @@
 ########    #######    ########    #######    ########    ########
 set -e
 
-in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "2_init/opensuse" "in4__.package.zypper.sh"
+in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/profile.d/support.sh" "/etc/profile.d/support.sh"
+in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/profile.d/power.sh" "/etc/profile.d/power.sh"
+in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/profile.d/administrators.sh" "/etc/profile.d/administrators.sh"
 
-in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "add" "service" "in4__"
-in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "enable" "service" "in4__"
-
-in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/" ""
+chmod 744 /etc/profile.d/*

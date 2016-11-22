@@ -120,7 +120,7 @@ in4func_ln () {
     LnSource=$2
     LnDestination=$3
     
-    rm -f $LnDestination
+    rm -rf $LnDestination
     ln -s /media/sysdata/in4/cho/cho_v5/in4_landscape/$in4TaxonomyPath/dsl/$in4TaxonomySpecies/$LnSource $LnDestination
 }
 
