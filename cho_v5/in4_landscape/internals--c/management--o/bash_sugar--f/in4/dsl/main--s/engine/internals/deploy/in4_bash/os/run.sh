@@ -1,3 +1,4 @@
+#!/bin/bash
 ########    #######    ########    #######    ########    ########
 ##     / / / /    License    \ \ \ \ 
 ##    Copyleft culture, Copyright (C) is prohibited here
@@ -16,41 +17,13 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-#LogMsg="Dump vars for $ExecScriptname: "
-#echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
-
-if [[ $DeployOsMode == "vm_xen" ]]; then
-    BuildEnv="$VMImageDir/$In4NamingOsSrvType/_os_build"
-else
-    BuildEnv="`pwd`/_os_build"
-fi
-
-if [[ $DeployOsMode == "vm_xen" ]]; then
-    . $In4_Exec_Path/build_env.sh
-    . $In4_Exec_Path/_base/build/1.init/clean.sh
-
-    if [[ -f $BuildEnv/../$In4NamingOsSrvType.raw  ]]; then
-        echo "Build image exists, run "
-        if [[ -z $In4ImageRedeploy ]]; then
-            DialogMsg="Redeploy?"
-            echo $DialogMsg; select  In4ImageRedeploy in N Y ;  do  break ; done;
-        fi   
-        
-        if [[ $In4ImageRedeploy == "Y" ]]; then
-            . $In4_Exec_Path/build.sh
-        fi
-        . $In4_Exec_Path/run.sh
-        
-    else
-        echo "Build image not exists, build "
-        . $In4_Exec_Path/build.sh
-        . $In4_Exec_Path/run.sh
-    fi
-fi
-
+if [[ $DeployOsMode == "vm_xen" ]] ; then . $In4_Exec_Path/vm_xen/run/4.run/deploy_vm.sh; fi
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
 LogMsg="END -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
+tput setaf 2
+echo -e "${green}\n\n\n ################# RUN OK #################"
+tput setaf 9
