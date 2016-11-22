@@ -153,3 +153,11 @@ in4func_swf2 () {
 }
 
 
+### CLASSIC ###
+_umount() {
+    Mount=$1
+    while mountpoint -q $Mount; do
+        sudo umount $Mount || sleep 1
+    done
+}
+###

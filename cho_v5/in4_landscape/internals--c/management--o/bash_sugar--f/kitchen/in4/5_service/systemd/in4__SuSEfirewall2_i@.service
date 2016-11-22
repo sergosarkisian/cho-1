@@ -28,7 +28,7 @@ Description		= in4 SuSEfirewall2 - %i - phase 2
 ##
 
 ## EXECS ##
- ExecStart		= /bin/sh /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/helpers/runner.sh in4__SuSEfirewall2_i %i
+ ExecStart		= /bin/sh /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/bash_sugar--f/in4/dsl/main--s/engine/internals/helpers/runner.sh in4__SuSEfirewall2_i %i
  ExecStop			= /usr/sbin/SuSEfirewall2 systemd_stop
  ExecReload		= /bin/kill -HUP $MAINPID
 

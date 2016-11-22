@@ -16,12 +16,13 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
+echo "111111 - $BuildEnv/loop/media/sysdata/linux_sys"
 if [[ -d $BuildEnv/loop/dev ]]; then ! sudo umount $BuildEnv/loop/dev; fi
 if [[ -d $BuildEnv/loop/proc ]]; then ! sudo umount $BuildEnv/loop/proc; fi
 if [[ -d $BuildEnv/loop/sys ]]; then ! sudo umount $BuildEnv/loop/sys; fi
-sleep 5
-! sudo umount $BuildEnv/loop/media/sysdata
-! sudo umount $BuildEnv/loop
+
+if mountpoint -q $BuildEnv/loop/media/sysdata ; then _umount $BuildEnv/loop/media/sysdata; fi
+if  mountpoint -q $BuildEnv/loop ; then _umount $BuildEnv/loop; fi
     
 if [[ $DeployOsMode == "vm_xen" ]] ; then 
     ! sudo losetup -d /dev/$VmDiskLoopSysdata

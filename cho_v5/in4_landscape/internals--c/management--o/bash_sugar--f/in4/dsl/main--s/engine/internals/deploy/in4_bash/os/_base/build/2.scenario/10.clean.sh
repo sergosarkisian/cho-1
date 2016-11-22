@@ -6,6 +6,7 @@ zypper mr -K -a
 ## zypper clean -a ## NOT COMP WITH OFFLINE 
 
 ### RM ALL LOGS & TRACES ###
+cd /
 ! rm -f /var/log/*/*
 ! rm -f /var/log/*.log
 rm -f /root/.bash_history

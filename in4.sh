@@ -77,6 +77,13 @@ case $Task in
                 . $In4_Exec_Path/deploy.sh ;;
                 esac
             ;;
+            "run" )
+                in4LandscapeFQN=$1
+                RunPath=$2
+                RunName=$3
+                in4func_run $in4LandscapeFQN $RunPath $RunName
+                "internals--c--linux_sys--o--boot--f--grub2--g--main--s" "2_init/opensuse" "in4__main--s.package.zypper.sh"                
+            ;;
 esac
 
 ### IN4 BASH FOOTER ###
