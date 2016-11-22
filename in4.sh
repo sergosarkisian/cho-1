@@ -18,7 +18,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 . /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/bash_sugar--f/in4/dsl/main--s/engine/internals/helpers/in4func.sh
 #OfflineMode=1
-OfflineDir="/home/storage/IT/_tmp/cho_offline"
+#OfflineDir="/home/storage/IT/_tmp/cho_offline"
 
 if [[ -z $Task ]]; then
     DialogMsg="Please specify task"
