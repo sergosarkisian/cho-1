@@ -8,8 +8,8 @@ spiceport               = $VM_SPICE_PORT          ## MAC - 3 last digits + 50000
 ##
 
 ## RESOURCES ##
-memory          = $VM_RAM
-maxmem  = $VM_RAM_MAX
+memory          = $((VM_RAM*1024))
+maxmem  = $((VM_RAM_MAX*1024))
 vcpus           = $VM_CPU
 maxvcpus = 8
 pool           = \"$VM_POOL\"
@@ -17,7 +17,7 @@ cpu_weight = 512
 ##
 
 ## HVM ##
-# device_model_override = "/usr/bin/qemu-system-x86_64"
+device_model_override = \"/usr/bin/qemu-system-x86_64\"
 builder = 'hvm'
 boot='c'
 acpi_s3=0
@@ -31,7 +31,7 @@ keymap='en-us'
 
 ## XEN ##
 #extra = "CPUFREQ=no panic=15 barrier=off xen_blkfront.max=64 console=hvc0 debug kgdboc=hvc0"
-on_crash = "restart"
+on_crash = 'restart'
 ##                                                                                                                                                             
 
 disk=[
