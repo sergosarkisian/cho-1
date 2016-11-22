@@ -22,7 +22,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 if [[ -z $Task ]]; then
     DialogMsg="Please specify task"
-    echo $DialogMsg; select Task in deploy recipe sync sys ;  do  break ; done
+    echo $DialogMsg; select Task in deploy recipe sync sys run;  do  break ; done
 fi
 
 case $Task in
