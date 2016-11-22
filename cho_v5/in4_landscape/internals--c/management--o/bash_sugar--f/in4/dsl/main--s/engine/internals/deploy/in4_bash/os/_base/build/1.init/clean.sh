@@ -21,8 +21,8 @@ if [[ -d $BuildEnv/loop/dev ]]; then ! sudo umount $BuildEnv/loop/dev; fi
 if [[ -d $BuildEnv/loop/proc ]]; then ! sudo umount $BuildEnv/loop/proc; fi
 if [[ -d $BuildEnv/loop/sys ]]; then ! sudo umount $BuildEnv/loop/sys; fi
 
-if [[ mountpoint -q $BuildEnv/loop/media/sysdata ]]; then _umount $BuildEnv/loop/media/sysdata; fi
-if [[ mountpoint -q $BuildEnv/loop ]]; then _umount $BuildEnv/loop; fi
+if mountpoint -q $BuildEnv/loop/media/sysdata ; then _umount $BuildEnv/loop/media/sysdata; fi
+if  mountpoint -q $BuildEnv/loop ; then _umount $BuildEnv/loop; fi
     
 if [[ $DeployOsMode == "vm_xen" ]] ; then 
     ! sudo losetup -d /dev/$VmDiskLoopSysdata
