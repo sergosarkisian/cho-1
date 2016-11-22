@@ -31,6 +31,15 @@ if [[ $DeployOsMode == "vm_xen" ]]; then
 
     if [[ -f $BuildEnv/$In4NamingOsSrvType.raw  ]]; then
         echo "Build image exists, run "
+        if [[ -z $In4ImageRedeploy ]]; then
+            DialogMsg="Redeploy?"
+            echo $DialogMsg; select  In4ImageRedeploy in N Y ;  do  break ; done;
+        fi   
+        
+        if [[ $In4ImageRedeploy == "Y" ]]; then
+            . $In4_Exec_Path/build.sh
+        fi
+        
         #. $In4_Exec_Path/run.sh
     else
         echo "Build image not exists, build "
