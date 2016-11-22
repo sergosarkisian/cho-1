@@ -27,22 +27,23 @@ sudo cp /etc/resolv.conf $BuildEnv/loop/etc/
 sudo cp /etc/sysconfig/proxy $BuildEnv/loop/etc/sysconfig/
 sudo chmod 744  $BuildEnv/loop/etc/sysconfig/
  ### 
+GitPath="$BuildEnv/loop/media/sysdata/in4/cho"
  
  if [[ -z $OfflineDir ]]; then
     mkdir -p  $BuildEnv/loop/media/sysdata/in4 
-    git -C $BuildEnv/loop/media/sysdata/in4 clone -b stable  https://github.com/conecenter/cho.git && cd $BuildEnv/loop/media/sysdata/in4/cho
-    git remote add dev https://github.com/eistomin/cho.git    
-    git config core.filemode false
+    git -C $BuildEnv/loop/media/sysdata/in4 clone -b stable  https://github.com/conecenter/cho.git
+    git -C $GitPath remote add dev https://github.com/eistomin/cho.git    
+    git -C $GitPath config core.filemode false
 else
     
     if [[ -d $OfflineDir/git ]]; then
         sudo mkdir -p  $BuildEnv/loop/media/sysdata/in4/cho && sudo git init $BuildEnv/loop/media/sysdata/in4/cho && cd  $BuildEnv/loop/media/sysdata/in4/cho
-        sudo git pull $OfflineDir/git
-        sudo git remote add origin https://github.com/conecenter/cho.git
-        sudo git remote add dev https://github.com/eistomin/cho.git        
+        sudo git  -C $GitPath pull $OfflineDir/git
+        sudo git  -C $GitPath remote add origin https://github.com/conecenter/cho.git
+        sudo git  -C $GitPath remote add dev https://github.com/eistomin/cho.git        
         #sudo git branch --set-upstream-to=origin/stable ## BUG
         #sudo git reset --hard origin/stable ## BUG
-        sudo git config core.filemode false
+        sudo git  -C $GitPath config core.filemode false
     fi
     
     if [[ -d $OfflineDir/zypper/zypp ]]; then
