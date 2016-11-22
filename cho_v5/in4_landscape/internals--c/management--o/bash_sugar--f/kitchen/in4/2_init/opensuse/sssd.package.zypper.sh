@@ -13,4 +13,4 @@
 set -e
 
 ## add build for https://build.opensuse.org/package/show/openSUSE:Factory/sssd 
-in4func_Zypper sssd sssd-tools 
+in4func_Zypper "sssd sssd-tools"
