@@ -19,5 +19,6 @@ else
     fallocate -l  ${VM_DISK_STORAGE_SIZE}G $VM_DISK_FULL_PATH/storage.raw
     fallocate -l 1G $VM_DISK_FULL_PATH/storage_meta.raw
     sleep 1
+    xl create  /tmp/$SrvName.xl
      #systemctl start in4_vm@$FullSrvName
 fi
