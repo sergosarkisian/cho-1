@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-.  $In4_Exec_Path/../../../helpers/manual.sh
+.  $In4_Exec_Path/../../../naming/manual.sh
 
 if [[ -z $VM_HV_NAME ]]; then
     DESC="Please specify hypervisor name"
