@@ -57,5 +57,9 @@ end;
     FOREIGN KEY (FROMCCID)
     REFERENCES E$&&scheme_uc..CC_CONTENT ("XMLDATA"."CCID"));
 
+    
+CREATE OR REPLACE FORCE VIEW V$CC_CONTENT_EXPORT
+AS
+select value(C).getstringval() data from cc_content c;
 
 spool off
