@@ -12,6 +12,7 @@
 
 
 alias in4='sudo /media/sysdata/in4/cho/in4.sh'
-alias in4sync='Task=sync sudo /media/sysdata/in4/cho/in4.sh'
+alias in4sync='sudo Task=sync /media/sysdata/in4/cho/in4.sh'
+alias wtf='sudo in4LandscapeFQN=internals--c--management--o--bash_sugar--f--kitchen--g--main--s RunPath=3_recipe/runners/wtf RunName=99.wtf.sh /bin/sh /media/sysdata/in4/cho/in4.sh'
 
 
