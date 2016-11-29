@@ -90,6 +90,9 @@ case $Task in
                 in4func_run $in4LandscapeFQN $RunPath $RunName
                 #"internals--c--linux_sys--o--boot--f--grub2--g--main--s" "2_init/opensuse" "in4__main--s.package.zypper.sh"                
             ;;
+            "sync" )
+                systemctl restart in4__sync
+            ;;            
 esac
 
 ### IN4 BASH FOOTER ###
