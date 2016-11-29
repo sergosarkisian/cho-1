@@ -1,10 +1,10 @@
 #!/bin/bash
 
 if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then  
-        
+. /media/sysdata/in4/cho/in4_core/internals/helpers/in4func.sh       
         
         ### /dev/xvd* blacklisting   ###
-        cp /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/linux_sys--o/boot--f/dracut/dsl/main--s/simple/51-block-xenvm_blacklist.conf /etc/modprobe.d/ ## BUG
+        in4func_cp "internals--c--linux_sys--o--boot--f--dracut--g--main--s" "simple/51-block-xenvm_blacklist.conf" "/etc/modprobe.d/"
         depmod `ls -la /boot/vmlinuz|awk '{print $11}'|sed 's/vmlinuz-//'`
         mkinitrd
         depmod `ls -la /boot/vmlinuz|awk '{print $11}'|sed 's/vmlinuz-//'`
@@ -12,22 +12,22 @@ if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then
          ### 
         
         ###  DISABLE NET DHCP ### 
-        cp /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/bash_sugar--f/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/_base/build/3.env/wtf/wickedd-dhcp /usr/lib/systemd/system/wickedd-auto4.service
-        cp /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/bash_sugar--f/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/_base/build/3.env/wtf/wickedd-dhcp /usr/lib/systemd/system/wickedd-dhcp4.service
+        cp /media/sysdata/in4/cho/in4_core/internals/deploy/in4_bash/os/_base/build/3.env/wtf/wickedd-dhcp /usr/lib/systemd/system/wickedd-auto4.service
+        cp /media/sysdata/in4/cho/in4_core/internals/deploy/in4_bash/os/_base/build/3.env/wtf/wickedd-dhcp /usr/lib/systemd/system/wickedd-dhcp4.service
         systemctl disable wickedd-dhcp6
         systemctl mask wickedd-dhcp6
         ### 
 	DOMID=`xenstore-read domid`
 	NAME=`xenstore-read /local/domain/$DOMID/name`
-	.  /media/sysdata/in4/cho/in4_core/naming/naming.sh os $NAME
+	.  /media/sysdata/in4/cho/in4_core/internals/naming/naming.sh os $NAME
 	
 	if [[ $View == "os" ]]; then 
 		#hostname
 		cp /etc/hosts /etc/hosts.back
-		cp /media/sysdata/in4/cho/cho_v3/ontology/linux_sys/suse-network/hosts /etc/hosts ## BUG
+		cp /media/sysdata/in4/cho/cho_v4/internals:c/linux_sys:o/network:f/suse-network:g/hosts /etc/hosts
 		echo "127.0.0.3 $NAME $SrvName" >> /etc/hosts
 
-                sh /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/bash_sugar--f/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/_base/build/2.scenario/99.post_once.sh
+                sh /media/sysdata/in4/cho/in4_core/internals/deploy/in4_bash/os/_base/build/2.scenario/99.post_once.sh
 		
 		hostnamectl --transient set-hostname $SrvName
 		hostnamectl --static set-hostname  $NAME
@@ -44,7 +44,7 @@ if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then
 		GATE=`xenstore-read /local/domain/$DOMID/in4/net/0/gate`
 		
 		#net
-		cp /media/sysdata/in4/cho/cho_v3/ontology/linux_sys/suse-network/ifcfg-tmpl /etc/sysconfig/network/ifcfg-eth0 ## BUG
+		cp /media/sysdata/in4/cho/cho_v4/internals:c/linux_sys:o/network:f/suse-network:g/ifcfg-tmpl /etc/sysconfig/network/ifcfg-eth0
 		sed -i "s/{IP}/$IP/"  /etc/sysconfig/network/ifcfg-eth0
 		sed -i "s/{NETMASK}/$NETMASK/"  /etc/sysconfig/network/ifcfg-eth0
 		sed -i "s/{MTU}/$MTU/"  /etc/sysconfig/network/ifcfg-eth0	
