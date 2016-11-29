@@ -78,11 +78,17 @@ case $Task in
                 esac
             ;;
             "run" )
-                in4LandscapeFQN=$1
-                RunPath=$2
-                RunName=$3
+                if [[ -z $in4LandscapeFQN ]]; then
+                    in4LandscapeFQN=$1
+                fi            
+                if [[ -z $RunPath ]]; then
+                    RunPath=$2
+                fi       
+                if [[ -z $RunName ]]; then
+                    RunName=$3
+                fi                       
                 in4func_run $in4LandscapeFQN $RunPath $RunName
-                "internals--c--linux_sys--o--boot--f--grub2--g--main--s" "2_init/opensuse" "in4__main--s.package.zypper.sh"                
+                #"internals--c--linux_sys--o--boot--f--grub2--g--main--s" "2_init/opensuse" "in4__main--s.package.zypper.sh"                
             ;;
 esac
 

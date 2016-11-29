@@ -1,6 +1,7 @@
 connect "E$XML"/"&&exmlPassword"
 set echo on
 spool /media/storage/as/oracle/logs/cone/2.exml
+create table x$types (txt clob) ;
 
 begin
 

@@ -19,7 +19,12 @@ Description		= In4 CMDB tasks configuration
 ##
 
 ## EXECS ##
- ExecStart		= /bin/sh /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/3.env/sync_service/in4_sync.sh
+ Environment       = Task=run
+ Environment       = in4LandscapeFQN=internals--c--management--o--bash_sugar--f--kitchen--g--main--s
+ Environment       = RunPath=3_recipe/runners/in4
+ Environment       = RunName=in4_sync.sh
+ ExecStart		= /bin/sh /media/sysdata/in4/cho/in4.sh
+
 
  #ExecStartPre		= 
  ExecStartPre		= /bin/sh /media/sysdata/in4/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"unknown", "action":"start", "subaction":"pre", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
