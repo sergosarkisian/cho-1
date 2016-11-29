@@ -37,9 +37,17 @@ fi
 echo -e "\n #### Storage  #### \n"
 
 if [[ -z $VM_DISK_STORAGE_SIZE ]]; then
-    DESC="Please specify VM Disk 'storage' size in G"
+    DESC="Please specify amount of starable data on disk 'storage' (in G)"
      echo $DESC; select VM_DISK_STORAGE_SIZE in 10 50 100 200 300;  do  break ; done; 
 fi
+
+if [[ -z $VM_DISK_STORAGE_SNAP_COEFF ]]; then
+    DESC="Please specify snapshot coeff for disk 'storage' (in G)"
+     echo $DESC; select VM_DISK_STORAGE_SNAP_COEFF in 0.1 0.3 0.5 0.7 1 2 ;  do  break ; done; 
+fi
+
+VM_DISK_STORAGE_SIZE_OVERALL=$((VM_DISK_STORAGE_SIZE*VM_DISK_STORAGE_SNAP_COEFF))
+echo "Overall disk 'storage' is $VM_DISK_STORAGE_SIZE_OVERALL"
 
 VM_DISK_PATH="$Org/$SrvRole/$DeplType/$SrvName"
 
