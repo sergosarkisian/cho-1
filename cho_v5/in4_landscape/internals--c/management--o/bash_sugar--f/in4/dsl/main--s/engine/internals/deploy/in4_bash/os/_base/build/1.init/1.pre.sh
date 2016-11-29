@@ -20,7 +20,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 ### OPENSUSE INIT
  if [[ -z $OfflineDir ]]; then
-    ! sudo zypper --non-interactive in wget btrfsprogs parted git xz tar
+    ! sudo zypper --non-interactive in wget btrfsprogs parted git xz tar bc
 else
     echo "Needs offline zypper" ## BUG
 fi

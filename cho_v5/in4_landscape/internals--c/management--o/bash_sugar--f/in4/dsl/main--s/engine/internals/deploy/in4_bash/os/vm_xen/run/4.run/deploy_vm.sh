@@ -46,7 +46,7 @@ if [[ -z $VM_DISK_STORAGE_SNAP_COEFF ]]; then
      echo $DESC; select VM_DISK_STORAGE_SNAP_COEFF in 0.1 0.3 0.5 0.7 1 2 ;  do  break ; done; 
 fi
 
-VM_DISK_STORAGE_SIZE_OVERALL=$((VM_DISK_STORAGE_SIZE*VM_DISK_STORAGE_SNAP_COEFF))
+VM_DISK_STORAGE_SIZE_OVERALL=`printf "%.0f" $(echo "$VM_DISK_STORAGE_SIZE + $VM_DISK_STORAGE_SIZE*$VM_DISK_STORAGE_SNAP_COEFF" | bc -l)`
 echo "Overall disk 'storage' is $VM_DISK_STORAGE_SIZE_OVERALL"
 
 VM_DISK_PATH="$Org/$SrvRole/$DeplType/$SrvName"
