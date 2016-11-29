@@ -14,7 +14,7 @@ fi
 
 if [[ -z $SrvRole ]]; then
     DESC="Please specify server role: "
-    echo $DESC; select  SrvRole in in4 cone2_db cone2_app cone2_ccm cone3_app gate infra ;  do  break ; done;
+    echo $DESC; select  SrvRole in basic c2db c2app c2ccm c3app gate infra php we2;  do  break ; done;
 fi
 
 if [[ -z $DeplType ]]; then
