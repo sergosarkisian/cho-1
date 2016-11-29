@@ -48,6 +48,3 @@ alias scheck_bacula='sudo /usr/sbin/bacula-dir -t; sudo /usr/sbin/bacula-sd -t; 
 alias gen_ssl_both='sudo /etc/faster/cmdb/techpool/_admin/ssl.sh'
 #PHP SITES
 alias site_add='sudo /etc/faster/cmdb/techpool/_admin/site_add.sh'
-
-#
-alias wtf='sudo /bin/sh /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/99.wtf.sh'
