@@ -55,9 +55,7 @@ if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then
 		#dns
 		echo "search s.pool" > /etc/resolv.conf
 		echo "nameserver $GATE" >> /etc/resolv.conf
-		
-		systemctl restart network
-	fi
+        fi
 	systemctl disable init_auto_xen
         rm -f  /etc/systemd/system/init_auto_xen.service
         rm -f /etc/systemd/system/multi-user.target.wants/init_auto_xen.service
