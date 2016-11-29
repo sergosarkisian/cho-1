@@ -5,8 +5,12 @@ Before			= network.target
  
 [Service]
  Type			= oneshot
- ExecStart		= /bin/sh -c "in4 run 'internals--c--management--o--bash_sugar--f--kitchen--g--main--s' '3_recipe/runners/wtf' '99.wtf.sh'" 
-  User			= root
+  Environment       = Task=run
+ Environment       = in4LandscapeFQN=internals--c--management--o--bash_sugar--f--kitchen--g--main--s
+ Environment       = RunPath=3_recipe/runners/wtf
+ Environment       = RunName=99.wtf.sh
+ ExecStart		= /bin/sh /media/sysdata/in4/cho/in4.sh
+ User			= root
  Group			= root
 SyslogIdentifier	= in4__wtf
  SyslogFacility		= local7

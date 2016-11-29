@@ -10,7 +10,6 @@ core_dump_dest='/media/storage/as/oracle/logs/cdump'
 user_dump_dest='/media/storage/as/oracle/logs/udump'
 
 control_files=("/media/storage/as/oracle/data/master/control01.ctl", "/media/storage/as/oracle/data/master/control02.ctl")
-log_archive_dest_1='location=/media/storage/as/oracle/data/archive mandatory reopen=20'
 db_recovery_file_dest='/media/storage/as/oracle/misc/flash_recovery_area'
 db_recovery_file_dest_size=4G
 plsql_native_library_dir='/media/storage/as/oracle/cone/plsql_compile'
@@ -23,7 +22,6 @@ db_name='{SID}'
 db_unique_name={SID}
 instance_name={SID}
 service_names='{SID}.{DOMAIN}'
-log_archive_format='%t_%s_%r.dbf'
 # # # # # # # #
 
 ### 3.Global ###
@@ -57,11 +55,16 @@ filesystemio_options=setall
 disk_asynch_io=true
 # # # # # # # #
 
-log_checkpoint_timeout=300
-log_checkpoint_interval=51200
-archive_lag_target=600
-log_checkpoints_to_alert=true
-log_buffer=14194688
+### ARCH LOG ###
+log_archive_start = false
+#log_archive_dest_1='location=/media/storage/as/oracle/data/archive mandatory reopen=20'
+#log_archive_format='%t_%s_%r.dbf'
+#log_checkpoint_timeout=300
+#log_checkpoint_interval=51200
+#archive_lag_target=600
+#log_checkpoints_to_alert=true
+#log_buffer=14194688
+###
 
 ### 4.Memory ###
 processes=300
