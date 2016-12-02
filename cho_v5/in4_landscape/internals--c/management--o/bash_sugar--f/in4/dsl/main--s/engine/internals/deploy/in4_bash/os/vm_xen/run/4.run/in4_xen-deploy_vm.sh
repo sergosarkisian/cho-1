@@ -12,8 +12,10 @@ if [[ -d $VM_DISK_FULL_PATH ]]; then
 else
     mkdir -p $VM_DISK_FULL_PATH
     cp --sparse=always $BuildEnv/../$In4NamingOsSrvType.raw $VM_DISK_FULL_PATH/$In4NamingOsSrvType.raw
+    fallocate -l 10G $VM_DISK_FULL_PATH/$In4NamingOsSrvType.raw ## resizefs BUG
     cp --sparse=always $BuildEnv/../swap.raw $VM_DISK_FULL_PATH/swap.raw
     cp --sparse=always $BuildEnv/../sysdata.raw $VM_DISK_FULL_PATH/sysdata.raw
+    fallocate -l 20G $VM_DISK_FULL_PATH/sysdata.raw ## resizefs BUG
     #VM_DISK_STORAGE_SIZE=$VM_DISK_STORAGE_SIZE
     #fallocate -l `cat $SVN_CONF_PATH|grep "VM_DISK_STORAGE_SIZE"|cut -d= -f2` $VM_DISK_FULL_PATH/storage.raw
     fallocate -l  ${VM_DISK_STORAGE_SIZE_OVERALL}G $VM_DISK_FULL_PATH/storage.raw

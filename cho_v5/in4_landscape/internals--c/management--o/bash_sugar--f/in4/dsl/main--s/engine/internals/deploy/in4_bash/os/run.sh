@@ -7,7 +7,7 @@
 ##    Refer to the http://creativecommons.org/licenses/by-sa/4.0/
 ########    #######    ########    #######    ########    ########
 ##    / / / /    Code Climate    \ \ \ \ 
-##    Language = bash DSL, profiles
+##    Language = bash
 ##    Indent = space;    4 chars;
 ########    #######    ########    #######    ########    ########
 ### IN4 BASH HEADER ###

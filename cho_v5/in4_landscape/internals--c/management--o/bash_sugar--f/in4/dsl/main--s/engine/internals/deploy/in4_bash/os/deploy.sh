@@ -48,6 +48,11 @@ if [[ $DeployOsMode == "vm_xen" ]]; then
     fi
 fi
 
+if [[ $DeployOsMode == "hw_chroot" ]]; then
+    . $In4_Exec_Path/build_env.sh
+    . $In4_Exec_Path/_base/build/1.init/clean.sh
+    . $In4_Exec_Path/build.sh
+fi
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`

@@ -63,7 +63,7 @@ fi
 sudo mount -t proc proc $BuildEnv/loop/proc/ &&  sudo mount -t sysfs sys $BuildEnv/loop/sys/ && sudo mount -o bind /dev $BuildEnv/loop/dev/
 
 if [[ $DeployOsMode == "hw_chroot" ]] ; then 
-    sudo chroot $BuildEnv/loop /bin/bash -c \
+    time sudo chroot $BuildEnv/loop /bin/bash -c \
     "export  In4_Exec_Path="$In4_Exec_Path"; \
      export OfflineDir="$OfflineDir"; \
      export OfflineMode="$OfflineMode"; \
@@ -72,7 +72,7 @@ if [[ $DeployOsMode == "hw_chroot" ]] ; then
      sh -x  $In4_Exec_Path/_base/build/2.scenario/$OsBuildScenario"
 fi
 if [[ $DeployOsMode == "vm_xen" ]] ; then 
-    sudo chroot $BuildEnv/loop /bin/bash -c \
+    time sudo chroot $BuildEnv/loop /bin/bash -c \
     "export  In4_Exec_Path="$In4_Exec_Path"; \
      export OfflineDir="$OfflineDir"; \
      export OfflineMode="$OfflineMode"; \    
