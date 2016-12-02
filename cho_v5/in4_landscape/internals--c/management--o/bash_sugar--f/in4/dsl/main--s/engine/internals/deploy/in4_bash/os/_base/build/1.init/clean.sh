@@ -28,6 +28,10 @@ if [[ $DeployOsMode == "vm_xen" ]] ; then
     if [[ -n $(losetup|grep "$BuildEnv/$In4NamingOsSrvType.raw") ]] ; then sudo losetup -d /dev/$VmDiskLoopSystem; fi
 fi
 
+if [[ $DeployOsMode == "hw_chroot" ]] ; then 
+    ! sudo umount /dev/sdb*
+    ! sudo umount /dev/sdb*
+fi
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`

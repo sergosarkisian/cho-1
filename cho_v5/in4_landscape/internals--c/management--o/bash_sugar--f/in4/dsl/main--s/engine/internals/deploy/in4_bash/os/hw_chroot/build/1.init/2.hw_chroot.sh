@@ -35,19 +35,19 @@ do
         do
             case $IN4_SYSDATA_DISK in
             "Yes") 
-                parted  /dev/$HWBaseDisk mklabel gpt
-                parted  /dev/$HWBaseDisk mkpart primary 1MiB 4MiB
-                parted  /dev/$HWBaseDisk set 1 bios_grub on
-                parted  /dev/$HWBaseDisk mkpart primary btrfs 5MiB ${IN4_SYSTEM_SIZE}GiB                
-                parted  /dev/$HWBaseDisk set 2 boot on                                               
+                sudo parted  /dev/$HWBaseDisk mklabel gpt
+                sudo parted  /dev/$HWBaseDisk mkpart primary 1MiB 4MiB
+                sudo parted  /dev/$HWBaseDisk set 1 bios_grub on
+                sudo parted  /dev/$HWBaseDisk mkpart primary btrfs 5MiB ${IN4_SYSTEM_SIZE}GiB                
+                sudo parted  /dev/$HWBaseDisk set 2 boot on                                               
                 sleep 1
-                mkfs.btrfs -f -L "system" /dev/$HWBaseDisk}2
-                parted  /dev/$HWBaseDisk mkpart primary linux-swap ${IN4_SYSTEM_SIZE}GiB $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE))GiB
+                sudo mkfs.btrfs -f -L "system" /dev/${HWBaseDisk}2
+                sudo parted  /dev/$HWBaseDisk mkpart primary linux-swap ${IN4_SYSTEM_SIZE}GiB $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE))GiB
                 sleep 1
-                mkswap -f -L "swap" /dev/$HWBaseDisk}3
-                parted  /dev/$HWBaseDisk mkpart primary btrfs $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE))GiB $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE+$IN4_SYSDATA_SIZE))GiB
+                sudo mkswap -f -L "swap" /dev/${HWBaseDisk}3
+                sudo parted  /dev/$HWBaseDisk mkpart primary btrfs $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE))GiB $(($IN4_SYSTEM_SIZE+$IN4_SWAP_SIZE+$IN4_SYSDATA_SIZE))GiB
                 sleep 1
-                mkfs.btrfs -f -L "sysdata" /dev/$HWBaseDisk}4
+                sudo mkfs.btrfs -f -L "sysdata" /dev/${HWBaseDisk}4
                 
             break ;;
             "No") exit 1;;
@@ -61,9 +61,9 @@ done
 
 
 ### GENERATE LOOP MOUNT & UNTAR ###
-mount /dev/$HWBaseDisk}2  $BUILD_ENV/loop/
-mkdir -p  $BUILD_ENV/loop/media/sysdata
-mount /dev/$HWBaseDisk}4 $BUILD_ENV/loop/media/sysdata
+sudo mount /dev/${HWBaseDisk}2  $BUILD_ENV/loop/
+sudo mkdir -p  $BUILD_ENV/loop/media/sysdata
+sudo mount /dev/${HWBaseDisk}4 $BUILD_ENV/loop/media/sysdata
 ###
 
 echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"

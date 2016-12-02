@@ -10,6 +10,8 @@
     syslog_processname = SYSLOG_PROCESSNAME
     system_filter  =  /etc/exim/engine_path/engine/fiters/full_mta_delivery.filter
     spool_directory = /var/spool/exim
+    untrusted_set_sender = *
+    no_local_from_check
 ##
 
 # INCLUDE 
