@@ -12,4 +12,4 @@
 ########    #######    ########    #######    ########    ########
 set -e
 
-grub2-install --boot-directory=/boot --recheck -v /dev/$_GRUB2_DISK ; sed -i "s/set default=.*/set default=\"$_GRUB2_DEFAULT_BOOT\"/"  /boot/grub2/grub.cfg
+grub2-install --boot-directory=/boot --recheck $_GRUB2_ADV_FLAGS -v /dev/$_GRUB2_DISK ; sed -i "s/set default=.*/set default=\"$_GRUB2_DEFAULT_BOOT\"/"  /boot/grub2/grub.cfg
