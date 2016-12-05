@@ -5,8 +5,8 @@ echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk
 ### INIT_AUTO_HW  ###
 #SYSTEMD
 # BUG
- rm -f  /etc/systemd/system/init_auto_hw.service && cp /media/sysdata/in4/cho/in4_core/deploy/os/_sub/hw_chroot/3.env/init_auto_hw.service /etc/systemd/system/
-systemctl enable init_auto_hw
+in4func_systemd "internals--c--management--o--bash_sugar--f--in4--g--main--s" "add" "service" "init_auto_hw"
+in4func_systemd "internals--c--management--o--bash_sugar--f--in4--g--main--s" "enable" "service" "init_auto_hw"
 ###
 
 echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
