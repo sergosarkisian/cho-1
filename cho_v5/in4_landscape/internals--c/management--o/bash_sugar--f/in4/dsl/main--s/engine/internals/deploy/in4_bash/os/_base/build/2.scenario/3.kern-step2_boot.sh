@@ -19,7 +19,7 @@ in4func_cp "internals--c--linux_sys--o--boot--f--grub2--g--main--s" "simple/boot
 case $DeployOsMode in
     "vm_xen") export _GRUB2_DISK=$VmDiskLoopSystem; export _GRUB2_DEFAULT_BOOT="ConeCenter - in4 - Xen - Domu - HVM"; in4func_run "internals--c--linux_sys--o--boot--f--grub2--g--main--s" "3_recipe/in4_shell" "grub2_install.recipe.sh"
   ;; 
-    "hw_chroot") export _GRUB2_DISK=$HWBaseDisk; export _GRUB2_DEFAULT_BOOT="ConeCenter - in4 - HW"; in4func_run "internals--c--linux_sys--o--boot--f--grub2--g--main--s" "3_recipe/in4_shell" "grub2_install.recipe.sh"
+    "hw_chroot") export _GRUB2_ADV_FLAGS="--force"; export _GRUB2_DISK=$HWBaseDisk; export _GRUB2_DEFAULT_BOOT="ConeCenter - in4 - HW"; in4func_run "internals--c--linux_sys--o--boot--f--grub2--g--main--s" "3_recipe/in4_shell" "grub2_install.recipe.sh"
   ;; 
     esac  
 #DOUBLE
