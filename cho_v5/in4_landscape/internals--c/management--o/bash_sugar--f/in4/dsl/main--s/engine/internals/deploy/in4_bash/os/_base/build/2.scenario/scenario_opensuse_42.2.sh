@@ -34,7 +34,7 @@ if [[ $DeployOsMode == "vm_xen" ]] || [[ $DeployOsMode == "hw_chroot" ]]; then .
  . $In4_Exec_Path/_base/build/2.scenario/7.all-common.sh
 . $In4_Exec_Path/_base/build/2.scenario/8.mounts.sh
 if [[ $DeployOsMode == "vm_xen" ]]; then . $In4_Exec_Path/vm_xen/build/2.scenario/9.vm_xen-post.sh; fi
-if [[ $DeployOsMode == "hw_chroot" ]]; then . $In4_Exec_Path/vm_xen/build/2.scenario/9.hw_chroot-post.sh; fi
+if [[ $DeployOsMode == "hw_chroot" ]]; then . $In4_Exec_Path/hw_chroot/build/2.scenario/9.hw_chroot-post.sh; fi
 . $In4_Exec_Path/_base/build/2.scenario/10.clean.sh
 
 ### IN4 BASH FOOTER ###
