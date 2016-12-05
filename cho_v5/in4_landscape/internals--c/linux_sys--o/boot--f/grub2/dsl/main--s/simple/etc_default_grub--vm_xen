@@ -21,5 +21,6 @@ SUSE_BTRFS_SNAPSHOT_BOOTING=true
 GRUB_BACKGROUND=/boot/grub2/themes/openSUSE/background.png
 GRUB_THEME=/boot/grub2/themes/openSUSE/theme.txt
 GRUB_GFXPAYLOAD_LINUX=text
+GRUB_ENABLE_CRYPTODISK=1
 
 GRUB_PRELOAD_MODULES="drbd"
