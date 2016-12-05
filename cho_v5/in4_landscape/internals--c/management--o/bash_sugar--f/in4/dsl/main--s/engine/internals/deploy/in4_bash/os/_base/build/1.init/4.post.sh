@@ -24,7 +24,7 @@ else
     sudo cp -r $BuildEnv/loop//media/sysdata/linux_sys/var/cache/zypp $OfflineDir/zypper/
 fi
 
-rm -rf $BuildEnv/loop//media/sysdata/linux_sys/var/cache/zypp/*
+sudo rm -rf $BuildEnv/loop//media/sysdata/linux_sys/var/cache/zypp/*
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
