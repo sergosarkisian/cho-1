@@ -30,9 +30,9 @@ if [[ $DeployOsMode == "vm_xen" ]]; then . $In4_Exec_Path/vm_xen/build/2.scenari
 if [[ $DeployOsMode == "hw_chroot" ]]; then . $In4_Exec_Path/hw_chroot/build/2.scenario/2.hw_chroot-packages.sh; fi
 if [[ $DeployOsMode == "vm_xen" ]] || [[ $DeployOsMode == "hw_chroot" ]]; then . $In4_Exec_Path/_base/build/2.scenario/3.kern-step2_boot.sh; fi
 . $In4_Exec_Path/_base/build/2.scenario/5.all-pre.sh
-#. $In4_Exec_Path/_base/build/2.scenario/6.all-conf_init.sh
-#. $In4_Exec_Path/_base/build/2.scenario/7.all-common.sh
-#. $In4_Exec_Path/_base/build/2.scenario/8.mounts.sh
+. $In4_Exec_Path/_base/build/2.scenario/6.all-conf_init.sh
+. $In4_Exec_Path/_base/build/2.scenario/7.all-common.sh
+. $In4_Exec_Path/_base/build/2.scenario/8.mounts.sh
 if [[ $DeployOsMode == "vm_xen" ]]; then . $In4_Exec_Path/vm_xen/build/2.scenario/9.vm_xen-post.sh; fi
 if [[ $DeployOsMode == "hw_chroot" ]]; then . $In4_Exec_Path/hw_chroot/build/2.scenario/9.hw_chroot-post.sh; fi
 . $In4_Exec_Path/_base/build/2.scenario/10.clean.sh
