@@ -46,7 +46,7 @@ AllowTcpForwarding no
 X11Forwarding yes
 TCPKeepAlive yes
 #UseLogin no
-UsePrivilegeSeparation sandbox          # Default for new installations.
+#UsePrivilegeSeparation sandbox !!! VERY CAREFUL
 #PermitUserEnvironment no
 #Compression delayed
 ClientAliveInterval 20
