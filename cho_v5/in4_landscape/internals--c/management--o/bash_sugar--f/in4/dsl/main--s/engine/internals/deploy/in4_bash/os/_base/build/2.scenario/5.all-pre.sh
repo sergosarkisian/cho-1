@@ -3,7 +3,7 @@ set -e
 echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
 
 
-# mkdir -p /media/sysdata/app /media/sysdata/logs/syslog /media/sysdata/logs/syslog_bus/_client
+ mkdir -p /media/sysdata/app /media/sysdata/logs/syslog /media/sysdata/logs/syslog_bus/_client
 # mkdir -p /media/sysdata/logs/var_log && ! rm -rf /var/log && ln -s /media/sysdata/logs/var_log /var/log
 # mkdir -p /media/sysdata/logs/app/atop /media/sysdata/logs/files	
 ###
@@ -24,7 +24,7 @@ useradd -g log -u 998 -M -d /media/sysdata/logs/ log
 
 
 ### PERMISSIONS ###
-    chmod 755 /media/sysdata/linux_sys/ /media/sysdata/linux_sys/var
+    #chmod 755 /media/sysdata/linux_sys/ /media/sysdata/linux_sys/var
     setfacl -R -m u:sysdata:rwx /media/sysdata/app
     setfacl -R -m d:u:sysdata:rwx /media/sysdata/app
     setfacl -R -m g:sysdata:rx /media/sysdata/app
