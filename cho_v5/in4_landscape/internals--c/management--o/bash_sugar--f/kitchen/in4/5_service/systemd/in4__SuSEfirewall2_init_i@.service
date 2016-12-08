@@ -90,5 +90,6 @@ Description		= in4 SuSEfirewall2 - %i - phase 1
 [Install]
 WantedBy			= multi-user.target
 Also				= in4__SuSEfirewall2_i@%i.service
+Alias = SuSEfirewall2_init
 
 #RequiredBy=, #Alias = 
