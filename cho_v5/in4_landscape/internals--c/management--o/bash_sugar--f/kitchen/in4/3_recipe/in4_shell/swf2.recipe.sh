@@ -17,9 +17,14 @@ in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "2
 in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "add" "service" "in4__SuSEfirewall2_i@"
 in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "add" "service" "in4__SuSEfirewall2_init_i@"
 
- systemctl disable SuSEfirewall2 && systemctl mask SuSEfirewall2
- systemctl disable SuSEfirewall2_init && systemctl mask SuSEfirewall2_init
- 
+rm /usr/lib/systemd/system/SuSEfirewall2.service
+echo 1 > /usr/lib/systemd/system/SuSEfirewall2.service
+chattr +i /usr/lib/systemd/system/SuSEfirewall2.service
+
+rm /usr/lib/systemd/system/SuSEfirewall2_init.service
+echo 1 > /usr/lib/systemd/system/SuSEfirewall2_init.service
+chattr +i /usr/lib/systemd/system/SuSEfirewall2_init.service
+
 ### INIT ###
 sed -i "s/FW_LOG_ACCEPT_CRIT=.*/FW_LOG_ACCEPT_CRIT=\"no\"/" /etc/sysconfig/SuSEfirewall2
 sed -i "s/FW_IGNORE_FW_BROADCAST_EXT=.*/FW_IGNORE_FW_BROADCAST_EXT=\"yes\"/" /etc/sysconfig/SuSEfirewall2
