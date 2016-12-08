@@ -24,7 +24,7 @@ useradd -g log -u 998 -M -d /media/sysdata/logs/ log
 
 
 ### PERMISSIONS ###
-    #chmod 755 /media/sysdata/linux_sys/ /media/sysdata/linux_sys/var
+    chmod 755 /media/sysdata/linux_sys/ /media/sysdata/linux_sys/var
     setfacl -R -m u:sysdata:rwx /media/sysdata/app
     setfacl -R -m d:u:sysdata:rwx /media/sysdata/app
     setfacl -R -m g:sysdata:rx /media/sysdata/app
