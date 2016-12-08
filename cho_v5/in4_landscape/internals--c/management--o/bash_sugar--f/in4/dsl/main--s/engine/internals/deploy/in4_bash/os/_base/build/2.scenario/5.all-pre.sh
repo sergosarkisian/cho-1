@@ -4,8 +4,8 @@ echo -e "\n\n######## ######## BEGIN -  steps_init - `echo ${BASH_SOURCE[0]}|awk
 
 
  mkdir -p /media/sysdata/app /media/sysdata/logs/syslog /media/sysdata/logs/syslog_bus/_client
-# mkdir -p /media/sysdata/logs/var_log && ! rm -rf /var/log && ln -s /media/sysdata/logs/var_log /var/log
-# mkdir -p /media/sysdata/logs/app/atop /media/sysdata/logs/files	
+ mkdir -p /media/sysdata/logs/var_log && ! rm -rf /var/log && ln -s /media/sysdata/logs/var_log /var/log
+ mkdir -p /media/sysdata/logs/app/atop /media/sysdata/logs/files	
 ###
 
 ### PASSWORD CHANGE & USRR/GROUP CREATION ###
