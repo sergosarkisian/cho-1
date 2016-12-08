@@ -26,6 +26,8 @@ fi
 
 sudo rm -rf $BuildEnv/loop//media/sysdata/linux_sys/var/cache/zypp/*
 
+. $In4_Exec_Path/_base/build/1.init/clean.sh
+
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
 LogMsg="END -  steps_init - $ExecScriptname"

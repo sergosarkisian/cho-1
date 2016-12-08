@@ -30,10 +30,10 @@ sudo chmod 744  $BuildEnv/loop/etc/sysconfig/
 GitPath="$BuildEnv/loop/media/sysdata/in4/cho"
  
  if [[ -z $OfflineDir ]]; then
-    mkdir -p  $BuildEnv/loop/media/sysdata/in4 
-    git -C $BuildEnv/loop/media/sysdata/in4 clone -b stable  https://github.com/conecenter/cho.git
-    git -C $GitPath remote add dev https://github.com/eistomin/cho.git    
-    git -C $GitPath config core.filemode false
+    sudo mkdir -p  $BuildEnv/loop/media/sysdata/in4 
+    sudo git -C $BuildEnv/loop/media/sysdata/in4 clone -b stable  https://github.com/conecenter/cho.git
+    sudo git -C $GitPath remote add dev https://github.com/eistomin/cho.git    
+    sudo git -C $GitPath config core.filemode false
 else
     
     if [[ -d $OfflineDir/git ]]; then

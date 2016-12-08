@@ -61,9 +61,9 @@ done
 
 
 ### GENERATE LOOP MOUNT & UNTAR ###
-sudo mount /dev/${HWBaseDisk}2  $BUILD_ENV/loop/
-sudo mkdir -p  $BUILD_ENV/loop/media/sysdata
-sudo mount /dev/${HWBaseDisk}4 $BUILD_ENV/loop/media/sysdata
+sudo mount /dev/${HWBaseDisk}2  $BuildEnv/loop/
+sudo mkdir -p  $BuildEnv/loop/media/sysdata
+sudo mount /dev/${HWBaseDisk}4 $BuildEnv/loop/media/sysdata
 ###
 
 echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
