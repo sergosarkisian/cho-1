@@ -57,8 +57,8 @@ Description		= in4 sshd
  
 
 ## SECURITY ##
- ProtectSystem		= full
- ProtectHome		= true
+ #ProtectSystem		= full
+ #ProtectHome		= true
  #AppArmorProfile	= 
  #PAMName		= 
  #SecureBits		= 
