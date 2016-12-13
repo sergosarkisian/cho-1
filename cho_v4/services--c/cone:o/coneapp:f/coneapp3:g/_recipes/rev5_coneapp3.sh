@@ -34,10 +34,13 @@ setfacl -R -m g:http:rwx /media/storage/web
 setfacl -R -m d:u::rwx /media/storage/web
 setfacl -R -m u::rwx /media/storage/web
 
+loginctl enable-linger http
+mkdir -p /media/storage/web/http/.config/systemd/user/
 
 
-rm -f /etc/systemd/system/rev5_coneapp3_i@.service && cp /media/sysdata/rev5/techpool/ontology/cone/coneapp3/_systemd/rev5_coneapp3_i@.service /etc/systemd/system/ 
-rm -f /etc/sysconfig/SuSEfirewall2.d/services/rev5_coneapp3 && ln -s /media/sysdata/rev5/techpool/ontology/cone/coneapp3/_firewall/rev5_coneapp3 /etc/sysconfig/SuSEfirewall2.d/services/
+
+rm -f /etc/systemd/system/in4__cone_c3_i@.service; cp /media/sysdata/in4/cho/cho_v4/services--c/cone:o/coneapp:f/coneapp3:g/_systemd/in4__cone_c3_i@.service /media/storage/web/http/.config/systemd/user/
+#rm -f /etc/sysconfig/SuSEfirewall2.d/services/rev5_coneapp3 && ln -s /media/sysdata/rev5/techpool/ontology/cone/coneapp3/_firewall/rev5_coneapp3 /etc/sysconfig/SuSEfirewall2.d/services/
 systemctl daemon-reload
 
 
