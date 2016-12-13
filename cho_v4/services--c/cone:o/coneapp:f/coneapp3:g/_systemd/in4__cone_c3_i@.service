@@ -1,5 +1,5 @@
 [Unit]
-Description		= Rev5 (c)ONE3 instance %i
+Description		= In4 (c)ONE3 instance %i
 
 ## DEPS ## 
  #Conflicts=, # Wants=,  # Before=, # PartOf=, #OnFailure=,  #PropagatesReloadTo=, ReloadPropagatedFrom=
@@ -8,7 +8,7 @@ Description		= Rev5 (c)ONE3 instance %i
 ##
 
 ## REV5 DEPS - OS ##
- Wants			= rev5.service rev5_rsyslog_i@client.service rev5.timer rev5_sssd.service rev5_atop.service rev5_bareos-os.service rev5_monitoring-os.service 
+ #Wants			= rev5.service rev5_rsyslog_i@client.service rev5.timer rev5_sssd.service rev5_atop.service rev5_bareos-os.service rev5_monitoring-os.service 
  #rev5_SuSEfirewall2_init_i@simple rev5_SuSEfirewall2_i@simple
 
 ##
@@ -30,33 +30,33 @@ Description		= Rev5 (c)ONE3 instance %i
 ##
 
 ## EXECS ##
- ExecStart		= /bin/bash -c 'sh start.run'
+ ExecStart		= /bin/bash -c 'export c3=%i sh start.run'
 
  
  #ExecStartPre		= 
- ExecStartPre		= /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"unknown", "action":"start", "subaction":"pre", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "host":"%H", "machid":"%m", "kernel":"%v", "instance":"%i"}'
+ ExecStartPre		= /bin/sh /media/sysdata/in4/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"unknown", "action":"start", "subaction":"pre", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
  
- #ExecStartPost		= 
- ExecStartPost		= /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"started", "action":"start", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "host":"%H", "machid":"%m", "kernel":"%v", "instance":"%i"}'
+ #ExecStartPost	= 
+ ExecStartPost		= /bin/sh /media/sysdata/in4/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"started", "action":"start", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
  
  #ExecStopPost	= 
- ExecStopPost		= /bin/sh /media/sysdata/rev5/techpool/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"stopped", "action":"stop", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "host":"%H", "machid":"%m", "kernel":"%v", "instance":"%i"}'
+ ExecStopPost		= /bin/sh /media/sysdata/in4/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"stopped", "action":"stop", "subaction":"post", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
  
  #loging -  "instance":"%i"
 ##
  
 ## PERMISSIONS ##
- WorkingDirectory	= /web/_cone3/%i
- User			= mysql
- Group			= mysql
- SupplementaryGroups = sysapp
+ WorkingDirectory	= /web/_c3/%i
+ User			= http
+ Group			= http
+ SupplementaryGroups = sysdata
  #UMask			= 
 ##
 
 ## MISC ##
  Restart			= always
  PrivateTmp		= true
- TimeoutSec		= 300
+ TimeoutSec		= 60
  #EnvironmentFile	= -/
 ##
 
@@ -94,5 +94,5 @@ Description		= Rev5 (c)ONE3 instance %i
  
 [Install]
 WantedBy			= multi-user.target
-Alias				= coneapp3
+Alias				= c3
 #RequiredBy=, #Alias = 
