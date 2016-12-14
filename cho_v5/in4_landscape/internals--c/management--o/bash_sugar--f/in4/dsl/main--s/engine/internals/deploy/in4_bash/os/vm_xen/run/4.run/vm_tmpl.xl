@@ -24,8 +24,10 @@ acpi_s3=0
 acpi_s4=0
 spice=1
 spice_clipboard_sharing=1
+spiceusbredirection=3
 spicevdagent=1
 keymap='en-us'
+#soundhw="hda"
 #pvh=1, #usbdevice="tablet", #superpages, 
 ##
 

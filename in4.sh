@@ -22,7 +22,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 if [[ -z $Task ]]; then
     DialogMsg="Please specify task"
-    echo $DialogMsg; select Task in deploy recipe sync sys run;  do  break ; done
+    echo $DialogMsg; select Task in deploy recipe sync sys run context;  do  break ; done
 fi
 
 case $Task in
@@ -91,6 +91,12 @@ case $Task in
                 #"internals--c--linux_sys--o--boot--f--grub2--g--main--s" "2_init/opensuse" "in4__main--s.package.zypper.sh"                
             ;;
             "sync" )
+                systemctl restart in4__sync
+            ;;
+            "context" )
+                . /media/sysdata/in4/cho/in4_core/internals/naming/manual.sh
+                . /media/sysdata/in4/cho/in4_core/internals/helpers/context_naming.sh
+                . /media/sysdata/in4/cho/in4_core/internals/helpers/context_svn.sh
                 systemctl restart in4__sync
             ;;            
 esac

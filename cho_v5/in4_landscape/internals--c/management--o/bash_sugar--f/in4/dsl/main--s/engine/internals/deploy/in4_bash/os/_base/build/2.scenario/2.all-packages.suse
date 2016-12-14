@@ -1,5 +1,5 @@
 aaa_base kmod binutils
-net-tools iproute2 wicked-service dbus-1 strace
+net-tools iproute2 wicked-service dbus-1 strace mingetty
 aaa_base-extras man man-pages kbd timezone util-linux-systemd
 ca-certificates-mozilla
 btrfsprogs e2fsprogs sysfsutils quota
