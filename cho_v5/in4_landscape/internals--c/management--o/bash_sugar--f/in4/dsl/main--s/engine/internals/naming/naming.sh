@@ -5,10 +5,10 @@ name=$2
 
 ## 1 - HW UNIT
 if [[ $naming_view == "unit" ]]; then
-        hostname=$name
+        Hostname=$name
 		
-	dot_arr=(${hostname//./ })
-	hyp_arr=(${hostname//-/ })
+	dot_arr=(${Hostname//./ })
+	hyp_arr=(${Hostname//-/ })
 	
 	Location=${dot_arr[2]}
 	LocAddr=`echo $Location|cut -d "-" -f 1`
@@ -34,13 +34,13 @@ fi
 if [[ $naming_view == "os" ]]; then
 
 	if [[ $name =~ "pool" ]]; then
-		hostname=$name
+		Hostname=$name
 	else
-		hostname=`hostname -f`
+		Hostname=`hostname -f`
 	fi
 	
-	dot_arr=(${hostname//./ })
-	hyp_arr=(${hostname//-/ })
+	dot_arr=(${Hostname//./ })
+	hyp_arr=(${Hostname//-/ })
 
 	Org=${dot_arr[4]}
 	Net=${dot_arr[2]}

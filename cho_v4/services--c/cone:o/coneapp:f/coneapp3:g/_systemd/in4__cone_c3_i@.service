@@ -3,9 +3,7 @@ Description		= In4 (c)ONE3 instance %i
 
 ## DEPS ## 
  #Conflicts=, # Wants=,  # Before=, # PartOf=, #OnFailure=,  #PropagatesReloadTo=, ReloadPropagatedFrom=
- Requires			= var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
- After			= var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
-##
+ After			= network.target 
 
 ## REV5 DEPS - OS ##
  #Wants			= rev5.service rev5_rsyslog_i@client.service rev5.timer rev5_sssd.service rev5_atop.service rev5_bareos-os.service rev5_monitoring-os.service 
@@ -30,7 +28,7 @@ Description		= In4 (c)ONE3 instance %i
 ##
 
 ## EXECS ##
- ExecStart		= /bin/bash -c 'export c3=%i sh start.run'
+ ExecStart		= /bin/bash -c 'sh start.run'
 
  
  #ExecStartPre		= 
@@ -47,9 +45,6 @@ Description		= In4 (c)ONE3 instance %i
  
 ## PERMISSIONS ##
  WorkingDirectory	= /web/_c3/%i
- User			= http
- Group			= http
- SupplementaryGroups = sysdata
  #UMask			= 
 ##
 
@@ -64,6 +59,7 @@ Description		= In4 (c)ONE3 instance %i
  SyslogIdentifier	= coneapp3_
  SyslogFacility		= local7
  SyslogLevel		= info
+ StandardOutput=syslog
  #SyslogLevelPrefix	= false #Can be disabled for ...
 ##
  
@@ -93,6 +89,6 @@ Description		= In4 (c)ONE3 instance %i
 
  
 [Install]
-WantedBy			= multi-user.target
+WantedBy    = default.target
 Alias				= c3
 #RequiredBy=, #Alias = 

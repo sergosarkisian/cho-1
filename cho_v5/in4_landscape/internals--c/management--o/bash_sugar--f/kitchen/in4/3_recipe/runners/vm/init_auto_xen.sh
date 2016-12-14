@@ -22,17 +22,8 @@ if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then
 	.  /media/sysdata/in4/cho/in4_core/internals/naming/naming.sh os $NAME
 	
 	if [[ $View == "os" ]]; then 
-		#hostname
-		cp /etc/hosts /etc/hosts.back
-		cp /media/sysdata/in4/cho/cho_v4/internals:c/linux_sys:o/network:f/suse-network:g/hosts /etc/hosts
-		echo "127.0.0.3 $NAME $SrvName" >> /etc/hosts
-
+                . /media/sysdata/in4/cho/in4_core/internals/helpers/context_naming.sh
                 sh /media/sysdata/in4/cho/in4_core/internals/deploy/in4_bash/os/_base/build/2.scenario/99.post_once.sh
-		
-		hostnamectl --transient set-hostname $SrvName
-		hostnamectl --static set-hostname  $NAME
-		timedatectl set-timezone Europe/Tallinn
-		echo "$NAME" > /etc/HOSTNAME 
 	fi
 	
 	#xenstore

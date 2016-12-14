@@ -1,0 +1,7 @@
+[Unit]
+Description=in4 OpenConnect VPN socket - %i
+Wants=network.target
+
+[Socket]
+ListenFIFO=/run/openconnect/%i
+PipeSize=128
