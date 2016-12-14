@@ -14,9 +14,9 @@ set -e
 
 cp /etc/hosts /etc/hosts.back
 cp /media/sysdata/in4/cho/cho_v4/internals:c/linux_sys:o/network:f/suse-network:g/hosts /etc/hosts
-echo "127.0.0.3 $Hostname $SrvName" >> /etc/hosts
+echo "127.0.0.3 $FullSrvName $SrvName" >> /etc/hosts
 
 hostnamectl --transient set-hostname $SrvName
-hostnamectl --static set-hostname  $Hostname
+hostnamectl --static set-hostname  $FullSrvName
 timedatectl set-timezone Europe/Tallinn
-echo "$Hostname" > /etc/HOSTNAME 
+echo "$FullSrvName" > /etc/HOSTNAME 
