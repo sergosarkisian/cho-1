@@ -20,5 +20,5 @@ domainlist hosted_domains = localhost
 #
 
 # ROUTER
-    .include /etc/exim/engine_path/engine/router/default.router
+    .include /etc/exim/engine_path/engine/router/smarthost.router
 #
