@@ -10,6 +10,7 @@ GLOBAL_QUALIFY_DOMAIN = 127.0.0.1
 GLOBAL_QUALIFY_RECIPIENT = 127.0.0.1
 GLOBAL_TESTUSER = testuser
 SCHEME_NAME = localhost
+domainlist hosted_domains = localhost
 #
 
     
