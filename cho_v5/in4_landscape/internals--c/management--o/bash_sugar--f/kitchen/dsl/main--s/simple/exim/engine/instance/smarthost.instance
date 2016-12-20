@@ -15,5 +15,5 @@
 ##
 
 # INCLUDE 
-    .include /etc/exim/engine_path/engine/instance/mta.inc
+    .include /etc/exim/engine_path/engine/instance/smarthost.inc
 #
