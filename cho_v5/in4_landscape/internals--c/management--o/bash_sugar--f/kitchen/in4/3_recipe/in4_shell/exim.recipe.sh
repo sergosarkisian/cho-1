@@ -13,9 +13,8 @@
 set -e
 
 in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "2_init/opensuse" "exim.package.zypper.sh"
-in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "exim/engine/instance/smarthost.instance" "/etc/exim/exim.conf"
-
-## engine_path - ??? ## BUG
+in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/exim/engine/instance/smarthost.instance" "/etc/exim/exim.conf"
+in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/exim" "/etc/exim/engine_path"
 
 usermod -G sysdata mail
 systemctl mask exim

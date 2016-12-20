@@ -13,7 +13,7 @@
 set -e
 
 if [[ ! -d /media/sysdata/in4/_context ]]; then  
-	. /media/sysdata/in4/cho/in4_core/naming/naming.sh os
+	. /media/sysdata/in4/cho/in4_core/internals/naming/naming.sh os
 
 	echo "Enter SVN password: "
 	read SVNPass
