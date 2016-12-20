@@ -1,13 +1,11 @@
 # cho
 Abbr. from "Chocolate". Also means "Cho eto?"
 
-## Git pull:
+# RUN
+sh ./in4.sh
 
-+ export GIT_PATH="..somepath"; mkdir $GIT_PATH
-+ wget -O $GIT_PATH/git_init.sh  https://raw.githubusercontent.com/eistomin/cho/master/cho_v5/in4_landscape/internals--c/management--o/rev5--f/core/dsl/main--s/simple/files/hardcoded/init/steps_init/git_init.sh
-+ sh $GIT_PATH/git_init.sh
 
-## Run:
+## MISC:
 + cd to build dir
 in4 deploy
     1.os
@@ -33,12 +31,4 @@ self  ??
     6_logitoring rsyslog add
     7_datasafety bareos add
 
-
---
-in4 sys ln 
-in4 sys cp
-in4 sys cp_gen
-
-#### TO DO
-profile.d for in4 , in4 = in4 sync
 
