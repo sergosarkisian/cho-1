@@ -19,6 +19,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n";
 ###
 
 ### PREREQ ###
+. /tmp/in4_env.sh
 . $In4_Exec_Path/../../../helpers/in4func.sh
 ###
 
