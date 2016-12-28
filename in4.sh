@@ -60,8 +60,13 @@ case $Task in
                     
                 if [[ $DeployOsMode == "vm_xen" ]]; then
                 
-                    OfflineCliMode="No"
-                    OfflineBuildMode="No"
+                    if [[ -z $OfflineCliMode ]]; then
+                        OfflineCliMode="No"                    
+                    fi
+                    
+                    if [[ -z $OfflineBuildMode ]]; then
+                        OfflineBuildMode="No"                    
+                    fi
                     BuildLayers=(os)
                 
                     if [[ -z $VMImageDir ]]; then
@@ -80,8 +85,13 @@ case $Task in
                 ### hw_chroot ###
                 if [[ $DeployOsMode == "hw_chroot" ]]; then
                 
-                    OfflineCliMode="No"
-                    OfflineBuildMode="No"
+                    if [[ -z $OfflineCliMode ]]; then
+                        OfflineCliMode="No"                    
+                    fi
+                    
+                    if [[ -z $OfflineBuildMode ]]; then
+                        OfflineBuildMode="No"                    
+                    fi
                     BuildLayers=(unit os)
 
                 
@@ -101,15 +111,23 @@ case $Task in
                     BuildLayers=(unit os)
                     RecreatePartitions="Yes"
                     DiskSizingUnit="MiB"
-                    In4Disk_SystemSize="1500"
-                    In4Disk_SwapSize="100"
-                    In4Disk_SysdataSize="900"
+                    if [[ -z $In4Disk_SystemSize ]]; then
+                        In4Disk_SystemSize="2000"
+                    fi
+                    
+                    if [[ -z $In4Disk_SwapSize ]]; then
+                        In4Disk_SwapSize="100"                    
+                    fi
+                    
+                    if [[ -z $In4Disk_SysdataSize ]]; then
+                        In4Disk_SysdataSize="900"
+                    fi
+
                     In4Disk_SysdataOnBaseDisk="Yes"
 
-                
                     if [[ -z $HWBaseDisk ]]; then
                         DialogMsg="Please specify bootable disk name for OS install"
-                        echo $DialogMsg; select HWBaseDisk in sdb sdc sdd sde sdd;  do  break ; done
+                        echo $DialogMsg; select HWBaseDisk in sdb sdc sdd sde sdd sde sdf;  do  break ; done
                     fi
                 fi 
                 ###
