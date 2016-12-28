@@ -17,11 +17,11 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
 sudo rm -rf $BuildEnv/loop
+mkdir -p $OfflineBuildDir    
 
 if [[ $OfflineCliMode == "Yes" ]]; then
     echo "Offline mode, all packages are cached"
 elif  [[ $OfflineBuildMode == "Yes" ]]; then
-    mkdir -p $OfflineBuildDir    
     ! in4func_Zypper $In4_Exec_Path/_base/build/1.init/1.pre_packages.suse
 else
     ! in4func_Zypper $In4_Exec_Path/_base/build/1.init/1.pre_packages.suse
