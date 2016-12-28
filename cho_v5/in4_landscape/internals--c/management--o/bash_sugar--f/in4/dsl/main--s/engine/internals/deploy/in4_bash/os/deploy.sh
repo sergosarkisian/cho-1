@@ -39,13 +39,13 @@ if [[ $DeployOsMode == "vm_xen" ]]; then
         fi   
         
         if [[ $In4ImageRedeploy == "Y" ]]; then
-            . $In4_Exec_Path/build.sh
+           time . $In4_Exec_Path/build.sh
         fi
         . $In4_Exec_Path/run.sh
         
     else
         echo "Build image not exists, build "
-        . $In4_Exec_Path/build.sh
+       time . $In4_Exec_Path/build.sh
         . $In4_Exec_Path/run.sh
     fi
 fi
@@ -53,7 +53,7 @@ fi
 if [[ $DeployOsMode == "hw_chroot" ]] || [[ $DeployOsMode == "hw_bootdrive" ]]; then
     . $In4_Exec_Path/build_env.sh
     . $In4_Exec_Path/_base/build/1.init/clean.sh
-    . $In4_Exec_Path/build.sh
+    time . $In4_Exec_Path/build.sh
 fi
 
 ### IN4 BASH FOOTER ###
