@@ -45,7 +45,7 @@ else
         sudo git  -C $GitPath config core.filemode false
     fi
     
-    if [[ RunType="dev" ]]; then
+    if [[ $RunType="dev" ]]; then
         sudo git -C $GitPath branch --set-upstream-to=dev/master
         sudo git -C $GitPath reset --hard dev/master
     fi
