@@ -7,6 +7,8 @@ zypper mr -K -a
 
 ### RM ALL LOGS & TRACES ###
 cd /
+rm /etc/resolv.conf ### BUG
+rm /etc/sysconfig/proxy ### BUG
 ! rm -f /var/log/*/*
 ! rm -f /var/log/*.log
 rm -f /root/.bash_history

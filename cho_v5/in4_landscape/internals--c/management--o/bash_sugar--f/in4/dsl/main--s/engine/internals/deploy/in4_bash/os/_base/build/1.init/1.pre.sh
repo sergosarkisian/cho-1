@@ -17,10 +17,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
 . $In4_Exec_Path/_base/build/1.init/clean.sh
-
-### OPENSUSE INIT
-! in4func_Zypper $In4_Exec_Path/_base/build/1.init/1.pre_packages.suse
-#
+sudo rm -rf $BuildEnv/*
 
 if [[ $OfflineCliMode == "Yes" ]]; then
     echo "Offline mode, all packages are cached"
@@ -32,7 +29,6 @@ else
     ! in4func_Zypper $In4_Exec_Path/_base/build/1.init/1.pre_packages.suse
 fi     
 
-sudo rm -rf $BuildEnv/*
 mkdir -p $BuildEnv/loop && cd $BuildEnv
 
 ### docker image URI ###
