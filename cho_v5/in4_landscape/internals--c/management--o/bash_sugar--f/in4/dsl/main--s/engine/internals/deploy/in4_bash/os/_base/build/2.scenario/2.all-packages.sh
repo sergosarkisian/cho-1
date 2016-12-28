@@ -18,10 +18,14 @@ echo -e "\n\n########  $LogMsg  ########\n\n";
 ###
 
 in4func_Zypper $In4_Exec_Path/_base/build/2.scenario/2.all-packages.suse
+
+if [[ " ${BuildLayers[@]} " =~ " unit " ]]; then
+    in4func_Zypper $In4_Exec_Path/_base/build/1.init/1.pre_packages.suse
+fi
  #+ pam + policy*
  
-if [[ -z $OfflineDir ]]; then
-    zypper --non-interactive $ZypperFlags --gpg-auto-import-keys dup
+if [[ $OfflineCliMode != "Yes" ]]; then
+    zypper --non-interactive  --gpg-auto-import-keys  -C /var/cache/zypp_offline dup
 fi
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`

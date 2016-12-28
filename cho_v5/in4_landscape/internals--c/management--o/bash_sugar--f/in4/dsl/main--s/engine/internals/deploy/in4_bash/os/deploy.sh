@@ -19,11 +19,13 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 #LogMsg="Dump vars for $ExecScriptname: "
 #echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
-if [[ $DeployOsMode == "vm_xen" ]]; then
-    BuildEnv="$VMImageDir/$In4NamingOsSrvType/_os_build"
+if [[ $RunType == "prod" ]]; then
+    if [[ $DeployOsMode == "vm_xen" ]]; then BuildEnv="$VMImageDir/$In4NamingOsSrvType/_os_build"; fi
 else
     BuildEnv="`pwd`/_os_build"
 fi
+
+OfflineBuildDir="$BuildEnv/offline"
 
 if [[ $DeployOsMode == "vm_xen" ]]; then
     . $In4_Exec_Path/build_env.sh
@@ -48,7 +50,7 @@ if [[ $DeployOsMode == "vm_xen" ]]; then
     fi
 fi
 
-if [[ $DeployOsMode == "hw_chroot" ]]; then
+if [[ $DeployOsMode == "hw_chroot" ]] || [[ $DeployOsMode == "hw_bootdrive" ]]; then
     . $In4_Exec_Path/build_env.sh
     . $In4_Exec_Path/_base/build/1.init/clean.sh
     . $In4_Exec_Path/build.sh

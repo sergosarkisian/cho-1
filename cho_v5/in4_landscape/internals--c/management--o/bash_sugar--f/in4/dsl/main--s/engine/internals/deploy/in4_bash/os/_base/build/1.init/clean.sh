@@ -15,6 +15,7 @@ PrevDirPath=$CurDirPath; CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecSc
 LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
+ . $In4_Exec_Path/_base/build/1.init/offline_merge.sh out
 
 if [[ -d $BuildEnv/loop/dev ]]; then ! sudo umount $BuildEnv/loop/dev; fi
 if [[ -d $BuildEnv/loop/proc ]]; then ! sudo umount $BuildEnv/loop/proc; fi
@@ -28,7 +29,7 @@ if [[ $DeployOsMode == "vm_xen" ]] ; then
     if [[ -n $(losetup|grep "$BuildEnv/$In4NamingOsSrvType.raw") ]] ; then sudo losetup -d /dev/$VmDiskLoopSystem; fi
 fi
 
-if [[ $DeployOsMode == "hw_chroot" ]] ; then 
+if [[ " ${BuildLayers[@]} " =~ " unit " ]] ; then 
     ! sudo umount /dev/sdb*
     ! sudo umount /dev/sdb*
 fi

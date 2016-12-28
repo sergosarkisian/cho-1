@@ -16,34 +16,33 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-. $In4_Exec_Path/_base/build/1.init/clean.sh
+sudo rm -rf $BuildEnv/loop
 
-### OPENSUSE INIT
- if [[ -z $OfflineDir ]]; then
-    ! sudo zypper --non-interactive in wget btrfsprogs parted git xz tar bc
+if [[ $OfflineCliMode == "Yes" ]]; then
+    echo "Offline mode, all packages are cached"
+elif  [[ $OfflineBuildMode == "Yes" ]]; then
+    mkdir -p $OfflineBuildDir    
+    ! in4func_Zypper $In4_Exec_Path/_base/build/1.init/1.pre_packages.suse
 else
-    echo "Needs offline zypper" ## BUG
-fi
-#
+    ! in4func_Zypper $In4_Exec_Path/_base/build/1.init/1.pre_packages.suse
+fi     
 
-sudo rm -rf $BuildEnv/*
 mkdir -p $BuildEnv/loop && cd $BuildEnv
 
-### 42.2 ###
-OsImageFilename="openSUSE-42.2-docker-guest-docker.$DeployOsArch.tar.xz"
-OsImageDownload="wget -O $BuildEnv/$OsImageFilename http://download.opensuse.org/repositories/Virtualization:/containers:/images:/openSUSE-42.2/images/$OsImageFilename"
- if [[ -z $OfflineDir ]]; then
-    `$OsImageDownload`
-else
-    if [[ -f $OfflineDir/$OsImageFilename  ]]; then
-        cp $OfflineDir/$OsImageFilename $BuildEnv/ 
-    else
-        `$OsImageDownload`            
-    fi
-fi
-#
+### docker image URI ###
 
-###
+case $OsVendor in
+    "openSUSE")
+        OsImageFilename="openSUSE-$OsRelease-docker-guest-docker.$DeployOsArch.tar.xz"
+        OsImageURI="http://download.opensuse.org/repositories/Virtualization:/containers:/images:/openSUSE-$OsRelease/images/$OsImageFilename"
+    ;;
+esac
+
+OsImageDownload="wget -O $OfflineBuildDir/$OsImageFilename $OsImageURI"
+### 
+
+if [[ ! -f $OfflineBuildDir/$OsImageFilename  ]]; then `$OsImageDownload` ; fi
+ 
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`

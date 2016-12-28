@@ -1,4 +1,3 @@
-#!/bin/bash
 ########    #######    ########    #######    ########    ########
 ##     / / / /    License    \ \ \ \ 
 ##    Copyleft culture, Copyright (C) is prohibited here
@@ -17,18 +16,27 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-. $In4_Exec_Path/_base/build/1.init/1.pre.sh
-if [[ $DeployOsMode == "hw_chroot" ]] || [[ $DeployOsMode == "hw_bootdrive" ]]  ; then . $In4_Exec_Path/hw_chroot/build/1.init/disk_partitioning.sh; fi
-if [[ $DeployOsMode == "vm_xen" ]] ; then . $In4_Exec_Path/vm_xen/build/1.init/2.vm_xen.sh; fi
-. $In4_Exec_Path/_base/build/1.init/3.exec.sh
-. $In4_Exec_Path/_base/build/1.init/4.post.sh
-if [[ $DeployOsMode == "vm_xen" ]] ; then . $In4_Exec_Path/vm_xen/build/1.init/5.vm_xen-start.sh; fi
+OfflineCpFlow=$1
 
+case $OfflineCpFlow in
+    "out")
+    if  [[ $OfflineBuildMode == "Yes" ]]; then
+        echo "VM data will be copied to $OfflineBuildDir"
+        if [[ -d $BuildEnv/loop/etc/zypp/repos.d ]]; then sudo cp -r $BuildEnv/loop/etc/zypp/repos.d $OfflineBuildDir/zypper/; fi
+        if [[ -d $BuildEnv/loop/media/sysdata/linux_sys/var/cache/zypp_offline ]]; then sudo cp -r $BuildEnv/loop/media/sysdata/linux_sys/var/cache/zypp_offline $OfflineBuildDir/zypper/; fi
+    else
+        echo "VM data will be deleted during nest steps"
+    fi     
+    ;;
+    "in")
+    if  [[ $OfflineBuildMode == "Yes" ]]; then
+        echo "VM data will be copied to $OfflineBuildDir"
+        sudo cp -rf $OfflineBuildDir $BuildEnv/loop/media/sysdata
+    fi     
+    ;;
+esac    
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
 LogMsg="END -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
-tput setaf 2
-echo -e "${green}\n\n\n ################# BUILDED OK #################"
-tput setaf 9
