@@ -23,9 +23,9 @@ rm -rf /etc/zypp/repos.d/*
 
 if ! find /etc/zypp/repos.d/ -type f -name '*.repo'| read; then
 ### 42.2###
-    in4func_ZypperRepo add  http://download.opensuse.org/repositories/openSUSE:/Leap:/42.2/standard standard::leap42.2
-    in4func_ZypperRepo add  http://download.opensuse.org/update/leap/42.2/oss update_oss::leap42.2
-    in4func_ZypperRepo add  http://download.opensuse.org/update/openSUSE-stable update_oss::stable
+    in4func_ZypperRepo add  "http://download.opensuse.org/repositories/openSUSE:/Leap:/42.2/standard standard::leap42.2"
+    in4func_ZypperRepo add  "http://download.opensuse.org/update/leap/42.2/oss update_oss::leap42.2"
+    in4func_ZypperRepo add  "http://download.opensuse.org/update/openSUSE-stable update_oss::stable"
 
     ##SOME STANDARD
     in4func_ZypperRepo add  http://download.opensuse.org/repositories/Kernel:/openSUSE-42.2/standard/Kernel:openSUSE-42.2.repo
