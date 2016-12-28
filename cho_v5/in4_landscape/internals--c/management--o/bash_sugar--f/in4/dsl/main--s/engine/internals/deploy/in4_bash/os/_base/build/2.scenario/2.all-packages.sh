@@ -20,7 +20,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n";
 in4func_Zypper $In4_Exec_Path/_base/build/2.scenario/2.all-packages.suse
  #+ pam + policy*
  
-if [[ -z $OfflineDir ]]; then
+if [[ $OfflineCliMode != "Yes" ]]; then
     zypper --non-interactive $ZypperFlags --gpg-auto-import-keys dup
 fi
 ### IN4 BASH FOOTER ###

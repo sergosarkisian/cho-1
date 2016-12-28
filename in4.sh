@@ -101,9 +101,9 @@ case $Task in
                     BuildLayers=(unit os)
                     RecreatePartitions="Yes"
                     DiskSizingUnit="MiB"
-                    In4Disk_SystemSize="900"
+                    In4Disk_SystemSize="1500"
                     In4Disk_SwapSize="100"
-                    In4Disk_SysdataSize="500"
+                    In4Disk_SysdataSize="900"
                     In4Disk_SysdataOnBaseDisk="Yes"
 
                 

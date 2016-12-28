@@ -29,14 +29,7 @@ sudo chmod 744  $BuildEnv/loop/etc/sysconfig/
  ### 
 GitPath="$BuildEnv/loop/media/sysdata/in4/cho"
  
- if [[ -z $OfflineBuildDir ]]; then
-    sudo mkdir -p  $BuildEnv/loop/media/sysdata/in4 
-    sudo git -C $BuildEnv/loop/media/sysdata/in4 clone -b stable  $GitRepoStable
-    sudo git -C $GitPath remote add dev $GitRepoDev  
-    sudo git  -C $GitPath fetch dev    
-    sudo git -C $GitPath config core.filemode false
-else
-    
+ if [[ $OfflineCliMode == "Yes" ]]; then
     if [[ -d $OfflineBuildDir/git ]]; then
         sudo mkdir -p  $BuildEnv/loop/media/sysdata/in4/cho && sudo git init $BuildEnv/loop/media/sysdata/in4/cho && cd  $BuildEnv/loop/media/sysdata/in4/cho
         sudo git  -C $GitPath pull $OfflineBuildDir/git
@@ -49,14 +42,20 @@ else
         sudo mkdir $BuildEnv/loop/var/cache/zypp_offline     
         sudo cp -r $OfflineBuildDir/zypper/zypp/* $BuildEnv/loop/var/cache/zypp_offline
     fi
-    
+
     if [[ -d $OfflineBuildDir/zypper/repos.d ]]; then
         sudo mkdir $BuildEnv/loop/etc/zypp/repos.d_offline 
         sudo cp -r $OfflineBuildDir/zypper/repos.d/*  $BuildEnv/loop/etc/zypp/repos.d_offline/
         sudo sed -i 's/keeppackages=.*/keeppackages=1/g' $BuildEnv/loop/etc/zypp/repos.d_offline/*.repo
     fi    
     sudo cp $OfflineBuildDir/packages/* $BuildEnv/loop/tmp/
-fi
+else
+    sudo mkdir -p  $BuildEnv/loop/media/sysdata/in4 
+    sudo git -C $BuildEnv/loop/media/sysdata/in4 clone -b stable  $GitRepoStable
+    sudo git -C $GitPath remote add dev $GitRepoDev  
+    sudo git  -C $GitPath fetch dev    
+    sudo git -C $GitPath config core.filemode false
+fi     
 
 if [[ $RunType == "dev" ]]; then
     sudo git -C $GitPath branch --set-upstream-to=dev/master

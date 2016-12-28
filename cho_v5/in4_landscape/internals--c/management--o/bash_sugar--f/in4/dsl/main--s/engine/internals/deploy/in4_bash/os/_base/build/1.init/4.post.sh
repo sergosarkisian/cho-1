@@ -16,13 +16,13 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-if [[ -z $OfflineDir ]]; then 
-    echo "VM data will be deleted"
-else
+if  [[ $OfflineBuildMode == "Yes" ]]; then
     echo "VM data will be copied to $OfflineDir"
     sudo cp -r $BuildEnv/loop/etc/zypp/repos.d $OfflineDir/zypper/
     sudo cp -r $BuildEnv/loop//media/sysdata/linux_sys/var/cache/zypp $OfflineDir/zypper/
-fi
+else
+    echo "VM data will be deleted"
+fi     
 
 sudo rm -rf $BuildEnv/loop//media/sysdata/linux_sys/var/cache/zypp/*
 

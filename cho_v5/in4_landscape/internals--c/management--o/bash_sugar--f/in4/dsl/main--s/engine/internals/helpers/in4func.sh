@@ -73,13 +73,13 @@ in4func_Zypper () {
     fi
     for PackagesLines in "${PackagesArray[@]}"
     do
-        if [[ -z $OfflineDir ]]; then
-            echo "$Prefix zypper $ZypperArgsOnline ${PackagesLines}" && $Prefix zypper $ZypperArgsOnline ${PackagesLines}
-        elif [[ $OfflineMode == 1  ]]; then
-            echo "$Prefix zypper $ZypperArgsOffline ${PackagesLines}" && $Prefix zypper $ZypperArgsOffline ${PackagesLines}
-        else
+        if [[ $OfflineCliMode == "Yes" ]]; then
+            echo "$Prefix zypper $ZypperArgsOffline ${PackagesLines}" && $Prefix zypper $ZypperArgsOffline ${PackagesLines}        
+        elif  [[ $OfflineBuildMode == "Yes" ]]; then
             echo "$Prefix zypper $ZypperArgsOffline ${PackagesLines}" && ! $Prefix zypper $ZypperArgsOffline ${PackagesLines}
             echo "$Prefix zypper $ZypperArgsAltOnline ${PackagesLines}"  && $Prefix zypper $ZypperArgsAltOnline ${PackagesLines}
+        else
+            echo "$Prefix zypper $ZypperArgsOnline ${PackagesLines}" && $Prefix zypper $ZypperArgsOnline ${PackagesLines}
         fi  
     done
 }
@@ -94,13 +94,13 @@ in4func_ZypperRepo () {
     case $ZypperRepoAction in
     "add" )
     
-        if [[ -z $OfflineDir ]]; then
-            echo "zypper $ZypperRepoArgsOnline $ZypperRepoURI" && zypper $ZypperRepoArgsOnline $ZypperRepoURI
-        elif [[ $OfflineMode == 1  ]]; then
+        if [[ $OfflineCliMode == "Yes" ]]; then
             echo "Offline mode, all repos are cached"
-        else
+        elif  [[ $OfflineBuildMode == "Yes" ]]; then
             echo "zypper $ZypperRepoArgsOnline $ZypperRepoURI" && ! zypper $ZypperRepoArgsOnline $ZypperRepoURI
-        fi  
+        else
+            echo "zypper $ZypperRepoArgsOnline $ZypperRepoURI" && zypper $ZypperRepoArgsOnline $ZypperRepoURI
+        fi      
     ;;
     esac
 }

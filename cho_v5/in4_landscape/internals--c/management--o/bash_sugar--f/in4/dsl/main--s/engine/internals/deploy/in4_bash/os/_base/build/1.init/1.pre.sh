@@ -22,9 +22,18 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
  if [[ $OfflineCliMode == "No" ]]; then
     ! in4func_Zypper $In4_Exec_Path/_base/build/1.init/1.pre_packages.suse
 else
-    echo "Needs offline zypper" ## BUG
 fi
 #
+
+if [[ $OfflineCliMode == "Yes" ]]; then
+    echo "Offline mode, all packages are cached"
+elif  [[ $OfflineBuildMode == "Yes" ]]; then
+    OfflineBuildDir="$BuildEnv/offline"
+    mkdir -p $OfflineBuildDir    
+    ! in4func_Zypper $In4_Exec_Path/_base/build/1.init/1.pre_packages.suse
+else
+    ! in4func_Zypper $In4_Exec_Path/_base/build/1.init/1.pre_packages.suse
+fi     
 
 sudo rm -rf $BuildEnv/*
 mkdir -p $BuildEnv/loop && cd $BuildEnv
@@ -42,19 +51,15 @@ OsImageDownload="wget -O $BuildEnv/$OsImageFilename $OsImageURI"
 ### 
 
 
-### offline mode ##
- if [[ -z $OfflineBuildDir ]]; then
-    `$OsImageDownload`
-else
+if [[ $OfflineCliMode == "Yes" ]]; then
     if [[ -f $OfflineBuildDir/$OsImageFilename  ]]; then
         cp $OfflineBuildDir/$OsImageFilename $BuildEnv/ 
     else
         `$OsImageDownload`            
     fi
-fi
-###
-
-
+else
+    `$OsImageDownload`
+fi    
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
