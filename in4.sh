@@ -157,7 +157,7 @@ case $Task in
                 ###
                 
                 ###            
-               time . $In4_Exec_Path/deploy.sh ;;
+                . $In4_Exec_Path/deploy.sh ;;
                 esac
             ;;
             "run" )
