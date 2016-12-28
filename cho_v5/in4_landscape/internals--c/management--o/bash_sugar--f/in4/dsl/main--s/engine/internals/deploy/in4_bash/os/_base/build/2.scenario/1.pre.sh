@@ -25,4 +25,5 @@ if [[ -d /media/sysdata/offline/zypper/repos.d ]]; then
     sudo cp -r /media/sysdata/offline/zypper/repos.d/*  /etc/zypp/repos.d_offline/
     sudo sed -i 's/keeppackages=.*/keeppackages=1/g' /etc/zypp/repos.d_offline/*.repo
 fi   
+
 echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"

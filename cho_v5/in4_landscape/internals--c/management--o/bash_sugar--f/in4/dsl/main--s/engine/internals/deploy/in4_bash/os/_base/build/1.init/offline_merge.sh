@@ -18,8 +18,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 OfflineCpFlow=$1
 
-case $OfflineCpFlow in:
-
+case $OfflineCpFlow in
     "out")
     if  [[ $OfflineBuildMode == "Yes" ]]; then
         echo "VM data will be copied to $OfflineBuildDir"
@@ -28,13 +27,11 @@ case $OfflineCpFlow in:
     else
         echo "VM data will be deleted during nest steps"
     fi     
-;;
-
+    ;;
     "in")
     if  [[ $OfflineBuildMode == "Yes" ]]; then
         echo "VM data will be copied to $OfflineBuildDir"
-        mkdir -p $BuildEnv/loop/media/sysdata/offline
-        sudo cp -rf $OfflineBuildDir $BuildEnv/loop/media/sysdata/offline; fi
+        sudo cp -rf $OfflineBuildDir $BuildEnv/loop/media/sysdata
     fi     
     ;;
 esac    
