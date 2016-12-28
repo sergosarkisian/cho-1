@@ -23,8 +23,8 @@ sudo rm -rf $BuildEnv/loop/media/sysdata/*
 ###
 
  ###  CP OWN FILES ###
-sudo cp /etc/resolv.conf $BuildEnv/loop/etc/
-sudo cp /etc/sysconfig/proxy $BuildEnv/loop/etc/sysconfig/
+#sudo cp /etc/resolv.conf $BuildEnv/loop/etc/
+#sudo cp /etc/sysconfig/proxy $BuildEnv/loop/etc/sysconfig/
 sudo chmod 744  $BuildEnv/loop/etc/sysconfig/
  ### 
 GitPath="$BuildEnv/loop/media/sysdata/in4/cho"

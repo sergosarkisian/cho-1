@@ -7,6 +7,7 @@ zypper mr -K -a
 
 ### RM ALL LOGS & TRACES ###
 cd /
+rm -rf  /media/sysdata/offline
 rm /etc/resolv.conf ### BUG
 rm /etc/sysconfig/proxy ### BUG
 ! rm -f /var/log/*/*
