@@ -60,7 +60,7 @@ in4func_Zypper () {
     ZypperArgsAltOnline="--non-interactive  --gpg-auto-import-keys  -C /var/cache/zypp_offline in " 
     ZypperArgsOffline="--non-interactive  --no-gpg-checks --no-refresh -C /var/cache/zypp_offline in --force"
 
-    if [[ `id -u` == 1 ]]; then
+    if [[ `id -u` == 0 ]]; then
         Prefix=""
     else
         Prefix="sudo "
