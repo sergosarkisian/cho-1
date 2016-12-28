@@ -16,12 +16,11 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-sudo rm -rf $BuildEnv/*
+sudo rm -rf $BuildEnv/loop
 
 if [[ $OfflineCliMode == "Yes" ]]; then
     echo "Offline mode, all packages are cached"
 elif  [[ $OfflineBuildMode == "Yes" ]]; then
-    OfflineBuildDir="$BuildEnv/offline"
     mkdir -p $OfflineBuildDir    
     ! in4func_Zypper $In4_Exec_Path/_base/build/1.init/1.pre_packages.suse
 else
@@ -39,19 +38,11 @@ case $OsVendor in
     ;;
 esac
 
-OsImageDownload="wget -O $BuildEnv/$OsImageFilename $OsImageURI"
+OsImageDownload="wget -O $OfflineBuildDir/$OsImageFilename $OsImageURI"
 ### 
 
-
-if [[ $OfflineCliMode == "Yes" ]]; then
-    if [[ -f $OfflineBuildDir/$OsImageFilename  ]]; then
-        cp $OfflineBuildDir/$OsImageFilename $BuildEnv/ 
-    else
-        `$OsImageDownload`            
-    fi
-else
-    `$OsImageDownload`
-fi    
+if [[ ! -f $OfflineBuildDir/$OsImageFilename  ]]; then `$OsImageDownload` ; fi
+ 
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`

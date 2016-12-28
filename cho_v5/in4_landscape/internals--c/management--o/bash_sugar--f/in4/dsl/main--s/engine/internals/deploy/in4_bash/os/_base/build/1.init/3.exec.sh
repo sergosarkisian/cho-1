@@ -18,7 +18,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
 ### UNTAR ###
-sudo tar xf *.tar.xz -C $BuildEnv/loop/
+sudo tar xf $OfflineBuildDir/$OsImageFilename -C $BuildEnv/loop/
 sudo rm -rf $BuildEnv/loop/media/sysdata/*
 ###
 
@@ -29,6 +29,8 @@ sudo chmod 744  $BuildEnv/loop/etc/sysconfig/
  ### 
 GitPath="$BuildEnv/loop/media/sysdata/in4/cho"
  
+ 
+ ### GIT INIT ###
  if [[ $OfflineCliMode == "Yes" ]]; then
     if [[ -d $OfflineBuildDir/git ]]; then
         sudo mkdir -p  $BuildEnv/loop/media/sysdata/in4/cho && sudo git init $BuildEnv/loop/media/sysdata/in4/cho && cd  $BuildEnv/loop/media/sysdata/in4/cho
@@ -37,18 +39,6 @@ GitPath="$BuildEnv/loop/media/sysdata/in4/cho"
         sudo git  -C $GitPath remote add dev $GitRepoDev
         sudo git  -C $GitPath config core.filemode false
     fi
-        
-    if [[ -d $OfflineBuildDir/zypper/zypp ]]; then
-        sudo mkdir $BuildEnv/loop/var/cache/zypp_offline     
-        sudo cp -r $OfflineBuildDir/zypper/zypp/* $BuildEnv/loop/var/cache/zypp_offline
-    fi
-
-    if [[ -d $OfflineBuildDir/zypper/repos.d ]]; then
-        sudo mkdir $BuildEnv/loop/etc/zypp/repos.d_offline 
-        sudo cp -r $OfflineBuildDir/zypper/repos.d/*  $BuildEnv/loop/etc/zypp/repos.d_offline/
-        sudo sed -i 's/keeppackages=.*/keeppackages=1/g' $BuildEnv/loop/etc/zypp/repos.d_offline/*.repo
-    fi    
-    sudo cp $OfflineBuildDir/packages/* $BuildEnv/loop/tmp/
 else
     sudo mkdir -p  $BuildEnv/loop/media/sysdata/in4 
     sudo git -C $BuildEnv/loop/media/sysdata/in4 clone -b stable  $GitRepoStable
@@ -61,7 +51,10 @@ if [[ $RunType == "dev" ]]; then
     sudo git -C $GitPath branch --set-upstream-to=dev/master
     sudo git -C $GitPath reset --hard dev/master
 fi
-    
+###
+
+. $In4_Exec_Path/_base/build/1.init/offline_merge.sh in
+
  ###  CHROOT TO LOOP ###
 sudo mount -t proc proc $BuildEnv/loop/proc/ &&  sudo mount -t sysfs sys $BuildEnv/loop/sys/ && sudo mount -o bind /dev $BuildEnv/loop/dev/
 

@@ -25,6 +25,8 @@ else
     BuildEnv="`pwd`/_os_build"
 fi
 
+OfflineBuildDir="$BuildEnv/offline"
+
 if [[ $DeployOsMode == "vm_xen" ]]; then
     . $In4_Exec_Path/build_env.sh
     . $In4_Exec_Path/_base/build/1.init/clean.sh
