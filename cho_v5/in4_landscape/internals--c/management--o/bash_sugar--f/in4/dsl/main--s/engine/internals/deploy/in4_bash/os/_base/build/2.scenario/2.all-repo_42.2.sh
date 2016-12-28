@@ -19,17 +19,18 @@ echo -e "\n\n########  $LogMsg  ########\n\n";
 
 ### ZYPPER ###
 rm -rf /etc/zypp/repos.d/*
+! cp -r /etc/zypp/repos.d_offline/* /etc/zypp/repos.d/
 
 if ! find /etc/zypp/repos.d/ -type f -name '*.repo'| read; then
 ### 42.2###
-    zypper ar -cfk http://download.opensuse.org/repositories/openSUSE:/Leap:/42.2/standard standard::leap42.2
-    zypper ar -cfk http://download.opensuse.org/update/leap/42.2/oss update_oss::leap42.2
-    zypper ar -cfk http://download.opensuse.org/update/openSUSE-stable update_oss::stable
+    in4func_ZypperRepo add  http://download.opensuse.org/repositories/openSUSE:/Leap:/42.2/standard standard::leap42.2
+    in4func_ZypperRepo add  http://download.opensuse.org/update/leap/42.2/oss update_oss::leap42.2
+    in4func_ZypperRepo add  http://download.opensuse.org/update/openSUSE-stable update_oss::stable
 
     ##SOME STANDARD
-    zypper ar -cfk http://download.opensuse.org/repositories/Kernel:/openSUSE-42.2/standard/Kernel:openSUSE-42.2.repo
-    zypper ar -cfk http://download.opensuse.org/repositories/network/openSUSE_Leap_42.2/network.repo
-    zypper ar -cfk http://download.opensuse.org/repositories/shells/openSUSE_Leap_42.2/shells.repo
+    in4func_ZypperRepo add  http://download.opensuse.org/repositories/Kernel:/openSUSE-42.2/standard/Kernel:openSUSE-42.2.repo
+    in4func_ZypperRepo add  http://download.opensuse.org/repositories/network/openSUSE_Leap_42.2/network.repo
+    in4func_ZypperRepo add  http://download.opensuse.org/repositories/shells/openSUSE_Leap_42.2/shells.repo
 fi
 
 
