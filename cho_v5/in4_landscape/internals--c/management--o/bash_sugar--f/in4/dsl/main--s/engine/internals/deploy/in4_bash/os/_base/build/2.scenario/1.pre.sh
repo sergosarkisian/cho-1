@@ -16,14 +16,14 @@ mkdir -p /media/sysdata/linux_sys
 
 ### ZYPPER OFFLINE ###
 if [[ -d /media/sysdata/offline/zypper/zypp_offline ]]; then
-    sudo mkdir /var/cache/zypp_offline     
-    sudo cp -r /media/sysdata/offline/zypper/zypp_offline /var/cache/zypp_offline/
+     mkdir /var/cache/zypp_offline     
+     cp -r /media/sysdata/offline/zypper/zypp_offline /var/cache/zypp_offline/
 fi
 
 if [[ -d /media/sysdata/offline/zypper/repos.d ]]; then
-    sudo mkdir /etc/zypp/repos.d_offline 
-    sudo cp -r /media/sysdata/offline/zypper/repos.d/*  /etc/zypp/repos.d_offline/
-    sudo sed -i 's/keeppackages=.*/keeppackages=1/g' /etc/zypp/repos.d_offline/*.repo
+     mkdir /etc/zypp/repos.d_offline 
+     cp -r /media/sysdata/offline/zypper/repos.d/*  /etc/zypp/repos.d_offline/
+     sed -i 's/keeppackages=.*/keeppackages=1/g' /etc/zypp/repos.d_offline/*.repo
 fi   
 
 echo -e "\n\n######## ######## END -  steps_init - `echo ${BASH_SOURCE[0]}|awk -F/ '{print $NF}'` ######## ########\n\n"
