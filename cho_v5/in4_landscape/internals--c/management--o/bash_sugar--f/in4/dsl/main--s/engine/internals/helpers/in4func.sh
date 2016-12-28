@@ -60,6 +60,12 @@ in4func_Zypper () {
     ZypperArgsAltOnline="--non-interactive  --gpg-auto-import-keys  -C /var/cache/zypp_offline in " 
     ZypperArgsOffline="--non-interactive  --no-gpg-checks --no-refresh -C /var/cache/zypp_offline in --force"
 
+    if [[ `id -u` == 1 ]]; then
+        Prefix=""
+    else
+        Prefix="sudo "
+    fi
+    
     if [[ -n $(echo "$1"|grep "/") ]]; then
         readarray PackagesArray < $1    
     else
@@ -68,12 +74,12 @@ in4func_Zypper () {
     for PackagesLines in "${PackagesArray[@]}"
     do
         if [[ -z $OfflineDir ]]; then
-            echo "zypper $ZypperArgsOnline ${PackagesLines}" && zypper $ZypperArgsOnline ${PackagesLines}
+            echo "$Prefix zypper $ZypperArgsOnline ${PackagesLines}" && $Prefix zypper $ZypperArgsOnline ${PackagesLines}
         elif [[ $OfflineMode == 1  ]]; then
-            echo "zypper $ZypperArgsOffline ${PackagesLines}" && zypper $ZypperArgsOffline ${PackagesLines}
+            echo "$Prefix zypper $ZypperArgsOffline ${PackagesLines}" && $Prefix zypper $ZypperArgsOffline ${PackagesLines}
         else
-            echo "zypper $ZypperArgsOffline ${PackagesLines}" && ! zypper $ZypperArgsOffline ${PackagesLines}
-            echo "zypper $ZypperArgsAltOnline ${PackagesLines}"  && zypper $ZypperArgsAltOnline ${PackagesLines}
+            echo "$Prefix zypper $ZypperArgsOffline ${PackagesLines}" && ! $Prefix zypper $ZypperArgsOffline ${PackagesLines}
+            echo "$Prefix zypper $ZypperArgsAltOnline ${PackagesLines}"  && $Prefix zypper $ZypperArgsAltOnline ${PackagesLines}
         fi  
     done
 }

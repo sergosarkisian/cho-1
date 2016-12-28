@@ -28,7 +28,7 @@ if [[ $DeployOsMode == "vm_xen" ]] ; then
     if [[ -n $(losetup|grep "$BuildEnv/$In4NamingOsSrvType.raw") ]] ; then sudo losetup -d /dev/$VmDiskLoopSystem; fi
 fi
 
-if [[ $DeployOsMode == "hw_chroot" ]] ; then 
+if [[ " ${BuildLayers[@]} " =~ " unit " ]] ; then 
     ! sudo umount /dev/sdb*
     ! sudo umount /dev/sdb*
 fi

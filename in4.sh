@@ -17,8 +17,8 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 . /media/sysdata/in4/cho/in4_core/internals/helpers/in4func.sh
-#OfflineMode=1
-#OfflineDir="/home/storage/IT/_tmp/cho_offline"
+
+if [[ -z $RunType ]]; then RunType="prod"; fi
 
 if [[ -z $Task ]]; then
     DialogMsg="Please specify task"
@@ -38,17 +38,31 @@ case $Task in
                 In4_Exec_Path="/media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/bash_sugar--f/in4/dsl/main--s/engine/internals/deploy/in4_bash/os"
                 if [[ -z $DeployOsMode ]]; then
                     DialogMsg="Please specify deploy OS mode"
-                    echo $DialogMsg; select DeployOsMode in vm_xen hw_chroot ;  do  break ; done
+                    echo $DialogMsg; select DeployOsMode in container_docker vm_xen hw_chroot hw_bootdrive;  do  break ; done
+                fi
+                
+                if [[ -z $OsVendor ]]; then
+                    DialogMsg="Please specify OS vendor"   
+                    echo $DialogMsg; select OsVendor in openSUSE;  do  break ; done;
+                fi
+
+                if [[ -z $OsRelease ]]; then
+                    DialogMsg="Please specify OS release"   
+                    echo $DialogMsg; select OsRelease in 42.2;  do  break ; done;
                 fi
                 
                 if [[ -z $DeployOsArch ]]; then
                     DialogMsg="Please specify platform arch"   
                     echo $DialogMsg; select DeployOsArch in x86_64  i586 armv7l;  do  break ; done;
-                fi
+                fi                
                 
                 ### vm_xen ###
                     
                 if [[ $DeployOsMode == "vm_xen" ]]; then
+                
+                    OfflineCliMode="No"
+                    OfflineBuildMode="No"
+                    BuildLayers=(os)
                 
                     if [[ -z $VMImageDir ]]; then
                         DialogMsg="Please specify VM image path name"
@@ -66,14 +80,65 @@ case $Task in
                 ### hw_chroot ###
                 if [[ $DeployOsMode == "hw_chroot" ]]; then
                 
+                    OfflineCliMode="No"
+                    OfflineBuildMode="No"
+                    BuildLayers=(unit os)
+
+                
                     if [[ -z $HWBaseDisk ]]; then
-                        DialogMsg="Please specify VM image path name"
+                        DialogMsg="Please specify disk name for OS install"
                         echo $DialogMsg; select HWBaseDisk in sdb sdc sdd sde sdd;  do  break ; done
                     fi
                     
                 fi        
                 ###
             
+                ### hw_bootdrive ###
+                if [[ $DeployOsMode == "hw_bootdrive" ]]; then
+                
+                    OfflineCliMode="No"
+                    OfflineBuildMode="Yes"
+                    BuildLayers=(unit os)
+                    RecreatePartitions="Yes"
+                    DiskSizingUnit="MiB"
+                    In4Disk_SystemSize="900"
+                    In4Disk_SwapSize="100"
+                    In4Disk_SysdataSize="500"
+                    In4Disk_SysdataOnBaseDisk="Yes"
+
+                
+                    if [[ -z $HWBaseDisk ]]; then
+                        DialogMsg="Please specify bootable disk name for OS install"
+                        echo $DialogMsg; select HWBaseDisk in sdb sdc sdd sde sdd;  do  break ; done
+                    fi
+                fi 
+                ###
+                
+                ### offline mode ###
+                if [[ -z $OfflineCliMode ]]; then
+                    DialogMsg="Activate offline mode (as a client)?"   
+                    echo $DialogMsg; select OfflineCliMode in Yes No;  do  break ; done;
+                fi
+                
+                if [[ $OfflineCliMode == "No" ]]; then
+                
+                    if [[ -z $OfflineBuildMode ]]; then
+                        DialogMsg="Activate offline mode (as a offline pack builder)?"   
+                        echo $DialogMsg; select OfflineBuildMode in Yes No;  do  break ; done;
+                        
+                        if [[ $OfflineBuildMode == "Yes" ]]; then
+                        
+                            if [[ -z $OfflineBuildDir ]]; then
+                                DialogMsg="Please specify offline dir"   
+                                echo $DialogMsg; read $OfflineBuildDir
+                            fi
+                            
+                        fi
+                    fi
+                fi
+                ###
+                
+                ###            
                 . $In4_Exec_Path/deploy.sh ;;
                 esac
             ;;
