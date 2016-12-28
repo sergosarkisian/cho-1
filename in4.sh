@@ -120,7 +120,7 @@ case $Task in
                     fi
                     
                     if [[ -z $In4Disk_SysdataSize ]]; then
-                        In4Disk_SysdataSize="900"
+                        In4Disk_SysdataSize="1500"
                     fi
 
                     In4Disk_SysdataOnBaseDisk="Yes"
