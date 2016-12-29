@@ -1,5 +1,5 @@
 [Unit]
-Description             = In4 BTRFS snapshot - DAILY
+Description             = In4 BTRFS snapshot - HOURLY
 
 ## DEPS ## 
  Requires                       = var-run.mount nss-lookup.target network.target time-sync.target systemd-modules-load.service 
@@ -13,7 +13,7 @@ Description             = In4 BTRFS snapshot - DAILY
 ##
 
 ## EXECS ##
- ExecStart              = /bin/sh /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/runner.sh daily
+ ExecStart              = /bin/sh /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/runner.sh hourly
 
  ExecStartPre           = /bin/sh /media/sysdata/in4/cho/cho_v3/ontology/logitoring/syslog-wrappers/syslog.sh cee 'cee@: {"status":"unknown", "action":"start", "subaction":"pre", "type":"systemd", "unit":"%N", "prefix":"%P", "rundir":"%t", "user":"%u", "uid":"%U", "host":"%H", "machid":"%m", "kernel":"%v"}'
  
