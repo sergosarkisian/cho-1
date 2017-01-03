@@ -24,7 +24,7 @@ sudo rm -rf $BuildEnv/loop/media/sysdata/*
 
  ###  CP OWN FILES ###
 sudo cp /etc/resolv.conf $BuildEnv/loop/etc/
-sudo cp /etc/sysconfig/proxy $BuildEnv/loop/etc/sysconfig/
+! sudo cp /etc/sysconfig/proxy $BuildEnv/loop/etc/sysconfig/
 sudo chmod 744  $BuildEnv/loop/etc/sysconfig/
  ### 
 GitPath="$BuildEnv/loop/media/sysdata/in4/cho"
@@ -68,7 +68,7 @@ echo "OfflineBuildMode=\"$OfflineBuildMode\"" >> $BuildEnv/loop/tmp/in4_env.sh
 echo "OfflineBuildDir=\"$OfflineBuildDir\"" >> $BuildEnv/loop/tmp/in4_env.sh
 echo "OfflineMode=\"$OfflineMode\"" >> $BuildEnv/loop/tmp/in4_env.sh
 echo "DeployOsMode=\"$DeployOsMode\"" >> $BuildEnv/loop/tmp/in4_env.sh
-echo "BuildLayers=\"$BuildLayers\"" >> $BuildEnv/loop/tmp/in4_env.sh
+echo "BuildLayers=(${BuildLayers[@]})" >> $BuildEnv/loop/tmp/in4_env.sh
 
 if [[ " ${BuildLayers[@]} " =~ " unit " ]]; then 
     echo "HWBaseDisk=\"$HWBaseDisk\"" >> $BuildEnv/loop/tmp/in4_env.sh

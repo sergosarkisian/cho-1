@@ -23,7 +23,7 @@ case $OfflineCpFlow in
     if  [[ $OfflineBuildMode == "Yes" ]]; then
         echo "VM data will be copied to $OfflineBuildDir"
         if [[ -d $BuildEnv/loop/etc/zypp/repos.d ]]; then sudo cp -r $BuildEnv/loop/etc/zypp/repos.d $OfflineBuildDir/zypper/; fi
-        if [[ -d $BuildEnv/loop/media/sysdata/linux_sys/var/cache/zypp_offline ]]; then sudo cp -r $BuildEnv/loop/media/sysdata/linux_sys/var/cache/zypp_offline $OfflineBuildDir/zypper/; fi
+        if [[ -d $BuildEnv/loop/media/sysdata/linux_sys/var/cache/zypp_offline ]]; then sudo mv $BuildEnv/loop/media/sysdata/linux_sys/var/cache/zypp_offline $OfflineBuildDir/zypper/; fi
     else
         echo "VM data will be deleted during nest steps"
     fi     
