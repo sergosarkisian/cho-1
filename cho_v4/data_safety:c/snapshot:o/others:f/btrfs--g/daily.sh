@@ -20,16 +20,6 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snap.sh
 
 TMP_QGROUP_LIST_EMPTY="/tmp/btrfs_${BTRFS_LABEL}_qgroup_all_empty"
-DAILY_QGROUP_ID="2/$((QGROUP+0))"
-
-! DAILY_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$DAILY_QGROUP_ID$" -n`
-if ! [[  -n "${DAILY_QGROUP-unset}" ]]; then btrfs qgroup create  $DAILY_QGROUP_ID $SNAP_PATH; btrfs qgroup assign $DAILY_QGROUP_ID  $UNSORTED_QGROUP_ID  $SNAP_PATH; fi
-if [[ ! -e $SNAP_PATH/daily ]]; then btrfs subvolume create -i $DAILY_QGROUP_ID $SNAP_PATH/daily; fi
-#
-# WEEKLY_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "1/$((QGROUP+3))$" -n`
-# if ! [[  -n "${ROOT_QGROUP-unset}" ]]; then btrfs qgroup create  1/$((QGROUP+3)) $SNAP_PATH; fi
-# if [[ ! -e $SNAP_PATH/weekly ]]; then btrfs subvolume create -i 1/$((QGROUP+3)) $SNAP_PATH/weekly; fi
-#
 
 #BASE MIGRATION - FROM _unsorted to daily
 DAYLY_SNAP_MV=`ls $SNAP_PATH/_unsorted/|tail -n1`

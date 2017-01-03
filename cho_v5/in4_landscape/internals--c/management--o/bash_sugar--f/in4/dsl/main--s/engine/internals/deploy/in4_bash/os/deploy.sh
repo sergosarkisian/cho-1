@@ -21,6 +21,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 if [[ $RunType == "prod" ]]; then
     if [[ $DeployOsMode == "vm_xen" ]]; then BuildEnv="$VMImageDir/$In4NamingOsSrvType/_os_build"; fi
+    if [[ $DeployOsMode == "hw_chroot" ]] ||  if [[ $DeployOsMode == "hw_bootdrive" ]] ; then BuildEnv="/media/sysdata/_os_build"; fi    
 else
     BuildEnv="`pwd`/_os_build"
 fi
