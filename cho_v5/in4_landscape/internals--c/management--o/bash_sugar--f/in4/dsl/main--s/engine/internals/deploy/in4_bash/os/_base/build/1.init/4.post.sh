@@ -17,7 +17,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 . $In4_Exec_Path/_base/build/1.init/offline_merge.sh
 
-sudo rm -rf $BuildEnv/loop//media/sysdata/linux_sys/var/cache/zypp/*
+sudo rm -rf $BuildEnv/loop/media/sysdata/linux_sys/var/cache/zypp*
 
 . $In4_Exec_Path/_base/build/1.init/clean.sh
 
