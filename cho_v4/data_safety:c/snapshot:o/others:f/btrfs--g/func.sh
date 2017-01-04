@@ -29,8 +29,6 @@ SnapQGroupRead () {
     btrfs subvolume list $BTRFS_MOUNT > $TMP_SUB_LIST
 }
 
-btrfs subvolume list $BTRFS_MOUNT > $TMP_SUB_LIST
-
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
 LogMsg="END -  steps_init - $ExecScriptname"
