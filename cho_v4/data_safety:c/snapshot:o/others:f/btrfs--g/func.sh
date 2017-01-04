@@ -23,7 +23,7 @@ SnapQGroupRead () {
     btrfs qgroup show $BTRFS_MOUNT -re > $TMP_QGROUP_LIST
 }
 
-SnapQGroupRead () {
+SnapSubvolumeRead () {
     BTRFS_MOUNT=$1 
     TMP_SUB_LIST=$2
     btrfs subvolume list $BTRFS_MOUNT > $TMP_SUB_LIST
