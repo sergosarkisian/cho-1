@@ -22,6 +22,7 @@ if [[ -z $DIR_PATH ]]; then
     if [[ -z $1 ]]; then exit 1; else DIR_PATH=$1; fi
 fi
 
+BTRFS_PATH_ID=`btrfs subvolume show $DIR_PATH|grep "Subvolume ID:"|awk '{print $3}'`
 SNAP_PATH="${DIR_PATH}_snap"
 BTRFS_LABEL=`btrfs filesystem label $DIR_PATH`
 #
