@@ -35,6 +35,9 @@ case $TaskPeriod in
         SnapSched="`echo $SNAP_TASK|cut -d"'" -f 3|cut -d"/" -f 2`"
         . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/sched.sh $SnapSched
         . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/daily.sh	
+            tput setaf 2
+            echo -e "${green}\n\n\n ################# SNAP OK #################"
+            tput setaf 9        
     done
     ;;
 esac
