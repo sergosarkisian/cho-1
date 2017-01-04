@@ -25,7 +25,7 @@ TMP_QGROUP_LIST_EMPTY="/tmp/btrfs_${BTRFS_LABEL}_qgroup_all_empty"
 DAYLY_SNAP_MV=`ls $SNAP_PATH/_unsorted/|tail -n1`
 if [[ -n "$DAYLY_SNAP_MV" ]]; then
 
-    for curr_path in $SNAP_PATH/daily/`date +%d.%m.%y`_*/*; do
+    for curr_path in $SNAP_PATH/4.daily/`date +%d.%m.%y`_*/*; do
         [ -d "${curr_path}" ] || continue # if not a directory, skip
         BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
         BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\$" $TMP_SUB_LIST|awk '{print $2}'`
@@ -41,7 +41,7 @@ if [[ -n "$DAYLY_SNAP_MV" ]]; then
     BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\/" $TMP_SUB_LIST|awk '{print $2}'`    
     #btrfs qgroup remove $BTRFS_SNAP_PATH_ID $UNSORTED_QGROUP_ID $BTRFS_MOUNT;    
     btrfs qgroup assign $BTRFS_SNAP_PATH_ID $DAILY_QGROUP_ID  $SNAP_PATH    
-    mv  $curr_path  $SNAP_PATH/daily
+    mv  $curr_path  $SNAP_PATH/4.daily
     SnapSubvolumeRead $BTRFS_MOUNT $TMP_SUB_LIST
     ##
     
