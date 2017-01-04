@@ -22,8 +22,8 @@ QGROUP=$BTRFS_PATH_ID
 ### ROOT_QGROUP ###
 ROOT_QGROUP_ID="10/${QGROUP}0000"
 ! ROOT_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$ROOT_QGROUP_ID$" -n`
+if [[ ! -e $SNAP_PATH ]]; then btrfs subvolume create $SNAP_PATH; fi
 if ! [[  -n "${ROOT_QGROUP-unset}" ]]; then btrfs qgroup create  $ROOT_QGROUP_ID $SNAP_PATH; fi
-if [[ ! -e $SNAP_PATH ]]; then btrfs subvolume create -i $ROOT_QGROUP_ID $SNAP_PATH; fi
 BTRFS_SNAP_PATH_ID=`btrfs subvolume show $SNAP_PATH|grep "Subvolume ID:"|awk '{print $3}'`
 #
 
@@ -37,16 +37,14 @@ if ! [[  -n "${REGISTRED_QGROUP-unset}" ]]; then btrfs qgroup create  $REGISTRED
 UNSORTED_QGROUP_ID="2/${QGROUP}0000"
 ! UNSORTED_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$UNSORTED_QGROUP_ID$" -n`
 if ! [[  -n "${UNSORTED_QGROUP-unset}" ]]; then btrfs qgroup create  $UNSORTED_QGROUP_ID $SNAP_PATH; btrfs qgroup assign $UNSORTED_QGROUP_ID  $ROOT_QGROUP_ID  $SNAP_PATH; fi
-#if [[ ! -e $SNAP_PATH/_unsorted ]]; then btrfs subvolume create -i $UNSORTED_QGROUP_ID $SNAP_PATH/_unsorted; fi
-if [[ ! -e $SNAP_PATH/_unsorted ]]; then mkdir -p $SNAP_PATH/_unsorted; fi
+if [[ ! -e $SNAP_PATH/_unsorted ]]; then btrfs subvolume create -i $UNSORTED_QGROUP_ID $SNAP_PATH/_unsorted; fi
 ###
 
 ### TRASH_QGROUP ###
 TRASH_QGROUP_ID="9/${QGROUP}0000"
 ! TRASH_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$TRASH_QGROUP_ID$" -n`
 if ! [[  -n "${TRASH_QGROUP-unset}" ]]; then btrfs qgroup create  $TRASH_QGROUP_ID $SNAP_PATH; btrfs qgroup assign $TRASH_QGROUP_ID  $ROOT_QGROUP_ID  $SNAP_PATH; fi
-#if [[ ! -e $SNAP_PATH/8.trash ]]; then btrfs subvolume create -i $TRASH_QGROUP_ID $SNAP_PATH/8.trash; fi
-if [[ ! -e $SNAP_PATH/8.trash ]]; then mkdir -p $SNAP_PATH/8.trash; fi
+if [[ ! -e $SNAP_PATH/8.trash ]]; then btrfs subvolume create -i $TRASH_QGROUP_ID $SNAP_PATH/8.trash; fi
 ###
 
 case $SnapUnit in
@@ -56,8 +54,7 @@ case $SnapUnit in
         MINUTELY_QGROUP_ID="3/${QGROUP}0000"
         ! MINUTELY_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$MINUTELY_QGROUP_ID$" -n`
         if ! [[  -n "${MINUTELY_QGROUP-unset}" ]]; then btrfs qgroup create  $MINUTELY_QGROUP_ID $SNAP_PATH; btrfs qgroup assign $MINUTELY_QGROUP_ID  $ROOT_QGROUP_ID  $SNAP_PATH; fi
-        #if [[ ! -e $SNAP_PATH/2.minutely ]]; then btrfs subvolume create -i $MINUTELY_QGROUP_ID $SNAP_PATH/2.minutely; fi
-        if [[ ! -e $SNAP_PATH/2.minutely ]]; then mkdir -p $SNAP_PATH/2.minutely; fi
+        if [[ ! -e $SNAP_PATH/2.minutely ]]; then btrfs subvolume create -i $MINUTELY_QGROUP_ID $SNAP_PATH/2.minutely; fi
         ###    
     ;;
     
@@ -66,8 +63,7 @@ case $SnapUnit in
         HOURLY_QGROUP_ID="4/${QGROUP}0000"
         ! HOURLY_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$HOURLY_QGROUP_ID$" -n`
         if ! [[  -n "${HOURLY_QGROUP-unset}" ]]; then btrfs qgroup create  $HOURLY_QGROUP_ID $SNAP_PATH; btrfs qgroup assign $HOURLY_QGROUP_ID  $ROOT_QGROUP_ID  $SNAP_PATH; fi
-        #if [[ ! -e $SNAP_PATH/3.hourly ]]; then btrfs subvolume create -i $HOURLY_QGROUP_ID $SNAP_PATH/3.hourly; fi
-        if [[ ! -e $SNAP_PATH/3.hourly ]]; then mkdir -p $SNAP_PATH/3.hourly; fi        
+        if [[ ! -e $SNAP_PATH/3.hourly ]]; then btrfs subvolume create -i $HOURLY_QGROUP_ID $SNAP_PATH/3.hourly; fi
         ###    
     ;;
     
@@ -76,8 +72,7 @@ case $SnapUnit in
         DAILY_QGROUP_ID="5/${QGROUP}0000"        
         ! DAILY_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$DAILY_QGROUP_ID$" -n`
         if ! [[  -n "${DAILY_QGROUP-unset}" ]]; then btrfs qgroup create  $DAILY_QGROUP_ID $SNAP_PATH; btrfs qgroup assign $DAILY_QGROUP_ID  $ROOT_QGROUP_ID  $SNAP_PATH; fi
-        #if [[ ! -e $SNAP_PATH/4.daily ]]; then btrfs subvolume create -i $DAILY_QGROUP_ID $SNAP_PATH/4.daily; fi
-        if [[ ! -e $SNAP_PATH/4.daily ]]; then mkdir -p $SNAP_PATH/4.daily; fi        
+        if [[ ! -e $SNAP_PATH/4.daily ]]; then btrfs subvolume create -i $DAILY_QGROUP_ID $SNAP_PATH/4.daily; fi
         ###
     ;;
     
@@ -86,8 +81,7 @@ case $SnapUnit in
         WEEKELY_QGROUP_ID="6/${QGROUP}0000"
         ! WEEKELY_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$WEEKELY_QGROUP_ID$" -n`
         if ! [[  -n "${WEEKELY_QGROUP-unset}" ]]; then btrfs qgroup create  $WEEKELY_QGROUP_ID $SNAP_PATH; btrfs qgroup assign $WEEKELY_QGROUP_ID  $ROOT_QGROUP_ID  $SNAP_PATH; fi
-        #if [[ ! -e $SNAP_PATH/5.weekly ]]; then btrfs subvolume create -i $WEEKELY_QGROUP_ID $SNAP_PATH/5.weekly; fi
-        if [[ ! -e $SNAP_PATH/5.weekly ]]; then mkdir -p $SNAP_PATH/5.weekly; fi        
+        if [[ ! -e $SNAP_PATH/5.weekly ]]; then btrfs subvolume create -i $WEEKELY_QGROUP_ID $SNAP_PATH/5.weekly; fi
         ###    
     ;;
     
@@ -96,8 +90,7 @@ case $SnapUnit in
         MONTHLY_QGROUP_ID="7/${QGROUP}0000"
         ! MONTHLY_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$MONTHLY_QGROUP_ID$" -n`
         if ! [[  -n "${MONTHLY_QGROUP-unset}" ]]; then btrfs qgroup create  $MONTHLY_QGROUP_ID $SNAP_PATH; btrfs qgroup assign $MONTHLY_QGROUP_ID  $ROOT_QGROUP_ID  $SNAP_PATH; fi
-        #if [[ ! -e $SNAP_PATH/6.monthly ]]; then btrfs subvolume create -i $MONTHLY_QGROUP_ID $SNAP_PATH/6.monthly; fi
-        if [[ ! -e $SNAP_PATH/6.monthly ]]; then mkdir -p $SNAP_PATH/6.monthly; fi        
+        if [[ ! -e $SNAP_PATH/6.monthly ]]; then btrfs subvolume create -i $MONTHLY_QGROUP_ID $SNAP_PATH/6.monthly; fi
         ###    
     ;;
     
@@ -106,8 +99,7 @@ case $SnapUnit in
         YEARLY_QGROUP_ID="8/${QGROUP}0000"
         ! YEARLY_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$YEARLY_QGROUP_ID$" -n`
         if ! [[  -n "${YEARLY_QGROUP-unset}" ]]; then btrfs qgroup create  $YEARLY_QGROUP_ID $SNAP_PATH; btrfs qgroup assign $YEARLY_QGROUP_ID  $ROOT_QGROUP_ID  $SNAP_PATH; fi
-        #if [[ ! -e $SNAP_PATH/7.yearly ]]; then btrfs subvolume create -i $YEARLY_QGROUP_ID $SNAP_PATH/7.yearly; fi
-        if [[ ! -e $SNAP_PATH/7.yearly ]]; then mkdir -p $SNAP_PATH/7.yearly; fi        
+        if [[ ! -e $SNAP_PATH/7.yearly ]]; then btrfs subvolume create -i $YEARLY_QGROUP_ID $SNAP_PATH/7.yearly; fi
         ###        
     ;;
     
