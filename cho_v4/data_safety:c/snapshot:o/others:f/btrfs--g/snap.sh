@@ -112,8 +112,8 @@ esac
 mkdir -p $DIR_PATH $SNAP_PATH/_unsorted/$DATE
 btrfs subvolume snapshot -i $REGISTRED_QGROUP_ID  $DIR_PATH $SNAP_PATH/_unsorted/$DATE/
 SnapSubvolumeRead $BTRFS_MOUNT $TMP_SUB_LIST
-BTRFS_SNAP_PATH_ID=`grep  "$DIR_PATH $SNAP_PATH/_unsorted/$DATE\/" $TMP_SUB_LIST|awk '{print $2}'`    
-btrfs qgroup assign $BTRFS_SNAP_PATH_ID $UNSORTED_QGROUP_ID  $SNAP_PATH/_unsorted/$DATE/    
+#BTRFS_SNAP_PATH_ID=`grep  "$DIR_PATH $SNAP_PATH/_unsorted/$DATE\/" $TMP_SUB_LIST|awk '{print $2}'`    
+#btrfs qgroup assign $BTRFS_SNAP_PATH_ID $UNSORTED_QGROUP_ID  $SNAP_PATH/_unsorted/$DATE/    
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
