@@ -96,6 +96,11 @@ case $SnapUnit in
         if [[ ! -e $SNAP_PATH/6.monthly ]]; then btrfs subvolume create -i $YEARLY_QGROUP_ID $SNAP_PATH/6.monthly; fi
         ###        
     ;;
+    
+    *)
+        echo "No such SnapUnit!! Failed! "
+        exit 1
+    ;;
 esac
 
 mkdir -p $DIR_PATH $SNAP_PATH/_unsorted/$DATE
