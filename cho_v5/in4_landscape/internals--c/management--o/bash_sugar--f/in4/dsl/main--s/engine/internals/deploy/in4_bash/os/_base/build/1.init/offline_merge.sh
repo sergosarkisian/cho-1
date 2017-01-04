@@ -21,16 +21,16 @@ OfflineCpFlow=$1
 case $OfflineCpFlow in
     "out")
     if  [[ $OfflineBuildMode == "Yes" ]]; then
-        echo "VM data will be copied to $OfflineBuildDir"
+        echo "Downloaded data will be copied to offline dir: $OfflineBuildDir"
         if [[ -d $BuildEnv/loop/etc/zypp/repos.d ]]; then sudo cp -r $BuildEnv/loop/etc/zypp/repos.d $OfflineBuildDir/zypper/; fi
         if [[ -d $BuildEnv/loop/media/sysdata/linux_sys/var/cache/zypp_offline ]]; then sudo cp -r $BuildEnv/loop/media/sysdata/linux_sys/var/cache/zypp_offline $OfflineBuildDir/zypper/; fi
     else
-        echo "VM data will be deleted during nest steps"
+        echo "Downloaded data will be deleted during next steps"
     fi     
     ;;
     "in")
     if  [[ $OfflineBuildMode == "Yes" ]]; then
-        echo "VM data will be copied to $OfflineBuildDir"
+        echo "Offline data will be copied to offline dir: $OfflineBuildDir"
         sudo cp -rf $OfflineBuildDir $BuildEnv/loop/media/sysdata
     fi     
     ;;

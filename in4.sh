@@ -84,16 +84,7 @@ case $Task in
                 
                 ### hw_chroot ###
                 if [[ $DeployOsMode == "hw_chroot" ]]; then
-                
-                    if [[ -z $OfflineCliMode ]]; then
-                        OfflineCliMode="No"                    
-                    fi
-                    
-                    if [[ -z $OfflineBuildMode ]]; then
-                        OfflineBuildMode="No"                    
-                    fi
                     BuildLayers=(unit os)
-
                 
                     if [[ -z $HWBaseDisk ]]; then
                         DialogMsg="Please specify disk name for OS install"
