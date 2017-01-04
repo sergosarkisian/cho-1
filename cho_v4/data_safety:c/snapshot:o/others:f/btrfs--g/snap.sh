@@ -38,7 +38,7 @@ if [[ ! -e $SNAP_PATH/_unsorted ]]; then btrfs subvolume create -i $UNSORTED_QGR
 TRASH_QGROUP_ID="8/${QGROUP}0000"
 ! TRASH_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$TRASH_QGROUP_ID$" -n`
 if ! [[  -n "${TRASH_QGROUP-unset}" ]]; then btrfs qgroup create  $TRASH_QGROUP_ID $SNAP_PATH; btrfs qgroup assign $TRASH_QGROUP_ID  $ROOT_QGROUP_ID  $SNAP_PATH; fi
-if [[ ! -e $SNAP_PATH/2.minutely ]]; then btrfs subvolume create -i $TRASH_QGROUP_ID $SNAP_PATH/8.trash; fi
+if [[ ! -e $SNAP_PATH/8.trash ]]; then btrfs subvolume create -i $TRASH_QGROUP_ID $SNAP_PATH/8.trash; fi
 ###
 
 case $SnapUnit in
@@ -93,7 +93,7 @@ case $SnapUnit in
         YEARLY_QGROUP_ID="7/${QGROUP}0000"
         ! YEARLY_QGROUP=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$YEARLY_QGROUP_ID$" -n`
         if ! [[  -n "${YEARLY_QGROUP-unset}" ]]; then btrfs qgroup create  $YEARLY_QGROUP_ID $SNAP_PATH; btrfs qgroup assign $YEARLY_QGROUP_ID  $ROOT_QGROUP_ID  $SNAP_PATH; fi
-        if [[ ! -e $SNAP_PATH/6.monthly ]]; then btrfs subvolume create -i $YEARLY_QGROUP_ID $SNAP_PATH/6.monthly; fi
+        if [[ ! -e $SNAP_PATH/7.yearly ]]; then btrfs subvolume create -i $YEARLY_QGROUP_ID $SNAP_PATH/7.yearly; fi
         ###        
     ;;
     
