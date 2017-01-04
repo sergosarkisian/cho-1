@@ -30,8 +30,8 @@ case $TaskPeriod in
 
     "daily")
     for SNAP_TASK in /media/sysdata/in4/_context/conf/snapshots/$Net/$SrvType/$SrvName/*/*D*; do
-        DIR_PATH=`echo $SNAP_TASK|cut -d"'" -f 2`
-        SnapSched=`echo $SNAP_TASK|cut -d"'" -f 3|cut -d"/" -f 2`
+        DIR_PATH="`echo $SNAP_TASK|cut -d"'" -f 2`"
+        SnapSched="`echo $SNAP_TASK|cut -d"'" -f 3|cut -d"/" -f 2`"
         . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/sched.sh
         . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/daily.sh	
     done
