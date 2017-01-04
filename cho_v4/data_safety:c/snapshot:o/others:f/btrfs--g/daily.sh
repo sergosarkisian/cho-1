@@ -27,6 +27,7 @@ if [[ -n "$DAYLY_SNAP_MV" ]]; then
 
     for curr_path in $SNAP_PATH/4.daily/`date +%d.%m.%y`_*/*; do
         [ -d "${curr_path}" ] || continue # if not a directory, skip
+        echo "Managing $curr_path"
         BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
         BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\$" $TMP_SUB_LIST|awk '{print $2}'`
         btrfs subvolume delete -c $curr_path
@@ -47,6 +48,7 @@ if [[ -n "$DAYLY_SNAP_MV" ]]; then
     
     for curr_path in $SNAP_PATH/_unsorted/*/*; do
         [ -d "${curr_path}" ] || continue # if not a directory, skip
+        echo "Managing $curr_path"        
         BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
         BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\$" $TMP_SUB_LIST|awk '{print $2}'`
         btrfs subvolume delete -c $curr_path
@@ -63,6 +65,7 @@ if [[ -n "$DAYLY_SNAP_MV" ]]; then
     btrfs quota rescan -w    $BTRFS_MOUNT
 fi
 #
+
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
