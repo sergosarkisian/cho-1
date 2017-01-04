@@ -17,24 +17,19 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-if [[ -z $DIR_PATH ]]; then
-    echo "Please specify dir for snap"
-    if [[ -z $1 ]]; then exit 1; else DIR_PATH=$1; fi
-fi
+SnapQGroupRead () {
+    BTRFS_MOUNT=$1 
+    TMP_QGROUP_LIST=$2
+    btrfs qgroup show $BTRFS_MOUNT -re > $TMP_QGROUP_LIST
+}
 
-BTRFS_PATH_ID=`btrfs subvolume show $DIR_PATH|grep "Subvolume ID:"|awk '{print $3}'`
-SNAP_PATH="${DIR_PATH}_snap"
-BTRFS_LABEL=`btrfs filesystem label $DIR_PATH`
-#
-TMP_QGROUP_LIST="/tmp/btrfs_${BTRFS_LABEL}_qgroup_all"
-TMP_SUB_LIST="/tmp/btrfs_${BTRFS_LABEL}_sub_all"
-#
-BTRFS_DEV=`btrfs filesystem show $BTRFS_LABEL|grep "/dev/"|awk '{print $8}'`
-BTRFS_MOUNT=`mount|grep $BTRFS_DEV -m1|awk '{print $3"/"}'`
-if [[ $BTRFS_MOUNT == "//" ]]; then  BTRFS_MOUNT="/";  fi
-BTRFS_SNAP_PATH_REL=${SNAP_PATH#"$BTRFS_MOUNT"}
-SnapQGroupRead  $BTRFS_MOUNT $TMP_QGROUP_LIST
-DATE=`date +%d.%m.%y_%H:%M:%S`
+SnapQGroupRead () {
+    BTRFS_MOUNT=$1 
+    TMP_SUB_LIST=$2
+    btrfs subvolume list $BTRFS_MOUNT > $TMP_SUB_LIST
+}
+
+btrfs subvolume list $BTRFS_MOUNT > $TMP_SUB_LIST
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
