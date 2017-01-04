@@ -18,6 +18,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
 . /media/sysdata/in4/cho/in4_core/internals/naming/naming.sh os
+. /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/func.sh
 
 TaskPeriod=$1
 case $TaskPeriod in 
