@@ -1,5 +1,5 @@
 [Unit]
-Description=Timer for in4__snapshot-hourly
+Description=Timer for in4__snapshot
 Requires=var-run.mount nss-lookup.target network.target remote-fs.target
 After=var-run.mount nss-lookup.target network.target remote-fs.target
 
@@ -9,4 +9,4 @@ WantedBy=multi-user.target
 [Timer]
 OnUnitActiveSec=1h
 AccuracySec=10m
-Unit=in4__snapshot-hourly.service 
+Unit=in4__snapshot.service 
