@@ -21,6 +21,7 @@ if [[ -z $DIR_PATH ]]; then echo "Please specify dir for snap";  exit 1;  fi
 if [[ -z $SnapSched ]]; then  echo "Please specify schedule";  exit 1; fi
 
 ### INIT ###
+declare -A k v SnapSchedArray
 BTRFS_LABEL=`btrfs filesystem label $DIR_PATH`
 TMP_QGROUP_LIST="/tmp/btrfs_${BTRFS_LABEL}_qgroup_all"
 TMP_SUB_LIST="/tmp/btrfs_${BTRFS_LABEL}_sub_all"
@@ -33,6 +34,7 @@ if [[ $BTRFS_MOUNT == "//" ]]; then  BTRFS_MOUNT="/";  fi
 BTRFS_SNAP_PATH_REL=${SNAP_PATH#"$BTRFS_MOUNT"}
 SnapQGroupRead  $BTRFS_MOUNT $TMP_QGROUP_LIST
 DATE=`date +%d.%m.%y_%H:%M:%S`
+SnapSchedParse $SnapSched
 ###SNAP UNIT VARS
 #Hourly
     SnapUnitDigitHourly=4
@@ -45,11 +47,14 @@ DATE=`date +%d.%m.%y_%H:%M:%S`
 #Unsorted
     SnapUnitDigitUnsorted=2
     SnapUnitNamingUnsorted="unsorted"
+#Unsorted
+    SnapUnitDigitRoot=10
+    SnapUnitNamingRoot="root"
 ###
 
 ### ROOT_QGROUP ###
-    SnapUnitDigit=10
-    SnapUnitNaming="root"
+    SnapUnitDigit=$SnapUnitDigitRoot
+    SnapUnitNaming=$SnapUnitNamingRoot
     SnapCreateBaseQgroup
 ###
 
@@ -80,7 +85,7 @@ if ! [[ -z ${SnapSchedArray[h]} ]]; then
         BTRFS_SNAP_PATH_ID=`btrfs subvolume show $SNAP_PATH|grep "Subvolume ID:"|awk '{print $3}'`
         SnapDo        
         SnapUnitPath="$SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming/${SnapUnitTimingCriteria}*"        
-elif ! [[ -z ${SnapSchedArray[d]} ]]; 
+elif ! [[ -z ${SnapSchedArray[d]} ]]; then
         SnapUnitDigit=$SnapUnitDigitDaily
         SnapUnitNaming=$SnapUnitNamingDaily
         SnapUnitTimingCriteria=$SnapUnitTimingCriteriaDaily
@@ -105,7 +110,7 @@ if [[ -n "$SnapUnsorted" ]]; then
         curr_path=$SNAP_PATH/$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted/$SnapUnsorted
         BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
         BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\/" $TMP_SUB_LIST|awk '{print $2}'`    
-        ! btrfs qgroup remove $BTRFS_SNAP_PATH_ID $UNSORTED_QGROUP_ID $BTRFS_MOUNT;    
+        ! btrfs qgroup remove $BTRFS_SNAP_PATH_ID $SnapUnitDigitUnsorted/${BTRFS_PATH_ID}0000 $BTRFS_MOUNT;    
         ! btrfs qgroup assign --no-rescan $BTRFS_SNAP_PATH_ID $SnapUnitQgroupId  $SNAP_PATH    
         mv  $curr_path  $SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming
         SnapSubvolumeRead $BTRFS_MOUNT $TMP_SUB_LIST
@@ -116,7 +121,7 @@ if [[ -n "$SnapUnsorted" ]]; then
             curr_path=`find $SnapUnitPath -type f -exec stat -c "%n" {} \; | sort -n | head -1`
             echo "Deleting $curr_path"
             SnapDelete
-        do
+        done
     ###
     
     for curr_path in $SNAP_PATH/$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted/*/*; do

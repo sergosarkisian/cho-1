@@ -26,9 +26,10 @@ SnapSubvolumeRead () {
 
 SnapCreateBaseQgroup () {  
     SnapUnitQgroupId="$SnapUnitDigit/${BTRFS_PATH_ID}0000"
-    ! SnapUnitQgroup=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$SnapUnitQgroupId$" -n`
+    ! SnapUnitQgroup=`cat $TMP_QGROUP_LIST | awk '{print $1}' | grep "$SnapUnitQgroupId$"`
     if ! [[  -n "${SnapUnitQgroup-unset}" ]]; then btrfs qgroup create  $SnapUnitQgroupId $SNAP_PATH; 
-        if ! [[ $SnapUnitNaming == "root" ]]; then btrfs qgroup assign $SnapUnitQgroupId  $ROOT_QGROUP_ID  $SNAP_PATH; fi
+        if ! [[ $SnapUnitNaming == "root" ]]; then btrfs qgroup assign $SnapUnitQgroupId  "$SnapUnitDigitRoot/${BTRFS_PATH_ID}0000"  $SNAP_PATH; fi
+        SnapQGroupRead  $BTRFS_MOUNT $TMP_QGROUP_LIST
     fi
     if ! [[ $SnapUnitNaming == "" ]] && ! [[ $SnapUnitNaming == "root" ]]; then
         if [[ ! -e $SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming ]]; then btrfs subvolume create -i $SnapUnitQgroupId $SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming; fi        
@@ -36,8 +37,6 @@ SnapCreateBaseQgroup () {
 }
 
 SnapDo () {
-    . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snap_init.sh
-
     curr_path="$SNAP_PATH/$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted/$DATE"
     mkdir -p $DIR_PATH $curr_path
     #btrfs subvolume snapshot -i $REGISTRED_QGROUP_ID  $DIR_PATH $curr_path/
@@ -45,19 +44,20 @@ SnapDo () {
     SnapSubvolumeRead $BTRFS_MOUNT $TMP_SUB_LIST
     BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
     BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\/" $TMP_SUB_LIST|awk '{print $2}'`
-    ! btrfs qgroup assign --no-rescan $BTRFS_SNAP_PATH_ID $SnapUnitDigitUnsorted/${BTRFS_PATH_ID}0000  $curr_path/    
+    SnapAssign="$SnapUnitDigitUnsorted/${BTRFS_PATH_ID}0000"
+    ! btrfs qgroup assign --no-rescan $BTRFS_SNAP_PATH_ID $SnapAssign  $curr_path/    
+    echo "Snap is created & assigned to $SnapAssign"
 }
 
 SnapDelete () {
     BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
     BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\$" $TMP_SUB_LIST|awk '{print $2}'`
     btrfs subvolume delete -c $curr_path
-    ! btrfs qgroup destroy $BTRFS_SNAP_PATH_ID $BTRFS_MOUNT;
+    ! btrfs qgroup destroy $BTRFS_SNAP_PATH_ID $BTRFS_MOUNT
     rmdir ${curr_path%/*}
 }
 
 SnapSchedParse () {
-    declare -A k v SnapSchedArray
     input_serialised=$1
 
     arr=(${input_serialised//--/ }) 

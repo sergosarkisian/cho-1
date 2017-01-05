@@ -21,9 +21,9 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/func.sh
 
 for SNAP_TASK in /media/sysdata/in4/_context/conf/snapshots/$Net/$SrvType/$SrvName/*; do
-    DIR_PATH="`echo $SNAP_TASK|cut -d"'" -f 2|sed 's/\xE2\x81\x84/\//g'`"
-    SnapSched="`cat $SNAP_TASK`"
+    . $SNAP_TASK
     . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snap_manager.sh	
+    export TERM=xterm
     tput setaf 2
     echo -e "${green}\n\n\n ################# SNAP OK #################"
     tput setaf 9        
