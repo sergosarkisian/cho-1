@@ -41,7 +41,7 @@ esac
 OsImageDownload="wget -O $OfflineBuildDir/$OsImageFilename $OsImageURI"
 ### 
 
-if [[ ! -f $OfflineBuildDir/$OsImageFilename  ]]; then 
+if [[ -f $OfflineBuildDir/$OsImageFilename  ]]; then 
     echo "Image $OfflineBuildDir/$OsImageFilename exists, using cached"
 else
     echo "Image $OfflineBuildDir/$OsImageFilename does not exists, downloading - `$OsImageDownload`"

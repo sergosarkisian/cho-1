@@ -58,7 +58,7 @@ in4func_Zypper () {
 
     ZypperArgsOnline="--non-interactive  --gpg-auto-import-keys in " 
     ZypperArgsAltOnline="--non-interactive  --gpg-auto-import-keys  -C /var/cache/zypp_offline in " 
-    ZypperArgsOffline="--non-interactive  --no-gpg-checks --no-refresh -C /var/cache/zypp_offline in --force"
+    ZypperArgsOffline="--non-interactive  --no-gpg-checks --no-refresh -C /var/cache/zypp_offline in --force-resolution"
 
     if [[ `id -u` == 0 ]]; then
         Prefix=""

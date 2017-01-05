@@ -1,3 +1,0 @@
-daily truncater ~ week composer
-1) rm all daily dirs > 8d
-2) mv reflink to weekly

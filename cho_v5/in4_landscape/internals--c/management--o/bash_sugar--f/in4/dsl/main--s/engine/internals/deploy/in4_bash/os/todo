@@ -1,0 +1,29 @@
+BUILDS:
+
+ISO
+Live CD/DVD
+PXEBoot
++Hard Disk
+USB
+Amazon EC2 (.ami)
+Docker
+Google Cloud Format (..gce)
+*KVM/Qemu (.raw)
+Open Virtualization Format (.ovf, .ova)
+Vagrant (.vagrant
+*VirtualBox (.vdi)
+*Virtual Hard Disk (.vhd)
+*VMware (.vmdk)
++ XEN 
+
+VMDK
+     'qemu-img', 'convert', '-f', 'raw',   'target_dir/some-disk-image.x86_64-1.2.3.raw', '-O', 'vmdk',   'target_dir/some-disk-image.x86_64-1.2.3.vmdk' 
+     compat6
+
+VDI     
+     'qemu-img', 'convert', '-f', 'raw',                 'target_dir/some-disk-image.x86_64-1.2.3.raw', '-O', 'vdi',                 'target_dir/some-disk-image.x86_64-1.2.3.vdi'
+     
+VHD
+   'qemu-img', 'convert', '-f', 'raw',                 'target_dir/some-disk-image.x86_64-1.2.3.raw', '-O', 'vpc',                 'target_dir/some-disk-image.x86_64-1.2.3.vhd'
+   
+       'qemu-img', 'convert', '-f', 'raw',                  'target_dir/some-disk-image.x86_64-1.2.3.raw', '-O', 'vpc',                 '-o', 'subformat=fixed',                 'target_dir/some-disk-image.x86_64-1.2.3.vhdfixed'
