@@ -32,7 +32,7 @@ SnapCreateBaseQgroup () {
         SnapQGroupRead  $BTRFS_MOUNT $TMP_QGROUP_LIST
     fi
     if ! [[ $SnapUnitNaming == "" ]] && ! [[ $SnapUnitNaming == "root" ]]; then
-        if [[ ! -e $SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming ]]; then btrfs subvolume create -i $SnapUnitQgroupId $SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming; fi        
+        if [[ ! -e $SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming ]]; then mkdir -p $SnapUnitQgroupId $SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming; fi        
     fi
 }
 
