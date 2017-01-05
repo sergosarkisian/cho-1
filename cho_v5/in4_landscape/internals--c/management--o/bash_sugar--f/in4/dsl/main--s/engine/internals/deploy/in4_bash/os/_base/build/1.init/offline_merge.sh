@@ -29,7 +29,7 @@ case $OfflineCpFlow in
     fi     
     ;;
     "in")
-    if  [[ $OfflineBuildMode == "Yes" ]]; then
+    if  [[ $OfflineBuildMode == "Yes" ]] ||  [[ $OfflineCliMode == "Yes" ]] ; then
         echo "Offline data will be copied to offline dir: $OfflineBuildDir"
         sudo cp -rf $OfflineBuildDir $BuildEnv/loop/media/sysdata
     fi     

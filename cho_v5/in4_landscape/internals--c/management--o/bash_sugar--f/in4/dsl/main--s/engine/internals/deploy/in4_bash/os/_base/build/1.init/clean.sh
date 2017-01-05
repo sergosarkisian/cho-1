@@ -30,8 +30,8 @@ if [[ $DeployOsMode == "vm_xen" ]] ; then
 fi
 
 if [[ " ${BuildLayers[@]} " =~ " unit " ]] ; then 
-    ! sudo umount /dev/sdb*
-    ! sudo umount /dev/sdb*
+    ! _umount /dev/${HWBaseDisk}*
+    ! _umount /dev/${HWBaseDisk}*
 fi
 
 ### IN4 BASH FOOTER ###

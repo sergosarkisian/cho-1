@@ -1,1 +1,1 @@
-wget btrfsprogs parted git xz tar bc ddrescue
+wget btrfsprogs parted git xz tar bc qemu-img

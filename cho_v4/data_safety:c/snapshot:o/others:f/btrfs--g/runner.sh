@@ -20,27 +20,15 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 . /media/sysdata/in4/cho/in4_core/internals/naming/naming.sh os
 . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/func.sh
 
-TaskPeriod=$1
-case $TaskPeriod in 
-    "hourly")
-    for SNAP_TASK in /media/sysdata/in4/_context/conf/snapshots/$Net/$SrvType/$SrvName/hourly/*; do
-        source $SNAP_TASK
-        /bin/sh /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/hourly.sh	
-    done
-    ;;
+for SNAP_TASK in /media/sysdata/in4/_context/conf/snapshots/$Net/$SrvType/$SrvName/*; do
+    DIR_PATH="`echo $SNAP_TASK|cut -d"'" -f 2|sed 's/\xE2\x81\x84/\//g'`"
+    SnapSched="`cat $SNAP_TASK`"
+    . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snap_manager.sh	
+    tput setaf 2
+    echo -e "${green}\n\n\n ################# SNAP OK #################"
+    tput setaf 9        
+done 
 
-    "daily")
-    for SNAP_TASK in /media/sysdata/in4/_context/conf/snapshots/$Net/$SrvType/$SrvName/*/*D*; do
-        DIR_PATH="`echo $SNAP_TASK|cut -d"'" -f 2|sed 's/\xE2\x81\x84/\//g'`"
-        SnapSched="`echo $SNAP_TASK|cut -d"'" -f 3|cut -d"/" -f 2`"
-        . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/sched.sh $SnapSched
-        . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/daily.sh	
-            tput setaf 2
-            echo -e "${green}\n\n\n ################# SNAP OK #################"
-            tput setaf 9        
-    done
-    ;;
-esac
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
 LogMsg="END -  steps_init - $ExecScriptname"
