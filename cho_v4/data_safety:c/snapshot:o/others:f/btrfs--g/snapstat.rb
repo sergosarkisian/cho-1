@@ -1,5 +1,6 @@
 #!/bin/ruby
 mountpoint = ARGV[0]
+%x(btrfs quota rescan -w  mountpoint)
 qList=%x(btrfs qgroup show -pcre --gbytes #{mountpoint}|awk '{print $1", "$6", "$7", "$2", "$3}'|grep iB).split("\n")
 subList=%x(btrfs subvolume list #{mountpoint}|awk '{print $2", "$7", "$9}').split("\n")
 subListHash = Hash.new
@@ -28,7 +29,7 @@ end
 
 qListHash[0].each do |k,v|
     if subListHash.key?(k) 
-        if not subListHash[k]["relpath"] =~ /_snap\/.*.\d{2}.\d{2}.\d{2}_\d{2}:\d{2}:\d{2}/
+        if not subListHash[k]["relpath"] =~ /_snap\/.*.\d{2}.\d{2}.\d{2}_w\d{2}_\d{2}:\d{2}:\d{2}/
             snapBasePath="#{mountpoint}/#{subListHash[k]["relpath"].chomp("_snap")}"
             snapBaseID=%x(btrfs subvolume show #{snapBasePath}|grep "Subvolume ID:"|awk '{print $3}').to_i
             puts "\n###########################################################################################"
@@ -40,12 +41,16 @@ qListHash[0].each do |k,v|
             puts formatSpace % ["Registred", "", qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["rfer"], qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["excl"]] if qListHash.key?(snapUnitDigit) 
             snapUnitDigit=2
             puts formatSpace % ["Unsorted", "", qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["rfer"], qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["excl"]] if qListHash.key?(snapUnitDigit) 
+            snapUnitDigit=3
+            puts formatSpace % ["Minutely", "", qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["rfer"], qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["excl"]] if qListHash.key?(snapUnitDigit)  
             snapUnitDigit=4            
             puts formatSpace % ["Hourly", "", qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["rfer"], qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["excl"]] if qListHash.key?(snapUnitDigit)  
             snapUnitDigit=5            
             puts formatSpace % ["Daily", "", qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["rfer"], qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["excl"]] if qListHash.key?(snapUnitDigit)  
             snapUnitDigit=6            
             puts formatSpace % ["Weekly", "", qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["rfer"], qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["excl"]] if qListHash.key?(snapUnitDigit) 
+            snapUnitDigit=7            
+            puts formatSpace % ["Monthly", "", qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["rfer"], qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["excl"]] if qListHash.key?(snapUnitDigit) 
             snapUnitDigit=8
             puts formatSpace % ["Trash", "", qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["rfer"], qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["excl"]] if qListHash.key?(snapUnitDigit)           
             snapUnitDigit=10

@@ -38,9 +38,9 @@ SnapCreateBaseQgroup () {
 
 SnapDo () {
     curr_path="$SNAP_PATH/$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted/$DATE"
-    mkdir -p $DIR_PATH $curr_path
-    #btrfs subvolume snapshot -i $REGISTRED_QGROUP_ID  $DIR_PATH $curr_path/
-    btrfs subvolume snapshot $DIR_PATH $curr_path/
+    mkdir -p $SnapDirPath $curr_path
+    #btrfs subvolume snapshot -i $REGISTRED_QGROUP_ID  $SnapDirPath $curr_path/
+    btrfs subvolume snapshot $SnapDirPath $curr_path/
     SnapSubvolumeRead $BTRFS_MOUNT $TMP_SUB_LIST
     BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
     BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\/" $TMP_SUB_LIST|awk '{print $2}'`
@@ -59,21 +59,29 @@ SnapDelete () {
 
 SnapSchedParse () {
     input_serialised=$1
-
-    arr=(${input_serialised//--/ }) 
-    i=0
-    for pairs in ${arr[*]}; do
-        if [[ $pairs != ? ]]; then 
-            v[${i}]=${pairs}
-        else
-            k[${i}]=${pairs}
-            (( ++i))
-        fi
-    done
-    
-    i=0
-    for kv in ${k[*]}; do   
-        SnapSchedArray[${kv}]=${v[$i]}
-               (( ++i))
-   done
+    if ! [[ $input_serialised == "no" ]]; then
+        arr=(${input_serialised//--/ }) 
+        i=0
+        for pairs in ${arr[*]}; do
+            if [[ $pairs != ? ]]; then 
+                v[${i}]=${pairs}
+            else
+                k[${i}]=${pairs}
+                (( ++i))
+            fi
+        done
+        
+        i=0
+        for kv in ${k[*]}; do   
+            SnapSchedArray[${kv}]=${v[$i]}
+                (( ++i))
+        done
+    fi
 }
+
+SnapOk () {
+    export TERM=xterm
+    tput setaf 2
+    echo -e "${green}\n\n\n ################# SNAP OK in $((SnapEndTime - SnapStartTime)) seconds #################"
+    tput setaf 9       
+{

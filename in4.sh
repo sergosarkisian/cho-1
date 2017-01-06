@@ -20,9 +20,11 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 if [[ -z $RunType ]]; then RunType="prod"; fi
 
+if ! [[ -z $1 ]]; then Task=$1; fi
+
 if [[ -z $Task ]]; then
     DialogMsg="Please specify task"
-    echo $DialogMsg; select Task in deploy recipe sync sys run context;  do  break ; done
+    echo $DialogMsg; select Task in deploy recipe sync sys run context snap;  do  break ; done
 fi
 
 case $Task in
@@ -167,6 +169,9 @@ case $Task in
             "sync" )
                 systemctl restart in4__sync
             ;;
+            "snap" )
+                /bin/sh /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/runner.sh
+            ;;            
             "context" )
                 . /media/sysdata/in4/cho/in4_core/internals/naming/manual.sh
                 . /media/sysdata/in4/cho/in4_core/internals/helpers/context_naming.sh
