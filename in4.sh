@@ -25,7 +25,7 @@ if ! [[ -z $2 ]]; then TaskVars=$2; fi
 
 if [[ -z $Task ]]; then
     DialogMsg="Please specify task"
-    echo $DialogMsg; select Task in deploy recipe sync sys run context snap;  do  break ; done
+    echo $DialogMsg; select Task in deploy recipe sync sys run context snap snapstat snaprestore;  do  break ; done
 fi
 
 case $Task in
