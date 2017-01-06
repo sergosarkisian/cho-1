@@ -37,15 +37,15 @@ SnapCreateBaseQgroup () {
 }
 
 SnapDo () {
-    curr_path="$SNAP_PATH/$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted/$DATE"
-    mkdir -p $SnapDirPath $curr_path
-    #btrfs subvolume snapshot -i $REGISTRED_QGROUP_ID  $SnapDirPath $curr_path/
-    btrfs subvolume snapshot $SnapDirPath $curr_path/
+    SnapPathFQ="$SNAP_PATH/$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted/$DATE"
+    mkdir -p $SnapDirPath $SnapPathFQ
+    #btrfs subvolume snapshot -i $REGISTRED_QGROUP_ID  $SnapDirPath $SnapPathFQ/
+    btrfs subvolume snapshot $SnapDirPath $SnapPathFQ/
     SnapSubvolumeRead $BTRFS_MOUNT $TMP_SUB_LIST
-    BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
+    BTRFS_SNAP_PATH_REL=${SnapPathFQ#"$BTRFS_MOUNT"}
     BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\/" $TMP_SUB_LIST|awk '{print $2}'`
     SnapAssign="$SnapUnitDigitUnsorted/${BTRFS_PATH_ID}0000"
-    ! btrfs qgroup assign --no-rescan $BTRFS_SNAP_PATH_ID $SnapAssign  $curr_path/    
+    ! btrfs qgroup assign --no-rescan $BTRFS_SNAP_PATH_ID $SnapAssign  $SnapPathFQ/    
     echo "Snap is created & assigned to $SnapAssign"
 }
 
@@ -82,6 +82,7 @@ SnapSchedParse () {
 SnapOk () {
     export TERM=xterm
     tput setaf 2
-    echo -e "${green}\n\n\n ################# SNAP OK in $((SnapEndTime - SnapStartTime)) seconds #################"
+    echo -e "${green}\n\n\n ################# SNAP OK in $((SnapEndTime - SnapStartTime)) seconds  #################"
+    echo -e "${green}\n\n\n ################# RAW snap path -  $SnapPathFQ #################"    
     tput setaf 9       
 }
