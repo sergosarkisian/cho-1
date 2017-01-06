@@ -84,4 +84,4 @@ SnapOk () {
     tput setaf 2
     echo -e "${green}\n\n\n ################# SNAP OK in $((SnapEndTime - SnapStartTime)) seconds #################"
     tput setaf 9       
-{
+}
