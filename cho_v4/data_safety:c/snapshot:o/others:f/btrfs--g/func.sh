@@ -39,8 +39,10 @@ SnapCreateBaseQgroup () {
 SnapDo () {
     if [[ $SnapMode == "manual" ]] ; then
         SnapPathUnitNaming="$SnapUnitDigitManual.$SnapUnitNamingManual"
+        SnapUnitDigitQAssign=$SnapUnitDigitManual
     else
         SnapPathUnitNaming="$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted"
+        SnapUnitDigitQAssign=$SnapUnitDigitUnsorted
     fi
     SnapPathFQ="$SNAP_PATH/$SnapPathUnitNaming/$DATE"
     mkdir -p $SnapDirPath $SnapPathFQ
@@ -49,7 +51,7 @@ SnapDo () {
     SnapSubvolumeRead $BTRFS_MOUNT $TMP_SUB_LIST
     BTRFS_SNAP_PATH_REL=${SnapPathFQ#"$BTRFS_MOUNT"}
     BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\/" $TMP_SUB_LIST|awk '{print $2}'`
-    SnapAssign="$SnapUnitDigitUnsorted/${BTRFS_PATH_ID}0000"
+    SnapAssign="$SnapUnitDigitQAssign/${BTRFS_PATH_ID}0000"
     ! btrfs qgroup assign --no-rescan $BTRFS_SNAP_PATH_ID $SnapAssign  $SnapPathFQ/    
     echo "Snap is created & assigned to $SnapAssign"
 }
