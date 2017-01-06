@@ -82,7 +82,7 @@ SnapSchedParse () {
 SnapOk () {
     export TERM=xterm
     tput setaf 2
-    echo -e "${green}\n\n\n ################# SNAP OK in $((SnapEndTime - SnapStartTime)) seconds  #################"
-    echo -e "${green}\n\n\n ################# RAW snap path -  $SnapPathFQ #################"    
+    echo -e "${green}\n\n\n################# SNAP OK in $((SnapEndTime - SnapStartTime)) seconds  #################"
+    echo -e "${green}################# RAW snap path -  $SnapPathFQ #################"    
     tput setaf 9       
 }
