@@ -177,7 +177,7 @@ case $Task in
                 ruby /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snapstat.rb $TaskVars
             ;;                
             "snaprestore" )
-                . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snaprestore.sh
+              SnapDirPath=$TaskVars  . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snaprestore.sh
             ;;                  
             "context" )
                 . /media/sysdata/in4/cho/in4_core/internals/naming/manual.sh
