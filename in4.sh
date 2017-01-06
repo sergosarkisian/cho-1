@@ -25,7 +25,7 @@ if ! [[ -z $2 ]]; then TaskVars=$2; fi
 
 if [[ -z $Task ]]; then
     DialogMsg="Please specify task"
-    echo $DialogMsg; select Task in deploy recipe sync sys run context snap;  do  break ; done
+    echo $DialogMsg; select Task in deploy recipe sync sys run context snap snapstat snaprestore;  do  break ; done
 fi
 
 case $Task in
@@ -171,11 +171,29 @@ case $Task in
                 systemctl restart in4__sync
             ;;
             "snap" )
-                SnapMode="manual" SnapDirPath=$TaskVars /bin/sh /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/runner.sh
+                SnapMode="manual" SnapDirPath=$TaskVars . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/runner.sh
             ;;            
             "snapstat" )
-                ruby /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snapstat.rb $TaskVars
+                if [[ -z $TaskVars ]]; then
+                    DialogMsg="\n### Please specify mountpoint ###"   
+                    echo -e $DialogMsg; select SnapMountpoint in `mount|grep btrfs|awk '{print $3}'`;  do  break ; done
+                else            
+                SnapMountpoint=$TaskVars
+                fi
+                ruby /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snapstat.rb $SnapMountpoint
             ;;                
+            "snaprestore" )
+                if [[ -z $TaskVars ]]; then
+                    DialogMsg="\n### Please specify mountpoint ###"   
+                    echo -e $DialogMsg; select SnapMountpoint in `mount|grep btrfs|awk '{print $3}'`;  do  break ; done
+                    DialogMsg="\n###  Please specify path to restore ###"   
+                    echo -e $DialogMsg; select SnapDirPathWoMounpoint in `btrfs subvolume list /media/storage|grep snap$|awk '{print $9}'|sed  "s/_snap$//"`;  do  break ; done              
+                    SnapDirPath=$SnapMountpoint/$SnapDirPathWoMounpoint
+                else
+                    SnapDirPath=$TaskVars
+                fi                   
+                . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snaprestore.sh
+            ;;                  
             "context" )
                 . /media/sysdata/in4/cho/in4_core/internals/naming/manual.sh
                 . /media/sysdata/in4/cho/in4_core/internals/helpers/context_naming.sh
