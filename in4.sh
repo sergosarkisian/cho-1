@@ -171,11 +171,14 @@ case $Task in
                 systemctl restart in4__sync
             ;;
             "snap" )
-                SnapMode="manual" SnapDirPath=$TaskVars /bin/sh /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/runner.sh
+                SnapMode="manual" SnapDirPath=$TaskVars . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/runner.sh
             ;;            
             "snapstat" )
                 ruby /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snapstat.rb $TaskVars
             ;;                
+            "snaprestore" )
+                . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snaprestore.sh
+            ;;                  
             "context" )
                 . /media/sysdata/in4/cho/in4_core/internals/naming/manual.sh
                 . /media/sysdata/in4/cho/in4_core/internals/helpers/context_naming.sh
