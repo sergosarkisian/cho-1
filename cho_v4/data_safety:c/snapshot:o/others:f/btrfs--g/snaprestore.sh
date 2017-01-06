@@ -17,12 +17,13 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-if [[ -z $SnapDirPath ]]; then echo "Please specify dir for snap";  if ! [[ -z $1 ]]; then SnapDirPath=$1; else exit 1; fi;  fi
+if [[ -z $SnapDirPath ]]; then echo "Please specify dir for restore: ";  if ! [[ -z $1 ]]; then SnapDirPath=$1; else exit 1; fi;  fi
 
 if [[ -z $SnapRestoreUnit ]]; then
     DialogMsg="Please select available snap units for $SnapDirPath snapshots: "
     #SnapRestoreUnitFullList=()
     echo $DialogMsg; select SnapRestoreUnitFull in `ls -daA ${SnapDirPath}_snap/*`;  do  break ; done
+    DialogMsg="Please select available snapshots in $SnapRestoreUnitFull: "    
     echo $DialogMsg; select SnapRestorePathFQ in `ls -daA $SnapRestoreUnitFull/*`;  do  break ; done
 else
     SnapRestorePathFQ=$SnapDirPath_snap/$SnapRestoreUnit/$SnapRestoreDate

@@ -174,11 +174,18 @@ case $Task in
                 SnapMode="manual" SnapDirPath=$TaskVars . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/runner.sh
             ;;            
             "snapstat" )
-                ruby /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snapstat.rb $TaskVars
+                if [[ -z $TaskVars ]]; then
+                    DialogMsg="Please specify mountpoint "   
+                    echo $DialogMsg; select SnapMountpointRaw in `mount|grep btrfs`;  do  break ; done
+                    SnapMountpoint=`echo SnapMountpointRaw|awk '{print $3}'`
+                else            
+                SnapMountpoint=$TaskVars
+                fi
+                ruby /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snapstat.rb $SnapMountpoint
             ;;                
             "snaprestore" )
                 if [[ -z $TaskVars ]]; then
-                    DialogMsg="Please specify offline dir"   
+                    DialogMsg="Please specify dir for restore: "   
                     echo $DialogMsg; read SnapDirPath
                 else
                     SnapDirPath=$TaskVars

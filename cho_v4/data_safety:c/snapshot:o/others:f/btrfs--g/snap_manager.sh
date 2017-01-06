@@ -84,7 +84,7 @@ SnapSchedParse $SnapSched
 ###
 
 ### TRASH_QGROUP ###
-    SnapUnitDigit=8
+    SnapUnitDigit=9
     SnapUnitNaming="trash"
     SnapCreateBaseQgroup
 ###
