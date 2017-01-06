@@ -21,13 +21,14 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/func.sh
 if [[ -z $SnapMode ]]; then
     DialogMsg="Select snapshot mode"   
-    echo $DialogMsg; select SnapMode in simple service svn;  do  break ; done;
+    echo $DialogMsg; select SnapMode in manual service svn;  do  break ; done;
 fi
                 
 case $SnapMode in
-    "simple")
+    "manual")
         if [[ -z $SnapDirPath ]]; then echo "Please specify dir for snap";  read $SnapDirPath;  fi
         SnapSched="no"
+        SnapMode="manual"
         SnapStartTime=`date +%s`
         time . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snap_manager.sh	
         SnapEndTime=`date +%s`
@@ -37,6 +38,7 @@ case $SnapMode in
     "svn")                
     for SNAP_TASK in /media/sysdata/in4/_context/conf/snapshots/$Net/$SrvType/$SrvName/*; do
         . $SNAP_TASK
+        SnapMode="svn"
         SnapStartTime=`date +%s`
         time . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snap_manager.sh	
         SnapEndTime=`date +%s`

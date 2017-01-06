@@ -19,6 +19,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 if [[ -z $SnapDirPath ]]; then echo "Please specify dir for snap";  exit 1;  fi
 if [[ -z $SnapSched ]]; then  echo "Please specify schedule";  exit 1; fi
+if [[ -z $SnapMode ]]; then  echo "Please specify mode";  exit 1; fi
 
 ### INIT ###
 declare -A k v SnapSchedArray
@@ -56,6 +57,9 @@ SnapSchedParse $SnapSched
     SnapUnitDigitMonthly=7
     SnapUnitMonthly="monthly"
     SnapUnitTimingCriteriaMonthly=`date +.%m.%y_`    
+#Manual
+    SnapUnitDigitManual=8
+    SnapUnitNamingManual="manual"
 #Root
     SnapUnitDigitRoot=10
     SnapUnitNamingRoot="root"
@@ -84,8 +88,13 @@ SnapSchedParse $SnapSched
     SnapUnitNaming="trash"
     SnapCreateBaseQgroup
 ###
-
-if ! [[ -z ${SnapSchedArray[h]} ]]; then
+if [[ $SnapMode="manual" ]]; then
+        SnapUnitDigit=$SnapUnitDigitManual
+        SnapUnitNaming=$SnapUnitNamingManual
+        SnapCreateBaseQgroup
+        BTRFS_SNAP_PATH_ID=`btrfs subvolume show $SNAP_PATH|grep "Subvolume ID:"|awk '{print $3}'`
+        SnapDo        
+elif ! [[ -z ${SnapSchedArray[h]} ]]; then
         SnapUnitDigit=$SnapUnitDigitHourly
         SnapUnitNaming=$SnapUnitNamingHourly
         SnapUnitTimingCriteria=$SnapUnitTimingCriteriaHourly
