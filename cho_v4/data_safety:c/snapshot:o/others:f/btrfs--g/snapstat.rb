@@ -52,6 +52,8 @@ qListHash[0].each do |k,v|
             snapUnitDigit=7            
             puts formatSpace % ["Monthly", "", qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["rfer"], qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["excl"]] if qListHash.key?(snapUnitDigit) 
             snapUnitDigit=8
+            puts formatSpace % ["Manual", "", qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["rfer"], qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["excl"]] if qListHash.key?(snapUnitDigit)                       
+            snapUnitDigit=9
             puts formatSpace % ["Trash", "", qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["rfer"], qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["excl"]] if qListHash.key?(snapUnitDigit)           
             snapUnitDigit=10
             puts formatSpace % ["## OVERALL ##", "", qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["rfer"], qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["excl"]] if qListHash.key?(snapUnitDigit)           
