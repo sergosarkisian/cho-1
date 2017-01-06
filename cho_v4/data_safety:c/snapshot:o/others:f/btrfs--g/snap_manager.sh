@@ -132,45 +132,48 @@ elif ! [[ -z ${SnapSchedArray[m]} ]]; then
         SnapUnitPath="$SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming/${SnapUnitTimingCriteria}*"
 fi
    
-SnapUnsorted=`ls $SNAP_PATH/$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted/|tail -n1`
-if [[ -n "$SnapUnsorted" ]]; then
+if ! [[ $SnapMode="manual" ]]; then
+   
+    SnapUnsorted=`ls $SNAP_PATH/$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted/|tail -n1`
+    if [[ -n "$SnapUnsorted" ]]; then
 
-    for curr_path in $SnapUnitPath/*; do
-        [ -d "${curr_path}" ] || continue # if not a directory, skip
-        echo "Managing $curr_path"
-        SnapDelete
-    done
-    
-    ###  MIGRATION TO POOL ###
-        SnapSubvolumeRead $BTRFS_MOUNT $TMP_SUB_LIST
-        curr_path=$SNAP_PATH/$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted/$SnapUnsorted
-        BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
-        BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\/" $TMP_SUB_LIST|awk '{print $2}'`    
-        ! btrfs qgroup remove $BTRFS_SNAP_PATH_ID $SnapUnitDigitUnsorted/${BTRFS_PATH_ID}0000 $BTRFS_MOUNT;    
-        ! btrfs qgroup assign --no-rescan $BTRFS_SNAP_PATH_ID $SnapUnitQgroupId  $SNAP_PATH    
-        mv  $curr_path  $SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming
-        SnapSubvolumeRead $BTRFS_MOUNT $TMP_SUB_LIST
-    ###
-    
-    ### SNAP SCOPE  - DELETE OUT OF SCOPE ###
-        while [[ `ls -daA $SnapUnitPath|wc -l` -gt $SnapScope ]]; do
-            curr_path=`find $SnapUnitPath -type f -exec stat -c "%n" {} \; | sort -n | head -1`
-            echo "Deleting $curr_path"
+        for curr_path in $SnapUnitPath/*; do
+            [ -d "${curr_path}" ] || continue # if not a directory, skip
+            echo "Managing $curr_path"
             SnapDelete
         done
-    ###
-    
-    for curr_path in $SNAP_PATH/$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted/*/*; do
-        [ -d "${curr_path}" ] || continue # if not a directory, skip
-        echo "Managing $curr_path"        
-        SnapDelete
-    done
-    
-    QGROUP_EMPTY=`btrfs qgroup show $BTRFS_MOUNT|grep "0.00B"|awk '{print $1}' > $TMP_QGROUP_LIST_EMPTY`
-#     for qgroup in `cat $TMP_QGROUP_LIST_EMPTY`; do
-#         btrfs qgroup destroy $qgroup $BTRFS_MOUNT
-#     done
-    
+        
+        ###  MIGRATION TO POOL ###
+            SnapSubvolumeRead $BTRFS_MOUNT $TMP_SUB_LIST
+            curr_path=$SNAP_PATH/$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted/$SnapUnsorted
+            BTRFS_SNAP_PATH_REL=${curr_path#"$BTRFS_MOUNT"}
+            BTRFS_SNAP_PATH_ID=`grep  "$BTRFS_SNAP_PATH_REL\/" $TMP_SUB_LIST|awk '{print $2}'`    
+            ! btrfs qgroup remove $BTRFS_SNAP_PATH_ID $SnapUnitDigitUnsorted/${BTRFS_PATH_ID}0000 $BTRFS_MOUNT;    
+            ! btrfs qgroup assign --no-rescan $BTRFS_SNAP_PATH_ID $SnapUnitQgroupId  $SNAP_PATH    
+            mv  $curr_path  $SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming
+            SnapSubvolumeRead $BTRFS_MOUNT $TMP_SUB_LIST
+        ###
+        
+        ### SNAP SCOPE  - DELETE OUT OF SCOPE ###
+            while [[ `ls -daA $SnapUnitPath|wc -l` -gt $SnapScope ]]; do
+                curr_path=`find $SnapUnitPath -type f -exec stat -c "%n" {} \; | sort -n | head -1`
+                echo "Deleting $curr_path"
+                SnapDelete
+            done
+        ###
+        
+        for curr_path in $SNAP_PATH/$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted/*/*; do
+            [ -d "${curr_path}" ] || continue # if not a directory, skip
+            echo "Managing $curr_path"        
+            SnapDelete
+        done
+        
+        QGROUP_EMPTY=`btrfs qgroup show $BTRFS_MOUNT|grep "0.00B"|awk '{print $1}' > $TMP_QGROUP_LIST_EMPTY`
+    #     for qgroup in `cat $TMP_QGROUP_LIST_EMPTY`; do
+    #         btrfs qgroup destroy $qgroup $BTRFS_MOUNT
+    #     done
+        
+    fi
 fi
 #
 

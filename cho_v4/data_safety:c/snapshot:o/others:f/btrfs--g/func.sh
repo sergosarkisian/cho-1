@@ -37,7 +37,12 @@ SnapCreateBaseQgroup () {
 }
 
 SnapDo () {
-    SnapPathFQ="$SNAP_PATH/$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted/$DATE"
+    if [[ SnapMode == "manual" ]] ; then
+        SnapPathUnitNaming="$SnapUnitDigitManual.$SnapUnitNamingManual"
+    else
+        SnapPathUnitNaming="$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted"
+    fi
+    SnapPathFQ="$SNAP_PATH/$SnapPathUnitNaming/$DATE"
     mkdir -p $SnapDirPath $SnapPathFQ
     #btrfs subvolume snapshot -i $REGISTRED_QGROUP_ID  $SnapDirPath $SnapPathFQ/
     btrfs subvolume snapshot $SnapDirPath $SnapPathFQ/
