@@ -1,5 +1,6 @@
 #!/bin/ruby
 mountpoint = ARGV[0]
+%x(btrfs quota rescan -w  mountpoint)
 qList=%x(btrfs qgroup show -pcre --gbytes #{mountpoint}|awk '{print $1", "$6", "$7", "$2", "$3}'|grep iB).split("\n")
 subList=%x(btrfs subvolume list #{mountpoint}|awk '{print $2", "$7", "$9}').split("\n")
 subListHash = Hash.new
