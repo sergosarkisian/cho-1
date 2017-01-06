@@ -175,9 +175,8 @@ case $Task in
             ;;            
             "snapstat" )
                 if [[ -z $TaskVars ]]; then
-                    DialogMsg="Please specify mountpoint "   
-                    echo $DialogMsg; select SnapMountpointRaw in `mount|grep btrfs`;  do  break ; done
-                    SnapMountpoint=`echo SnapMountpointRaw|awk '{print $3}'`
+                    DialogMsg="\n### Please specify mountpoint ###"   
+                    echo -e $DialogMsg; select SnapMountpoint in `mount|grep btrfs|awk '{print $3}'`;  do  break ; done
                 else            
                 SnapMountpoint=$TaskVars
                 fi
@@ -185,8 +184,11 @@ case $Task in
             ;;                
             "snaprestore" )
                 if [[ -z $TaskVars ]]; then
-                    DialogMsg="Please specify dir for restore: "   
-                    echo $DialogMsg; read SnapDirPath
+                    DialogMsg="\n### Please specify mountpoint ###"   
+                    echo -e $DialogMsg; select SnapMountpoint in `mount|grep btrfs|awk '{print $3}'`;  do  break ; done
+                    DialogMsg="\n###  Please specify path to restore ###"   
+                    echo -e $DialogMsg; select SnapDirPathWoMounpoint in `btrfs subvolume list /media/storage|grep snap$|awk '{print $9}'|sed  "s/_snap$//"`;  do  break ; done              
+                    SnapDirPath=$SnapMountpoint/$SnapDirPathWoMounpoint
                 else
                     SnapDirPath=$TaskVars
                 fi                   
