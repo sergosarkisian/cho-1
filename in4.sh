@@ -21,6 +21,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 if [[ -z $RunType ]]; then RunType="prod"; fi
 
 if ! [[ -z $1 ]]; then Task=$1; fi
+if ! [[ -z $2 ]]; then TaskVars=$2; fi
 
 if [[ -z $Task ]]; then
     DialogMsg="Please specify task"
@@ -170,7 +171,7 @@ case $Task in
                 systemctl restart in4__sync
             ;;
             "snap" )
-                /bin/sh /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/runner.sh
+                SnapMode="manual" SnapDirPath=$TaskVars /bin/sh /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/runner.sh
             ;;            
             "context" )
                 . /media/sysdata/in4/cho/in4_core/internals/naming/manual.sh
