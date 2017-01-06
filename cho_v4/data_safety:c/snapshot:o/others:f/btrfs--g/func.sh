@@ -37,7 +37,7 @@ SnapCreateBaseQgroup () {
 }
 
 SnapDo () {
-    if [[ SnapMode == "manual" ]] ; then
+    if [[ $SnapMode == "manual" ]] ; then
         SnapPathUnitNaming="$SnapUnitDigitManual.$SnapUnitNamingManual"
     else
         SnapPathUnitNaming="$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted"
