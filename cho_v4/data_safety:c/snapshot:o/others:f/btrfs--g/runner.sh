@@ -28,14 +28,18 @@ case $SnapMode in
     "simple")
         if [[ -z $SnapDirPath ]]; then echo "Please specify dir for snap";  read $SnapDirPath;  fi
         SnapSched="no"
+        SnapStartTime=`date +%s`
         time . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snap_manager.sh	
+        SnapEndTime=`date +%s`
         SnapOk
         ;;
 
     "svn")                
     for SNAP_TASK in /media/sysdata/in4/_context/conf/snapshots/$Net/$SrvType/$SrvName/*; do
         . $SNAP_TASK
+        SnapStartTime=`date +%s`
         time . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snap_manager.sh	
+        SnapEndTime=`date +%s`
         SnapOk
     done 
     ;;

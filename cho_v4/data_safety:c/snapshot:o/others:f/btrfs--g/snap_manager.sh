@@ -33,8 +33,9 @@ BTRFS_MOUNT=`mount|grep $BTRFS_DEV -m1|awk '{print $3"/"}'`
 if [[ $BTRFS_MOUNT == "//" ]]; then  BTRFS_MOUNT="/";  fi
 BTRFS_SNAP_PATH_REL=${SNAP_PATH#"$BTRFS_MOUNT"}
 SnapQGroupRead  $BTRFS_MOUNT $TMP_QGROUP_LIST
-DATE=`date +%d.%m.%y_%H:%M:%S`
+DATE=`date +%d.%m.%y_w%W_%H:%M:%S`
 SnapSchedParse $SnapSched
+
 ###SNAP UNIT VARS
 #Unsorted
     SnapUnitDigitUnsorted=2
@@ -42,12 +43,20 @@ SnapSchedParse $SnapSched
 #Hourly
     SnapUnitDigitHourly=4
     SnapUnitNamingHourly="hourly"        
-    SnapUnitTimingCriteriaHourly=`date +%d.%m.%y_%H:`
+    SnapUnitTimingCriteriaHourly=`date +%d.%m.%y_w%W_%H:`
 #Daily
     SnapUnitDigitDaily=5
     SnapUnitDaily="daily"
     SnapUnitTimingCriteriaDaily=`date +%d.%m.%y_`
-#Unsorted
+#Weekly
+    SnapUnitDigitWeekly=6
+    SnapUnitWeekly="weekly"
+    SnapUnitTimingCriteriaWeekly=`date +_w%W_`
+#Monthly
+    SnapUnitDigitMonthly=7
+    SnapUnitMonthly="monthly"
+    SnapUnitTimingCriteriaMonthly=`date +.%m.%y_`    
+#Root
     SnapUnitDigitRoot=10
     SnapUnitNamingRoot="root"
 ###
@@ -94,6 +103,24 @@ elif ! [[ -z ${SnapSchedArray[d]} ]]; then
         BTRFS_SNAP_PATH_ID=`btrfs subvolume show $SNAP_PATH|grep "Subvolume ID:"|awk '{print $3}'`
         SnapDo      
         SnapUnitPath="$SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming/${SnapUnitTimingCriteria}*"
+elif ! [[ -z ${SnapSchedArray[w]} ]]; then
+        SnapUnitDigit=$SnapUnitDigitWeekly
+        SnapUnitNaming=$SnapUnitNamingWeekly
+        SnapUnitTimingCriteria=$SnapUnitTimingCriteriaWeekly
+        SnapScope=${SnapSchedArray[w]}
+        SnapCreateBaseQgroup
+        BTRFS_SNAP_PATH_ID=`btrfs subvolume show $SNAP_PATH|grep "Subvolume ID:"|awk '{print $3}'`
+        SnapDo      
+        SnapUnitPath="$SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming/${SnapUnitTimingCriteria}*"
+elif ! [[ -z ${SnapSchedArray[m]} ]]; then
+        SnapUnitDigit=$SnapUnitDigitMonthly
+        SnapUnitNaming=$SnapUnitNamingMonthly
+        SnapUnitTimingCriteria=$SnapUnitTimingCriteriaMonthly
+        SnapScope=${SnapSchedArray[m]}
+        SnapCreateBaseQgroup
+        BTRFS_SNAP_PATH_ID=`btrfs subvolume show $SNAP_PATH|grep "Subvolume ID:"|awk '{print $3}'`
+        SnapDo      
+        SnapUnitPath="$SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming/${SnapUnitTimingCriteria}*"
 fi
    
 SnapUnsorted=`ls $SNAP_PATH/$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted/|tail -n1`
@@ -131,7 +158,6 @@ if [[ -n "$SnapUnsorted" ]]; then
     done
     
     QGROUP_EMPTY=`btrfs qgroup show $BTRFS_MOUNT|grep "0.00B"|awk '{print $1}' > $TMP_QGROUP_LIST_EMPTY`
-    
 #     for qgroup in `cat $TMP_QGROUP_LIST_EMPTY`; do
 #         btrfs qgroup destroy $qgroup $BTRFS_MOUNT
 #     done
