@@ -19,6 +19,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 if  mountpoint -q /media/storage ; then 
     echo "storage disk is in use!!! Exit! "
+    exit 1
 else
     DialogMsg="!!!   DATA WILL BE DESTROYED ON partition /media/storage !!!!!!!!!!!!!!!!! "   
     echo $DialogMsg; select DataDestroy in Yes No;  do  break ; done;
