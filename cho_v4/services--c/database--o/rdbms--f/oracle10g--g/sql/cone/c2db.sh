@@ -76,9 +76,9 @@ fi
     fi
 
     sysPassword=$App_c2dbsysPassword
-    ecorePassword=$conePassword
-    exmlPassword=$conePassword
-    eschemePassword=$conePassword
+    ecorePassword=$App_c2dbconePassword
+    exmlPassword=$App_c2dbconePassword
+    eschemePassword=$App_c2dbconePassword
 ###
 
 ### EXEC 
