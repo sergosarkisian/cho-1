@@ -2,7 +2,7 @@ connect "E$&&scheme_uc"/"&&eschemePassword"
 set echo on
 spool &&logPath/9.cc_dst
 
-drop table E$&&scheme_uc..cc_content;
+drop table E$&&scheme_uc..CC_CONTENT;
 
 CREATE DATABASE LINK cc_dst2src_dblink USING 'cc_dst2src.pool';
 
@@ -23,6 +23,7 @@ CREATE TABLE E$&&scheme_uc..CC_CONTENT of xmltype
 
 
 create index E$&&scheme_uc..CCREL_REF_idx on E$&&scheme_uc..CC_RELATION(THEREF, FORMAT);
+drop table V$CC_CONTENT_EXPORT_DST;
 create table V$CC_CONTENT_EXPORT_DST as select to_char(data) data from V$CC_CONTENT_EXPORT@cc_dst2src_dblink;
 
 
