@@ -52,8 +52,6 @@ DEFINE eschemePassword = $eschemePassword
  exit;
 EOF
 
-end
-
 else
     exit 1
 fi
