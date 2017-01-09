@@ -11,7 +11,7 @@ user_dump_dest='/media/storage/as/oracle/logs/udump'
 
 control_files=("/media/storage/as/oracle/data/master/control01.ctl", "/media/storage/as/oracle/data/master/control02.ctl")
 db_recovery_file_dest='/media/storage/as/oracle/misc/flash_recovery_area'
-db_recovery_file_dest_size=4G
+db_recovery_file_dest_size=20G
 plsql_native_library_dir='/media/storage/as/oracle/cone/plsql_compile'
 
 # # # # # # # #
