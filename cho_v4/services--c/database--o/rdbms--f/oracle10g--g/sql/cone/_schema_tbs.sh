@@ -22,13 +22,10 @@ if [[ -f $App_c2dbDataPath/e${App_c2dbSchemeDst_LC}.dbf ]]; then
         DialogMsg="Oracle database already exists! Recreate?"
         echo $DialogMsg; select App_c2dbDstSchemaForceCreation in Yes No;  do  break ; done;
     fi
-else
-    App_c2dbDstSchemaForceCreation="Yes"
+    if [[ $App_c2dbDstSchemaForceCreation == "No" ]]; then exit 1; fi
 fi
    
 if [[ $App_c2dbDstSchemaForceCreation == "Yes" ]]; then
-        mkdir -p $App_c2dbLogPath
-
 sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
 DEFINE scheme_uc = $App_c2dbSchemeDst_UC
@@ -41,6 +38,9 @@ DROP USER E$&&scheme_uc CASCADE;
 DROP TABLESPACE E$&&scheme_uc INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
 exit;
 EOF
+fi
+
+mkdir -p $App_c2dbLogPath
 
 sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
@@ -56,7 +56,5 @@ DEFINE eschemePassword = $eschemePassword
 @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/6.datafiles_init_schema.sql
 exit;
 EOF
-else
-    exit 1
-fi
+
 
