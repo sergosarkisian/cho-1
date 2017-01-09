@@ -35,6 +35,11 @@ if [[ -z $App_c2dbFqdnDst ]]; then
     echo $DialogMsg; read App_c2dbFqdnDst
 fi
 
+if [[ -z $App_c2dbSshPassDst ]]; then
+    DialogMsg="Please specify Oracle server ssh password (DST)"   
+    echo $DialogMsg; read App_c2dbSshPassDst
+fi
+
 if [[ -z $SID ]]; then
     DialogMsg="Please specify Oracle server SID (DST)"   
     echo $DialogMsg; read SID
@@ -53,6 +58,11 @@ if [[ $App_c2dbTask == "OraInitWithSchemaImport" ]] || [[ $App_c2dbTask == "Sche
         DialogMsg="Please specify Source Oracle server FQDN/IP (SRC)"   
         echo $DialogMsg; read App_c2dbFqdnSrc
     fi
+    
+    if [[ -z $App_c2dbSshPassSrc ]]; then
+        DialogMsg="Please specify Source Oracle server ssh password (SRC)"   
+        echo $DialogMsg; read App_c2dbSshPassSrc
+    fi    
 
     if [[ -z $App_c2dbSchemeSrc ]]; then
         DialogMsg="Please specify source scheme name (SRC)"   

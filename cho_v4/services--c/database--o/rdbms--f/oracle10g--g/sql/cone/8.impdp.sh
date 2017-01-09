@@ -18,7 +18,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
 if [[ $App_c2dbSchemeECoreImport == "Yes" ]]; then
-    impdp SYSTEM schemas=E\$CORE directory=import dumpfile=ecore_$Date.expdp.dump logfile=ecore_import_$Date.dump.log    
+    impdp SYSTEM/${App_c2dbsysPassword} schemas=E\$CORE directory=import dumpfile=ecore_$Date.expdp.dump logfile=ecore_import_$Date.dump.log    
 fi
 
 if [[ $App_c2dbSchemeRemap == "Yes" ]]; then
@@ -27,4 +27,4 @@ if [[ $App_c2dbSchemeRemap == "Yes" ]]; then
     App_c2dbSchemeImport=""
 fi
 
-! impdp SYSTEM schemas=E\$${App_c2dbSchemeSrc} directory=import dumpfile=e${App_c2dbSchemeSrc}_${Date}.expdp.dump logfile=e${App_c2dbSchemeSrc}_import_${Date}.dump.log  $App_c2dbSchemeImport
+! impdp SYSTEM/${App_c2dbsysPassword} schemas=E\$${App_c2dbSchemeSrc} directory=import dumpfile=e${App_c2dbSchemeSrc}_${Date}.expdp.dump logfile=e${App_c2dbSchemeSrc}_import_${Date}.dump.log  $App_c2dbSchemeImport
