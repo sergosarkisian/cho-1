@@ -152,7 +152,7 @@ if [[ $DataDestroy == "Yes" ]]; then
 
 
     ### CREATE RO SNAPSHOT  ###
-! btrfs subvolume delete /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g
+    ! btrfs subvolume delete /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g
     btrfs subvolume snapshot -r /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g
     ###
 
