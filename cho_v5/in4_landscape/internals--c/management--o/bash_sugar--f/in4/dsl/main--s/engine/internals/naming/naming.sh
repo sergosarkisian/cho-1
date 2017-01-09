@@ -52,6 +52,7 @@ if [[ $naming_view == "os" ]]; then
 	SrvContext=${hyp_arr[1]}		
 	SrvRole=${hyp_arr[2]}
 	DeplType=`echo ${hyp_arr[3]}|cut -d "." -f 1`
+        FullSrvName="$SrvName.$In4NamingOsSrvType.$Net.$View.$Org.pool"	
 fi
 
 ## 3 - 
