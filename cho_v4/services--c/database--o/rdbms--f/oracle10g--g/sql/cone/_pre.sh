@@ -17,8 +17,8 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-if [[ -f $App_c2dbDataPath/sysaux01.dbf ]]; then
-    echo "Oracle database is already initialised"
+if [[ -f $App_c2dbDataPath/ecore.dbf ]]; then
+    echo "Oracle C2 database is already initialised"
     exit 1
 else
 mkdir -p $App_c2dbLogPath
