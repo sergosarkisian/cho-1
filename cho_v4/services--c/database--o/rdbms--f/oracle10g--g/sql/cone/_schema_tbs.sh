@@ -24,32 +24,33 @@ if [[ -f $App_c2dbDataPath/$App_c2dbSchemeDst_LC.dbf ]]; then
             
         if [[ $App_c2dbDstSchemaRecreate == "Yes" ]]; then
         mkdir -p $App_c2dbLogPath
-        sqlplus -s -l "/ as sysdba" <<EOF
-        set verify off
-        DEFINE scheme_uc = $App_c2dbSchemeDst_UC
-        ALTER SYSTEM SET UNDO_RETENTION = 10;
-        ALTER SYSTEM SET UNDO_RETENTION = 100000;
-        ALTER SYSTEM SET UNDO_RETENTION = 10;
+        
+sqlplus -s -l "/ as sysdba" <<EOF
+set verify off
+DEFINE scheme_uc = $App_c2dbSchemeDst_UC
+ALTER SYSTEM SET UNDO_RETENTION = 10;
+ALTER SYSTEM SET UNDO_RETENTION = 100000;
+ALTER SYSTEM SET UNDO_RETENTION = 10;
 
-        DROP TABLESPACE E$&&scheme_uc INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
-        DROP USER E$&&scheme_uc CASCADE; 
-        exit;
-        EOF
+DROP TABLESPACE E$&&scheme_uc INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
+DROP USER E$&&scheme_uc CASCADE; 
+exit;
+EOF
 
-        sqlplus -s -l "/ as sysdba" <<EOF
-        set verify off
-        DEFINE logPath = $App_c2dbLogPath
-        DEFINE dataPath = $App_c2dbDataPath
-        DEFINE scheme_lc = $App_c2dbSchemeDst_LC
-        DEFINE scheme_uc = $App_c2dbSchemeDst_UC
-        DEFINE sysPassword = $sysPassword
-        DEFINE systemPassword = $sysPassword
-        DEFINE ecorePassword = $ecorePassword
-        DEFINE exmlPassword = $exmlPassword
-        DEFINE eschemePassword = $eschemePassword
-        @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/6.datafiles_init_schema.sql
-        exit;
-        EOF
+sqlplus -s -l "/ as sysdba" <<EOF
+set verify off
+DEFINE logPath = $App_c2dbLogPath
+DEFINE dataPath = $App_c2dbDataPath
+DEFINE scheme_lc = $App_c2dbSchemeDst_LC
+DEFINE scheme_uc = $App_c2dbSchemeDst_UC
+DEFINE sysPassword = $sysPassword
+DEFINE systemPassword = $sysPassword
+DEFINE ecorePassword = $ecorePassword
+DEFINE exmlPassword = $exmlPassword
+DEFINE eschemePassword = $eschemePassword
+@/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/6.datafiles_init_schema.sql
+exit;
+EOF
 
         else
             exit 1
