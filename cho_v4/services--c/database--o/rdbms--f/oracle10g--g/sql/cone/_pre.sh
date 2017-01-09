@@ -17,10 +17,30 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-if [[ -f $App_c2dbDataPath/ecore.dbf ]]; then
-    echo "Oracle C2 database is already initialised"
-    exit 1
-else
+if [[ -f $App_c2dbDataPath/ecore.dbf  ]]; then
+    if [[ -z $App_c2dbDstSchemaForceCreation ]]; then
+        DialogMsg="Oracle database already exists! Recreate?"
+        echo $DialogMsg; select App_c2dbDstSchemaForceCreation in Yes No;  do  break ; done;
+    fi
+    if [[ $App_c2dbDstSchemaForceCreation == "No" ]]; then exit 1; fi
+fi
+
+if [[ $App_c2dbDstSchemaForceCreation == "Yes" ]]; then
+! sqlplus -s -l "/ as sysdba" <<EOF
+set verify off
+DEFINE scheme_uc = $App_c2dbSchemeDst_UC
+ALTER SYSTEM SET UNDO_RETENTION = 10;
+ALTER SYSTEM SET UNDO_RETENTION = 100000;
+ALTER SYSTEM SET UNDO_RETENTION = 10;
+
+DROP TABLESPACE E$CORE INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
+DROP USER E$CORE CASCADE; 
+DROP TABLESPACE E$XML INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
+DROP USER E$XML CASCADE; 
+exit;
+EOF
+fi
+
 mkdir -p $App_c2dbLogPath
 
 sqlplus -s -l "/ as sysdba" <<EOF
