@@ -22,7 +22,7 @@ if  mountpoint -q /media/storage ; then
 else
     DialogMsg="!!!   DATA WILL BE DESTROYED ON partition /media/storage !!!!!!!!!!!!!!!!! "   
     echo $DialogMsg; select DataDestroy in Yes No;  do  break ; done;
-else
+fi
 
                         
 if [[ $DataDestroy == "Yes" ]]; then
