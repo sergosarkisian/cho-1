@@ -44,8 +44,8 @@ if [[ -z $App_c2dbSchemeDst ]]; then
     DialogMsg="Please specify scheme name (DST)"   
     echo $DialogMsg; read App_c2dbSchemeDst
 fi
-App_c2dbFqdnDst_LC=${App_c2dbFqdnDst,,}
-App_c2dbFqdnDst_UC=${App_c2dbFqdnDst^^}
+App_c2dbSchemeDst_LC=${App_c2dbSchemeDst,,}
+App_c2dbSchemeDst_UC=${App_c2dbSchemeDst^^}
 
 if [[ $App_c2dbTask == "OraInitWithSchemaImport" ]] || [[ $App_c2dbTask == "SchemaImport" ]]; then
 
