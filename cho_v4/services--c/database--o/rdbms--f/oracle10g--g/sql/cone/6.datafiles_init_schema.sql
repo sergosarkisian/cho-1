@@ -4,7 +4,7 @@ spool &&logPath/2.datafiles_init_schema
 
 
 CREATE TABLESPACE E$&&scheme_uc DATAFILE 
-'&&dataPath/e&&scheme_lc..dbf' SIZE 2000M AUTOEXTEND ON NEXT 100M MAXSIZE UNLIMITED
+'&&dataPath/e&&scheme_lc..dbf' SIZE 1000M AUTOEXTEND ON NEXT 100M MAXSIZE UNLIMITED
 LOGGING
 ONLINE
 PERMANENT
