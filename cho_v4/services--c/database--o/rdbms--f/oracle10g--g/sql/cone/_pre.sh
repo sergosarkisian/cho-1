@@ -61,3 +61,9 @@ DEFINE eschemePassword = $eschemePassword
  exit;
 EOF
 fi
+
+### IN4 BASH FOOTER ###
+CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
+LogMsg="END -  steps_init - $ExecScriptname"
+echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
+###

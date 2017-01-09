@@ -31,3 +31,10 @@ DEFINE eschemePassword = $eschemePassword
 @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/9.cc_dst.sql
  exit;
 EOF
+
+
+### IN4 BASH FOOTER ###
+CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
+LogMsg="END -  steps_init - $ExecScriptname"
+echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
+###

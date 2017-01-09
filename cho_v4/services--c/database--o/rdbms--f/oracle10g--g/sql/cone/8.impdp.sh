@@ -28,3 +28,10 @@ if [[ $App_c2dbSchemeRemap == "Yes" ]]; then
 fi
 
 ! impdp SYSTEM/${App_c2dbsysPassword} schemas=E\$${App_c2dbSchemeSrc} directory=import dumpfile=e${App_c2dbSchemeSrc}_${Date}.expdp.dump logfile=e${App_c2dbSchemeSrc}_import_${Date}.dump.log EXCLUDE=STATISTICS  $App_c2dbSchemeImport
+
+
+### IN4 BASH FOOTER ###
+CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
+LogMsg="END -  steps_init - $ExecScriptname"
+echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
+###

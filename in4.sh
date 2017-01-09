@@ -151,6 +151,23 @@ case $Task in
                 ###            
                 . $In4_Exec_Path/deploy.sh 
                 ;;
+                
+                "role")                 
+                    if [[ -z $RoleType ]]; then
+                        DialogMsg="Please specify role type"
+                        echo $DialogMsg; select AppType in "c2db(oracle10GR2_SE)"  "c2db(oracle10GR2_EE)";  do  break ; done
+                    fi
+            
+                    case $AppType in
+                        "c2db(oracle10GR2_EE)") 
+                            . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/in4_oracle_init.sh                 
+                            . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/db.sh
+                        ;;
+                    esac
+                ;;
+                esac
+            ;;
+            
                 "app")                 
                     if [[ -z $AppType ]]; then
                         DialogMsg="Please specify application type"

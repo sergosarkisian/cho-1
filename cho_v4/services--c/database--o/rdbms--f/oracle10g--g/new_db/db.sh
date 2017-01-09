@@ -1,18 +1,37 @@
 #!/bin/bash
+########    #######    ########    #######    ########    ########
+##     / / / /    License    \ \ \ \ 
+##    Copyleft culture, Copyright (C) is prohibited here
+##    This work is licensed under a CC BY-SA 4.0
+##    Creative Commons Attribution-ShareAlike 4.0 License
+##    Refer to the http://creativecommons.org/licenses/by-sa/4.0/
+########    #######    ########    #######    ########    ########
+##    / / / /    Code Climate    \ \ \ \ 
+##    Language = bash DSL, profiles
+##    Indent = space;    4 chars;
+########    #######    ########    #######    ########    ########
+### IN4 BASH HEADER ###
+set -e
+PrevDirPath=$CurDirPath; CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
+LogMsg="BEGIN -  steps_init - $ExecScriptname"
+echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
+###
+
 if ! [[ `id -un` == "oracle" ]]; then echo "Please run as 'oracle' user! Exit."; exit 1; fi
 
 /bin/sh /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/memset_pfile.sh
 mkdir -p /media/storage/as/oracle/logs/create_db
 . /media/storage/as/oracle/conf/_context/env.sh
+EnvFile="/media/storage/as/oracle/conf/_context/env.sh"
 cd $ORACLE_HOME
 
 if [[ -z $App_c2dbsysPassword ]]; then
-    echo "set an admin password"
+    echo "set an admin password in $EnvFile"
     exit 1
 fi
 
 if [[ -z $CHARACTERSET ]]; then
-    echo "set CHARACTERSET"
+    echo "set CHARACTERSET in $EnvFile"
     exit 1
 fi
 
@@ -45,3 +64,9 @@ EOF
 
 rm -f /media/storage/as/oracle/data/master/orapwwk10
 ln -s /media/storage/as/oracle/conf/_generated/orapwwk10 /media/storage/as/oracle/data/master/    
+
+### IN4 BASH FOOTER ###
+CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
+LogMsg="END -  steps_init - $ExecScriptname"
+echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
+###

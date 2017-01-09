@@ -27,7 +27,7 @@ Date=`date +%Y_%m_%d_%H-%M-%S`
 
 if [[ -z $App_c2dbTask ]]; then
     DialogMsg="Please specify operation"
-    echo $DialogMsg; select App_c2dbTask in OraInit OraInitWithSchemaImport SchemaImport;  do  break ; done
+    echo $DialogMsg; select App_c2dbTask in OraInit OraInitWithSchemaImport SchemaImport FullOraReinstall;  do  break ; done
 fi
 
 if [[ -z $App_c2dbFqdnDst ]]; then
@@ -103,7 +103,15 @@ case $App_c2dbTask in
         App_c2dbPlatform $App_c2dbFqdnDst    
         SchemaImport
     ;;    
+    "FullOraReinstall")
+        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/db.sh    
+    ;;
 esac
 
 
+
+### IN4 BASH FOOTER ###
+CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
+LogMsg="END -  steps_init - $ExecScriptname"
+echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###

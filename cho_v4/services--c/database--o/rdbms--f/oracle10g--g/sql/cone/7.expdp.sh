@@ -21,3 +21,10 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 if [[ $App_c2dbSchemeECoreImport == "Yes" ]]; then
     ! expdp SYSTEM/${App_c2dbsysPassword}@App_c2dbSchemeSrc.pool schemas=E\$CORE directory=export dumpfile=ecore_$Date.expdp.dump logfile=ecore_export_$Date.dump.log
 fi
+
+
+### IN4 BASH FOOTER ###
+CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
+LogMsg="END -  steps_init - $ExecScriptname"
+echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
+###
