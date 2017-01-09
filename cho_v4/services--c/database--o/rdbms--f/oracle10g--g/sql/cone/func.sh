@@ -66,7 +66,7 @@ SchemaImport () {
         cp $App_c2dbTnsPath/tnsnames.ora $App_c2dbTnsPath/tnsnames.ora.bkp
         TnsName="App_c2dbSchemeSrc.pool" ; HOST="$App_c2dbFqdnSrc" ; PORT="1521" ;
         . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/tnsnames.ora >> $App_c2dbTnsPath/tnsnames.ora        
-        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/7.expdp.sh
+        ! . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/7.expdp.sh
         App_c2dbPlatform $App_c2dbFqdnDst
         scp -P1000 oracle@${App_c2dbFqdnSrc}:${expPath}/e${App_c2dbSchemeSrc}_${Date}.expdp.dump $App_c2dbImportPath/
         if [[ $App_c2dbSchemeECoreImport == "Yes" ]]; then
