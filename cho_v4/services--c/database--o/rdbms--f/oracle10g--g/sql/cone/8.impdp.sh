@@ -18,7 +18,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
 if [[ $App_c2dbSchemeECoreImport == "Yes" ]]; then
-    impdp SYSTEM/${App_c2dbsysPassword} schemas=E\$CORE directory=import dumpfile=ecore_$Date.expdp.dump logfile=ecore_import_$Date.dump.log EXCLUDE=STATISTICS
+  !  impdp SYSTEM/${App_c2dbsysPassword} schemas=E\$CORE directory=import dumpfile=ecore_$Date.expdp.dump logfile=ecore_import_$Date.dump.log EXCLUDE=STATISTICS
 fi
 
 if [[ $App_c2dbSchemeRemap == "Yes" ]]; then

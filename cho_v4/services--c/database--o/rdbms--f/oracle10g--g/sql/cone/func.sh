@@ -72,7 +72,7 @@ SchemaImport () {
         if [[ $App_c2dbSchemeECoreImport == "Yes" ]]; then
             scp -P1000 oracle@${App_c2dbFqdnSrc}:${expPath}/ecore_${Date}.expdp.dump $App_c2dbImportPath/        
         fi
-        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/8.impdp.sh    
+        ! . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/8.impdp.sh    
         . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_cc.sh        
         cp $App_c2dbTnsPath/tnsnames.ora.bkp $App_c2dbTnsPath/tnsnames.ora
         . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_post.sh
