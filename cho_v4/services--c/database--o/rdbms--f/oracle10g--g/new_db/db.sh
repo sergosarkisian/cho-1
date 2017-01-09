@@ -53,7 +53,7 @@ CHARACTERSET=""
 App_c2dbsysPassword="qwe123"
 App_c2dbconePassword="3edc4rfv"
 
-/bin/sh /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/memset_pfile.sh
+/bin/sh -x /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/memset_pfile.sh
 mkdir -p /media/storage/as/oracle/logs/create_db
 cd $ORACLE_HOME
 
