@@ -128,9 +128,9 @@ rm -f /etc/sysconfig/SuSEfirewall2.d/services/in4__oracle10g && ln -s  /media/sy
 btrfs subvolume delete /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g
 btrfs subvolume snapshot -r /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g_rw/ /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g
 ###
-
-    ssh-keygen -b 2048 -t rsa -f /media/storage/as/oracle/home/.ssh/id_rsa -q -N ""
-    setfacl -R -b /media/storage/as/oracle/home/
-    chmod 700 /media/storage/as/oracle/home/.ssh/
-    chmod 600 /media/storage/as/oracle/home/.ssh/*
+chown -R oracle:oinstall /media/storage/as/oracle/home/
+ssh-keygen -b 2048 -t rsa -f /media/storage/as/oracle/home/.ssh/id_rsa -q -N ""
+setfacl -R -b /media/storage/as/oracle/home/
+chmod 700 /media/storage/as/oracle/home/.ssh/
+chmod 600 /media/storage/as/oracle/home/.ssh/*
     

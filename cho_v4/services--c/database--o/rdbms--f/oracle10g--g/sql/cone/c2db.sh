@@ -62,7 +62,7 @@ if [[ $App_c2dbTask == "OraInitWithSchemaImport" ]] || [[ $App_c2dbTask == "Sche
     App_c2dbSchemeSrc_UC=${App_c2dbSchemeSrc^^}
     
     if ! [[ $App_c2dbSchemeDst == $App_c2dbSchemeSrc ]]; then App_c2dbSchemeRemap="Yes"; fi
-    ssh-copy-id oracle@$App_c2dbFqdnSrc -p1000
+    ! ssh-copy-id oracle@$App_c2dbFqdnSrc -p1000
 fi
 
 ### PASSWORDS
