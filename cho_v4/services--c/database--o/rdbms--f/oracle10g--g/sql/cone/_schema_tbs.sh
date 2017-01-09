@@ -26,7 +26,7 @@ if [[ -f $App_c2dbDataPath/e${App_c2dbSchemeDst_LC}.dbf ]]; then
 fi
    
 if [[ $App_c2dbDstSchemaForceCreation == "Yes" ]]; then
-sqlplus -s -l "/ as sysdba" <<EOF
+! sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
 DEFINE scheme_uc = $App_c2dbSchemeDst_UC
 ALTER SYSTEM SET UNDO_RETENTION = 10;
@@ -36,6 +36,7 @@ ALTER SYSTEM SET UNDO_RETENTION = 10;
 DROP TABLESPACE E$&&scheme_uc INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
 DROP USER E$&&scheme_uc CASCADE; 
 DROP TABLESPACE E$&&scheme_uc INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
+DROP USER E$&&scheme_uc CASCADE; 
 exit;
 EOF
 fi
