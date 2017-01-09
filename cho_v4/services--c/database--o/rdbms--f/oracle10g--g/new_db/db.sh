@@ -10,6 +10,11 @@ if [[ -z $sysPassword ]]; then
     exit 1
 fi
 
+if [[ -z $CHARACTERSET ]]; then
+    echo "set CHARACTERSET"
+    exit 1
+fi
+
 bin/sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
 DEFINE sid = $SID
@@ -36,4 +41,5 @@ host /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g/ee--s/produ
 exit;
 EOF
 
+rm -f /media/storage/as/oracle/data/master/orapwwk10
 ln -s /media/storage/as/oracle/data/master/orapwwk10 /media/storage/as/oracle/conf/_generated
