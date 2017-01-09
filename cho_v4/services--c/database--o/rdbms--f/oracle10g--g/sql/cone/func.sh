@@ -68,7 +68,7 @@ SchemaImport () {
         echo ". /tmp/7.expdp.sh" >> /tmp/expdp.run
         
         scp -P1000 /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/7.expdp.sh /tmp/expdp.run oracle@$App_c2dbFqdnSrc:/tmp/
-        ssh -p1000 oracle@$App_c2dbFqdnSrc sh -x /tmp/expdp.run
+        ! ssh -p1000 oracle@$App_c2dbFqdnSrc sh -x /tmp/expdp.run
         
         expPath=$App_c2dbExportPath
         App_c2dbPlatform $App_c2dbFqdnDst
