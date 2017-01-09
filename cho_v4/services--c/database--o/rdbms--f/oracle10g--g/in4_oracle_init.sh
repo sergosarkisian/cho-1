@@ -21,9 +21,7 @@ if  mountpoint -q /media/storage ; then
     echo "storage disk is in use!!! "
     DialogMsg="Recreate only database part?"   
     echo $DialogMsg; select DataRecreate in No Yes Yes_Recreate;  do  break ; done;    
-    if [[ $DataRecreate == "Yes_Recreate" ]]; then
-        exit 0
-    else
+    if ~ [[ $DataRecreate == "Yes_Recreate" ]]; then
         exit 1
     fi
 else
