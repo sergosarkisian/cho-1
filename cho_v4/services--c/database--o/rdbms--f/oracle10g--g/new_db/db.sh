@@ -54,7 +54,6 @@ cd $ORACLE_HOME
 
 ! sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
-DEFINE sid = $SID
 shutdown immediate
 exit;
 EOF
@@ -82,10 +81,16 @@ host /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g/ee--s/produ
 @rdbms/admin/catbundle.sql psu apply;
 @rdbms/admin/utlrp.sql;
 @rdbms/admin/tracetab.sql;
-shutdown immediate
 exit;
 EOF
 
+sqlplus -s -l "/ as sysdba" <<EOF
+set verify off
+shutdown immediate;
+exit;
+EOF
+
+if [[ `ps aux|grep "ora_" -c` -gt 1 ]]; then exit 1; fi
 #rm -f /media/storage/as/oracle/data/master/orapwwk10
 #ln -s /media/storage/as/oracle/conf/_generated/orapwwk10 /media/storage/as/oracle/data/master/    
 

@@ -160,8 +160,8 @@ case $Task in
             
                     case $AppType in
                         "c2db(oracle10GR2_EE)") 
-                            . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/in4_oracle_init.sh                 
-                            su - oracle -c "/bin/bash  /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/db.sh"
+                            time . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/in4_oracle_init.sh                 
+                            time su - oracle -c "/bin/bash  /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/db.sh"
                         ;;
                     esac
                 ;;
@@ -175,7 +175,7 @@ case $Task in
                     fi
             
                     case $AppType in
-                        "c2db") . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/c2db.sh ;;
+                        "c2db") time . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/c2db.sh ;;
                     esac
                 ;;
                 esac

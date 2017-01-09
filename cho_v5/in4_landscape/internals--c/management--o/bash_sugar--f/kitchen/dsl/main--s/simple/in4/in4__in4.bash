@@ -11,10 +11,9 @@
 ########    #######    ########    #######    ########    ########
 
 
-alias in4='sudo git -C /media/sysdata/in4/cho/ pull; sudo /bin/sh /media/sysdata/in4/cho/in4.sh'
-alias in4x='sudo git -C /media/sysdata/in4/cho/ pull; sudo /bin/sh -x /media/sysdata/in4/cho/in4.sh'
-alias in4_curr='sudo /bin/sh /media/sysdata/in4/cho/in4.sh'
+alias in4='git -C /media/sysdata/in4/cho/ status; sudo git -C /media/sysdata/in4/cho/ pull; sudo /bin/sh /media/sysdata/in4/cho/in4.sh'
+alias in4x='git -C /media/sysdata/in4/cho/ status; sudo git -C /media/sysdata/in4/cho/ pull; sudo /bin/sh -x /media/sysdata/in4/cho/in4.sh'
+alias in4u='git -C /media/sysdata/in4/cho/ status; /bin/sh /media/sysdata/in4/cho/in4.sh'
 alias in4_sync='sudo Task=sync /bin/sh /media/sysdata/in4/cho/in4.sh'
-alias in4_wtf='sudo Task=run in4LandscapeFQN=internals--c--management--o--bash_sugar--f--kitchen--g--main--s RunPath=3_recipe/runners/wtf RunName=99.wtf.sh /bin/sh /media/sysdata/in4/cho/in4.sh'
 
 
