@@ -17,18 +17,18 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-if [[ -f $App_c2dbDstDataPath/sysaux01.dbf ]]; then
+if [[ -f $App_c2dbDataPath/sysaux01.dbf ]]; then
     echo "Oracle database is already initialised"
     exit 1
 else
-mkdir -p $App_c2dbDstLogPath
+mkdir -p $App_c2dbLogPath
 
 sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
-DEFINE logPath = $App_c2dbDstLogPath
-DEFINE dataPath = $App_c2dbDstDataPath
-DEFINE scheme_lc = $App_c2dbFqdnDst_LC
-DEFINE scheme_uc = $App_c2dbFqdnDst_UC
+DEFINE logPath = $App_c2dbLogPath
+DEFINE dataPath = $App_c2dbDataPath
+DEFINE scheme_lc = $App_c2dbSchemeDst_LC
+DEFINE scheme_uc = $App_c2dbSchemeDst_UC
 DEFINE sysPassword = $sysPassword
 DEFINE systemPassword = $sysPassword
 DEFINE ecorePassword = $ecorePassword

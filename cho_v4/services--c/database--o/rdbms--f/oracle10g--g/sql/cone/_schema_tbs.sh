@@ -17,7 +17,7 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-if [[ -f $App_c2dbDstDataPath/$App_c2dbFqdnDst_LC.dbf ]]; then
+if [[ -f $App_c2dbDataPath/$App_c2dbSchemeDst_LC.dbf ]]; then
     if [[ -z $App_c2dbDstSchemaRecreate ]]; then
     DialogMsg="Oracle database already exists! Recreate?"
     echo $DialogMsg; select App_c2dbDstSchemaRecreate in Yes No;  do  break ; done;
@@ -25,10 +25,10 @@ if [[ -f $App_c2dbDstDataPath/$App_c2dbFqdnDst_LC.dbf ]]; then
 fi
             
 if [[ $App_c2dbDstSchemaRecreate == "Yes" ]]; then
-mkdir -p $App_c2dbDstLogPath
+mkdir -p $App_c2dbLogPath
 sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
-DEFINE scheme_uc = $App_c2dbFqdnDst_UC
+DEFINE scheme_uc = $App_c2dbSchemeDst_UC
 ALTER SYSTEM SET UNDO_RETENTION = 10;
 ALTER SYSTEM SET UNDO_RETENTION = 100000;
 ALTER SYSTEM SET UNDO_RETENTION = 10;
@@ -40,10 +40,10 @@ EOF
 
 sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
-DEFINE logPath = $App_c2dbDstLogPath
-DEFINE dataPath = $App_c2dbDstDataPath
-DEFINE scheme_lc = $App_c2dbFqdnDst_LC
-DEFINE scheme_uc = $App_c2dbFqdnDst_UC
+DEFINE logPath = $App_c2dbLogPath
+DEFINE dataPath = $App_c2dbDataPath
+DEFINE scheme_lc = $App_c2dbSchemeDst_LC
+DEFINE scheme_uc = $App_c2dbSchemeDst_UC
 DEFINE sysPassword = $sysPassword
 DEFINE systemPassword = $sysPassword
 DEFINE ecorePassword = $ecorePassword
