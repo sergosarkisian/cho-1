@@ -157,11 +157,12 @@ if [[ $DataDestroy == "Yes_Destroy" ]]; then
 
     ### SSH KEYS
     mkdir -p /media/storage/as/oracle/home/.ssh
-    chown -R oracle:oinstall /media/storage/as/oracle/home/
     ssh-keygen -b 2048 -t rsa -f /media/storage/as/oracle/home/.ssh/id_rsa -q -N ""
     setfacl -R -b /media/storage/as/oracle/home/
     chmod 700 /media/storage/as/oracle/home/.ssh/
     chmod 600 /media/storage/as/oracle/home/.ssh/*
+    chown -R oracle:oinstall /media/storage/as/oracle/home/
+    
     ###
     
 fi
