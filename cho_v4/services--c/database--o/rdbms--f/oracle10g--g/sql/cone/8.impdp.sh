@@ -27,4 +27,4 @@ if [[ $App_c2dbSchemeRemap == "Yes" ]]; then
     App_c2dbSchemeImport=""
 fi
 
-impdp SYSTEM schemas=E\$${App_c2dbSchemeSrc} directory=import dumpfile=e${App_c2dbSchemeSrc}_${Date}.expdp.dump logfile=e${App_c2dbSchemeSrc}_import_${Date}.dump.log  $App_c2dbSchemeImport
+! impdp SYSTEM schemas=E\$${App_c2dbSchemeSrc} directory=import dumpfile=e${App_c2dbSchemeSrc}_${Date}.expdp.dump logfile=e${App_c2dbSchemeSrc}_import_${Date}.dump.log  $App_c2dbSchemeImport
