@@ -57,13 +57,19 @@ App_c2dbconePassword="3edc4rfv"
 mkdir -p /media/storage/as/oracle/logs/create_db
 cd $ORACLE_HOME
 
-
-bin/sqlplus -s -l "/ as sysdba" <<EOF
+! sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
 DEFINE sid = $SID
-DEFINE characterset = $CHARACTERSET
-DEFINE sysPassword = $App_c2dbsysPassword
-DEFINE systemPassword = $App_c2dbsysPassword
+shutdown immediate
+exit;
+EOF
+
+sqlplus -s -l "/ as sysdba" <<EOF
+set verify off
+DEFINE sid=$SID
+DEFINE characterset=$CHARACTERSET
+DEFINE sysPassword=$App_c2dbsysPassword
+DEFINE systemPassword=$App_c2dbsysPassword
 host /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g/ee--s/product/10g/bin/orapwd file=/media/storage/as/oracle/data/master/orapw&&sid password=&&sysPassword force=y
 @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/CreateDB.sql;
 @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/CreateDBFiles.sql;
