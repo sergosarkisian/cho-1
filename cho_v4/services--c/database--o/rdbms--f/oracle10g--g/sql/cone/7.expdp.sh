@@ -18,6 +18,6 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
 expdp SYSTEM/${App_c2dbsysPassword} schemas=E\$${App_c2dbSchemeSrc} directory=export dumpfile=e${App_c2dbSchemeSrc}_${Date}.expdp.dump logfile=e${App_c2dbSchemeSrc}_export_${Date}.dump.log
-if [[ $App_c2dbSchemeECoreImport=="Yes" ]]; then
+if [[ $App_c2dbSchemeECoreImport == "Yes" ]]; then
     expdp SYSTEM/${App_c2dbsysPassword} schemas=E\$CORE directory=export dumpfile=ecore_$Date.expdp.dump logfile=ecore_export_$Date.dump.log
 fi
