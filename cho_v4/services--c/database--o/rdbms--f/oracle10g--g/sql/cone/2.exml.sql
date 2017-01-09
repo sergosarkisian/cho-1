@@ -1,6 +1,6 @@
 connect "E$XML"/"&&exmlPassword"
 set echo on
-spool /media/storage/as/oracle/logs/cone/2.exml
+spool &&logPath/2.exml
 create table x$types (txt clob) ;
 
 begin
@@ -91,7 +91,7 @@ begin
              <xsd:attribute name="recent"       xdb:SQLName="RECENT"       type="N10"                          />
              <xsd:attribute name="unique_grand" xdb:SQLName="UNIQUE_GRAND" type="xsd:boolean"                  />
              <xsd:attribute name="syncby"       xdb:SQLName="SYNCBY"       type="C35"                          />
-             <xsd:attribute name="nocalc"       xdb:SQLName="NOCBLT"       type="xsd:boolean" use="prohibited" />
+             <xsd:attribute name="nocalc"       xdb:SQLName="NOCALC"       type="xsd:boolean" use="prohibited" />
              <xsd:attribute name="sync"         xdb:SQLName="SYNC"         type="N1"                           />
              <xsd:attribute name="op"           xdb:SQLName="OP"           type="OP"                           />
              <xsd:attribute name="theone4other" xdb:SQLName="THEONE4OTHER" type="xsd:boolean"                  />

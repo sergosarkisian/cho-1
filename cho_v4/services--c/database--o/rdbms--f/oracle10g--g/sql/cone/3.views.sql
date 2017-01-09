@@ -1,6 +1,6 @@
 connect "SYS"/"&&sysPassword" as SYSDBA
 set echo on
-spool /media/storage/as/oracle/logs/cone/3.views
+spool &&logPath/3.views
 
 /* Formatted on 3/14/2012 10:01:23 AM (QP5 v5.139.911.3011) */
 CREATE OR REPLACE FORCE VIEW SYS.TT$ACTIVE_TRAN (GLOBALID, BRANCH)

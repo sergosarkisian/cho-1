@@ -5,7 +5,7 @@ zypper ar -cf http://download.opensuse.org/repositories/server:/http/openSUSE_Le
 
 
 zypper --gpg-auto-import-keys in "exim" "haproxy" "nginx-syslog" "git-daemon"
-zypper --gpg-auto-import-keys in "java-1_8_0-openjdk-headless" "log4j" "gcc-java" "java-1_8_0-openjdk-devel" "javacc" "javacc3"
+zypper --gpg-auto-import-keys in "java-1_8_0-openjdk-headless" "log4j" "gcc-java" "java-1_8_0-openjdk-devel" "javacc" "javacc3" "libfonts"
 zypper --gpg-auto-import-keys in "perl-JSON-XS" "perl-List-MoreUtils"
 zypper --gpg-auto-import-keys --non-interactive in http://dl.bintray.com/sbt/rpm/sbt-0.13.13.rpm
 

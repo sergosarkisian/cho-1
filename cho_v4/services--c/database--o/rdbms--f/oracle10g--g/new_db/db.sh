@@ -16,7 +16,7 @@ DEFINE sid = $SID
 DEFINE characterset = $CHARACTERSET
 DEFINE sysPassword = $sysPassword
 DEFINE systemPassword = $sysPassword
-host bin/orapwd file=/media/storage/as/oracle/data/master/orapw&&sid password=&&sysPassword force=y
+host /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g/ee--s/product/10g/bin/orapwd file=/media/storage/as/oracle/data/master/orapw&&sid password=&&sysPassword force=y
 @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/CreateDB.sql;
 @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/CreateDBFiles.sql;
 @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/CreateDBCatalog.sql;
@@ -35,3 +35,5 @@ host bin/orapwd file=/media/storage/as/oracle/data/master/orapw&&sid password=&&
 @rdbms/admin/tracetab.sql;
 exit;
 EOF
+
+ln -s /media/storage/as/oracle/data/master/orapwwk10 /media/storage/as/oracle/conf/_generated
