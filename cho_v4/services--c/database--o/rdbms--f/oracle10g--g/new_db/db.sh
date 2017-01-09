@@ -48,7 +48,7 @@ fi
 
  . $EnvFile
 
-/bin/sh -x /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/memset_pfile.sh
+/bin/sh  /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/memset_pfile.sh
 mkdir -p /media/storage/as/oracle/logs/create_db
 cd $ORACLE_HOME
 
@@ -86,8 +86,10 @@ shutdown immediate
 exit;
 EOF
 
-rm -f /media/storage/as/oracle/data/master/orapwwk10
-ln -s /media/storage/as/oracle/conf/_generated/orapwwk10 /media/storage/as/oracle/data/master/    
+#rm -f /media/storage/as/oracle/data/master/orapwwk10
+#ln -s /media/storage/as/oracle/conf/_generated/orapwwk10 /media/storage/as/oracle/data/master/    
+
+systemctl restart in4__oracle10g
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
