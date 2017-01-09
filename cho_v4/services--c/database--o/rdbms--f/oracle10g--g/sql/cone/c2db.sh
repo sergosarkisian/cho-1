@@ -106,7 +106,7 @@ case $App_c2dbTask in
     . /post
     ;;
     "OraInitWithSchemaImport") 
-        $App_c2dbSchemeECoreImport="Yes"
+        App_c2dbSchemeECoreImport="Yes"
         App_c2dbPlatform $App_c2dbFqdnDst
         . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/pre.sh
         SchemaImport
