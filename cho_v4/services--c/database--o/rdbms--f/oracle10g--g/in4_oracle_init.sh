@@ -66,12 +66,7 @@ if [[ $DataDestroy == "Yes_Destroy" ]]; then
 
     #logs
     btrfs subvolume create /media/storage/as/oracle/logs
-    mkdir -p /media/storage/as/oracle/logs/adump
-    mkdir -p /media/storage/as/oracle/logs/bdump
-    mkdir -p /media/storage/as/oracle/logs/cdump
-    mkdir -p /media/storage/as/oracle/logs/udump
-    mkdir -p /media/storage/as/oracle/logs/audit
-    mkdir -p /media/storage/as/oracle/logs/network
+
     #
 
     #conf

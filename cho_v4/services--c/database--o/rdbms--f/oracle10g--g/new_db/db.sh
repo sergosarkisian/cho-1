@@ -19,6 +19,14 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 if ! [[ `id -un` == "oracle" ]]; then echo "Please run as 'oracle' user! Exit."; exit 1; fi
 
+if [[ -f /media/storage/as/oracle/data/master/control01.ctl  ]] || [[ -f /media/storage/as/oracle/data/master/sysaux01.dbf ]] ; then
+    if [[ -z $App_c2dbForceCreation ]]; then
+        DialogMsg="!!!   DATA WILL BE DESTROYED ON !!!!!!!!!!!!!!!!! "   
+        echo $DialogMsg; select App_c2dbForceCreation in Yes No;  do  break ; done;
+    fi
+    if [[ $App_c2dbForceCreation == "No" ]]; then exit 1; fi
+fi
+
 EnvFile="/media/storage/as/oracle/conf/_context/env.sh"
 ! . $EnvFile
 
@@ -58,6 +66,12 @@ shutdown immediate
 exit;
 EOF
 
+if [[ $App_c2dbForceCreation == "Yes" ]]; then
+    rm -rf /media/storage/as/oracle/data/master/*
+    rm -rf /media/storage/as/oracle/logs/*
+    . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/in4_oracle_init_logs.sh
+fi
+
 sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
 DEFINE sid = $SID
@@ -91,8 +105,6 @@ exit;
 EOF
 
 if [[ `ps aux|grep "ora_" -c` -gt 1 ]]; then exit 1; fi
-#rm -f /media/storage/as/oracle/data/master/orapwwk10
-#ln -s /media/storage/as/oracle/conf/_generated/orapwwk10 /media/storage/as/oracle/data/master/    
 
 systemctl restart in4__oracle10g
 
