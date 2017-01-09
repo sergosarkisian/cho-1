@@ -56,7 +56,7 @@ disk_asynch_io=true
 # # # # # # # #
 
 ### ARCH LOG ###
-log_archive_start = false
+#log_archive_start = false
 #log_archive_dest_1='location=/media/storage/as/oracle/data/archive mandatory reopen=20'
 #log_archive_format='%t_%s_%r.dbf'
 #log_checkpoint_timeout=300
