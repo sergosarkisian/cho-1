@@ -111,7 +111,13 @@ esac
 SchemaImport () {
         . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_schema_tbs.sh
         App_c2dbPlatform $App_c2dbFqdnSrc
-        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/7.expdp.sh (ON SRC)
+        
+        echo "App_c2dbSchemeSrc=$App_c2dbSchemeSrc" > /tmp/expdp.env
+        echo "Date=$Date" >> /tmp/expdp.env
+        echo "App_c2dbSchemeECoreImport=$App_c2dbSchemeECoreImport" >> /tmp/expdp.env
+        scp /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/7.expdp.sh oracle@$App_c2dbFqdnSrc:/tmp/7.expdp.sh
+        ssh oracle@$App_c2dbFqdnSrc export /tmp/expdp.env; sh -x /tmp/7.expdp.sh
+        
         expPath=$App_c2dbExportPath
         App_c2dbPlatform $App_c2dbFqdnDst
         scp oracle@$App_c2dbFqdnSrc:$expPath/e$App_c2dbSchemeSrc_$Date.expdp.dump $App_c2dbImportPath/

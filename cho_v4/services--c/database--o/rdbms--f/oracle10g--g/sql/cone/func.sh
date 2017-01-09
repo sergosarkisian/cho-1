@@ -51,8 +51,3 @@ fi
         ;;
     esac
 }
-
-
-GenerateTnsCC () {
-
-}

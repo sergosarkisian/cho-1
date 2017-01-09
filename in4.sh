@@ -148,19 +148,19 @@ case $Task in
                         fi
                     fi
                 fi
-                ###
-            "app")                 
-                if [[ -z $AppType ]]; then
-                    DialogMsg="Please specify application type"
-                    echo $DialogMsg; select AppType in c2db phpSite ;  do  break ; done
-                fi
-        
-                case $AppType in
-                    "c2db") . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/c2db.sh ;;
-                esac
-            ;;
                 ###            
-                . $In4_Exec_Path/deploy.sh ;;
+                . $In4_Exec_Path/deploy.sh 
+                ;;
+                "app")                 
+                    if [[ -z $AppType ]]; then
+                        DialogMsg="Please specify application type"
+                        echo $DialogMsg; select AppType in c2db phpSite ;  do  break ; done
+                    fi
+            
+                    case $AppType in
+                        "c2db") . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/c2db.sh ;;
+                    esac
+                ;;
                 esac
             ;;
             "run" )
