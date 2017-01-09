@@ -21,9 +21,9 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
  
  App_c2dbFqdn=$1
  
- if [[ $$App_c2dbFqdn =~ in4.*-suse-l ]]; then
+ if [[ $App_c2dbFqdn =~ in4.*-suse-l ]]; then
     App_c2dbDstPlatform="in4"
-elif [[ $$App_c2dbFqdn =~ .*rev4 ]]
+elif [[ $App_c2dbFqdn =~ .*rev4 ]]; then
     App_c2dbDstPlatform="rev4"
 else
     App_c2dbDstPlatform="custom"
