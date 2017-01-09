@@ -17,11 +17,11 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-if [[ $App_c2dbSchemeECoreImport=="Yes" ]]; then
+if [[ $App_c2dbSchemeECoreImport == "Yes" ]]; then
     impdp SYSTEM schemas=E\$CORE directory=import dumpfile=ecore_$Date.expdp.dump logfile=ecore_import_$Date.dump.log    
 fi
 
-if [[ $App_c2dbSchemeRemap="Yes" ]]; then
+if [[ $App_c2dbSchemeRemap == "Yes" ]]; then
     App_c2dbSchemeImport="E\$${App_c2dbSchemeSrc}:E\$${App_c2dbSchemeDst} REMAP_TABLESPACE=E\$${App_c2dbSchemeSrc}:E\$${App_c2dbSchemeDst}"
     else
     App_c2dbSchemeImport=""

@@ -17,14 +17,18 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-if [[ -f $App_c2dbDataPath/$App_c2dbSchemeDst_LC.dbf ]]; then
-    if [[ -z $App_c2dbDstSchemaRecreate ]]; then
-    DialogMsg="Oracle database already exists! Recreate?"
-    echo $DialogMsg; select App_c2dbDstSchemaRecreate in Yes No;  do  break ; done;
-            
-        if [[ $App_c2dbDstSchemaRecreate == "Yes" ]]; then
+if [[ -f $App_c2dbDataPath/e${App_c2dbSchemeDst_LC}.dbf ]]; then
+    if [[ -z $App_c2dbDstSchemaForceCreation ]]; then
+        DialogMsg="Oracle database already exists! Recreate?"
+        echo $DialogMsg; select App_c2dbDstSchemaForceCreation in Yes No;  do  break ; done;
+    fi
+else
+    App_c2dbDstSchemaForceCreation="Yes"
+fi
+   
+if [[ $App_c2dbDstSchemaForceCreation == "Yes" ]]; then
         mkdir -p $App_c2dbLogPath
-        
+
 sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
 DEFINE scheme_uc = $App_c2dbSchemeDst_UC
@@ -51,9 +55,7 @@ DEFINE eschemePassword = $eschemePassword
 @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/6.datafiles_init_schema.sql
 exit;
 EOF
-
-        else
-            exit 1
-        fi
-    fi
+else
+    exit 1
 fi
+
