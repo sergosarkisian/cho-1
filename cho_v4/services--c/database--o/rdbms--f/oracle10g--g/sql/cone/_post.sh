@@ -33,5 +33,5 @@ DEFINE eschemePassword = $eschemePassword
 @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/14.post.sql
  exit;
 EOF
-;;
+
 

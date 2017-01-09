@@ -36,7 +36,6 @@ DROP TABLESPACE E$&&scheme_uc INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAIN
 DROP USER E$&&scheme_uc CASCADE; 
 exit;
 EOF
-;;
 
 sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
@@ -52,7 +51,7 @@ DEFINE eschemePassword = $eschemePassword
 @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/6.datafiles_init_schema.sql
  exit;
 EOF
-;;
+
 end
 
 else
