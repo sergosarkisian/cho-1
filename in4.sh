@@ -142,16 +142,42 @@ case $Task in
                         
                             if [[ -z $OfflineBuildDir ]]; then
                                 DialogMsg="Please specify offline dir"   
-                                echo $DialogMsg; read $OfflineBuildDir
+                                echo $DialogMsg; read OfflineBuildDir
                             fi
                             
                         fi
                     fi
                 fi
-                ###
-                
                 ###            
-                . $In4_Exec_Path/deploy.sh ;;
+                . $In4_Exec_Path/deploy.sh 
+                ;;
+                
+                "role")                 
+                    if [[ -z $RoleType ]]; then
+                        DialogMsg="Please specify role type"
+                        echo $DialogMsg; select AppType in "c2db(oracle10GR2_SE)"  "c2db(oracle10GR2_EE)";  do  break ; done
+                    fi
+            
+                    case $AppType in
+                        "c2db(oracle10GR2_EE)") 
+                            . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/in4_oracle_init.sh                 
+                            su - oracle -c "/bin/bash -x /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/db.sh"
+                        ;;
+                    esac
+                ;;
+                esac
+            ;;
+            
+                "app")                 
+                    if [[ -z $AppType ]]; then
+                        DialogMsg="Please specify application type"
+                        echo $DialogMsg; select AppType in c2db phpSite ;  do  break ; done
+                    fi
+            
+                    case $AppType in
+                        "c2db") . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/c2db.sh ;;
+                    esac
+                ;;
                 esac
             ;;
             "run" )

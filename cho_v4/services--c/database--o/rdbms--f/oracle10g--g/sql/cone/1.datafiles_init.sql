@@ -1,12 +1,12 @@
 connect "SYS"/"&&sysPassword" as SYSDBA
 set echo on
-spool /media/storage/as/oracle/logs/cone/1.datafiles_init
+spool &&logPath/1.datafiles_init
 
-ALTER DATABASE DATAFILE '/media/storage/as/oracle/data/master/undotbs01.dbf' RESIZE 10000M;
-ALTER DATABASE DATAFILE '/media/storage/as/oracle/data/master/undotbs01.dbf' AUTOEXTEND ON  NEXT 1000M MAXSIZE UNLIMITED;
+ALTER DATABASE DATAFILE '&&dataPath/undotbs01.dbf' RESIZE 1000M;
+ALTER DATABASE DATAFILE '&&dataPath/undotbs01.dbf' AUTOEXTEND ON  NEXT 1000M MAXSIZE UNLIMITED;
 
 CREATE TABLESPACE E$CORE DATAFILE 
-'/media/storage/as/oracle/data/master/ecore.dbf' SIZE 5000M AUTOEXTEND ON NEXT 100M MAXSIZE 5000M
+'&&dataPath/ecore.dbf' SIZE 1000M AUTOEXTEND ON NEXT 100M MAXSIZE UNLIMITED
 LOGGING
 ONLINE
 PERMANENT

@@ -1,7 +1,7 @@
 E$XML
 connect "E$CORE"/"&&ecorePassword"
 set echo on
-spool /media/storage/as/oracle/logs/cone/4.ecore_syn
+spool &&logPath/4.ecore_syn
 
 drop PUBLIC SYNONYM SEQ;
 CREATE OR REPLACE PUBLIC SYNONYM SEQ FOR E$CORE.SEQ;

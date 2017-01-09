@@ -1,10 +1,10 @@
 connect "E$&&scheme_uc"/"&&eschemePassword"
 set echo on
-spool /media/storage/as/oracle/logs/cone/9.cc_dst
+spool &&logPath/9.cc_dst
 
-drop table E$&&scheme_uc..cc_content;
+drop table E$&&scheme_uc..CC_CONTENT;
 
-CREATE DATABASE LINK cc_source_dblink USING 'cc_source.pool';
+CREATE DATABASE LINK cc_dst2src_dblink USING 'App_c2dbSchemeSrc.pool';
 
 CREATE TABLE E$&&scheme_uc..CC_CONTENT of xmltype
     (CONSTRAINT CC_PK PRIMARY KEY(XMLDATA.CCID)
@@ -22,11 +22,9 @@ CREATE TABLE E$&&scheme_uc..CC_CONTENT of xmltype
 	);   
 
 
-    create index E$&&scheme_uc..CCREL_REF_idx on E$&&scheme_uc..CC_RELATION(THEREF, FORMAT);
-    
-    
-
-create table V$CC_CONTENT_EXPORT_DST as select to_char(data) data from V$CC_CONTENT_EXPORT@cc_source_dblink;
+create index E$&&scheme_uc..CCREL_REF_idx on E$&&scheme_uc..CC_RELATION(THEREF, FORMAT);
+drop table V$CC_CONTENT_EXPORT_DST;
+create table V$CC_CONTENT_EXPORT_DST as select to_char(data) data from V$CC_CONTENT_EXPORT@cc_dst2src_dblink;
 
 
 declare
@@ -48,14 +46,14 @@ end;
 /
 
 
-    ALTER TABLE E$&&scheme_uc..CC_DEPEND ADD (
-      CONSTRAINT CCDEPEND_CC_FK
-    FOREIGN KEY (CCID)
-    REFERENCES E$&&scheme_uc..CC_CONTENT ("XMLDATA"."CCID")
-	ON DELETE CASCADE,
-      CONSTRAINT CCDEPEND_FROMCC_FK
-    FOREIGN KEY (FROMCCID)
-    REFERENCES E$&&scheme_uc..CC_CONTENT ("XMLDATA"."CCID"));
+ALTER TABLE E$&&scheme_uc..CC_DEPEND ADD (
+    CONSTRAINT CCDEPEND_CC_FK
+FOREIGN KEY (CCID)
+REFERENCES E$&&scheme_uc..CC_CONTENT ("XMLDATA"."CCID")
+    ON DELETE CASCADE,
+    CONSTRAINT CCDEPEND_FROMCC_FK
+FOREIGN KEY (FROMCCID)
+REFERENCES E$&&scheme_uc..CC_CONTENT ("XMLDATA"."CCID"));
 
     
 CREATE OR REPLACE FORCE VIEW V$CC_CONTENT_EXPORT

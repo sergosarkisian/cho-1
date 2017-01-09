@@ -1,13 +1,20 @@
 ##Locks
 
 mkdir -p /media/storage/as/oracle/cone/locks
-rm -rf /media/storage/as/oracle/cone/plsql_compile/ && cd /media/storage/as/oracle/cone/plsql_compile
+rm -rf /media/storage/as/oracle/cone/plsql_compile/ && mkdir -p /media/storage/as/oracle/cone/plsql_compile && cd /media/storage/as/oracle/cone/plsql_compile
 wget http://public.edss.ee/software/Linux/Oracle/cone_locks_in4.tar.gz
 tar -xzf ./cone_locks_in4.tar.gz
 
+
+
+su - oracle 
+
+sqlplus / as SYSDBA
+EXECUTE UTL_RECOMP.RECOMP_PARALLEL(NULL, 'E$CORE');
+exit
+
 mv /usr/bin/gcc-4.8 /usr/bin/realgcc
 cp /media/storage/as/oracle/cone/plsql_compile/bin/gcc /usr/bin/gcc-4.8 && chmod 755 /usr/bin/gcc-4.8
-
 
 su - oracle 
 sqlplus 'E$CORE'
