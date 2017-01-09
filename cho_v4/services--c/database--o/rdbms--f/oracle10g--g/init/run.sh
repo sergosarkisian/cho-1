@@ -342,6 +342,11 @@ case "$1" in
     ps U oracle
     ps ax | grep oracm | grep -v grep
     ;;
+ simplecheck)
+    set -e
+    /usr/bin/sleep 30
+   $ORACLE_HOME/bin/sqlplus -l "/ as sysdba" @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/simpletest.sql 
+ ;;
   *)
     echo "Usage: $0 {start|stop|status|restart}"
     exit 1
