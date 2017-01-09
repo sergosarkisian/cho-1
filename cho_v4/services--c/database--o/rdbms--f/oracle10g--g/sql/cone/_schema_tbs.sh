@@ -21,6 +21,7 @@ if [[ -f $App_c2dbDstDataPath/$App_c2dbFqdnDst_LC.dbf ]]; then
     if [[ -z $App_c2dbDstSchemaRecreate ]]; then
     DialogMsg="Oracle database already exists! Recreate?"
     echo $DialogMsg; select App_c2dbDstSchemaRecreate in Yes No;  do  break ; done;
+    fi
 fi
             
 if [[ $App_c2dbDstSchemaRecreate == "Yes" ]]; then
