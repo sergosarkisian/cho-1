@@ -19,21 +19,44 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 if ! [[ `id -un` == "oracle" ]]; then echo "Please run as 'oracle' user! Exit."; exit 1; fi
 
-/bin/sh /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/memset_pfile.sh
-mkdir -p /media/storage/as/oracle/logs/create_db
-. /media/storage/as/oracle/conf/_context/env.sh
 EnvFile="/media/storage/as/oracle/conf/_context/env.sh"
-cd $ORACLE_HOME
+! . $EnvFile
 
-if [[ -z $App_c2dbsysPassword ]]; then
-    echo "set an admin password in $EnvFile"
-    exit 1
+if [[ -z $SID ]]; then
+    DialogMsg="Please specify SID"
+    echo $DialogMsg; read SID
+    echo "SID=\"$SID\"" >> $EnvFile
 fi
 
 if [[ -z $CHARACTERSET ]]; then
-    echo "set CHARACTERSET in $EnvFile"
-    exit 1
+    DialogMsg="Please specify CHARACTERSET"
+    echo $DialogMsg; select CHARACTERSET in AL32UTF8 ;  do  break ; done
+    echo "CHARACTERSET=\"$CHARACTERSET\"" >> $EnvFile    
 fi
+
+if [[ -z $App_c2dbsysPassword ]]; then
+    DialogMsg="Please specify Oracle admin password"
+    echo $DialogMsg; read App_c2dbsysPassword
+    echo "App_c2dbsysPassword=\"$App_c2dbsysPassword\"" >> $EnvFile    
+fi
+
+if [[ -z $App_c2dbconePassword ]]; then
+    DialogMsg="Please specify  Oracle cone password"
+    echo $DialogMsg; read App_c2dbconePassword
+    echo "App_c2dbconePassword=\"$App_c2dbconePassword\"" >> $EnvFile    
+fi
+
+ . $EnvFile
+
+SID="wk10"
+CHARACTERSET=""
+App_c2dbsysPassword="qwe123"
+App_c2dbconePassword="3edc4rfv"
+
+/bin/sh /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/memset_pfile.sh
+mkdir -p /media/storage/as/oracle/logs/create_db
+cd $ORACLE_HOME
+
 
 bin/sqlplus -s -l "/ as sysdba" <<EOF
 set verify off

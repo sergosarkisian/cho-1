@@ -18,15 +18,21 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
 if  mountpoint -q /media/storage ; then 
-    echo "storage disk is in use!!! Exit! "
-    exit 1
+    echo "storage disk is in use!!! "
+    DialogMsg="Recreate only database part?"   
+    echo $DialogMsg; select DataRecreate in No Yes Yes_Recreate;  do  break ; done;    
+    if [[ $DataRecreate == "Yes_Recreate" ]]; then
+        exit 0
+    else
+        exit 1
+    fi
 else
     DialogMsg="!!!   DATA WILL BE DESTROYED ON partition /media/storage !!!!!!!!!!!!!!!!! "   
-    echo $DialogMsg; select DataDestroy in Yes No;  do  break ; done;
+    echo $DialogMsg; select DataDestroy in No Yes Yes_Destroy;  do  break ; done;
 fi
 
                         
-if [[ $DataDestroy == "Yes" ]]; then
+if [[ $DataDestroy == "Yes_Destroy" ]]; then
     mkfs.btrfs -f  -L "storage" /dev/disk/by-label/storage
     rm -rf /dev/disk/by-label/storage/*
     systemctl restart media-storage.mount
