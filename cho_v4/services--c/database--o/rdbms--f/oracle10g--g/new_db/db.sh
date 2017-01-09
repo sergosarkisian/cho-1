@@ -60,6 +60,8 @@ fi
 mkdir -p /media/storage/as/oracle/logs/create_db
 cd $ORACLE_HOME
 
+! systemctl stop in4__oracle10g
+
 ! sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
 shutdown immediate
@@ -109,6 +111,8 @@ DEFINE systemPassword = $App_c2dbsysPassword
 @rdbms/admin/tracetab.sql;
 exit;
 EOF
+
+sleep 5
 
 sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
