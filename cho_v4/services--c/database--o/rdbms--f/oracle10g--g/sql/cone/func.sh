@@ -19,7 +19,13 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
  App_c2dbPlatform () {
  
- App_c2dbFqdn=$1
+ App_c2dbNaming=$1
+ 
+if [[ $App_c2dbFqdn =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    App_c2dbFqdn=`ssh -p1000 oracle@$App_c2dbFqdn hostname -f`
+else
+    App_c2dbFqdn=$App_c2dbNaming
+fi
  
  if [[ $App_c2dbFqdn =~ in4.*-suse-l ]]; then
     App_c2dbDstPlatform="in4"
