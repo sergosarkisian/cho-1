@@ -61,24 +61,22 @@ fi
 SchemaImport () {
         . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_schema_tbs.sh
         App_c2dbPlatform $App_c2dbFqdnSrc
-        
-        echo "App_c2dbSchemeSrc=$App_c2dbSchemeSrc" > /tmp/expdp.run
-        echo "Date=$Date" >> /tmp/expdp.run
-        echo "App_c2dbsysPassword=$App_c2dbsysPassword" >> /tmp/expdp.run        
-        echo "App_c2dbSchemeECoreImport=$App_c2dbSchemeECoreImport" >> /tmp/expdp.run
-        echo ". /tmp/7.expdp.sh" >> /tmp/expdp.run
-        
-        scp -P1000 /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/7.expdp.sh /tmp/expdp.run oracle@$App_c2dbFqdnSrc:/tmp/
-        ! ssh -p1000 oracle@$App_c2dbFqdnSrc sh -x /tmp/expdp.run && rm /tmp/expdp.run
-        
         expPath=$App_c2dbExportPath
+        
+        cp $App_c2dbTnsPath/tnsnames.ora $App_c2dbTnsPath/tnsnames.ora.bkp
+        TnsName="App_c2dbSchemeSrc.pool" ; HOST="$App_c2dbFqdnSrc" ; PORT="1521" ;
+        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/tnsnames.ora >> $App_c2dbTnsPath/tnsnames.ora        
+        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/7.expdp.sh
         App_c2dbPlatform $App_c2dbFqdnDst
         scp -P1000 oracle@${App_c2dbFqdnSrc}:${expPath}/e${App_c2dbSchemeSrc}_${Date}.expdp.dump $App_c2dbImportPath/
+        if [[ $App_c2dbSchemeECoreImport == "Yes" ]]; then
+            scp -P1000 oracle@${App_c2dbFqdnSrc}:${expPath}/ecore_${Date}.expdp.dump $App_c2dbImportPath/        
+        fi
         . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/8.impdp.sh    
-        cp $App_c2dbTnsPath/tnsnames.ora $App_c2dbTnsPath/tnsnames.ora.bkp
-        TnsName="cc_dst2src.pool" ; HOST="$App_c2dbFqdnSrc" ; PORT="1521" ;
-        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/tnsnames.ora > $App_c2dbTnsPath/tnsnames.ora
         . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_cc.sh        
         cp $App_c2dbTnsPath/tnsnames.ora.bkp $App_c2dbTnsPath/tnsnames.ora
         . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_post.sh
 }
+
+
+        

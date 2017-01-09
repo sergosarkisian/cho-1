@@ -4,7 +4,7 @@ spool &&logPath/9.cc_dst
 
 drop table E$&&scheme_uc..CC_CONTENT;
 
-CREATE DATABASE LINK cc_dst2src_dblink USING 'cc_dst2src.pool';
+CREATE DATABASE LINK cc_dst2src_dblink USING 'App_c2dbSchemeSrc.pool';
 
 CREATE TABLE E$&&scheme_uc..CC_CONTENT of xmltype
     (CONSTRAINT CC_PK PRIMARY KEY(XMLDATA.CCID)

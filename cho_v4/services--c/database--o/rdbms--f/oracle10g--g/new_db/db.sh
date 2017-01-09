@@ -39,8 +39,9 @@ host /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g/ee--s/produ
 @rdbms/admin/catbundle.sql psu apply;
 @rdbms/admin/utlrp.sql;
 @rdbms/admin/tracetab.sql;
+shutdown immediate
 exit;
 EOF
 
 rm -f /media/storage/as/oracle/data/master/orapwwk10
-ln -s /media/storage/as/oracle/data/master/orapwwk10 /media/storage/as/oracle/conf/_generated
+ln -s /media/storage/as/oracle/conf/_generated/orapwwk10 /media/storage/as/oracle/data/master/    
