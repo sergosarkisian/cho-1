@@ -60,6 +60,8 @@ fi
 mkdir -p /media/storage/as/oracle/logs/create_db
 cd $ORACLE_HOME
 
+! systemctl stop in4__oracle10g
+
 ! sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
 shutdown immediate
@@ -72,6 +74,7 @@ if [[ $App_c2dbForceCreation == "Yes" ]]; then
     . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/in4_oracle_init_logs.sh
 fi
 
+mkdir -p /media/storage/as/oracle/logs/create_db
 sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
 DEFINE sid = $SID
@@ -81,6 +84,17 @@ DEFINE systemPassword = $App_c2dbsysPassword
 host /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g/ee--s/product/10g/bin/orapwd file=/media/storage/as/oracle/data/master/orapw&&sid password=&&sysPassword force=y
 @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/CreateDB.sql;
 @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/CreateDBFiles.sql;
+exit;
+EOF
+
+sleep 5
+
+sqlplus -s -l "/ as sysdba" <<EOF
+set verify off
+DEFINE sid = $SID
+DEFINE characterset = $CHARACTERSET
+DEFINE sysPassword = $App_c2dbsysPassword
+DEFINE systemPassword = $App_c2dbsysPassword
 @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/CreateDBCatalog.sql;
 @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/JServer.sql;
 @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/odm.sql;
@@ -97,6 +111,8 @@ host /media/storage/ts/services--c/database--o/rdbms--f/oracle10g--g/ee--s/produ
 @rdbms/admin/tracetab.sql;
 exit;
 EOF
+
+sleep 5
 
 sqlplus -s -l "/ as sysdba" <<EOF
 set verify off

@@ -165,9 +165,7 @@ case $Task in
                         ;;
                     esac
                 ;;
-                esac
-            ;;
-            
+
                 "app")                 
                     if [[ -z $AppType ]]; then
                         DialogMsg="Please specify application type"
