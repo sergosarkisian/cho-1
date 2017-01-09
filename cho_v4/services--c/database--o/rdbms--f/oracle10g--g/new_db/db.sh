@@ -72,6 +72,7 @@ if [[ $App_c2dbForceCreation == "Yes" ]]; then
     . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/in4_oracle_init_logs.sh
 fi
 
+mkdir -p /media/storage/as/oracle/logs/create_db
 sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
 DEFINE sid = $SID
