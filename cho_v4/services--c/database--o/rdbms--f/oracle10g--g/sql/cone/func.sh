@@ -57,3 +57,25 @@ fi
         ;;
     esac
 }
+
+SchemaImport () {
+        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_schema_tbs.sh
+        App_c2dbPlatform $App_c2dbFqdnSrc
+        
+        echo "App_c2dbSchemeSrc=$App_c2dbSchemeSrc" > /tmp/expdp.env
+        echo "Date=$Date" >> /tmp/expdp.env
+        echo "App_c2dbSchemeECoreImport=$App_c2dbSchemeECoreImport" >> /tmp/expdp.env
+        scp -P1000 /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/7.expdp.sh oracle@$App_c2dbFqdnSrc:/tmp/7.expdp.sh
+        ssh -p1000 oracle@$App_c2dbFqdnSrc export /tmp/expdp.env; sh -x /tmp/7.expdp.sh
+        
+        expPath=$App_c2dbExportPath
+        App_c2dbPlatform $App_c2dbFqdnDst
+        scp -P1000 oracle@$App_c2dbFqdnSrc:$expPath/e$App_c2dbSchemeSrc_$Date.expdp.dump $App_c2dbImportPath/
+        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/8.impdp.sh    
+        cp $App_c2dbTnsPath/tnsnames.ora $App_c2dbTnsPath/tnsnames.ora.bkp
+        TnsName="cc_dst2src.pool" ; HOST="$App_c2dbFqdnSrc" ; PORT="1521" ;
+        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/tnsnames.ora > $App_c2dbTnsPath/tnsnames.ora
+        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_cc.sh        
+        cp $App_c2dbTnsPath/tnsnames.ora.bkp $App_c2dbTnsPath/tnsnames.ora
+        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_post.sh
+}
