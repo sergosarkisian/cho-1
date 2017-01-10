@@ -74,7 +74,7 @@ SnapSchedParse $SnapSched
 
 ### REGISTRED_QGROUP ###
     SnapUnitDigit=1
-    SnapUnitNaming=""
+    SnapUnitNaming="_none_"
     SnapCreateBaseQgroup
 ###
 
