@@ -89,7 +89,7 @@ SnapSchedParse $SnapSched
     SnapUnitNaming="trash"
     SnapCreateBaseQgroup
 ###
-if [[ $SnapMode="manual" ]]; then
+if [[ $SnapMode == "manual" ]]; then
         SnapUnitDigit=$SnapUnitDigitManual
         SnapUnitNaming=$SnapUnitNamingManual
         SnapCreateBaseQgroup
