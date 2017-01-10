@@ -23,8 +23,7 @@ Description		=in4__oracle10g
 ## EXECS ##
 ExecStartPre        = /bin/sh /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/memset_pfile.sh
 ExecStart		= /bin/sh /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/run.sh start
- #ExecStartPre    = sqplus по циклу
-#  ExecStop             = /bin/sh /tmp/run.sh stop
+ExecStartPost    = /bin/sh -x /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/run.sh simplecheck
  ExecStop		= /bin/sh /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/init/run.sh stop
  ExecReload		= /bin/kill -HUP $MAINPID
 

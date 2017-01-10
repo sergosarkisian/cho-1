@@ -21,8 +21,10 @@ if [[ -f $App_c2dbDataPath/ecore.dbf  ]]; then
     if [[ -z $App_c2dbDstSchemaForceCreation ]]; then
         DialogMsg="Oracle database already exists! Recreate?"
         echo $DialogMsg; select App_c2dbDstSchemaForceCreation in Yes No;  do  break ; done;
+        if [[ $App_c2dbDstSchemaForceCreation == "No" ]]; then exit 1; fi        
     fi
-    if [[ $App_c2dbDstSchemaForceCreation == "No" ]]; then exit 1; fi
+else
+    App_c2dbDstSchemaForceCreation="Yes"
 fi
 
 if [[ $App_c2dbDstSchemaForceCreation == "Yes" ]]; then

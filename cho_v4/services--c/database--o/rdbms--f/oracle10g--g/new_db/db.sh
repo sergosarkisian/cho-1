@@ -60,7 +60,7 @@ fi
 mkdir -p /media/storage/as/oracle/logs/create_db
 cd $ORACLE_HOME
 
-! systemctl stop in4__oracle10g
+##! systemctl stop in4__oracle10g ## - BUG - sudo
 
 ! sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
@@ -122,7 +122,7 @@ EOF
 
 if [[ `ps aux|grep "ora_" -c` -gt 1 ]]; then exit 1; fi
 
-systemctl restart in4__oracle10g
+## systemctl restart in4__oracle10g ## - BUG - sudo
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
