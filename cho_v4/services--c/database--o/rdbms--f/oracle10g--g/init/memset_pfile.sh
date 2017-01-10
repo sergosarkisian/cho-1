@@ -8,16 +8,32 @@ PAGESIZE=`getconf PAGESIZE`
 DB_MEM=$(($MEMORY*1024*90/100))
 SHMMAX=$(($DB_MEM*110/100))
 SHMALL=$(($DB_MEM/$PAGESIZE))
-SGA=$(($DB_MEM*80/100))
-PGA=$(($DB_MEM*15/100))
-BUFFERS_32K=$(($SGA*85/100))
+
+if [[ -z $SgaPercentFromDBMEM ]]; then SgaPercentFromDBMEM=80; fi
+
+if [[ -z $PgaFixedMemoryGB ]]; then
+    if [[ -z $PgaPercentFromDBMEM ]]; then PgaPercentFromDBMEM=15; fi
+    SGA=$(($DB_MEM*$SgaPercentFromDBMEM/100))
+    PGA=$(($DB_MEM*$PgaPercentFromDBMEM/100))
+else
+    PGA=$(($PgaFixedMemoryGB*1024*1024*1024))
+    DBMEM_Wo_PGA=$(($DB_MEM-$PGA))
+    SGA=$(($DBMEM_Wo_PGA*$SgaPercentFromDBMEM/100))    
+fi
+
+if [[ -z $Buffers_32KPercentFromSGA ]]; then Buffers_32KPercentFromSGA=85; fi
+BUFFERS_32K=$(($SGA*$Buffers_32KPercentFromSGA/100))    
+
 
 echo "Pagesize is: $PAGESIZE"
 echo "Memory for Oracle: $DB_MEM"
 echo "SHMMAX is: $SHMMAX"
 echo "SHMALL is: $SHMALL"
+echo "SgaPercentFromDBMEM is: $SgaPercentFromDBMEM"
 echo "SGA size is: $SGA"
+echo "PgaPercentFromDBMEM is: $PgaPercentFromDBMEM"
 echo "PGA is: $PGA"
+echo "Buffers_32KPercentFromSGA is: $Buffers_32KPercentFromSGA"
 echo "BUFFERS_32K is: $BUFFERS_32K"
 
 sed -i "s/SHMMAX=.*/SHMMAX=$SHMMAX/" /etc/sysconfig/oracle
