@@ -164,6 +164,7 @@ if [[ $DataDestroy == "Yes_Destroy" ]]; then
     chown -R oracle:oinstall /media/storage/as/oracle/home/
     ###
     
+    btrfs quota enable /media/storage
     . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/in4_oracle_init_snap.sh
     
     
