@@ -45,21 +45,6 @@ ora_environment()
   test -z "$ORACLE_OWNER" && ORACLE_OWNER="oracle"
 
   echo
-
-  # Set Intelligent Agent Start/Stop 
-  AGENT_VERSION="unknown"
-  if [ ! -z "$ORACLE_HOME" -a ! -d "$ORACLE_HOME" ]; then
-    # Oracle 8i
-    AGENT_VERSION="8i"
-    AGENT_HOME=$ORACLE_HOME
-    AGENT_PROG="$ORACLE_HOME/bin/lsnrctl"
-    AGENT_START="$ORACLE_HOME/bin/lsnrctl dbsnmp_start"
-    AGENT_STOP="$ORACLE_HOME/bin/lsnrctl dbsnmp_stop"
-    if [ `$ORACLE_HOME/bin/lsnrctl help | grep -q dbsnmp_start; echo $?` = "0"  -a  ${START_ORACLE_DB_AGENT:-no} = "yes" ]; then
-     echo "${warn}Cannot start agent - Setting START_ORACLE_DB_AGENT = no $norm"
-     START_ORACLE_DB_AGENT="cannot";
-    fi
-  fi
   fi
 
 
@@ -272,12 +257,6 @@ case "$1" in
         fi
       echo -n "    Status of Oracle database(s) start:"
       echo
-
-    echo -n "  - Starting Agent..."
-    if [ "${START_ORACLE_DB_AGENT:-no}" = "yes" ]; then
-       export ORACLE_HOME=$AGENT_HOME TNS_ADMIN=$TNS_ADMIN; $AGENT_START
-       
-    fi
     
     while true; do
         sleep 1000000000
@@ -344,6 +323,7 @@ case "$1" in
     ;;
  simplecheck)
     set -e
+    ora_environment simplecheck
     /usr/bin/sleep 30
    $ORACLE_HOME/bin/sqlplus -l "/ as sysdba" @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/simpletest.sql 
  ;;
