@@ -31,7 +31,10 @@ SnapCreateBaseQgroup () {
         if ! [[ $SnapUnitNaming == "root" ]]; then btrfs qgroup assign $SnapUnitQgroupId  "$SnapUnitDigitRoot/${BTRFS_PATH_ID}0000"  $SNAP_PATH; fi
         SnapQGroupRead  $BTRFS_MOUNT $TMP_QGROUP_LIST
     fi
-    if ! [[ $SnapUnitNaming == "_none_" ]] || ! [[ $SnapUnitNaming == "root" ]] ; then
+    
+    if  [[ $SnapUnitNaming == "_none_" ]] || [[ $SnapUnitNaming == "root" ]] ; then
+        echo "No dirs will be created"
+    else
         if [[ ! -e $SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming ]]; then mkdir -p $SnapUnitQgroupId $SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming; fi        
     fi
 }
