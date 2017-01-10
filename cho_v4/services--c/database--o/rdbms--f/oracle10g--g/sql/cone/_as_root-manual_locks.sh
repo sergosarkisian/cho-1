@@ -5,6 +5,11 @@ rm -rf /media/storage/as/oracle/cone/plsql_compile/ && mkdir -p /media/storage/a
 wget http://public.edss.ee/software/Linux/Oracle/cone_locks_in4.tar.gz
 tar -xzf ./cone_locks_in4.tar.gz
 
+chown -R oracle:oinstall /media/storage/as/oracle/cone/plsql_compile
+setfacl -R -m u:oracle:rwx /media/storage/as/oracle/cone/plsql_compile
+setfacl -R -m d:u:oracle:rwx /media/storage/as/oracle/cone/plsql_compile
+setfacl -R -m g:oinstall:rwx /media/storage/as/oracle/cone/plsql_compile
+setfacl -R -m d:g:oinstall:rwx /media/storage/as/oracle/cone/plsql_compile
 su - oracle 
 
 sqlplus / as SYSDBA
