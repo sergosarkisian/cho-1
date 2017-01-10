@@ -74,6 +74,7 @@ session_cached_cursors=50
 db_files=200
 
 db_recycle_cache_size=512M
+sort_area_size=120M
 
 pga_aggregate_target={PGA}
 sga_max_size={SGA}
