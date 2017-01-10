@@ -322,8 +322,8 @@ case "$1" in
     ps ax | grep oracm | grep -v grep
     ;;
  simplecheck)
-    set -e
     ora_environment simplecheck
+    set -e
     /usr/bin/sleep 30
    $ORACLE_HOME/bin/sqlplus -l "/ as sysdba" @/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/simpletest.sql 
  ;;
