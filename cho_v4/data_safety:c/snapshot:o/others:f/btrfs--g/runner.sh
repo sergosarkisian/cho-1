@@ -45,6 +45,16 @@ case $SnapMode in
         SnapOk
     done 
     ;;
+    "app")                
+    for SNAP_TASK in /media/sysdata/app/btrfs_snap/*/*; do
+        . $SNAP_TASK
+        SnapMode="app"
+        SnapStartTime=`date +%s`
+        time . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snap_manager.sh	
+        SnapEndTime=`date +%s`
+        SnapOk
+    done 
+    ;;    
 esac
 
 ### IN4 BASH FOOTER ###

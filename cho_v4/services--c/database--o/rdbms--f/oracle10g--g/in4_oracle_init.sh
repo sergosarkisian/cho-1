@@ -162,8 +162,10 @@ if [[ $DataDestroy == "Yes_Destroy" ]]; then
     chmod 700 /media/storage/as/oracle/home/.ssh/
     chmod 600 /media/storage/as/oracle/home/.ssh/*
     chown -R oracle:oinstall /media/storage/as/oracle/home/
-    
     ###
+    
+    . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/in4_oracle_init_snap.sh
+    
     
 fi
 

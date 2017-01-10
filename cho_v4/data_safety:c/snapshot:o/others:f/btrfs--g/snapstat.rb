@@ -1,6 +1,6 @@
 #!/bin/ruby
 mountpoint = ARGV[0]
-%x(btrfs quota rescan -w  #{mountpoint)
+%x(btrfs quota rescan -w  #{mountpoint})
 qList=%x(btrfs qgroup show -pcre --gbytes #{mountpoint}|awk '{print $1", "$6", "$7", "$2", "$3}'|grep iB).split("\n")
 subList=%x(btrfs subvolume list #{mountpoint}|awk '{print $2", "$7", "$9}').split("\n")
 subListHash = Hash.new
@@ -38,7 +38,6 @@ qListHash[0].each do |k,v|
             puts "\n"
             puts formatPath % ['## Category', 'ID', 'Shared', 'Excl']
             snapUnitDigit=1
-            puts qListHash
             if qListHash.key?(snapUnitDigit) 
                 puts formatSpace % ["Registred", "", qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["rfer"], qListHash[snapUnitDigit]["#{snapBaseID}0000".to_i]["excl"]] if qListHash[snapUnitDigit].key?("#{snapBaseID}0000".to_i)
             end
