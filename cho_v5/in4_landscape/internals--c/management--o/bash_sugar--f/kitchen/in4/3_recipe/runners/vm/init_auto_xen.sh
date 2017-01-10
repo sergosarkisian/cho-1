@@ -3,6 +3,9 @@
 if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then  
 . /media/sysdata/in4/cho/in4_core/internals/helpers/in4func.sh       
         
+        btrfs filesystem resize max / 
+        btrfs filesystem resize max /media/sysdata/
+
         ### /dev/xvd* blacklisting   ###
         in4func_cp "internals--c--linux_sys--o--boot--f--dracut--g--main--s" "simple/51-block-xenvm_blacklist.conf" "/etc/modprobe.d/"
         depmod `ls -la /boot/vmlinuz|awk '{print $11}'|sed 's/vmlinuz-//'`

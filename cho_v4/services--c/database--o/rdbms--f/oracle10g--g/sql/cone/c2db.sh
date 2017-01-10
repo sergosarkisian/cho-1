@@ -22,7 +22,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 
 if ! [[ `id -un` == "oracle" ]]; then echo "Please run as 'oracle' user! Exit."; exit 1; fi
-if ! [[ `systemctl is-active in4__oracle10g.service` == "active" ]]; then echo "Please run oracle service - 'systemctl restart in4__oracle10g' "; exit 1; fi
+#if ! [[ `systemctl is-active in4__oracle10g.service` == "active" ]]; then echo "Please run oracle service - 'systemctl restart in4__oracle10g' "; exit 1; fi ## BUG
 
 
 Date=`date +%Y_%m_%d_%H-%M-%S`
