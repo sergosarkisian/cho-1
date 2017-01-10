@@ -34,7 +34,7 @@ end
 qListHash[0].each do |k,v|
     if subListHash.key?(k) 
         if not (subListHash[k]["snappath"] == 0)
-            snapBasePath="#{mountpoint}#{subListHash[k]["relpath"].chomp("_snap")}"
+            snapBasePath="#{mountpoint}/#{subListHash[k]["relpath"].chomp("_snap")}"
             snapBaseID=%x(btrfs subvolume show #{snapBasePath}|grep "Subvolume ID:"|awk '{print $3}').to_i
             puts "\n###########################################################################################"
             puts formatPath % ['## Path', 'ID', '1', '2']
