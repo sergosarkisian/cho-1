@@ -35,7 +35,7 @@ SnapCreateBaseQgroup () {
     if  [[ $SnapUnitNaming == "_none_" ]] || [[ $SnapUnitNaming == "root" ]] ; then
         echo "No dirs will be created"
     else
-        if [[ ! -e $SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming ]]; then mkdir -p $SnapUnitQgroupId $SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming; fi        
+        if [[ ! -e $SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming ]]; then mkdir -p $SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming; fi        
     fi
 }
 
