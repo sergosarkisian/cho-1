@@ -1,7 +1,17 @@
 #!/bin/ruby
 require 'open3'
 mountpoint = ARGV[0]
-%x(btrfs quota rescan -w  #{mountpoint})
+
+if not mountpoint =~/\//
+    puts "Please enter a mountpoint"
+    abort
+end
+
+rescan = ARGV[1]
+if rescan == "Yes"
+    %x(btrfs quota rescan -w  #{mountpoint})
+end
+
 qList=%x(btrfs qgroup show -pcre --gbytes #{mountpoint}|awk '{print $1", "$6", "$7", "$2", "$3}'|grep iB).split("\n")
 subList=%x(btrfs subvolume list #{mountpoint}|awk '{print $2", "$7", "$9}').split("\n")
 subListHash = Hash.new

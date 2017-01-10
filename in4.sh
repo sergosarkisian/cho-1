@@ -204,7 +204,12 @@ case $Task in
                 else            
                 SnapMountpoint=$TaskVars
                 fi
-                ruby /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snapstat.rb $SnapMountpoint
+                if [[ -z $SnapStatRescan ]]; then
+                        DialogMsg="Rescan statistics (caused to high CPU & Disk load)?"   
+                        echo $DialogMsg; select SnapStatRescan in Yes No;  do  break ; done
+                fi;
+                        
+                ruby /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snapstat.rb $SnapMountpoint $SnapStatRescan
             ;;                
             "snaprestore" )
                 if [[ -z $TaskVars ]]; then
