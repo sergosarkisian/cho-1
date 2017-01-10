@@ -46,6 +46,13 @@ if [[ -f /etc/systemd/system/init_auto_xen.service ]]; then
 		#dns
 		echo "search s.pool" > /etc/resolv.conf
 		echo "nameserver $GATE" >> /etc/resolv.conf
+
+                echo "PROXY_ENABLED=\"yes\"" > /etc/sysconfig/proxy
+                echo "HTTP_PROXY=\"http://x:55555\"" >> /etc/sysconfig/proxy
+                echo "HTTPS_PROXY=\"http://x:55555\"" >> /etc/sysconfig/proxy                                                                                                                                                                                                                                                                                                                                       
+                echo "FTP_PROXY=\"http://x:55555\"" >> /etc/sysconfig/proxy                                                                                                                                                                                                                                                                                                                                                                                                         
+                echo "NO_PROXY=\"localhost, 127.0.0.1, .ccm, .pool\"" >> /etc/sysconfig/proxy                              
+
         fi
 	systemctl disable init_auto_xen
         rm -f  /etc/systemd/system/init_auto_xen.service

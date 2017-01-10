@@ -19,6 +19,7 @@ else
     #VM_DISK_STORAGE_SIZE=$VM_DISK_STORAGE_SIZE
     #fallocate -l `cat $SVN_CONF_PATH|grep "VM_DISK_STORAGE_SIZE"|cut -d= -f2` $VM_DISK_FULL_PATH/storage.raw
     fallocate -l  ${VM_DISK_STORAGE_SIZE_OVERALL}G $VM_DISK_FULL_PATH/storage.raw
+    mkfs.btrfs -f -L "storage" $VM_DISK_FULL_PATH/storage.raw
     fallocate -l 1G $VM_DISK_FULL_PATH/storage_meta.raw
     sleep 1
     xl create  /tmp/$SrvName.xl
