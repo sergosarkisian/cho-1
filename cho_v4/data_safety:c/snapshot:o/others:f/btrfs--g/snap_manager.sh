@@ -133,7 +133,7 @@ elif ! [[ -z ${SnapSchedArray[m]} ]]; then
         SnapUnitPath="$SNAP_PATH/$SnapUnitDigit.$SnapUnitNaming/${SnapUnitTimingCriteria}*"
 fi
    
-if ! [[ $SnapMode="manual" ]]; then
+if ! [[ $SnapMode == "manual" ]]; then
    
     SnapUnsorted=`ls $SNAP_PATH/$SnapUnitDigitUnsorted.$SnapUnitNamingUnsorted/|tail -n1`
     if [[ -n "$SnapUnsorted" ]]; then
