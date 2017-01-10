@@ -29,6 +29,7 @@ TMP_SUB_LIST="/tmp/btrfs_${BTRFS_LABEL}_sub_all"
 TMP_QGROUP_LIST_EMPTY="/tmp/btrfs_${BTRFS_LABEL}_qgroup_all_empty"
 BTRFS_PATH_ID=`btrfs subvolume show $SnapDirPath|grep "Subvolume ID:"|awk '{print $3}'`
 SNAP_PATH="${SnapDirPath}_snap"
+mkdir -p $SNAP_PATH
 BTRFS_DEV=`btrfs filesystem show $BTRFS_LABEL|grep "/dev/"|awk '{print $8}'`
 BTRFS_MOUNT=`mount|grep $BTRFS_DEV -m1|awk '{print $3"/"}'`
 if [[ $BTRFS_MOUNT == "//" ]]; then  BTRFS_MOUNT="/";  fi
