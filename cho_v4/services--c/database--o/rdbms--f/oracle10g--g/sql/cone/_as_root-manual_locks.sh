@@ -5,8 +5,6 @@ rm -rf /media/storage/as/oracle/cone/plsql_compile/ && mkdir -p /media/storage/a
 wget http://public.edss.ee/software/Linux/Oracle/cone_locks_in4.tar.gz
 tar -xzf ./cone_locks_in4.tar.gz
 
-
-
 su - oracle 
 
 sqlplus / as SYSDBA

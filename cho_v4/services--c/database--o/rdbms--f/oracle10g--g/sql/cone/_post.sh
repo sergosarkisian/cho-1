@@ -34,6 +34,16 @@ DEFINE eschemePassword = $eschemePassword
  exit;
 EOF
 
+if [[ $App_c2dbSchemeECoreImport == "Yes" ]]; then
+sqlplus -s -l "/ as sysdba" <<EOF
+set verify off
+DEFINE logPath = $App_c2dbLogPath
+DEFINE scheme_uc = core
+DEFINE sysPassword = $sysPassword
+@/media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/14.post.sql
+ exit;
+EOF
+fi
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
