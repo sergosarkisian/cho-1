@@ -37,7 +37,7 @@ if [[ $DataDestroy == "Yes_Destroy" ]]; then
 
     ### TMP ###
     ! zypper ar -cf http://download.opensuse.org/repositories/filesystems/openSUSE_Leap_42.2/filesystems.repo
-    zypper --gpg-auto-import-keys dup
+    zypper --non-interactive  --gpg-auto-import-keys dup
     ###
 
     ### ZYPPER  ###
@@ -66,7 +66,7 @@ if [[ $DataDestroy == "Yes_Destroy" ]]; then
 
     #logs
     btrfs subvolume create /media/storage/as/oracle/logs
-
+    . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/in4_oracle_init_logs.sh
     #
 
     #conf
