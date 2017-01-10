@@ -216,7 +216,7 @@ case $Task in
                     DialogMsg="\n### Please specify mountpoint ###"   
                     echo -e $DialogMsg; select SnapMountpoint in `mount|grep btrfs|awk '{print $3}'`;  do  break ; done
                     DialogMsg="\n###  Please specify path to restore ###"   
-                    echo -e $DialogMsg; select SnapDirPathWoMounpoint in `btrfs subvolume list /media/storage|grep snap$|awk '{print $9}'|sed  "s/_snap$//"`;  do  break ; done              
+                    echo -e $DialogMsg; select SnapDirPathWoMounpoint in `btrfs subvolume list /media/storage|grep "_snap/"|awk '{print $9}'|sed  "s/_snap\/.*//"|uniq`;  do  break ; done              
                     SnapDirPath=$SnapMountpoint/$SnapDirPathWoMounpoint
                 else
                     SnapDirPath=$TaskVars
