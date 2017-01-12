@@ -24,7 +24,7 @@ cp --sparse=always $BuildEnv/swap.raw $BuildEnv/../
 
 VMPATH=$(echo "$BuildEnv" | sed 's/\//\\\//g')
 
-. /media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/bash_sugar--f/in4/dsl/main--s/engine/internals/deploy/in4_bash/os/vm_xen/run/4.run/vm_tmpl.xl > /tmp/demo.xl
+. /media/sysdata/in4/cho/in4_core/internals/deploy/in4_bash/os/vm_xen/build/3.env/demo.xl > /tmp/demo.xl
 sudo xl create /tmp/demo.xl
 DOMID=`sudo xl domid demo-hvxen-test`
 
