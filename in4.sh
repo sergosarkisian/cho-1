@@ -64,7 +64,8 @@ case $Task in
 
                 if [[ -z $OsBuildGitTag ]]; then
                     DialogMsg="Please specify GIT tag for build type: "
-                    echo $DialogMsg; select  OsBuildGitTag in `git  -C $GitPath name-rev --tags --name-only $(git  -C $GitPath rev-parse HEAD)` ;  do  break ; done;
+                    #echo $DialogMsg; select  OsBuildGitTag in `git  -C $GitPath name-rev --tags --name-only $(git  -C $GitPath rev-parse HEAD)` ;  do  break ; done;
+                    echo $DialogMsg; select  OsBuildGitTag in v0.1 ;  do  break ; done;                    
                 fi                
                 OsBuildDate=`date +"w"%W"y"%y`
                 OsBuild="$OsBuildDate-$OsBuildGitTag-in4"
