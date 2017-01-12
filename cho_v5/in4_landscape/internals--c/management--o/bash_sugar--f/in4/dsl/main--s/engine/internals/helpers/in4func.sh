@@ -76,7 +76,7 @@ in4func_Zypper () {
         if [[ $OfflineCliMode == "Yes" ]]; then
             echo "$Prefix zypper $ZypperArgsOffline ${PackagesLines}" && $Prefix zypper $ZypperArgsOffline ${PackagesLines}        
         elif  [[ $OfflineBuildMode == "Yes" ]]; then
-            echo "$Prefix zypper $ZypperArgsOffline ${PackagesLines}" && ! $Prefix zypper $ZypperArgsOffline ${PackagesLines}
+            echo "non-blocking $Prefix zypper $ZypperArgsOffline ${PackagesLines}" && ! $Prefix zypper $ZypperArgsOffline ${PackagesLines}
             echo "$Prefix zypper $ZypperArgsAltOnline ${PackagesLines}"  && $Prefix zypper $ZypperArgsAltOnline ${PackagesLines}
         else
             echo "$Prefix zypper $ZypperArgsOnline ${PackagesLines}" && $Prefix zypper $ZypperArgsOnline ${PackagesLines}
@@ -97,7 +97,8 @@ in4func_ZypperRepo () {
         if [[ $OfflineCliMode == "Yes" ]]; then
             echo "Offline mode, all repos are cached"
         elif  [[ $OfflineBuildMode == "Yes" ]]; then
-            echo "zypper $ZypperRepoArgsOnline $ZypperRepoURI" && ! zypper $ZypperRepoArgsOnline $ZypperRepoURI
+            echo "non-blocking zypper $ZypperRepoArgsOnline $ZypperRepoURI" && ! zypper $ZypperRepoArgsOnline $ZypperRepoURI
+            echo "#" ### FIX FOR "!" SELF_EXIT
         else
             echo "zypper $ZypperRepoArgsOnline $ZypperRepoURI" && zypper $ZypperRepoArgsOnline $ZypperRepoURI
         fi      
