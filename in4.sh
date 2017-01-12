@@ -68,7 +68,7 @@ case $Task in
                     echo $DialogMsg; select  OsBuildGitTag in v0.1 ;  do  break ; done;                    
                 fi                
                 OsBuildDate=`date +"w"%W"y"%y`
-                OsBuildGitTagWoDot=`echo $OsBuildGitTag|sed -e "s/./_/"`
+                OsBuildGitTagWoDot=`echo $OsBuildGitTag|sed -e "s/\./_/"`
                 OsBuild="$OsBuildDate-$OsBuildGitTagWoDot-in4"
                 
                 ### vm_xen ###
