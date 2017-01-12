@@ -54,6 +54,7 @@ case $Task in
                     DialogMsg="Please specify OS release"   
                     echo $DialogMsg; select OsRelease in 42_2;  do  break ; done;
                 fi
+                OsReleaseWDot=`echo $OsRelease|sed -e "s/_/\./"`
                 
                 OsSrvType="$OsRelease-$OsVendor-l"
 
