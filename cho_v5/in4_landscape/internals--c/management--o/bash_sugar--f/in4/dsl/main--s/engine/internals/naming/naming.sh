@@ -67,7 +67,7 @@ if [[ $naming_view == "os" ]]; then
 	OsBuildDate=`echo $OsBuild|cut -d "-" -f 1`
 	OsBuildDateYear=`echo $OsBuildDate|cut -d "y" -f 2`		
 	OsBuildDateWeek=`echo $OsBuildDate|cut -d "y" -f 1|cut -d "w" -f 2`	
-	OsBuildTag=`echo $OsBuild|cut -d "-" -f 2`
+	OsBuildGitTag=`echo $OsBuild|cut -d "-" -f 2`
 	OsBuildArch=`echo $OsBuild|cut -d "-" -f 3`	
 	SrvName=${dot_arr[0]}
 	MACIP=${hyp_arr[0]}

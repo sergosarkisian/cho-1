@@ -19,8 +19,8 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 ### DISK INIT ###
 rm -f $BuildEnv/*.raw
-fallocate -l$VmDiskSizeSystem $BuildEnv/$In4NamingOsSrvType.raw
-sudo mkfs.btrfs -f -L "system" $BuildEnv/$In4NamingOsSrvType.raw 
+fallocate -l$VmDiskSizeSystem $BuildEnv/${OsBuild}_${OsSrvType}.raw
+sudo mkfs.btrfs -f -L "system" $BuildEnv/${OsBuild}_${OsSrvType}.raw 
 
 fallocate -l $VmDiskSizeSysdata $BuildEnv/sysdata.raw
 sudo mkfs.btrfs -f -L "sysdata" $BuildEnv/sysdata.raw
@@ -30,7 +30,7 @@ sudo mkswap -f -L "swap" $BuildEnv/swap.raw
  ###
  
  ### GENERATE LOOP MOUNT & UNTAR ###
-sudo losetup /dev/$VmDiskLoopSystem $BuildEnv/$In4NamingOsSrvType.raw
+sudo losetup /dev/$VmDiskLoopSystem $BuildEnv/${OsBuild}_${OsSrvType}.raw
 sudo mount /dev/$VmDiskLoopSystem  $BuildEnv/loop/
 
  ### 

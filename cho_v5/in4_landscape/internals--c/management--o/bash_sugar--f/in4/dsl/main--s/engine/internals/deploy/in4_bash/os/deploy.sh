@@ -20,7 +20,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 #echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 if [[ $RunType == "prod" ]]; then
-    if [[ $DeployOsMode == "vm_xen" ]]; then BuildEnv="$VMImageDir/$In4NamingOsSrvType/_os_build"; fi
+    if [[ $DeployOsMode == "vm_xen" ]]; then BuildEnv="$VMImageDir/${OsBuild}_${OsSrvType}/_os_build"; fi
     if [[ $DeployOsMode == "hw_chroot" ]] ||  [[ $DeployOsMode == "hw_bootdrive" ]] ; then BuildEnv="/media/sysdata/_os_build"; fi    
 else
     BuildEnv="`pwd`/_os_build"
@@ -32,8 +32,9 @@ if [[ $DeployOsMode == "vm_xen" ]]; then
     . $In4_Exec_Path/build_env.sh
     . $In4_Exec_Path/_base/build/1.init/clean.sh
 
-    if [[ -f $BuildEnv/../$In4NamingOsSrvType.raw  ]]; then
-        echo "Build image exists, run "
+    if [[ -f $BuildEnv/../${OsBuild}_${OsSrvType}.raw  ]]; then
+        echo "Build image exists, checking build date"
+        
         if [[ -z $In4ImageRedeploy ]]; then
             DialogMsg="Redeploy?"
             echo $DialogMsg; select  In4ImageRedeploy in N Y ;  do  break ; done;

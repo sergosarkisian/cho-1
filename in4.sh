@@ -54,10 +54,19 @@ case $Task in
                     echo $DialogMsg; select OsRelease in 42_2;  do  break ; done;
                 fi
                 
-                if [[ -z $DeployOsArch ]]; then
+                OsSrvType="$OsRelease-$OsVendor-l"
+
+                if [[ -z $OsArch ]]; then
                     DialogMsg="Please specify platform arch"   
-                    echo $DialogMsg; select DeployOsArch in x86_64  i586 armv7l;  do  break ; done;
+                    echo $DialogMsg; select OsArch in x86_64  i586 armv7l;  do  break ; done;
                 fi                
+
+                if [[ -z $OsBuildGitTag ]]; then
+                    DialogMsg="Please specify server type: "
+                    echo $DialogMsg; select  OsBuildGitTag in `git name-rev --tags --name-only $(git rev-parse HEAD)` ;  do  break ; done;
+                fi                
+                OsBuildDate=`date +"w"%W"y"%y`
+                OsBuild="$OsBuildDate-$OsBuildGitTag-in4"
                 
                 ### vm_xen ###
                     
@@ -75,11 +84,6 @@ case $Task in
                     if [[ -z $VMImageDir ]]; then
                         DialogMsg="Please specify VM image path name"
                         echo $DialogMsg; select VMImageDir in /media/storage1/images/!master /media/storage/images/!master `pwd`;  do  break ; done
-                    fi
-                    
-                    if [[ -z $In4NamingOsSrvType ]]; then
-                        DialogMsg="Please specify server type: "
-                        echo $DialogMsg; select  In4NamingOsSrvType in in4a1-suse-l ;  do  break ; done;
                     fi
 
                 fi

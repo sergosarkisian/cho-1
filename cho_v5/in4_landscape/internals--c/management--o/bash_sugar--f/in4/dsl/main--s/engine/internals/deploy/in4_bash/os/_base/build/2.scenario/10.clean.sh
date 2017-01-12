@@ -7,20 +7,19 @@ zypper mr -K -a
 
 ### OS BUILD TAG ###
 echo "#" > /etc/in4-release
+echo "GitPath=$GitPath" >> $BuildEnv/loop/tmp/in4_env.sh
+OsBuildDate=`date +"w"%W"y"%y`
+echo "OsBuildDate=\"$OsBuildDate\"" >> /etc/in4-release
+OsBuildDate=`date +%d.%m.%y_w%W_%H:%M:%S`
+echo "OsBuildDateFull=\"$OsBuildDate\"" >> /etc/in4-release
 
-In4BuildWeek=`date +"w"%W"y"%y`
-echo "In4BuildWeek=\"$In4BuildWeek\"" >> /etc/in4-release
-In4BuildDate=`date +%d.%m.%y_w%W_%H:%M:%S`
-echo "In4BuildDate=\"$In4BuildDate\"" >> /etc/in4-release
-
-In4BuildGitBranch=`git rev-parse --abbrev-ref HEAD`
-echo "In4BuildGitBranch=\"$In4BuildGitBranch\"" >> /etc/in4-release
-In4BuildGitHash=`git rev-parse HEAD`
-echo "In4BuildGitHash=\"$In4BuildGitHash\"" >> /etc/in4-release
-In4BuildGitHashShort=`git rev-parse --short HEAD`
-echo "In4BuildGitHashShort=\"$In4BuildGitHashShort\"" >> /etc/in4-release
-In4BuildGitTag=`git name-rev --tags --name-only $(git rev-parse HEAD)`
-echo "In4BuildGitTag=\"$In4BuildGitTag\"" >> /etc/in4-release
+OsBuildGitBranch=`git -C $GitPath rev-parse --abbrev-ref HEAD`
+echo "OsBuildGitBranch=\"$OsBuildGitBranch\"" >> /etc/in4-release
+OsBuildGitHash=`git -C $GitPath rev-parse HEAD`
+echo "OsBuildGitHash=\"$OsBuildGitHash\"" >> /etc/in4-release
+OsBuildGitHashShort=`git -C $GitPath rev-parse --short HEAD`
+echo "OsBuildGitHashShort=\"$OsBuildGitHashShort\"" >> /etc/in4-release
+echo "OsBuildGitTag=\"$OsBuildTag\"" >> /etc/in4-release
 echo "#" >> /etc/in4-release
 
 ###

@@ -1,6 +1,7 @@
 #!/bin/bash
 GitRepoStable="https://github.com/conecenter/cho.git"
 GitRepoDev="https://github.com/eistomin/cho.git"
+GitPath="/media/sysdata/in4/cho"
 VmDiskLoopSystem="loop60"
 VmDiskLoopSysdata="loop61"
 VmDiskSizeSystem="1500m"

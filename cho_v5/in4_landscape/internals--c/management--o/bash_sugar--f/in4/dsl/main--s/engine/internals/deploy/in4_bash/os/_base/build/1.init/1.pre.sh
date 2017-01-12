@@ -32,8 +32,8 @@ mkdir -p $BuildEnv/loop && cd $BuildEnv
 ### docker image URI ###
 
 case $OsVendor in
-    "openSUSE")
-        OsImageFilename="openSUSE-$OsRelease-docker-guest-docker.$DeployOsArch.tar.xz"
+    "opensuse")
+        OsImageFilename="openSUSE-$OsRelease-docker-guest-docker.$OsArch.tar.xz"
         OsImageURI="http://download.opensuse.org/repositories/Virtualization:/containers:/images:/openSUSE-$OsRelease/images/$OsImageFilename"
     ;;
 esac

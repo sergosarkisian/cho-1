@@ -27,9 +27,9 @@ sudo cp /etc/resolv.conf $BuildEnv/loop/etc/
 ! sudo cp /etc/sysconfig/proxy $BuildEnv/loop/etc/sysconfig/
 sudo chmod 744  $BuildEnv/loop/etc/sysconfig/
  ### 
+ 
+ 
 GitPath="$BuildEnv/loop/media/sysdata/in4/cho"
- 
- 
  ### GIT INIT ###
  if [[ $OfflineCliMode == "Yes" ]]; then
     if [[ -d /media/sysdata/in4/cho ]]; then
@@ -38,6 +38,7 @@ GitPath="$BuildEnv/loop/media/sysdata/in4/cho"
         sudo git  -C $GitPath remote add origin $GitRepoStable
         sudo git  -C $GitPath remote add dev $GitRepoDev
         sudo git  -C $GitPath config core.filemode false
+        sudo git  -C $GitPath checkout tags/$OsBuildGitTag
     fi
 else
     sudo mkdir -p  $BuildEnv/loop/media/sysdata/in4 
@@ -45,6 +46,7 @@ else
     sudo git -C $GitPath remote add dev $GitRepoDev  
     sudo git  -C $GitPath fetch dev    
     sudo git -C $GitPath config core.filemode false
+    sudo git  -C $GitPath checkout tags/$OsBuildGitTag
 fi     
 
 if [[ $RunType == "dev" ]]; then
@@ -60,9 +62,12 @@ sudo mount -t proc proc $BuildEnv/loop/proc/ &&  sudo mount -t sysfs sys $BuildE
 
 ### ENV ##
 echo "#!/bin/bash" > $BuildEnv/loop/tmp/in4_env.sh
+echo "GitPath=\"/media/sysdata/in4/cho\"" >> $BuildEnv/loop/tmp/in4_env.sh
 echo "In4_Exec_Path=\"$In4_Exec_Path\"" >> $BuildEnv/loop/tmp/in4_env.sh
 echo "OsVendor=\"$OsVendor\"" >> $BuildEnv/loop/tmp/in4_env.sh
 echo "OsRelease=\"$OsRelease\"" >> $BuildEnv/loop/tmp/in4_env.sh
+echo "OsBuildGitTag=\"$OsBuildGitTag\"" >> $BuildEnv/loop/tmp/in4_env.sh
+
 echo "OfflineCliMode=\"$OfflineCliMode\"" >> $BuildEnv/loop/tmp/in4_env.sh
 echo "OfflineBuildMode=\"$OfflineBuildMode\"" >> $BuildEnv/loop/tmp/in4_env.sh
 echo "OfflineBuildDir=\"$OfflineBuildDir\"" >> $BuildEnv/loop/tmp/in4_env.sh

@@ -30,7 +30,7 @@ fi
 ###     5 -  OsBuild   ###
 if [[ -z $OsBuild ]]; then
     export $(cat /etc/in4-release | xargs);
-    OsBuild="$In4BuildWeek-$In4BuildGitTag-in4"
+    OsBuild="$OsBuildDate-$OsBuildGitTag-in4"
 fi
 ###
 
