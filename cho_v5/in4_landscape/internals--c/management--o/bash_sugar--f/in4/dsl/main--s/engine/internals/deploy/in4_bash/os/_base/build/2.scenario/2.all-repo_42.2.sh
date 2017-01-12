@@ -19,9 +19,11 @@ echo -e "\n\n########  $LogMsg  ########\n\n";
 
 ### ZYPPER ###
 rm -rf /etc/zypp/repos.d/*
-! cp -r /etc/zypp/repos.d_offline/* /etc/zypp/repos.d/
+if [[ -d /etc/zypp/repos.d_offline ]]; then
+    cp -r /etc/zypp/repos.d_offline/* /etc/zypp/repos.d/
+fi
 
-if ! find /etc/zypp/repos.d/ -type f -name '*.repo'| read; then
+#if ! find /etc/zypp/repos.d/ -type f -name '*.repo'| read; then
 ### 42.2###
     in4func_ZypperRepo add  "http://download.opensuse.org/repositories/openSUSE:/Leap:/42.2/standard standard::leap42.2"
     in4func_ZypperRepo add  "http://download.opensuse.org/update/leap/42.2/oss update_oss::leap42.2"
@@ -31,7 +33,7 @@ if ! find /etc/zypp/repos.d/ -type f -name '*.repo'| read; then
     in4func_ZypperRepo add  http://download.opensuse.org/repositories/Kernel:/openSUSE-42.2/standard/Kernel:openSUSE-42.2.repo
     in4func_ZypperRepo add  http://download.opensuse.org/repositories/network/openSUSE_Leap_42.2/network.repo
     in4func_ZypperRepo add  http://download.opensuse.org/repositories/shells/openSUSE_Leap_42.2/shells.repo
-fi
+#fi
 
 
 ### IN4 BASH FOOTER ###
