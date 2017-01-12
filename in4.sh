@@ -38,7 +38,8 @@ case $Task in
         
         case $DeployType in
             "os") 
-                In4_Exec_Path="/media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/bash_sugar--f/in4/dsl/main--s/engine/internals/deploy/in4_bash/os"
+                In4_Exec_Path="/media/sysdata/in4/cho/in4_core/internals/deploy/in4_bash/os"
+                . $In4_Exec_Path/build_env.sh
                 if [[ -z $DeployOsMode ]]; then
                     DialogMsg="Please specify deploy OS mode"
                     echo $DialogMsg; select DeployOsMode in container_docker vm_xen hw_chroot hw_bootdrive;  do  break ; done
