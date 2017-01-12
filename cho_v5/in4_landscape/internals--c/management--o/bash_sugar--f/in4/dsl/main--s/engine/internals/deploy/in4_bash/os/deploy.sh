@@ -35,21 +35,24 @@ if [[ $DeployOsMode == "vm_xen" ]]; then
     if [[ -f $BuildEnv/../${OsBuild}_${OsSrvType}.raw  ]]; then
         echo "Build image exists, checking build date"
         
+        OsBuildDate=w02y17
+        OsBuildDateWeek=`echo $OsBuildDate|cut -d "y" -f 1|cut -d "w" -f 2`	
+
+        if [[ $OsBuildDate -gt $OsBuildDateWeek ]]; then In4ImageRedeploy="Yes"; fi
+        
         if [[ -z $In4ImageRedeploy ]]; then
-            DialogMsg="Redeploy?"
-            echo $DialogMsg; select  In4ImageRedeploy in N Y ;  do  break ; done;
+            DialogMsg="Image is up-to-date, force redeploy?"
+            echo $DialogMsg; select  In4ImageRedeploy in Yes No ;  do  break ; done;
         fi   
-        
-        if [[ $In4ImageRedeploy == "Y" ]]; then
-           time . $In4_Exec_Path/build.sh
-        fi
-        . $In4_Exec_Path/run.sh
-        
     else
-        echo "Build image not exists, build "
-       time . $In4_Exec_Path/build.sh
-        . $In4_Exec_Path/run.sh
+        In4ImageRedeploy="Yes"
     fi
+    
+    if [[ $In4ImageRedeploy == "Yes" ]]; then
+        time . $In4_Exec_Path/build.sh
+    fi
+    . $In4_Exec_Path/run.sh
+    
 fi
 
 if [[ $DeployOsMode == "hw_chroot" ]] || [[ $DeployOsMode == "hw_bootdrive" ]]; then
