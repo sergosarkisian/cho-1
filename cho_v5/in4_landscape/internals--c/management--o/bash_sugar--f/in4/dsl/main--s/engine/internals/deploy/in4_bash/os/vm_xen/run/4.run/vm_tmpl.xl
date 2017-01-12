@@ -37,7 +37,7 @@ on_crash = 'restart'
 ##                                                                                                                                                             
 
 disk=[
-'vdev=sda, target=/media/storage1/images/in4/$VM_DISK_PATH/$In4NamingOsSrvType.raw',
+'vdev=sda, target=/media/storage1/images/in4/$VM_DISK_PATH/${OsBuild}_${OsSrvType}.raw',
 'vdev=sdb, target=/media/storage1/images/in4/$VM_DISK_PATH/swap.raw',
 'vdev=sdc, target=/media/storage1/images/in4/$VM_DISK_PATH/sysdata.raw',
 #VM_DISK_STORAGE_SIZE=$VM_DISK_STORAGE_SIZE

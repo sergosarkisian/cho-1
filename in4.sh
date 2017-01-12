@@ -38,7 +38,8 @@ case $Task in
         
         case $DeployType in
             "os") 
-                In4_Exec_Path="/media/sysdata/in4/cho/cho_v5/in4_landscape/internals--c/management--o/bash_sugar--f/in4/dsl/main--s/engine/internals/deploy/in4_bash/os"
+                In4_Exec_Path="/media/sysdata/in4/cho/in4_core/internals/deploy/in4_bash/os"
+                . $In4_Exec_Path/build_env.sh
                 if [[ -z $DeployOsMode ]]; then
                     DialogMsg="Please specify deploy OS mode"
                     echo $DialogMsg; select DeployOsMode in container_docker vm_xen hw_chroot hw_bootdrive;  do  break ; done
@@ -46,18 +47,30 @@ case $Task in
                 
                 if [[ -z $OsVendor ]]; then
                     DialogMsg="Please specify OS vendor"   
-                    echo $DialogMsg; select OsVendor in openSUSE;  do  break ; done;
+                    echo $DialogMsg; select OsVendor in opensuse;  do  break ; done;
                 fi
 
                 if [[ -z $OsRelease ]]; then
                     DialogMsg="Please specify OS release"   
-                    echo $DialogMsg; select OsRelease in 42.2;  do  break ; done;
+                    echo $DialogMsg; select OsRelease in 42_2;  do  break ; done;
                 fi
+                OsReleaseWDot=`echo $OsRelease|sed -e "s/_/\./"`
                 
-                if [[ -z $DeployOsArch ]]; then
+                OsSrvType="$OsRelease-$OsVendor-l"
+
+                if [[ -z $OsArch ]]; then
                     DialogMsg="Please specify platform arch"   
-                    echo $DialogMsg; select DeployOsArch in x86_64  i586 armv7l;  do  break ; done;
+                    echo $DialogMsg; select OsArch in x86_64  i586 armv7l;  do  break ; done;
                 fi                
+
+                if [[ -z $OsBuildGitTag ]]; then
+                    DialogMsg="Please specify GIT tag for build type: "
+                    #echo $DialogMsg; select  OsBuildGitTag in `git  -C $GitPath name-rev --tags --name-only $(git  -C $GitPath rev-parse HEAD)` ;  do  break ; done;
+                    echo $DialogMsg; select  OsBuildGitTag in v0.1 ;  do  break ; done;                    
+                fi                
+                OsBuildDate=`date +"w"%W"y"%y`
+                OsBuildGitTagWoDot=`echo $OsBuildGitTag|sed -e "s/\./_/"`
+                OsBuild="$OsBuildDate-$OsBuildGitTagWoDot-in4"
                 
                 ### vm_xen ###
                     
@@ -75,11 +88,6 @@ case $Task in
                     if [[ -z $VMImageDir ]]; then
                         DialogMsg="Please specify VM image path name"
                         echo $DialogMsg; select VMImageDir in /media/storage1/images/!master /media/storage/images/!master `pwd`;  do  break ; done
-                    fi
-                    
-                    if [[ -z $In4NamingOsSrvType ]]; then
-                        DialogMsg="Please specify server type: "
-                        echo $DialogMsg; select  In4NamingOsSrvType in in4a1-suse-l ;  do  break ; done;
                     fi
 
                 fi
@@ -160,7 +168,8 @@ case $Task in
             
                     case $AppType in
                         "c2db(oracle10GR2_EE)") 
-                            time . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/in4_oracle_init.sh                 
+                            time . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/in4_oracle_init_system.sh
+                            time . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/in4_oracle_init_storage.sh
                             time su - oracle -c "/bin/bash  /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/db.sh"
                         ;;
                     esac

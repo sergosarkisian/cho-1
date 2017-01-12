@@ -14,6 +14,8 @@ mkdir -p /media/sysdata/linux_sys
  ! rm -r /var/tmp; ln -s /tmp /var/tmp
  ! rm -r /var/run; ln -s /run /var/run
 
+ chmod a+x /media/sysdata/linux_sys/var/
+
 ### ZYPPER OFFLINE ###
 if [[ -d /media/sysdata/offline/zypper/zypp_offline ]]; then
      mv /media/sysdata/offline/zypper/zypp_offline /var/cache/

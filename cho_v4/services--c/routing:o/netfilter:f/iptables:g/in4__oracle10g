@@ -1,0 +1,6 @@
+## Name: in4__oracle10gports
+## Description: Open ports for rev5_mariadb
+
+# space separated list of allowed TCP ports
+TCP="1521"
+ 

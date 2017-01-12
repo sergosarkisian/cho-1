@@ -29,8 +29,13 @@ else
     SnapRestorePathFQ=$SnapDirPath_snap/$SnapRestoreUnit/$SnapRestoreDate
 fi
 
+. /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/vars.sh
+SnapUnitDigit=$SnapUnitDigitManual
+SnapUnitNaming=$SnapUnitNamingManual
+SnapCreateBaseQgroup
 echo "\n###Restoring $SnapRestorePathFQ as $SnapDirPath ###\n"
 SnapMode="manual" . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/runner.sh
+## BUG - assign to qroup "manual"
 btrfs subvolume delete $SnapDirPath
 btrfs subvolume snapshot $SnapRestorePathFQ/master /media/storage/as/oracle/data
 

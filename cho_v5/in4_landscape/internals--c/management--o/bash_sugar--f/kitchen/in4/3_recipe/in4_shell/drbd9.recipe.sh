@@ -15,3 +15,4 @@ set -e
 in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "2_init/opensuse" "drbd9.package.zypper.sh"
 
 in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/drbd9/drbd.conf" "/etc/drbd.conf"
+in4func_swf2 "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "add" "in4__drbd9"

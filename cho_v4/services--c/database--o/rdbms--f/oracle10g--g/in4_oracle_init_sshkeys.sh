@@ -1,3 +1,4 @@
+#!/bin/bash
 ########    #######    ########    #######    ########    ########
 ##     / / / /    License    \ \ \ \ 
 ##    Copyleft culture, Copyright (C) is prohibited here
@@ -16,40 +17,18 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 
-sudo rm -rf $BuildEnv/loop
-mkdir -p $OfflineBuildDir    
-
-if [[ $OfflineCliMode == "Yes" ]]; then
-    echo "Offline mode, all packages are cached"
-elif  [[ $OfflineBuildMode == "Yes" ]]; then
-    ! in4func_Zypper $In4_Exec_Path/_base/build/1.init/1.pre_packages.suse
-else
-    ! in4func_Zypper $In4_Exec_Path/_base/build/1.init/1.pre_packages.suse
-fi     
-
-mkdir -p $BuildEnv/loop && cd $BuildEnv
-
-### docker image URI ###
-
-case $OsVendor in
-    "opensuse")
-        OsImageFilename="openSUSE-$OsReleaseWDot-docker-guest-docker.$OsArch.tar.xz"
-        OsImageURI="http://download.opensuse.org/repositories/Virtualization:/containers:/images:/openSUSE-$OsReleaseWDot/images/$OsImageFilename"
-    ;;
-esac
-
-OsImageDownload="wget -O $OfflineBuildDir/$OsImageFilename $OsImageURI"
-### 
-
-if [[ -f $OfflineBuildDir/$OsImageFilename  ]]; then 
-    echo "Image $OfflineBuildDir/$OsImageFilename exists, using cached"
-else
-    echo "Image $OfflineBuildDir/$OsImageFilename does not exists, downloading - `$OsImageDownload`"
-fi
- 
+    ### SSH KEYS
+    mkdir -p /media/storage/as/oracle/home/.ssh
+    ssh-keygen -b 2048 -t rsa -f /media/storage/as/oracle/home/.ssh/id_rsa -q -N ""
+    setfacl -R -b /media/storage/as/oracle/home/
+    chmod 700 /media/storage/as/oracle/home/.ssh/
+    chmod 600 /media/storage/as/oracle/home/.ssh/*
+    chown -R oracle:oinstall /media/storage/as/oracle/home/
+    ###
 
 ### IN4 BASH FOOTER ###
 CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecScriptname=`echo ${BASH_SOURCE[0]}`
 LogMsg="END -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
+    

@@ -1,0 +1,15 @@
+[Unit]
+Description=DRBD Diskmount for storage resource
+
+PartOf      = rev5_replica-master_storage.service
+After         = rev5_drbd8-makemaster_storage.service
+Requires   = rev5_drbd8-makemaster_storage.service
+#Requires=systemd-fsck@dev-disk-by\x2dlabel-storage.service
+
+Conflicts   = rev5_replica-slave_storage.service
+
+
+[Mount]
+What=/dev/drbd/by-res/storage
+Where=/media/storage
+Options=rw,noatime,acl,usrquota,grpquota,user_xattr

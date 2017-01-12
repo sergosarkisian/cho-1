@@ -38,8 +38,9 @@ qList.each do |line|
     qListHash[qLeaf][qId]["parent"]=lineSplitted[1]
     qListHash[qLeaf][qId]["child"]=lineSplitted[2]    
     qListHash[qLeaf][qId]["rfer"]=lineSplitted[3]    
-    qListHash[qLeaf][qId]["excl"]=lineSplitted[4]     
+    qListHash[qLeaf][qId]["excl"]=lineSplitted[4]  
 end
+
 
 qListHash[0].each do |k,v|
     if subListHash.key?(k) 

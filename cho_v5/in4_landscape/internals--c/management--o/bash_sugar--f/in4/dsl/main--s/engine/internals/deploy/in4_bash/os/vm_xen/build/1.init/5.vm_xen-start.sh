@@ -18,7 +18,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 . $In4_Exec_Path/_base/build/1.init/clean.sh
 
-cp --sparse=always $BuildEnv/$In4NamingOsSrvType.raw $BuildEnv/../
+cp --sparse=always $BuildEnv/${OsBuild}_${OsSrvType}.raw $BuildEnv/../
 cp --sparse=always $BuildEnv/sysdata.raw $BuildEnv/../
 cp --sparse=always $BuildEnv/swap.raw $BuildEnv/../
 
