@@ -69,7 +69,7 @@ case $Task in
                 fi                
                 OsBuildDate=`date +"w"%W"y"%y`
                 OsBuildGitTagWoDot=`echo $OsBuildGitTag|sed -e "s/./_/"`
-                OsBuild="$OsBuildDate-$OsBuildGitTag-in4"
+                OsBuild="$OsBuildDate-$OsBuildGitTagWoDot-in4"
                 
                 ### vm_xen ###
                     
