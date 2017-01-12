@@ -1,3 +1,5 @@
+#!/bin/bash
+echo -e "\n
 ## VARS ##        
 name                    = "demo-hvxen-test"    ## FQDN
 spicepasswd    = 49999     ## MAC - 4 octets
@@ -34,11 +36,12 @@ on_crash = "restart"
 ##                                                                                                                                                             
 
 disk=[
-'vdev=sda, target=VMPATH/in4a1-suse-l.raw',
-'vdev=sdb, target=VMPATH/swap.raw',
-'vdev=sdc, target=VMPATH/sysdata.raw',
+'vdev=sda, target=$VMPATH/${OsBuild}_${OsSrvType}.raw',
+'vdev=sdb, target=$VMPATH/swap.raw',
+'vdev=sdc, target=$VMPATH/sysdata.raw',
 ]                                                                                                                                                                                          
                                                                                                                                                                                   
 vif =[        
 "mac=AA:20:0A:FA:FA:FA type=vif,bridge=type::ext---ext_if::bond_vlannet---policy::common---switch::vlannet---cookie::1999---mtu::9000---gate::1.1.1.1",   
 ]
+############  VM CONF ###########\n\n\n"
