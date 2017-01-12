@@ -35,7 +35,6 @@ if [[ $DeployOsMode == "vm_xen" ]]; then
     if [[ -f $BuildEnv/../${OsBuild}_${OsSrvType}.raw  ]]; then
         echo "Build image exists, checking build date"
         
-        OsBuildDate=w02y17
         OsBuildDateWeek=`echo $OsBuildDate|cut -d "y" -f 1|cut -d "w" -f 2`	
 
         if [[ $OsBuildDate -gt $OsBuildDateWeek ]]; then In4ImageRedeploy="Yes"; fi
