@@ -12,12 +12,12 @@ if [[ -d $VM_DISK_FULL_PATH ]]; then
 else
     mkdir -p $VM_DISK_FULL_PATH
     cp --sparse=always $BuildEnv/../${OsBuild}_${OsSrvType}.raw $VM_DISK_FULL_PATH/${OsBuild}_${OsSrvType}.raw
-    fallocate -l 10G $VM_DISK_FULL_PATH/${OsBuild}_${OsSrvType}.raw ## resizefs BUG
+    fallocate -l 10G $VM_DISK_FULL_PATH/${OsBuild}_${OsSrvType}.raw
     cp --sparse=always $BuildEnv/../swap.raw $VM_DISK_FULL_PATH/swap.raw
     cp --sparse=always $BuildEnv/../sysdata.raw $VM_DISK_FULL_PATH/sysdata.raw
-    fallocate -l 20G $VM_DISK_FULL_PATH/sysdata.raw ## resizefs BUG
+    fallocate -l 20G $VM_DISK_FULL_PATH/sysdata.raw
     #VM_DISK_STORAGE_SIZE=$VM_DISK_STORAGE_SIZE
-    #fallocate -l `cat $SVN_CONF_PATH|grep "VM_DISK_STORAGE_SIZE"|cut -d= -f2` $VM_DISK_FULL_PATH/storage.raw
+    #fallocate -l `cat $SVN_CONF_PATH|grep "VM_DISK_STORAGE_SIZE"|cut -d= -f2` $VM_DISK_FULL_PATH/storage.raw ## FROM SVN
     fallocate -l  ${VM_DISK_STORAGE_SIZE_OVERALL}G $VM_DISK_FULL_PATH/storage.raw
     mkfs.btrfs -f -L "storage" $VM_DISK_FULL_PATH/storage.raw
     fallocate -l 1G $VM_DISK_FULL_PATH/storage_meta.raw
