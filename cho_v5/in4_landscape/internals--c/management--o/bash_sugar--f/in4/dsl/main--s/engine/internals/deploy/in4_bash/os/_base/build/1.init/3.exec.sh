@@ -38,7 +38,7 @@ GitPath="$BuildEnv/loop/media/sysdata/in4/cho"
         sudo git  -C $GitPath remote add origin $GitRepoStable
         sudo git  -C $GitPath remote add dev $GitRepoDev
         sudo git  -C $GitPath config core.filemode false
-        sudo git  -C $GitPath checkout tags/$OsBuildGitTag
+        #sudo git  -C $GitPath checkout tags/$OsBuildGitTag ## BUG
     fi
 else
     sudo mkdir -p  $BuildEnv/loop/media/sysdata/in4 
@@ -46,7 +46,7 @@ else
     sudo git -C $GitPath remote add dev $GitRepoDev  
     sudo git  -C $GitPath fetch dev    
     sudo git -C $GitPath config core.filemode false
-    sudo git  -C $GitPath checkout tags/$OsBuildGitTag
+    #sudo git  -C $GitPath checkout tags/$OsBuildGitTag ## BUG
 fi     
 
 if [[ $RunType == "dev" ]]; then
