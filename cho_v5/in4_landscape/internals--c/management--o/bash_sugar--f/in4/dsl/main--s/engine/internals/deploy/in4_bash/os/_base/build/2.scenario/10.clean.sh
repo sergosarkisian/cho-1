@@ -7,7 +7,7 @@ zypper mr -K -a
 
 ### OS BUILD TAG ###
 echo "#" > /etc/in4-release
-echo "GitPath=$GitPath" >> $BuildEnv/loop/tmp/in4_env.sh
+echo "GitPath=$GitPath" >> /etc/in4-release
 OsBuildDate=`date +"w"%W"y"%y`
 echo "OsBuildDate=\"$OsBuildDate\"" >> /etc/in4-release
 OsBuildDate=`date +%d.%m.%y_w%W_%H:%M:%S`
