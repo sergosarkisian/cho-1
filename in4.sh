@@ -46,12 +46,12 @@ case $Task in
                 
                 if [[ -z $OsVendor ]]; then
                     DialogMsg="Please specify OS vendor"   
-                    echo $DialogMsg; select OsVendor in openSUSE;  do  break ; done;
+                    echo $DialogMsg; select OsVendor in opensuse;  do  break ; done;
                 fi
 
                 if [[ -z $OsRelease ]]; then
                     DialogMsg="Please specify OS release"   
-                    echo $DialogMsg; select OsRelease in 42.2;  do  break ; done;
+                    echo $DialogMsg; select OsRelease in 42_2;  do  break ; done;
                 fi
                 
                 if [[ -z $DeployOsArch ]]; then
@@ -160,7 +160,8 @@ case $Task in
             
                     case $AppType in
                         "c2db(oracle10GR2_EE)") 
-                            time . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/in4_oracle_init.sh                 
+                            time . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/in4_oracle_init_system.sh
+                            time . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/in4_oracle_init_storage.sh
                             time su - oracle -c "/bin/bash  /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/db.sh"
                         ;;
                     esac

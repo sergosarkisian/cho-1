@@ -19,7 +19,7 @@ echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 
 if [[ -f $App_c2dbDataPath/e${App_c2dbSchemeDst_LC}.dbf ]]; then
     if [[ -z $App_c2dbDstSchemaForceCreation ]]; then
-        DialogMsg="Oracle database already exists! Recreate?"
+        DialogMsg="Oracle schema DBF already exists! Recreate?"
         echo $DialogMsg; select App_c2dbDstSchemaForceCreation in Yes No;  do  break ; done;
     fi
     if [[ $App_c2dbDstSchemaForceCreation == "No" ]]; then exit 1; fi

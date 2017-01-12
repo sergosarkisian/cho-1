@@ -38,10 +38,13 @@ if [[ $naming_view == "os" ]]; then
 	else
 		Hostname=`hostname -f`
 	fi
-	
+
 	dot_arr=(${Hostname//./ })
 	hyp_arr=(${Hostname//-/ })
+	
+    if [[ `echo $Hostname|cut -d"." -f 6` == "pool" ]]; then
 
+## OLD naming 
 	Org=${dot_arr[4]}
 	Net=${dot_arr[2]}
 	View=${dot_arr[3]}
@@ -54,6 +57,26 @@ if [[ $naming_view == "os" ]]; then
 	DeplType=`echo ${hyp_arr[3]}|cut -d "." -f 1`
 	In4NamingOsSrvType=$SrvType
         FullSrvName="$SrvName.$In4NamingOsSrvType.$Net.$View.$Org.pool"	
+    else
+    ## NEW Naming
+        Org=${dot_arr[5]}
+	View=${dot_arr[4]}
+        Net=${dot_arr[3]}
+	OsSrvType=${dot_arr[2]}
+	OsBuild=${dot_arr[1]}
+	OsBuildDate=`echo $OsBuild|cut -d "-" -f 1`
+	OsBuildDateYear=`echo $OsBuildDate|cut -d "y" -f 2`		
+	OsBuildDateWeek=`echo $OsBuildDate|cut -d "y" -f 1|cut -d "w" -f 2`	
+	OsBuildTag=`echo $OsBuild|cut -d "-" -f 2`
+	OsBuildArch=`echo $OsBuild|cut -d "-" -f 3`	
+	SrvName=${dot_arr[0]}
+	MACIP=${hyp_arr[0]}
+        MACIP_HA=${MACIP:: -2}	
+	SrvContext=${hyp_arr[1]}		
+	SrvRole=${hyp_arr[2]}
+	DeplType=`echo ${hyp_arr[3]}|cut -d "." -f 1`
+        FullSrvName="$SrvName.$OsBuild.$OsSrvType.$Net.$View.$Org.pool"
+    fi
 fi
 
 ## 3 - 

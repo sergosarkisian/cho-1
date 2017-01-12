@@ -38,33 +38,8 @@ SnapQGroupRead  $BTRFS_MOUNT $TMP_QGROUP_LIST
 DATE=`date +%d.%m.%y_w%W_%H:%M:%S`
 SnapSchedParse $SnapSched
 
-###SNAP UNIT VARS
-#Unsorted
-    SnapUnitDigitUnsorted=2
-    SnapUnitNamingUnsorted="unsorted"
-#Hourly
-    SnapUnitDigitHourly=4
-    SnapUnitNamingHourly="hourly"        
-    SnapUnitTimingCriteriaHourly=`date +%d.%m.%y_w%W_%H:`
-#Daily
-    SnapUnitDigitDaily=5
-    SnapUnitDaily="daily"
-    SnapUnitTimingCriteriaDaily=`date +%d.%m.%y_`
-#Weekly
-    SnapUnitDigitWeekly=6
-    SnapUnitWeekly="weekly"
-    SnapUnitTimingCriteriaWeekly=`date +_w%W_`
-#Monthly
-    SnapUnitDigitMonthly=7
-    SnapUnitMonthly="monthly"
-    SnapUnitTimingCriteriaMonthly=`date +.%m.%y_`    
-#Manual
-    SnapUnitDigitManual=8
-    SnapUnitNamingManual="manual"
-#Root
-    SnapUnitDigitRoot=10
-    SnapUnitNamingRoot="root"
-###
+. /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/vars.sh
+. /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/func.sh
 
 ### ROOT_QGROUP ###
     SnapUnitDigit=$SnapUnitDigitRoot
@@ -73,22 +48,23 @@ SnapSchedParse $SnapSched
 ###
 
 ### REGISTRED_QGROUP ###
-    SnapUnitDigit=1
-    SnapUnitNaming="_none_"
+    SnapUnitDigit=$SnapUnitDigitRegistred
+    SnapUnitNaming=$SnapUnitNamingRegistred
     SnapCreateBaseQgroup
 ###
 
 ### UNSORTED_QGROUP ###
-    SnapUnitDigit=2
-    SnapUnitNaming="unsorted"
+    SnapUnitDigit=$SnapUnitDigitUnsorted
+    SnapUnitNaming=$SnapUnitNamingUnsorted
     SnapCreateBaseQgroup
 ###
 
 ### TRASH_QGROUP ###
-    SnapUnitDigit=9
-    SnapUnitNaming="trash"
+    SnapUnitDigit=$SnapUnitDigitTrash
+    SnapUnitNaming=$SnapUnitNamingTrash
     SnapCreateBaseQgroup
 ###
+
 if [[ $SnapMode == "manual" ]]; then
         SnapUnitDigit=$SnapUnitDigitManual
         SnapUnitNaming=$SnapUnitNamingManual

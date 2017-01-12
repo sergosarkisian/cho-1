@@ -1,0 +1,6 @@
+## Name: in4__drbd8
+## Description: Open ports for in4__drbd8
+
+# space separated list of allowed TCP ports
+TCP="7701:7719"
+ 
