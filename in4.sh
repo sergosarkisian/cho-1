@@ -63,8 +63,8 @@ case $Task in
                 fi                
 
                 if [[ -z $OsBuildGitTag ]]; then
-                    DialogMsg="Please specify server type: "
-                    echo $DialogMsg; select  OsBuildGitTag in `git name-rev --tags --name-only $(git rev-parse HEAD)` ;  do  break ; done;
+                    DialogMsg="Please specify GIT tag for build type: "
+                    echo $DialogMsg; select  OsBuildGitTag in `git  -C $GitPath name-rev --tags --name-only $(git  -C $GitPath rev-parse HEAD)` ;  do  break ; done;
                 fi                
                 OsBuildDate=`date +"w"%W"y"%y`
                 OsBuild="$OsBuildDate-$OsBuildGitTag-in4"
