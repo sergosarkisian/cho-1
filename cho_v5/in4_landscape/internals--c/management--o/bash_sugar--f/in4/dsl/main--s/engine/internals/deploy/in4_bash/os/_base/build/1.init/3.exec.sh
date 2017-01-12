@@ -84,7 +84,7 @@ if [[ $DeployOsMode == "vm_xen" ]] ; then
 fi
 ##
 
-time sudo chroot $BuildEnv/loop /bin/bash -c  ". /tmp/in4_env.sh ; sh -x  $In4_Exec_Path/_base/build/2.scenario/scenario_${OsVendor}_${OsRelease}.sh"
+time sudo chroot $BuildEnv/loop /bin/bash -c  ". /tmp/in4_env.sh ; sh -x  $In4_Exec_Path/_base/build/2.scenario/scenario_${OsVendor}_${OsReleaseWDot}.sh"
  
 ###
 ### IN4 BASH FOOTER ###
