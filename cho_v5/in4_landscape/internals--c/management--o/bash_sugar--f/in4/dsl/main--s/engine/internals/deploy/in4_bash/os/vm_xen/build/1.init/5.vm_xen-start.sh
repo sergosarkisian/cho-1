@@ -22,7 +22,7 @@ cp --sparse=always $BuildEnv/${OsBuild}_${OsSrvType}.raw $BuildEnv/../
 cp --sparse=always $BuildEnv/sysdata.raw $BuildEnv/../
 cp --sparse=always $BuildEnv/swap.raw $BuildEnv/../
 
-VMPATH=$(echo "$BuildEnv" | sed 's/\//\\\//g')
+VMPATH=$BuildEnv
 
 . /media/sysdata/in4/cho/in4_core/internals/deploy/in4_bash/os/vm_xen/build/3.env/demo.xl > /tmp/demo.xl
 sudo xl create /tmp/demo.xl
