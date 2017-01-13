@@ -1,0 +1,9 @@
+[Desktop Entry]
+X-SuSE-translate=true
+Encoding=UTF-8
+Type=XSession
+Name=A kiosk mode
+Comment=Use a web browser as your session
+Exec=/usr/bin/chromium --auto-launch-at-startup --disable --disable-translate --disable-infobars --disable-suggestions-service --disable-save-password-bubble --disk-cache-dir=/tmp/chromium/cache/ --user-data-dir=/tmp/chromium/user_data/  --noerordialogs --disable-session-crashed-bubble --start-maximized  --force-device-scale-factor=1 --desktop-window-1080p  --kiosk -incognito http://lth-box
+TryExec=/usr/bin/chromium --auto-launch-at-startup --disable --disable-translate --disable-infobars --disable-suggestions-service --disable-save-password-bubble --disk-cache-dir=/tmp/chromium/cache/ --user-data-dir=/tmp/chromium/user_data/  --noerordialogs --disable-session-crashed-bubble --start-maximized  --force-device-scale-factor=1 --desktop-window-1080p --kiosk -incognito http://lth-box
+Icon=google-chrome 

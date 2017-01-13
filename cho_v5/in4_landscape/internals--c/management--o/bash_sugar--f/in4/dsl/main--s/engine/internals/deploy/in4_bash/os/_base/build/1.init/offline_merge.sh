@@ -24,14 +24,13 @@ case $OfflineCpFlow in
         echo "Downloaded data will be copied to offline dir: $OfflineBuildDir"
         if [[ -d $BuildEnv/loop/etc/zypp/repos.d ]]; then sudo cp -r $BuildEnv/loop/etc/zypp/repos.d $OfflineBuildDir/zypper/; fi
         if [[ -d $BuildEnv/loop/media/sysdata/linux_sys/var/cache/zypp_offline ]]; then sudo cp -r $BuildEnv/loop/media/sysdata/linux_sys/var/cache/zypp_offline $OfflineBuildDir/zypper/; fi
-    else
-        echo "Downloaded data will be deleted during next steps"
     fi     
+    sudo rm -rf $BuildEnv/loop/media/sysdata/linux_sys/var/cache/zypp*    
     ;;
     "in")
     if  [[ $OfflineBuildMode == "Yes" ]] ||  [[ $OfflineCliMode == "Yes" ]] ; then
-        echo "Offline data will be copied to offline dir: $OfflineBuildDir"
-        sudo cp -rf $OfflineBuildDir $BuildEnv/loop/media/sysdata
+            echo "Offline data will be copied to offline dir: $OfflineBuildDir"
+            sudo cp -rf $OfflineBuildDir $BuildEnv/loop/media/sysdata
     fi     
     ;;
 esac    

@@ -1,0 +1,9 @@
+[Desktop Entry]
+X-SuSE-translate=true
+Encoding=UTF-8
+Type=XSession
+Name=A kiosk mode
+Comment=Use a web browser as your session
+Exec=/usr/bin/firefox -url http://lth-box -fullscreen
+TryExec=/usr/bin/firefox -url http://lth-box -fullscreen
+Icon=google-chrome 
