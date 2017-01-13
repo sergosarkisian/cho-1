@@ -15,9 +15,9 @@ PrevDirPath=$CurDirPath; CurDirPath=`echo ${BASH_SOURCE[0]}|sed "s/4//"`; ExecSc
 LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
- . $In4_Exec_Path/_base/build/1.init/offline_merge.sh out
-. $In4_Exec_Path/_base/build/1.init/clean.sh
+. $In4_Exec_Path/_base/build/1.init/offline_merge.sh out
 . $In4_Exec_Path/_base/build/1.init/offline_merge.sh in
+. $In4_Exec_Path/_base/build/1.init/clean.sh
 
 
 ### IN4 BASH FOOTER ###
