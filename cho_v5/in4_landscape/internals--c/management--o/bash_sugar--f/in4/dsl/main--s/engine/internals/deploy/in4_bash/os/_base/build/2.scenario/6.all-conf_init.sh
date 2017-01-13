@@ -24,6 +24,7 @@ sed -i "s/NO_PROXY=.*/NO_PROXY=\"localhost, 127.0.0.1, .ccm, .pool\"/" /etc/sysc
 
 ### PAM SETTINGS ###
 pam-config --add --mkhomedir
+pam-config --add --systemd
 ###		
 
 ### SERVICES FIRST ENABLE/START ###

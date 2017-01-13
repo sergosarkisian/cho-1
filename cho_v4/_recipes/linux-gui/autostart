@@ -1,0 +1,6 @@
+mkdir -p /tmp/chromium/user_data/
+xset s off
+xset -dpms
+xset s noblank
+/usr/bin/chromium --auto-launch-at-startup --disable --disable-translate --disable-infobars --disable-suggestions-service --disable-save-password-bubble --disk-cache-dir=/tmp/chromium/cache/ --user-data-dir=/tmp/chromium/user_data/  --noerordialogs --disable-session-crashed-bubble --start-maximized  --force-device-scale-factor=1 --kiosk -incognito http://lth-box
+ 
