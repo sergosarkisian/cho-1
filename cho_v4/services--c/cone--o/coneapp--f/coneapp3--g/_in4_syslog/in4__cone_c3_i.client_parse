@@ -1,0 +1,12 @@
+if $hostname == $$myhostname and $programname == [ "in4__cone_c3_i" ]
+then {
+	action(type="mmjsonparse")
+        set $.use_mod = "mmjsonparse";
+	
+        if $parsesuccess == "OK" then {	
+            set $!msg_class = "in4__cone_c3_i";
+        }
+        
+        call engine & stop
+}
+ 
