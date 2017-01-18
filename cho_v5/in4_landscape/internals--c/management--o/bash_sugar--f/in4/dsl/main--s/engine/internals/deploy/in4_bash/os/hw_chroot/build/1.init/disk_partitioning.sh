@@ -50,6 +50,7 @@ fi
             case $DataDestroy in
             "Yes") 
                 ### all data in the same partition
+                ## % in parted
                 if [[ $In4Disk_SysdataOnBaseDisk == "Yes" ]]; then
                     sudo parted  /dev/$HWBaseDisk mklabel gpt
                     sudo parted  /dev/$HWBaseDisk mkpart primary 1MiB 4MiB

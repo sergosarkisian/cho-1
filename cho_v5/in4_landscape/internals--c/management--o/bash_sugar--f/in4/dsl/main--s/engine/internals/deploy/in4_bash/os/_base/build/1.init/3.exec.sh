@@ -33,7 +33,7 @@ GitPath="$BuildEnv/loop/media/sysdata/in4/cho"
  ### GIT INIT ###
  if [[ $OfflineCliMode == "Yes" ]]; then
     if [[ -d /media/sysdata/in4/cho ]]; then
-        sudo mkdir -p  $BuildEnv/loop/media/sysdata/in4/cho && sudo git init $BuildEnv/loop/media/sysdata/in4/cho && cd  $BuildEnv/loop/media/sysdata/in4/cho
+        sudo mkdir -p  $BuildEnv/loop/media/sysdata/in4/cho && sudo git init $BuildEnv/loop/media/sysdata/in4/cho
         sudo git  -C $GitPath pull /media/sysdata/in4/cho
         sudo git  -C $GitPath remote add origin $GitRepoStable
         sudo git  -C $GitPath remote add dev $GitRepoDev
