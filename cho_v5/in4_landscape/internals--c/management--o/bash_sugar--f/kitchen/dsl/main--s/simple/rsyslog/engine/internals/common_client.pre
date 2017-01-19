@@ -18,11 +18,11 @@ ruleset(name="roger") {
             }
         }
 
-	if $.ruleset  == "" then {
+	if $.in4_ruleset  == "" then {
                 if $.store_local == 'true' or $.store_local_as_msg == "yes" then {
                 call file_media_logs_hosts & stop	
             } else {
-		call_indirect $.ruleset & stop
+		call_indirect $.in4_ruleset & stop
             }
 	}        
         
