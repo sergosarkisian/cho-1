@@ -17,7 +17,7 @@ fi
     
         if [[ -z $In4Disk_SystemSize ]]; then
             echo "Please enter in4 linux main image size in GiB (label = system): "
-            select In4Disk_SystemSize in 10 15 20 
+            select In4Disk_SystemSize in 10 15 20 30
             do  break; done        
         fi
 
@@ -29,17 +29,23 @@ fi
 
         if [[ -z $In4Disk_SysdataSize ]]; then        
             echo "Please enter in4 linux sysdata size in GiB (label = sysdata): "
-            select In4Disk_SysdataSize in 5 10 15 20 30 40 50 80 100
+            select In4Disk_SysdataSize in 5 10 15 20 30 40 50 80 100 100%
             do  break; done
         fi
+               
 
-        if [[ -z $In4Disk_SysdataOnBaseDisk ]]; then        
-            echo "If sysdata belongs to in4 linux base disk ($HWBaseDisk) "
-            select In4Disk_SysdataOnBaseDisk in Yes No
+        if [[ -z $In4Disk_StorageOnBaseDisk ]]; then        
+            echo "If storage disk belongs to in4 linux base disk ($HWBaseDisk) "
+            select In4Disk_StorageOnBaseDisk in Yes No
             do
-                case $In4Disk_SysdataOnBaseDisk in
-                "Yes") break;;
-                "No") exit 1 ;;
+                case $In4Disk_StorageOnBaseDisk in
+                "Yes") 
+                    if [[ -z $In4Disk_StorageSize ]]; then        
+                        echo "Please enter in4 linux sysdata size in GiB (label = sysdata): "
+                        select In4Disk_StorageSize in 5 10 15 20 30 40 50 80 100 100%
+                        do  break; done
+                    fi                        
+                ;;
                 esac
             done
         fi
@@ -51,7 +57,6 @@ fi
             "Yes") 
                 ### all data in the same partition
                 ## % in parted
-                if [[ $In4Disk_SysdataOnBaseDisk == "Yes" ]]; then
                     sudo parted  /dev/$HWBaseDisk mklabel gpt
                     sudo parted  /dev/$HWBaseDisk mkpart primary 1MiB 4MiB
                     sudo parted  /dev/$HWBaseDisk set 1 bios_grub on
@@ -69,6 +74,14 @@ fi
                     sudo mount /dev/${HWBaseDisk}2  $BuildEnv/loop/
                     sudo mkdir -p  $BuildEnv/loop/media/sysdata
                     sudo mount /dev/${HWBaseDisk}4 $BuildEnv/loop/media/sysdata
+                if [[ $In4Disk_StorageOnBaseDisk == "Yes" ]]; then
+                    if [[ ]]; then
+                    else
+                    FdiskEnd="$(($In4Disk_SystemSize+$In4Disk_SwapSize+$In4Disk_SysdataSize))$DiskSizingUnit"
+                    fi                
+                    sudo parted  /dev/$HWBaseDisk mkpart primary btrfs $(($In4Disk_SystemSize+$In4Disk_SwapSize+$In4Disk_SysdataSize))$DiskSizingUnit 
+                    sleep 1
+                    sudo mkfs.btrfs -f -L "sysdata" /dev/${HWBaseDisk}5                    
                 fi
                 
             break ;;

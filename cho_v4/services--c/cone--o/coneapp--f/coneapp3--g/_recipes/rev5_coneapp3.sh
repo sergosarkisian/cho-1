@@ -4,7 +4,7 @@ zypper ar -cf http://download.opensuse.org/repositories/server:/proxy/openSUSE_L
 zypper ar -cf http://download.opensuse.org/repositories/server:/http/openSUSE_Leap_42.2/server:http.repo
 
 
-zypper --gpg-auto-import-keys in "exim" "haproxy" "nginx-syslog" "git-daemon"
+zypper --gpg-auto-import-keys in "exim" "haproxy" "git-daemon"
 zypper --gpg-auto-import-keys in "java-1_8_0-openjdk-headless" "log4j" "gcc-java" "java-1_8_0-openjdk-devel" "javacc" "javacc3" "libfonts"
 zypper --gpg-auto-import-keys in "perl-JSON-XS" "perl-List-MoreUtils"
 zypper --gpg-auto-import-keys --non-interactive in http://dl.bintray.com/sbt/rpm/sbt-0.13.13.rpm
@@ -14,7 +14,7 @@ zypper --gpg-auto-import-keys in ant libstdc++6-32bit zlib-devel-32bit libncurse
 
 ## DIRS ##
 ln -s /media/storage/web /
-mkdir  -p /media/storage/web
+mkdir  -p /media/storage/web /media/storage/web/logs
 
 mkdir -p /web/_c3
 
@@ -54,5 +54,6 @@ rm -f  /media/storage/web/http/.config/systemd/user/in4__cone_c3_i@.service; cp 
 #rm -f /etc/sysconfig/SuSEfirewall2.d/services/rev5_coneapp3 && ln -s /media/sysdata/rev5/techpool/ontology/cone/coneapp3/_firewall/rev5_coneapp3 /etc/sysconfig/SuSEfirewall2.d/services/
 systemctl daemon-reload
 
+/etc/systemd/system/in4__openconnect@.service
 
 ##
