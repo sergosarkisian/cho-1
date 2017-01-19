@@ -3,7 +3,9 @@ Description		= In4 (c)ONE3 instance %i
 
 ## DEPS ## 
  #Conflicts=, # Wants=,  # Before=, # PartOf=, #OnFailure=,  #PropagatesReloadTo=, ReloadPropagatedFrom=
- After			= network.target 
+ After			= network.target
+ #syslog.socket syslog.service
+#Requires                = syslog.socket syslog.service
 
 ## REV5 DEPS - OS ##
  #Wants			= rev5.service rev5_rsyslog_i@client.service rev5.timer rev5_sssd.service rev5_atop.service rev5_bareos-os.service rev5_monitoring-os.service 
@@ -56,7 +58,7 @@ Description		= In4 (c)ONE3 instance %i
 ##
 
 ## SYSLOG ##
- SyslogIdentifier	= coneapp3_
+ SyslogIdentifier	= in4__cone_c3_i__%i
  SyslogFacility		= local7
  SyslogLevel		= info
  StandardOutput=syslog
