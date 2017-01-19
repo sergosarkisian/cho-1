@@ -9,7 +9,7 @@ ruleset(name="file_in4__cone_c3_i" queue.filename="file_raw" queue.highwatermark
 ###
 
 ### RULE ###
-if $hostname == $$myhostname and $programname == [ "in4__cone_c3_i" ]
+if $hostname == $$myhostname and $programname startswith 'in4__cone_c3_i__'
 then {
         set $!msg_class = "in4__cone_c3_i";
 	set $.msg_remote = "no";        
