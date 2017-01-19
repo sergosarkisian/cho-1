@@ -29,7 +29,7 @@ fi
 
         if [[ -z $In4Disk_SysdataSize ]]; then        
             echo "Please enter in4 linux sysdata size in GiB (label = sysdata): "
-            select In4Disk_SysdataSize in 5 10 15 20 30 40 50 80 100 100%
+            select In4Disk_SysdataSize in 5 10 15 20 30 40 50 80 100 ALL
             do  break; done
         fi
                
@@ -37,18 +37,19 @@ fi
         if [[ -z $In4Disk_StorageOnBaseDisk ]]; then        
             echo "If storage disk belongs to in4 linux base disk ($HWBaseDisk) "
             select In4Disk_StorageOnBaseDisk in Yes No
-            do
-                case $In4Disk_StorageOnBaseDisk in
-                "Yes") 
-                    if [[ -z $In4Disk_StorageSize ]]; then        
-                        echo "Please enter in4 linux sysdata size in GiB (label = sysdata): "
-                        select In4Disk_StorageSize in 5 10 15 20 30 40 50 80 100 100%
-                        do  break; done
-                    fi                        
-                ;;
-                esac
-            done
+            do break; done
         fi
+        
+        case $In4Disk_StorageOnBaseDisk in
+            "Yes") 
+                if [[ -z $In4Disk_StorageSize ]]; then        
+                    echo "Please enter in4 linux storage size in GiB (label = storage): "
+                    select In4Disk_StorageSize in 5 10 15 20 30 40 50 80 100 ALL
+                    do  break; done
+                fi                        
+            ;;
+        esac        
+        
 
         echo "!!!   DATA WILL BE DESTROYED ON partition $HWBaseDisk"
         select DataDestroy in Yes No
@@ -67,7 +68,13 @@ fi
                     sudo parted  /dev/$HWBaseDisk mkpart primary linux-swap ${In4Disk_SystemSize}$DiskSizingUnit $(($In4Disk_SystemSize+$In4Disk_SwapSize))$DiskSizingUnit
                     sleep 1
                     sudo mkswap -f -L "swap" /dev/${HWBaseDisk}3
-                    sudo parted  /dev/$HWBaseDisk mkpart primary btrfs $(($In4Disk_SystemSize+$In4Disk_SwapSize))$DiskSizingUnit $(($In4Disk_SystemSize+$In4Disk_SwapSize+$In4Disk_SysdataSize))$DiskSizingUnit
+                    if [[  $In4Disk_SysdataSize == "ALL" ]]; then
+                        FdiskEnd="100%"
+                    else
+                        FdiskEnd="$(($In4Disk_SystemSize+$In4Disk_SwapSize+$In4Disk_SysdataSize+$In4Disk_StorageSize))$DiskSizingUnit"
+                    fi                         
+                    sudo parted  /dev/$HWBaseDisk mkpart primary btrfs $(($In4Disk_SystemSize+$In4Disk_SwapSize))$DiskSizingUnit $FdiskEnd
+
                     sleep 1
                     sudo mkfs.btrfs -f -L "sysdata" /dev/${HWBaseDisk}4
                     
@@ -75,13 +82,14 @@ fi
                     sudo mkdir -p  $BuildEnv/loop/media/sysdata
                     sudo mount /dev/${HWBaseDisk}4 $BuildEnv/loop/media/sysdata
                 if [[ $In4Disk_StorageOnBaseDisk == "Yes" ]]; then
-                    if [[ ]]; then
+                    if [[  $In4Disk_StorageSize == "ALL" ]]; then
+                        FdiskEnd="100%"
                     else
-                    FdiskEnd="$(($In4Disk_SystemSize+$In4Disk_SwapSize+$In4Disk_SysdataSize))$DiskSizingUnit"
+                        FdiskEnd="$(($In4Disk_SystemSize+$In4Disk_SwapSize+$In4Disk_SysdataSize+$In4Disk_StorageSize))$DiskSizingUnit"
                     fi                
-                    sudo parted  /dev/$HWBaseDisk mkpart primary btrfs $(($In4Disk_SystemSize+$In4Disk_SwapSize+$In4Disk_SysdataSize))$DiskSizingUnit 
+                    sudo parted  /dev/$HWBaseDisk mkpart primary btrfs $(($In4Disk_SystemSize+$In4Disk_SwapSize+$In4Disk_SysdataSize))$DiskSizingUnit $FdiskEnd
                     sleep 1
-                    sudo mkfs.btrfs -f -L "sysdata" /dev/${HWBaseDisk}5                    
+                    sudo mkfs.btrfs -f -L "storage" /dev/${HWBaseDisk}5                    
                 fi
                 
             break ;;
