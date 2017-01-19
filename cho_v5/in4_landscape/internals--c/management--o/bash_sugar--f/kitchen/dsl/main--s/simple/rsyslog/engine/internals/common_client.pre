@@ -10,22 +10,22 @@ module(load="imuxsock" SysSock.UsePIDFromSystem="on")
 ##ROGER RULESET
 ruleset(name="roger") {
 
-	if $.msg_remote != 'no' then {
-            if $!msg_class == 'msg' then {
-                    call client_relp_msg
-            } else {
-                    call client_relp_cee
-            }
+    if $.msg_remote != 'no' then {
+        if $!msg_class == 'msg' then {
+                call client_relp_msg
+        } else {
+                call client_relp_cee
         }
+    }
 
-	if $.in4_ruleset  == "" then {
-                if $.store_local == 'true' or $.store_local_as_msg == "yes" then {
-                call file_media_logs_hosts & stop	
-            } else {
-		call_indirect $.in4_ruleset;
-		stop
-            }
-	}        
+    if $.in4_ruleset  == "" then {
+        if $.store_local == 'true' or $.store_local_as_msg == "yes" then {
+            call file_media_logs_hosts & stop	
+        }         
+    } else {
+        call_indirect $.in4_ruleset;
+        stop
+    }        
         
 	stop
 }
