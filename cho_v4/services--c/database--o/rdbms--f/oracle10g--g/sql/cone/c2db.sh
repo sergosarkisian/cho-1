@@ -35,7 +35,7 @@ Date=`date +%Y_%m_%d_%H-%M-%S`
 
 if [[ -z $App_c2dbTask ]]; then
     DialogMsg="Please specify operation"
-    echo $DialogMsg; select App_c2dbTask in OraInit OraInitWithSchemaImport SchemaImport FullOraReinstall;  do  break ; done
+    echo $DialogMsg; select App_c2dbTask in c2_minimalDB SchemaImport_inc_ecore SchemaImport;  do  break ; done
 fi
 
 if [[ -z $App_c2dbFqdnDst ]]; then
@@ -59,7 +59,7 @@ fi
 App_c2dbSchemeDst_LC=${App_c2dbSchemeDst,,}
 App_c2dbSchemeDst_UC=${App_c2dbSchemeDst^^}
 
-if [[ $App_c2dbTask == "OraInitWithSchemaImport" ]] || [[ $App_c2dbTask == "SchemaImport" ]]; then
+if [[ $App_c2dbTask == "SchemaImport_inc_ecore" ]] || [[ $App_c2dbTask == "SchemaImport" ]]; then
 
     if [[ -z $App_c2dbFqdnSrc ]]; then
         DialogMsg="Please specify Source Oracle server FQDN/IP (SRC)"   
