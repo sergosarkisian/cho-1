@@ -98,21 +98,18 @@ fi
 case $App_c2dbTask in
     "c2_minimalDB")
     #log_cleaner
-    App_c2dbPlatform $App_c2dbFqdnDst
-    . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_pre.sh
-    . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_schema_tbs.sh
-    . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_post.sh
-    ;;
-    "SchemaImport_inc_ecore") 
-        App_c2dbSchemeECoreImport="Yes"
         App_c2dbPlatform $App_c2dbFqdnDst
-        SchemaImport
-
+        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_pre.sh
+        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_schema_tbs.sh
+        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_post.sh
+    ;;
+    "ECoreImport") 
+        App_c2dbSchemeECoreImport="Yes"
+        ExpImp
     ;;
     "SchemaImport") 
-        App_c2dbPlatform $App_c2dbFqdnDst    
-        SchemaImport
-    ;;    
+        ExpImp
+    ;;      
 esac
 
 

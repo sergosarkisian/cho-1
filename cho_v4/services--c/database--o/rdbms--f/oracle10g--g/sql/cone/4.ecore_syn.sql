@@ -1,4 +1,3 @@
-E$XML
 connect "E$CORE"/"&&ecorePassword"
 set echo on
 spool &&logPath/4.ecore_syn
