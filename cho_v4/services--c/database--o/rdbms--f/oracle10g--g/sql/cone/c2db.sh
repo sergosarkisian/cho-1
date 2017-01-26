@@ -47,35 +47,42 @@ if [[ -z $App_c2dbFqdnDst ]]; then
      fi
 fi
 
+
+if [[ $App_c2dbTask == "ECoreImport" ]] || [[ $App_c2dbTask == "SchemaImport" ]]; then
+    if [[ -z $App_c2dbFqdnSrc ]]; then
+        DialogMsg="Please specify Source Oracle server FQDN/IP (SRC)"   
+        echo $DialogMsg; read App_c2dbFqdnSrc
+    fi
+    ! ssh-copy-id oracle@$App_c2dbFqdnSrc -p1000
+fi
+
+
 if [[ -z $SID ]]; then
     DialogMsg="Please specify Oracle server SID (DST)"   
     echo $DialogMsg; read SID
 fi
 
-if [[ -z $App_c2dbSchemeDst ]]; then
-    DialogMsg="Please specify scheme name (DST)"   
-    echo $DialogMsg; read App_c2dbSchemeDst
-fi
-App_c2dbSchemeDst_LC=${App_c2dbSchemeDst,,}
-App_c2dbSchemeDst_UC=${App_c2dbSchemeDst^^}
 
-if [[ $App_c2dbTask == "ECoreImport" ]] || [[ $App_c2dbTask == "SchemaImport" ]]; then
+case $App_c2dbTask in
+    "SchemaImport") 
+        if [[ -z $App_c2dbSchemeDst ]]; then
+            DialogMsg="Please specify destination scheme name (DST)"   
+            echo $DialogMsg; read App_c2dbSchemeDst
+        fi
+        App_c2dbSchemeDst_LC=${App_c2dbSchemeDst,,}
+        App_c2dbSchemeDst_UC=${App_c2dbSchemeDst^^}    
+        
+        if [[ -z $App_c2dbSchemeSrc ]]; then
+            DialogMsg="Please specify source scheme name (SRC)"   
+            echo $DialogMsg; read App_c2dbSchemeSrc
+        fi
+        App_c2dbSchemeSrc_LC=${App_c2dbSchemeSrc,,}
+        App_c2dbSchemeSrc_UC=${App_c2dbSchemeSrc^^}
+        
+        if ! [[ $App_c2dbSchemeDst == $App_c2dbSchemeSrc ]]; then App_c2dbSchemeRemap="Yes"; fi        
+    ;;
+esac
 
-    if [[ -z $App_c2dbFqdnSrc ]]; then
-        DialogMsg="Please specify Source Oracle server FQDN/IP (SRC)"   
-        echo $DialogMsg; read App_c2dbFqdnSrc
-    fi
-    
-    if [[ -z $App_c2dbSchemeSrc ]]; then
-        DialogMsg="Please specify source scheme name (SRC)"   
-        echo $DialogMsg; read App_c2dbSchemeSrc
-    fi
-    App_c2dbSchemeSrc_LC=${App_c2dbSchemeSrc,,}
-    App_c2dbSchemeSrc_UC=${App_c2dbSchemeSrc^^}
-    
-    if ! [[ $App_c2dbSchemeDst == $App_c2dbSchemeSrc ]]; then App_c2dbSchemeRemap="Yes"; fi
-    ! ssh-copy-id oracle@$App_c2dbFqdnSrc -p1000
-fi
 
 ### PASSWORDS
     if [[ -z $App_c2dbsysPassword ]]; then
