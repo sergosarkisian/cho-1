@@ -9,3 +9,6 @@ What=/dev/disk/by-label/storage
 Where=/media/storage
 Type=btrfs
 Options=rw,noatime,acl,nodatacow,autodefrag,recovery
+
+#[Install]
+#WantedBy = multi-user.target

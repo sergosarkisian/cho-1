@@ -17,8 +17,14 @@ LogMsg="BEGIN -  steps_init - $ExecScriptname"
 echo -e "\n\n########  $LogMsg  ########\n\n"; logger -p info -t "in4" $LogMsg
 ###
 . /media/sysdata/in4/cho/in4_core/internals/helpers/in4func.sh
-. /media/storage/as/oracle/conf/_context/env.sh
 . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/func.sh
+
+if [[ -f /media/storage/as/oracle/conf/_context/env.sh ]]; then 
+    . /media/storage/as/oracle/conf/_context/env.sh
+else
+    echo "No Oracle env file - /media/storage/as/oracle/conf/_context/env.sh"
+    exit 1
+fi
 
 
 if ! [[ `id -un` == "oracle" ]]; then echo "Please run as 'oracle' user! Exit."; exit 1; fi
@@ -38,7 +44,7 @@ if [[ -z $App_c2dbFqdnDst ]]; then
     if [[ $App_c2dbFqdnDst == "manual" ]]; then 
         DialogMsg="Please specify Oracle server FQDN/IP (DST) manually: "       
         echo $DialogMsg; read App_c2dbFqdnDst
-    fi
+#     fi
 fi
 
 if [[ -z $SID ]]; then
@@ -90,18 +96,16 @@ fi
 
 ### EXEC 
 case $App_c2dbTask in
-    "OraInit")
+    "c2_minimalDB")
     #log_cleaner
     App_c2dbPlatform $App_c2dbFqdnDst
     . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_pre.sh
     . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_schema_tbs.sh
     . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_post.sh
-    . /post
     ;;
-    "OraInitWithSchemaImport") 
+    "SchemaImport_inc_ecore") 
         App_c2dbSchemeECoreImport="Yes"
         App_c2dbPlatform $App_c2dbFqdnDst
-        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/sql/cone/_pre.sh
         SchemaImport
 
     ;;
@@ -109,9 +113,6 @@ case $App_c2dbTask in
         App_c2dbPlatform $App_c2dbFqdnDst    
         SchemaImport
     ;;    
-    "FullOraReinstall")
-        . /media/sysdata/in4/cho/cho_v4/services--c/database--o/rdbms--f/oracle10g--g/new_db/db.sh    
-    ;;
 esac
 
 

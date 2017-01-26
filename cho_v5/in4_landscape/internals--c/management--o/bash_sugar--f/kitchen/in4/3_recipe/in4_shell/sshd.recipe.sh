@@ -17,5 +17,7 @@ in4func_run "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "2
 in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "add" "service" "in4__sshd"
 in4func_systemd "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "enable" "service" "in4__sshd"
 
+in4func_ln "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "simple/sshd/ssh_config" "/etc/ssh/ssh_config"
+
 in4func_swf2 "internals--c--management--o--bash_sugar--f--kitchen--g--main--s" "add" "in4__sshd"
 systemctl disable sshd && systemctl mask sshd

@@ -26,6 +26,24 @@ if [[ -f $App_c2dbDataPath/e${App_c2dbSchemeDst_LC}.dbf ]]; then
 fi
    
 if [[ $App_c2dbDstSchemaForceCreation == "Yes" ]]; then
+
+    if [[ $App_c2dbSchemeECoreImport == "Yes" ]]; then
+! sqlplus -s -l "/ as sysdba" <<EOF
+set verify off
+ALTER SYSTEM SET UNDO_RETENTION = 10;
+ALTER SYSTEM SET UNDO_RETENTION = 100000;
+ALTER SYSTEM SET UNDO_RETENTION = 10;
+
+DROP TABLESPACE E\$CORE INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
+DROP USER E\$CORE CASCADE; 
+
+DROP TABLESPACE E\$CORE INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
+DROP USER E\$CORE CASCADE; 
+
+exit;
+EOF
+fi
+
 ! sqlplus -s -l "/ as sysdba" <<EOF
 set verify off
 DEFINE scheme_uc = $App_c2dbSchemeDst_UC

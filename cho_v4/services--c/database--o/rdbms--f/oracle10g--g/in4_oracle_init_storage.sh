@@ -32,6 +32,7 @@ fi
                         
 if [[ $DataDestroy == "Yes_Destroy" ]]; then
     mkfs.btrfs -f  -L "storage" /dev/disk/by-label/storage
+    sleep 2
     rm -rf /dev/disk/by-label/storage/*
     systemctl restart media-storage.mount
 
