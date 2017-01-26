@@ -44,7 +44,7 @@ if [[ -z $App_c2dbFqdnDst ]]; then
     if [[ $App_c2dbFqdnDst == "manual" ]]; then 
         DialogMsg="Please specify Oracle server FQDN/IP (DST) manually: "       
         echo $DialogMsg; read App_c2dbFqdnDst
-#     fi
+     fi
 fi
 
 if [[ -z $SID ]]; then
