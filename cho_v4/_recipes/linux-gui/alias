@@ -1,0 +1,2 @@
+in4dev commit personal = git add * && git commit -m "$1"; git push
+in4dev commit stable =   git pull && git merge  origin/master -m "$1" && git add * && git commit -m "$1"; git push; git push conecenter 
