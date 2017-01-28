@@ -83,7 +83,6 @@ basic_sync - csync2 lsyncd rsync
 #linux_sys
 basic_oper - ipcalc bc ngrep 
 basic_mon -  iwatch sysstat blktrace iotop strace lsof prctl
-basic_hw - hdparm dmidecode ntp flashrom ipmiutil smartmontools
 basic_lang - perl expect java-1_8_0-openjdk-headless timezone-java 
 haveged - haveged
 

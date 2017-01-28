@@ -2,7 +2,7 @@
   
 ## REPO & SW ##
 #zypper ar -cf http://download.opensuse.org/repositories/filesystems/openSUSE_42.1/filesystems.repo
-#zypper in openvswitch openvswitch-switch xen xen-libs xen-tools qemu qemu-kvm qemu-tools flashrom ipmiutil btrfsmaintenance btrfsprogs snapper snapper-zypp-plugin grub2-snapper-plugin yast2-snapper smartmontools ocfs2-tools 
+#zypper in openvswitch openvswitch-switch xen xen-libs xen-tools qemu qemu-kvm qemu-tools btrfsmaintenance btrfsprogs ocfs2-tools 
 
 ## RAID ##
   zypper in http://public.edss.ee/software/Linux/HW/storcli-1.17.08-1.noarch.rpm
