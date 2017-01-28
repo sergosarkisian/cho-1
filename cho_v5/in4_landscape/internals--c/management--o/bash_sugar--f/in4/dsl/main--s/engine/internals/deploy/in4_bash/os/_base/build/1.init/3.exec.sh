@@ -50,9 +50,9 @@ else
 fi     
 
 if [[ $RunType == "dev" ]]; then
-    sudo git -C $GitPath checkout -B remotes/master
-    #sudo git -C $GitPath branch --set-upstream-to=remotes/master
+    sudo git -C $GitPath checkout dev/master -B master
     sudo git -C $GitPath reset --hard remotes/master
+    #sudo git -C $GitPath branch --set-upstream-to=remotes/master    
 fi
 ###
 
