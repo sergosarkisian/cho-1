@@ -50,7 +50,9 @@ else
 fi     
 
 if [[ $RunType == "dev" ]]; then
-    sudo git -C $GitPath branch --set-upstream-to=dev/master
+    sudo git -C $GitPath checkout -b dev/master 
+    ! sudo git -C $GitPath push --set-upstream origin master
+    #sudo git -C $GitPath branch --set-upstream-to=dev/master
     sudo git -C $GitPath reset --hard dev/master
 fi
 ###
