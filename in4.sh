@@ -239,7 +239,7 @@ case $Task in
                 fi   
                 case $TaskVars in
                     "commit_personal")
-                        git pull; git add * && git commit -m "in4_dev"; git push
+                        git pull; git add * && git commit -m "in4_dev"; git push dev dev/master
                     ;;
                     "commit_stable")
                         git pull && git merge  origin/master -m "in4_stable" && git add * && git commit -m "in4_stable"; git push; git push stable 
