@@ -243,7 +243,7 @@ case $Task in
                     ;;
                     "commit_stable")
                         git pull dev master; git add * && git commit -m "in4_dev" && git push dev                    
-                        git pull dev stable ; git merge dev/stable -m "in4_stable" ; git add * && git commit -m "in4_stable" && git push dev master:stable 
+                        git pull dev stable ; git merge dev/stable -m "in4_stable" && git add * && git commit -m "in4_stable" && git push dev master:stable 
                         git pull origin stable  ; git merge origin/stable -m "in4_stable" ; git add * && git commit -m "in4_stable" && git push origin master:stable 
                     ;;
                 esac
