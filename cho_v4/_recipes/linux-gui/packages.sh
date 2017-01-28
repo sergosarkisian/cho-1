@@ -54,7 +54,7 @@ zypper ar -cf http://download.opensuse.org/repositories/security:/chipcard/openS
 
 zypper in chromium-desktop-kde dragonplayer flash-player vlc vlc-codecs ffmpeg lame 
 cyrus-sasl cyrus-sasl-crammd5 cyrus-sasl-plaincyrus-sasl-digestmd5 cyrus-sasl-gssapi 
-zypper in libasound2-32bit libXv1-32bit libXss1-32bit libqt4-x11-32bit
+zypper in libasound2-32bit libXv1-32bit libXss1-32bit libqt4-x11-32bit libQtWebKit4-32bit
 pulseaudio-utils pulseaudio-module-x11 pulseaudio-module-jack pulseaudio-equalizer pulseaudio-bash-completion  alsa alsa-plugins-pulse pavucontrol pavumeter pavucontrol-qt phonon4qt5-backend-vlc
 
 zypper in powertop powerstat pgadmin3 ntfs-3g fuse cups 

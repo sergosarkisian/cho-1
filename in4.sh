@@ -25,7 +25,7 @@ if ! [[ -z $2 ]]; then TaskVars=$2; fi
 
 if [[ -z $Task ]]; then
     DialogMsg="Please specify task"
-    echo $DialogMsg; select Task in deploy recipe sync sys run context snap snapstat snaprestore;  do  break ; done
+    echo $DialogMsg; select Task in deploy recipe sync sys run context snap snapstat snaprestore dev;  do  break ; done
 fi
 
 case $Task in
@@ -232,6 +232,20 @@ case $Task in
                 fi                   
                 . /media/sysdata/in4/cho/cho_v4/data_safety:c/snapshot:o/others:f/btrfs--g/snaprestore.sh
             ;;                  
+            "dev" )
+                if [[ -z $TaskVars ]]; then
+                    DialogMsg="\n### Please specify dev task ###"   
+                    echo -e $DialogMsg; select TaskVars in commit_personal commit_stable;  do  break ; done
+                fi   
+                case $TaskVars in
+                    "commit_personal")
+                        git pull; git add * && git commit -m "in4_dev"; git push
+                    ;;
+                    "commit_stable")
+                        git pull && git merge  origin/master -m "in4_stable" && git add * && git commit -m "in4_stable"; git push; git push stable 
+                    ;;
+                esac
+            ;;             
             "context" )
                 . /media/sysdata/in4/cho/in4_core/internals/naming/manual.sh
                 . /media/sysdata/in4/cho/in4_core/internals/helpers/context_naming.sh

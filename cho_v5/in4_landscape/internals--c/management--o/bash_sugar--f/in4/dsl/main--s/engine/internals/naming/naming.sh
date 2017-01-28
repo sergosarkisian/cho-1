@@ -80,6 +80,7 @@ if [[ $naming_view == "os" ]]; then
 fi
 
 #879879871-db2-c2db-prod.w07y17-tag0_1-in4.42_2-opensuse-l.1000.cc.pool
+#ORG, NET, SRV_name
 
 ## 3 - 
 #			- g_extgate_http-host_finvalda+lt-tocean.http_main-rev5_haproxy_i-extflow.transocean-forwarding-cone.ts.cc.pool.
