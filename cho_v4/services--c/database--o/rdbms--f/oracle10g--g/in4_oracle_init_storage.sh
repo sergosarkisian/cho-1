@@ -135,6 +135,9 @@ if [[ $DataDestroy == "Yes_Destroy" ]]; then
     
     btrfs quota enable /media/storage    
     
+else 
+    echo "Nope! You are robot! =)"
+    exit 1
 fi
 
 
